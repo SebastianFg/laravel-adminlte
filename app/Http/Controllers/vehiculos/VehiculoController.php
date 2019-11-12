@@ -22,7 +22,7 @@ use Illuminate\Pagination\Paginator;
 class VehiculoController extends Controller
 {
 
-    protected function getMensaje($mensaje,$destino,$desicion){
+    public function getMensaje($mensaje,$destino,$desicion){
         if (!$desicion) {
             alert()->error('Error',$mensaje);
             return  redirect()->route($destino);

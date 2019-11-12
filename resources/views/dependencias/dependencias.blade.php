@@ -32,6 +32,8 @@
 
           {{-- extiendo los modales --}}
           @extends('dependencias.modales.modal_alta_dependencia')
+          @extends('dependencias.modales.modal_baja_dependencia')
+          @extends('dependencias.modales.modal_edicion_dependencia')
          {{--  @extends('rolesPermisos/permisos/modales/modal_edicion_permiso')
           @extends('rolesPermisos/permisos/modales/modal_baja_permiso') --}}
          
@@ -77,21 +79,30 @@
 
                           <th>Dependencia</th>
                           <th>Padre</th>
+                          <th>Estado</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
+
                         @foreach($dependencias as $item)
+                
                         
                           <tr>
                             <td>{{ $item->hijo }}</td>
                             <td>{{ $item->padre }}</td>
+                            @if($item->deleted_at)
+                              <td><label class="badge badge-danger"> Inactivo {{ $item->deleted_at }}</label></td>
+                            @else
+                              <td><label class="badge badge-success">Activo</label></td>
+                            @endif
                            
                             <td>
                               @role('Admin')
-                                <button  data-toggle="modal" onclick="editarPermiso({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                               @can('usuarios.eliminarUsuario') <button  onclick="eliminarPermiso({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                               @endcan
+                                <button  data-toggle="modal" onclick="editarDependencia({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                              @can('dependencias.eliminarDepencencia') 
+                                <button  onclick="eliminarDependencia({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                              @endcan
                             
                               @endrole
                             </td>
@@ -140,21 +151,40 @@
 
 <script type="text/javascript">
 
-  function editarPermiso(item){
-    
-    var id_nombre_rol = $('#id_permiso_edicion').val(item.id),
-        nombre_Rol = $('#id_nombre_permiso_edicion').val(item.name);
-    $('#idModalEdicion').modal('show');
+  function editarDependencia(item){
+    console.log(item)
+    var id_dependencia_nombre_hijo = $('#id_nombre_dependencia_editar').val(item.hijo),
+        id_dependencia = $('#id_dependencia_editar').val(item.id_hijo);
+    $('#idModalEdicionDependencia').modal('show');
   }
-  function eliminarPermiso(item){
-   // console.log(item)
-    var id_nombre_rol = $('#id_permiso_baja').val(item.id),
-        nombre_Rol = $('#id_nombre_permiso_baja').val(item.name);
-    $('#idModalBaja').modal('show');
+  function eliminarDependencia(item){
+
+    var id_dependencia_nombre_hijo = $('#id_nombre_dependencia_hijo_eliminar').val(item.hijo),
+        id_dependencia = $('#id_dependencia_eliminar').val(item.id_hijo),
+        nivel = $('#id_nivel').val(item.nivel);
+    $('#idModalBajaDependencia').modal('show');
   }
 
 </script>
+{{-- script para cargar el select de las dependencias padres --}}
+<script>
+  $(document).ready(function(){
+    $('#IdnivelDependencia').on('change',function(){
+      var id_dependencia = $(this).val();
+      if ($.trim(id_dependencia) != '') {
+        $.get('getDependencias',{idDependenciaPadre: id_dependencia },function(dependencias){
+          console.log(dependencias)
+            $('#id_dependencia_habilitada_padre').empty();
 
+            $('#id_dependencia_habilitada_padre').append("<option value=''> Seleccione una dependencia padre</option>");
+            $.each(dependencias,function(index,valor){
+                $('#id_dependencia_habilitada_padre').append("<option value='"+index+"'>"+valor+"</option>");
+            });
+        });
+      }
+    });
+  });
+</script>
 @stop
 <style type="text/css">
 .vertical-alignment-helper {
@@ -184,3 +214,6 @@
     padding: 15px;
 }
 </style>
+{{-- 
+<script
+  src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> --}}

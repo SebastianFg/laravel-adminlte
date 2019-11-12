@@ -65,10 +65,16 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-		//cargar relciones 
+		//dependencias
 		Route::get('dependencias', 'dependencias\DependenciaController@index')->name('indexDependencia');
-
+		//alta
 		Route::post('dependencias', 'dependencias\DependenciaController@altaDependencia')->name('altaDependencia');
+		//todas las dependencias para rellenar select
+		Route::get('getDependencias', 'dependencias\DependenciaController@getDependecias');
+		//baja
+		Route::post('bajaDependencia', 'dependencias\DependenciaController@bajaDependencia')->name('bajaDependencia');
+		//edicion
+		Route::post('editarDependencia', 'dependencias\DependenciaController@editarDependencia')->name('editarDependencia');
 
 /*		Route::post('alta_relaciones', 'DependenciasController@crearRelacion')->name('crearRelacion');
 

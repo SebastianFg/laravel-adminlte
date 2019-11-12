@@ -25,16 +25,22 @@
                   </div>
                 </div>
                 <div class="row">
+                  <div class="form-group">
+                    <label>Tipo dependnecia</label>
+                    <select name="nivel_dependencia" id="IdnivelDependencia" class="form-control">
+                      <option value="">Seleccione un tipo de dependencia</option>
+                      <option value="3">Direccion General</option>
+                      <option value="4">Direccion</option>
+                      <option value="5">Departamento</option>
+                      <option value="6">Division</option>
+                      <option value="7">Seccion</option>
+                    </select>
+                  </div>
                   <div class="form-group col-md-6">
-                      <input type="radio" name="eleccion" value="1" > Direccion General
-                      <br>
-                      <input type="radio" name="eleccion"   value="2"> Direccion 
-                      <br>
-                      <input type="radio" name="eleccion" value="3" > Departamento
-                      <br>
-                      <input type="radio" name="eleccion"   value="4"> Division
-                      <br>
-                      <input type="radio" name="eleccion"   value="5"> Seccion
+                    <label>Dependencia padre</label>
+                    <select name="dependencia_habilitada_padre" id="id_dependencia_habilitada_padre" class="form-control">
+                      <option>Seleccione una dependencia padre</option>
+                    </select>
                   </div>
                 </div>
                 <div class="col-md-12 modal-footer" style="position:relative;">

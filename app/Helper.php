@@ -25,3 +25,4 @@ if (!function_exists('classActiveSegment')) {
         return '';
     }
 }
+

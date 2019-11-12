@@ -1,5 +1,5 @@
 
-  <div class="modal fade" id="modalEdicionDependencia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="idModalEdicionDependencia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content col-md-12">
             <div class="modal-header">
@@ -15,30 +15,36 @@
             </div>
             @endif
             <div class="modal-body ">
-              <form action="{{ route('edicionDependencia') }}" name="edicion" class="form-group" method="POST" enctype="multipart/form-data">
+              <form action="{{ route('editarDependencia') }}" name="edicion" class="form-group" method="POST" enctype="multipart/form-data">
                 @csrf
                   <div class="form-group col-md-12">
                       <label>Ingrese Nombre de la Dependencia</label>
-                      <input type="text" name="nombre_dependencia" id="id_nombre_dependencia" class="form-control" >
-                      <input type="text" hidden="" name="id_dependencia" id="id_dependencia" class="form-control" >
+                      <input type="text" name="nombre_dependencia_edicion" id="id_nombre_dependencia_editar" class="form-control" >
+                      <input type="text" hidden="" name="dependencia_edicion" id="id_dependencia_editar" class="form-control" >
                       
                   </div>
+                <div class="row col-md-12">
                   <div class="form-group col-md-6">
-                      <label>Que es?</label>
-                      <br>
-                      <input type="radio" name="eleccion" id="id_dir_gen" value="1" > Direccion General
-                      <br>
-                      <input type="radio" name="eleccion" id="id_dir" value="2"> Direccion 
-                      <br>
-                      <input type="radio" name="eleccion" id="id_dep" value="3" > Departamento
-                      <br>
-                      <input type="radio" name="eleccion" id="id_div_radio" value="4"> Division
-                      <br>
-                      <input type="radio" name="eleccion" id="id_sec" value="5"> Seccion
+                    <label>Tipo dependnecia</label>
+                    <select name="nivel_dependencia_edicion" id="id_nivel_dependencia_edicion" class="form-control">
+                      <option value="">Seleccione un tipo de dependencia</option>
+                      <option value="3">Direccion General</option>
+                      <option value="4">Direccion</option>
+                      <option value="5">Departamento</option>
+                      <option value="6">Division</option>
+                      <option value="7">Seccion</option>
+                    </select>
                   </div>
+                  <div class="form-group col-md-6">
+                    <label>Dependencia padre</label>
+                    <select name="dependencia_habilitada_padre_edicion" id="id_dependencia_habilitada_padre" class="form-control">
+                      <option value="">Seleccione una dependencia padre</option>
+                    </select>
+                  </div>
+                </div>
                 <div class="col-md-12 modal-footer" style="position:relative;">
                     <button class="btn btn-success col-md-4 d-inline" type="submit">Guardar</button>
-                  <a href="{{ route('cargaRelaciones') }}" class="col-md-4 d-inline btn btn-danger">Cancelar</a>
+                  <a href="{{ route('indexDependencia') }}" class="col-md-4 d-inline btn btn-danger">Cancelar</a>
                 </div>            
               </form>
             </div>
