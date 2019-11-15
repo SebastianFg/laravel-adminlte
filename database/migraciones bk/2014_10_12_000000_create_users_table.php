@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTiposVehiculos extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,24 @@ class CreateTiposVehiculos extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_vehiculos', function (Blueprint $table) {
-            $table->bigIncrements('id_tipo_vehiculo');
-            $table->string('nombre_tipo_vehiculo',100);
+        Schema::create('users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre');
+            $table->string('usuario',20)->unique();
+            $table->string('password');
             $table->softDeletes();
+            $table->rememberToken();
             $table->timestamps();
         });
     }
 
-    /**
+    /**s
      * Reverse the migrations.
      *
      * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('tipos_vehiculos');
+        Schema::dropIfExists('users');
     }
 }

@@ -33,36 +33,48 @@
                     </a>
                     
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('listaUsuarios') }}" class="nav-link">
-                                <i class="fa fa-plus nav-icon"></i>
-                                <p>Usuarios</p>
-                            </a>
-                        </li>
+                        <ul>
+                            
+                            <li class="nav-item noPuntos">
+                                <a href="{{ route('listaUsuarios') }}" class="nav-link">
+                                    <i class="fa fa-plus nav-icon"></i>
+                                    <p>Usuarios</p>
+                                </a>
+                            </li>
+                        </ul>
                     </ul>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('listaRoles') }}" class="nav-link">
-                                <i class="fa fa-plus nav-icon"></i>
-                                <p>Roles</p>
-                            </a>
-                        </li>
+                        <ul>
+                            
+                            <li class="nav-item noPuntos">
+                                <a href="{{ route('listaRoles') }}" class="nav-link">
+                                    <i class="fa fa-plus nav-icon"></i>
+                                    <p>Roles</p>
+                                </a>
+                            </li>
+                        </ul>
                     </ul>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('listaPermisos') }}" class="nav-link">
-                                <i class="fa fa-plus nav-icon"></i>
-                                <p>Permisos</p>
-                            </a>
-                        </li>
+                        <ul>
+                            
+                            <li class="nav-item noPuntos">
+                                <a href="{{ route('listaPermisos') }}" class="nav-link">
+                                    <i class="fa fa-plus nav-icon"></i>
+                                    <p>Permisos</p>
+                                </a>
+                            </li>
+                        </ul>
                     </ul>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('rolPermisos') }}" class="nav-link">
-                                <i class="fa fa-plus nav-icon"></i>
-                                <p>Roles Permisos</p>
-                            </a>
-                        </li>
+                        <ul>
+                            
+                            <li class="nav-item noPuntos">
+                                <a href="{{ route('rolPermisos') }}" class="nav-link">
+                                    <i class="fa fa-plus nav-icon"></i>
+                                    <p>Roles Permisos</p>
+                                </a>
+                            </li>
+                        </ul>
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">
@@ -74,17 +86,21 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('indexDependencia') }}" class="nav-link">
-                                <i class="fa fa-plus nav-icon"></i>
-                                <p>Alta</p>
-                            </a>
-                        </li>
+                        <ul>
+                            
+                            <li class="nav-item noPuntos">
+                                <a href="{{ route('indexDependencia') }}" class="nav-link">
+                                    <i class="fa fa-plus nav-icon"></i>
+                                    <p>Alta</p>
+                                </a>
+                            </li>
+                        </ul>
                     </ul>
                        
 
                 </li>
                 @endrole
+                @role('Cargar Vehiculos')
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-edit"></i>
@@ -93,20 +109,120 @@
                           <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
+
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('listaVehiculos') }}" class="nav-link">
-                                <i class="fa fa-plus nav-icon"></i>
-                                <p>Alta</p>
-                            </a>
-                        </li>
+                        <ul>
+                            
+                            <li class="nav-item noPuntos" id="pie">
+                                <a href="{{ route('listaVehiculos') }}" class="nav-link">
+                                    <i class="fa fa-plus nav-icon"></i>
+                                    <p>Alta</p>
+                                </a>
+                            </li>
+                        </ul>
                        
 
-                </li>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-edit"></i>
+                            <p>
+                              Tipo de vehiculos
+                              <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <ul>
+                                <li class="nav-item noPuntos" id="pie">
+                                    <a href="{{ route('listaTipoVehiculos') }}" class="nav-link">
+                                        <i class="fa fa-plus nav-icon"></i>
+                                        <p>Alta</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-edit"></i>
+                            <p>
+                              Estados
+                              <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <ul>
+                                
+                                <li class="nav-item noPuntos" id="pie">
+                                    <a href="{{ route('listadoEstadoVehiculo') }}" class="nav-link">
+                                        <i class="fa fa-list nav-icon"></i>
+                                        <p>Fuera de servicio</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <ul>
+                                
+                                <li class="nav-item noPuntos" id="pie">
+                                    <a href="{{ route('listadoEstadoBajaDefinitiva') }}" class="nav-link">
+                                        <i class="fa fa-list nav-icon"></i>
+                                        <p>Baja definitiva</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <ul>
+                                
+                                <li class="nav-item noPuntos">
+                                    <a href="{{ route('historialCompleto') }}" class="nav-link">
+                                        <i class="fa fa-list nav-icon"></i>
+                                        <p>Historial completo</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </ul>
+                    </li>
+                    <li class="nav-item has-treeview" id="pie">
+                        <a href="{{ route('listaAsignacion') }}" class="nav-link">
+                            <i class="nav-icon fa fa-edit"></i>
+                            <p>
+                              Asignar
+                              <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
 
+                    </li> 
+                    <li class="nav-item has-treeview" id="pie">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-edit"></i>
+                            <p>
+                              Detalles
+                              <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+{{--                         <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fa fa-list nav-icon"></i>
+                                    <p></p>
+                                </a>
+                            </li>
+                        </ul> --}}
+                    </li>
+                </li>
+                </ul>
+
+                @endrole
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
 </aside>
+
+<style type="text/css">
+    .noPuntos{
+        list-style:none;
+    }
+</style>

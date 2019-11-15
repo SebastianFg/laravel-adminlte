@@ -76,7 +76,6 @@
                     <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
                       <thead>
                         <tr>
-
                           <th>Dependencia</th>
                           <th>Padre</th>
                           <th>Estado</th>

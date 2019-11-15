@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\softDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 //modelos
-
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\modelos\tipos_vehiculos;
 use App\modelos\vehiculo;
+use App\modelos\pdf_Estado;
 use App\modelos\imagen_vehiculo;
 use App\modelos\estado_vehiculo;
 use App\User;
@@ -36,6 +37,8 @@ class VehiculoController extends Controller
 
     	 $currentPage = LengthAwarePaginator::resolveCurrentPage();
 
+         $currentPage = LengthAwarePaginator::resolveCurrentPage();
+
         // Armamos la coleccion con los datos
         $collection = collect($datos);
  
@@ -51,14 +54,25 @@ class VehiculoController extends Controller
         );
         return $datos;
 	}
-
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////// VEHICULOS ////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function index(Request $Request){
+
+
+        if (strpos(Auth::User()->roles,'Suspendido')) {
+            Auth::logout();
+            alert()->error('Su usuario se encuentra suspendido');
+             return redirect('/login');
+        }
+
 
         $tipo_vehiculo = tipos_vehiculos::all();
         $existe = 1;
 
         if ($Request->vehiculoBuscado ==null && $Request->id_tipo_vehiculo_lista ==null ) {
-        	$VehiculosListados = vehiculo::all();
+        	$VehiculosListados = vehiculo::join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
+                                                ->select('vehiculos.*','tipos_vehiculos.*')->get();
         	$VehiculosListados = $this->paginar($VehiculosListados);
 	      
         }else{
@@ -74,9 +88,10 @@ class VehiculoController extends Controller
         }
          return view('vehiculos.altas.alta_vehiculos',compact('tipo_vehiculo','VehiculosListados','existe'));
     }
-	private function vehiculoCreacionEdicion($datos,$vehiculo,$accion){
 
-			//return $datos;
+
+    //funcion que utilizamos para crear o editar
+	private function vehiculoCreacionEdicion($datos,$vehiculo,$accion){
 
         $vehiculo->numero_de_identificacion = $datos->numero_de_identificacion;
         $vehiculo->fecha = $datos->fecha;
@@ -97,57 +112,52 @@ class VehiculoController extends Controller
         }
         $vehiculo->otras_caracteristicas = $datos->otros;
 
-       /* if( $vehiculo->save()){*/
-            switch ($accion) {
-                case 0: //creacion --> alta
-                	$vehiculo->save();
+
+        switch ($accion) {
+            case 0: //creacion --> alta
+            	$vehiculo->save();
+                $images = $datos->file('file');
+                
+                foreach($images as $image)
+                {
+                    $imagenvehiculo = new imagen_vehiculo;
+                    $nuevo_nombre =time().'_'.$image->getClientOriginalName();
+
+                    $image->move(public_path('images'), $nuevo_nombre);
+                    $imagenvehiculo->id_vehiculo = $vehiculo->id_vehiculo;
+                    $imagenvehiculo->nombre_imagen = $nuevo_nombre;
+                    $imagenvehiculo->fecha =  $datos->fecha;
+                    $imagenvehiculo->save();
+                }
+             
+                alert()->success( 'Creacion con exito');
+                return  redirect()->route('listaVehiculos');
+                break;
+            case 1: // edicion
+            	$vehiculo->update();
+                if($datos->file == null){
+                        $vehiculo->foto_id = $vehiculo->foto_id;
+                }else{ 
                     $images = $datos->file('file');
-                    
-                    foreach($images as $image)
-                    {
+  
+                    foreach($images as $image){
                         $imagenvehiculo = new imagen_vehiculo;
+
                         $nuevo_nombre =time().'_'.$image->getClientOriginalName();
-                       // $image = Image::make($image)->resize(150,150);
+     
                         $image->move(public_path('images'), $nuevo_nombre);
-                        $imagenvehiculo->id_vehiculo = $vehiculo->id_vehiculo;
+                        $imagenvehiculo->id_vehiculo = $datos->id_vehiculo;;
                         $imagenvehiculo->nombre_imagen = $nuevo_nombre;
                         $imagenvehiculo->fecha =  $datos->fecha;
                         $imagenvehiculo->save();
                     }
-                 
-                    alert()->success( 'Creacion con exito');
-                    return  redirect()->route('listaVehiculos');
-                    break;
-                case 1: // edicion
-                	$vehiculo->update();
-                    if($datos->file == null){
-                            $vehiculo->foto_id = $vehiculo->foto_id;
-                    }else{ 
-                        $images = $datos->file('file');
-                       // return $images;
-                        foreach($images as $image){
-                            $imagenvehiculo = new imagen_vehiculo;
-
-                            $nuevo_nombre =time().'_'.$image->getClientOriginalName();
-                           // $image = Image::make($image)->resize(150,150);
-                            $image->move(public_path('images'), $nuevo_nombre);
-                            $imagenvehiculo->id_vehiculo = $datos->id_vehiculo;;
-                            $imagenvehiculo->nombre_imagen = $nuevo_nombre;
-                            $imagenvehiculo->fecha =  $datos->fecha;
-                            $imagenvehiculo->save();
-                        }
-                    }
-                    return $this->getMensaje('Actualizado con exito','listaVehiculos',true);
-                    break;
-                 default:
-                 	return $this->getMensaje('Intente nuevamente','listaVehiculos',false);
-            }
-/*            }else{
-            return $this->getMensaje('Intente nuevamente','listaVehiculos',false);
-
-        } */
+                }
+                return $this->getMensaje('Actualizado con exito','listaVehiculos',true);
+                break;
+             default:
+             	return $this->getMensaje('Intente nuevamente','listaVehiculos',false);
+        }
     }
-
 
     //alta nuevo vehiculo
     public function crearVehiculo(Request $Request){
@@ -181,7 +191,7 @@ class VehiculoController extends Controller
     //actualizacion de vehiculo cargado (edicion)
     public function updateVehiculo(Request $Request){
 
-    	//dd($Request);
+
         $Validar = \Validator::make($Request->all(), [
               
             'numero_de_identificacion' => ['required',
@@ -205,7 +215,7 @@ class VehiculoController extends Controller
             return  back()->withInput()->withErrors($Validar->errors());
         }
 
-        $vehiculo_en_actualizacion= vehiculo::find($Request->vehiculo);
+        $vehiculo_en_actualizacion= vehiculo::findorfail($Request->vehiculo);
        return  $this->vehiculoCreacionEdicion($Request,$vehiculo_en_actualizacion,1);//1 edicioN
 
     }
@@ -230,7 +240,7 @@ class VehiculoController extends Controller
         $vehiculoEnProceso = new estado_vehiculo;
 
         $vehiculoEnProceso->id_vehiculo = $Request->vehiculo;
-        $vehiculoEnProceso->tipo_estado_vehiculo = 1; //fuera de servicio
+        $vehiculoEnProceso->tipo_estado_vehiculo = 3; //fuera de servicio
      
         $vehiculoEnProceso->id_usuario_movimiento = $Request->id_usuario;
         $vehiculoEnProceso->estado_razon = $Request->motivo_de_baja;
@@ -238,11 +248,187 @@ class VehiculoController extends Controller
 
 
         if(($vehiculoEnProceso->save() and  $vehiculoEliminado->update())){
-            return $this->getMensaje('Vehiculo puesto fuera de servicio exitosamente','listadoEstadoVehiculo',true);           
+            return $this->getMensaje('Vehiculo puesto fuera de servicio exitosamente','listaVehiculos',true);           
         }else{
-            return $this->getMensaje('Verifique y Intente nuevamente','listadoEstadoVehiculo',false);
+            return $this->getMensaje('Verifique y Intente nuevamente','listaVehiculos',false);
         } 
 
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////// ESTADOS ////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function indexEstadoFueraServicio(Request $Request){
+
+        if (strpos(Auth::User()->roles,'Suspendido')) {
+            Auth::logout();
+            alert()->error('Su usuario se encuentra suspendido');
+             return redirect('/login');
+        }
+
+        if ($Request->vehiculoBuscado ==null) {
+
+            $estados_listado = \DB::select('select * from view_vehiculos_en_reparacion');
+                                            
+           $estados_listado = $this->paginar($estados_listado);
+
+          
+        }else{
+
+            $estados_listado = estado_vehiculo::BuscarFueraDeServicio($Request->vehiculoBuscado);
+            $estados_listado = $this->paginar($estados_listado);
+
+        }
+
+        return view('vehiculos.estados.estado_fuera_de_servicio_vehiculos',compact('estados_listado'));
+
+    }
+
+    public function indexEstadoBajaDefinitiva(Request $Request){
+
+        if (strpos(Auth::User()->roles,'Suspendido')) {
+            Auth::logout();
+            alert()->error('Su usuario se encuentra suspendido');
+             return redirect('/login');
+        }
+
+        if ($Request->vehiculoBuscado ==null) {
+            $estados_listado = estado_vehiculo::join('vehiculos','vehiculos.id_vehiculo','=','estado_vehiculos.id_vehiculo')
+                                                ->select('vehiculos.*','estado_vehiculos.*')
+                                                ->orderBy('estado_vehiculos.id_estado_vehiculo','desc')
+                                                ->where('vehiculos.baja','=',2)
+                                                ->where('estado_vehiculos.tipo_estado_vehiculo','=',2)
+                                                ->get();
+            $estados_listado = $this->paginar($estados_listado);
+          
+        }else{
+
+            $estados_listado = estado_vehiculo::BuscarBajaDefinitiva($Request->vehiculoBuscado);
+
+
+            $estados_listado = $this->paginar($estados_listado);
+
+        }
+        return view('vehiculos.estados.estado_baja_definitiva_vehiculos',compact('estados_listado'));
+    }
+
+    public function indexEstadoHistorialCompleto(Request $Request){
+
+        if (strpos(Auth::User()->roles,'Suspendido')) {
+            Auth::logout();
+            alert()->error('Su usuario se encuentra suspendido');
+             return redirect('/login');
+        }
+
+        if ($Request->vehiculoBuscado ==null) {
+            $estados_listado = estado_vehiculo::join('vehiculos','vehiculos.id_vehiculo','=','estado_vehiculos.id_vehiculo')
+                                                ->select('vehiculos.*','estado_vehiculos.*')
+                                                ->orderBy('estado_vehiculos.id_estado_vehiculo','desc')
+                                                
+                                                ->get();
+            $estados_listado = $this->paginar($estados_listado);
+          
+        }else{
+
+            $estados_listado = estado_vehiculo::BuscarHistorialCompleto($Request->vehiculoBuscado);
+
+            $estados_listado = $this->paginar($estados_listado);
+
+        }
+        return view('vehiculos.estados.estado_historial_completo_vehiculos',compact('estados_listado'));
+    }
+    public function estadoVehiculoAlta(Request $Request){
+
+        if (strpos(Auth::User()->roles,'Suspendido')) {
+            Auth::logout();
+            alert()->error('Su usuario se encuentra suspendido');
+             return redirect('/login');
+        }
+
+        $Validar = \Validator::make($Request->all(), [
+            
+            'motivo_de_alta' => 'required',
+        ]);
+
+        if ($Validar->fails()){
+            alert()->error('Error','ERROR! Intente agregar nuevamente...');
+            return  back()->withInput()->withErrors($Validar->errors());
+        }
+
+
+
+        $vehiculoEliminado= vehiculo::withTrashed()->where('id_vehiculo','=',$Request->id_vehiculo_reparado)->restore();
+        $vehiculoEliminado= vehiculo::findorfail($Request->id_vehiculo_reparado);
+        //return $vehiculo_en_actualizacion;
+        $vehiculoEliminado->baja = 0;
+        //$vehiculoEliminado->restore();;
+
+        $vehiculoEnProceso = new estado_vehiculo;
+
+        $vehiculoEnProceso->id_vehiculo = $Request->id_vehiculo_reparado;
+        $vehiculoEnProceso->tipo_estado_vehiculo = 0; //fuera de servicio
+     
+        $vehiculoEnProceso->id_usuario_movimiento = Auth::User()->id;;
+        $vehiculoEnProceso->estado_razon = $Request->motivo_de_alta;
+        $vehiculoEnProceso->estado_fecha = $Request->fecha;
+
+
+        if(($vehiculoEnProceso->save() and  $vehiculoEliminado->update())){
+            return $this->getMensaje('Vehiculo reparado exitosamente','listaVehiculos',true);           
+        }else{
+            return $this->getMensaje('Verifique y Intente nuevamente','listaVehiculos',false);
+        } 
+    }
+
+    public function bajaDefinitiva(Request $Request){
+       // return $Request;
+        $Validar = \Validator::make($Request->all(), [
+            'motivo_de_baja_definitiva' => 'required|max:255',
+            'pdf_decreto_baja_definitiva' => 'required|mimes:pdf'
+        ]);
+
+        if ($Validar->fails()){
+            alert()->error('Error','Intente eliminar neuvamente ...');
+           return  back()->withInput()->withErrors($Validar->errors());
+        }
+
+        $vehiculoEliminado= vehiculo::withTrashed()->where('id_vehiculo','=',$Request->id_vehiculo_baja)->restore();
+        $vehiculoEliminado= vehiculo::findorfail($Request->id_vehiculo_baja);
+       
+        $vehiculoEliminado->baja = 2;
+        $vehiculoEliminado->delete();
+        $vehiculoEliminado->update();
+
+        $vehiculoEnProceso = new estado_vehiculo;
+
+        $vehiculoEnProceso->id_vehiculo = $Request->id_vehiculo_baja;
+        $vehiculoEnProceso->tipo_estado_vehiculo = 2; //fuera de servicio
+     
+        $vehiculoEnProceso->id_usuario_movimiento = Auth::User()->id;
+        $vehiculoEnProceso->estado_razon = $Request->motivo_de_baja_definitiva;
+        $vehiculoEnProceso->estado_fecha = $Request->fecha;
+
+        if($Request->hasFile('pdf_decreto_baja_definitiva')){
+
+            $file = $Request->file('pdf_decreto_baja_definitiva');
+            $nombre_archivo_nuevo = time().$file->getClientOriginalName();
+            $file->move(public_path().'/pdf/',$nombre_archivo_nuevo);
+            
+            $pdfEstado = new pdf_Estado;
+           // return $pdfEstado;
+            $pdfEstado->nombre_pdf_estado = $nombre_archivo_nuevo;
+            $pdfEstado->id_estado_vehiculo = $Request->id_vehiculo_estado;
+            $pdfEstado->save();
+            
+        }
+
+        if($vehiculoEnProceso->save() && $pdfEstado->save()){
+            return $this->getMensaje('Vehiculo dado de baja definitivamente exitosamente','listaVehiculos',true);           
+        }else{
+            return $this->getMensaje('Verifique y Intente nuevamente','listaVehiculos',false);
+        } 
+    }
+
+
 
 }

@@ -20,6 +20,8 @@ class vehiculo extends Model
     					->orWhere('numero_de_inventario','like','%'.$identificacion.'%')
     					->orWhere('tipo','like','%'.$identificacion.'%')
                         ->orWhere('clase_de_unidad','like','%'.$identificacion.'%')
+                        ->join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
+                        ->select('vehiculos.*','tipos_vehiculos.*')
     					->get();
 
     	}

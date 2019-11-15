@@ -3,6 +3,7 @@
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
 
+{{-- <link rel="stylesheet" href="{{ asset('css/modales.css') }}" /> --}}
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -23,7 +24,7 @@
               <div class="row">
                 <div class="col-md-3">
                   @can('vehiculos.crear')
-                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModal"> <i class="fa fa-plus"> Nuevo</i> </button> 
+                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAltaTipoVehiculo"> <i class="fa fa-plus"> Nuevo</i> </button> 
                   @endcan
                   @can('vehiculos.imprimirLista')
                     <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
@@ -37,9 +38,9 @@
           </div>
 
           {{-- extiendo los modales --}}
-          @extends('vehiculos/altas/modales/modal_alta_vehiculo')
-          @extends('vehiculos/altas/modales/modal_baja_vehiculo')
-          @extends('vehiculos/altas/modales/modal_editar_vehiculo')
+          @extends('vehiculos/tipo_vehiculo/modales/modal_alta_tipo_vehiculo')
+          @extends('vehiculos/tipo_vehiculo/modales/modal_editar_tipo_vehiculo')
+          @extends('vehiculos/tipo_vehiculo/modales/modal_baja_tipo_vehiculo')
            </div>
 
             </div>
@@ -56,20 +57,11 @@
                       <div class="row">
                         
                         <div class="form-group">
-                          <input type="text" name="vehiculoBuscado" class="form-control" placeholder="numero de identificacion">
-                        </div>
-                        <div class="col-md-">
-                          <select name="id_tipo_vehiculo_lista"  class="form-control">
-                            <option value="" selected="">Seleccione un tipo de vehiculo</option>
-                            @foreach ($tipo_vehiculo as $item)
-                              <option value="{{ $item->id_tipo_vehiculo }}">{{ $item->nombre_tipo_vehiculo }}</option>
-                            @endforeach
-                          </select>
+                          <input type="text" name="tipoVehiculoBuscado" class="form-control" placeholder="tipo vehiculo">
                         </div>
                         <div class="form-group">
                            <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
                         </div>
-                         
                       </div>
                     </form>
                   </div>
@@ -78,35 +70,22 @@
                       <thead>
                         <tr>
 
-                          <th>Numero de identificacion</th>
-                          <th>Marca</th>
-                          <th>Modelo</th>
-                          <th>Dominio</th>
-                          <th>Numero de Inventario</th>
-                          <th>Tipo</th>
+                          <th>Tipo Vehiculo</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($VehiculosListados as $item)
+                        @foreach($tipo_vehiculo as $item)
                         
                           <tr>
-                            <td>{{ $item->numero_de_identificacion }}</td>
-                            <td>{{ $item->marca }}</td>
-                            <td>{{ $item->modelo }}</td>
-                            <td>{{ $item->dominio }}</td>
-                            <td>{{ $item->numero_de_inventario }}</td>
                             <td>{{ $item->nombre_tipo_vehiculo }}</td>
                            
                             <td>
-                              @can('vehiculos.informacion')
-                                <a class="btn btn-info btn-sm" href="#"><i class="fa fa-info"></i></a>
-                              @endcan
                               @can('vehiculos.editar') 
-                                <button onclick="editarVehiculo({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                <button onclick="editarTipoVehiculo({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                               @endcan
                               @can('vehiculos.eliminar') 
-                                <button  onclick="eliminarVehiculo('{{ $item->id_vehiculo }}','{{ $item->numero_de_identificacion }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                <button  onclick="eliminarTipoVehiculo({{ $item}});" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                               @endcan
                             </td>
                           
@@ -116,7 +95,7 @@
                     </table>
 
                       <div class="row">
-                          {{ $VehiculosListados->appends(Request::all())->links() }}
+                          {{ $tipo_vehiculo->appends(Request::all())->links() }}
                       </div>
                    {{--  @if(isset($existe))
                     @endif
@@ -156,30 +135,20 @@
 <script src="/dist/js/demo.js"></script>
 
 <script type="text/javascript">
-  function eliminarVehiculo(id_vehiculo,numero_de_identificacion){
+  function eliminarTipoVehiculo(item){
 
-    var numero_de_identificacion = $('#id_numero_de_identificacion_baja').val(numero_de_identificacion);
-    var id_vehiculo = $('#id_vehiculo_baja').val(id_vehiculo);
-    $('#modalBajaVehiculo').modal('show');
+    var numero_de_identificacion = $('#id_nombre_tipo_vehiculo_baja').val(item.nombre_tipo_vehiculo);
+    var id_vehiculo = $('#id_tipo_vehiculo_baja').val(item.id_tipo_vehiculo);
+
+    $('#modalBajaTipoVehiculo').modal('show');
   }
 
-  function editarVehiculo(item){
+  function editarTipoVehiculo(item){
     console.log(item)
-    var numero_de_identificacion = $('#id_numero_de_identificacion_modificacion').val(item.numero_de_identificacion),
-        fecha = $('#id_vehiculo_modificacion').val(item.id_vehiculo),
-        fecha = $('#id_fecha_modificacion').val(item.fecha),
-        dominio = $('#id_dominio_modificacion').val(item.dominio),
-        chasis = $('#id_chasis_modificacion').val(item.chasis),
-        motor = $('#id_motor_modificacion').val(item.motor),
-        modelo = $('#id_modelo_modificacion').val(item.modelo),
-        marca = $('#id_marca_modificacion').val(item.marca),
-        anio_de_produccion = $('#id_anio_produccion_modificacion').val(item.anio_de_produccion),
-        numero_de_inventario = $('#id_numero_de_inventario_modificacion').val(item.numero_de_inventario),
-        clases_de_unidad = $('#id_clase_de_unidad_modificacion').val(item.clase_de_unidad),
-        tipo = $('#id_tipo_modificacion').val(item.tipo),
-        kilometraje = $('#id_kilometraje_modificacion').val(item.kilometraje),
-        otras_caracteristicas = $('#id_observaciones_modificacion').val(item.otras_caracteristicas);
-        $('#modalEdicionVehiculo').modal('show');
+    var nombre_tipo_vehiculo_editar = $('#id_nombre_tipo_vehiculo_editar').val(item.nombre_tipo_vehiculo),
+        fecha = $('#id_tipo_vehiculo').val(item.id_tipo_vehiculo);
+
+        $('#modalEdicionTipoVehiculo').modal('show');
   }
 
 </script>

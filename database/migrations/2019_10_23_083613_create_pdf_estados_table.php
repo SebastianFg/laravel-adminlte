@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTiposVehiculos extends Migration
+class CreatePdfEstadosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateTiposVehiculos extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_vehiculos', function (Blueprint $table) {
-            $table->bigIncrements('id_tipo_vehiculo');
-            $table->string('nombre_tipo_vehiculo',100);
-            $table->softDeletes();
+        Schema::create('pdf_estados', function (Blueprint $table) {
+            $table->bigIncrements('id_pdf_estado');
+            $table->string('nombre_pdf_estado');
+            $table->integer('id_estado_vehiculo')->references('id_estado_vehiculo')->on('estado_vehiculos');
+
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateTiposVehiculos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipos_vehiculos');
+        Schema::dropIfExists('pdf_estados');
     }
 }

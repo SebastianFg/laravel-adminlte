@@ -19,30 +19,32 @@
       <div class="row" style="padding-top: 5px;">
         <div class="col-12">
           <div class="card">
-            <div class="card-header">
+{{--             <div class="card-header">
               <div class="row">
-                <div class="col-md-3">
-                  @can('vehiculos.asignarNuevo')
-                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModal"> <i class="fa fa-plus"> Nueva</i> </button> 
+                <div class="col-md-6">
+                  @can('vehiculos.crear')
+                    <button type="button" class="btn btn-info left d-inline" data-toggle="modal" data-target="#miModal"><i class="fa fa-align-justify"> Historial completo</i> </button> 
                   @endcan
-{{--                   @can('vehiculos.imprimirLista')
+                  @can('vehiculos.crear')
+                    <button type="button" class="btn btn-info d-inline " data-toggle="modal" data-target="#miModal"><i class="fa fa-window-close"> Baja definitiva</i> </button> 
+                  @endcan
+                  @can('vehiculos.imprimirLista')
                     <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
-                  @endcan   --}}
+                  @endcan  
                 </div>
           </div>
 
+           </div> --}}
           {{-- extiendo los modales --}}
-          @extends('vehiculos/asignacion/modales/modal_asignacion_vehiculo')
-{{--           @extends('vehiculos/modales/modal_baja_vehiculo')
-          @extends('vehiculos/modales/modal_editar_vehiculo') --}}
-           </div>
+          @extends('vehiculos/estados/modales/modal_alta_vehiculo_estado')
+          @extends('vehiculos/estados/modales/modal_baja_total_vehiculos')
 
             </div>
 
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Vehiculos Asignados</u></strong>
+                  <strong><u>Historial definitivo</u></strong>
                 </div>
 
                 <div class="card-body">
@@ -65,47 +67,48 @@
                       <thead>
                         <tr>
 
-                          <th>Numero de identificacion</th>
-                          <th>N de inventario</th>
-                          <th>Dominio</th>
-                          <th>Afectado</th>
-                          <th>Fecha</th>
+                          <th>Vehiculo</th>
                           <th>Marca</th>
                           <th>Modelo</th>
-                          <th>Acciones</th>
+                          <th>Dominio</th>
+                          <th>Estado</th>
+                          <th>Fecha</th>
+                          <th>Razon</th>
+                          <th>Accion</th>
                         </tr>
                       </thead>
                       <tbody>
-{{--                         @foreach($asignacion as $item)
+                        @foreach($estados_listado as $item)
                         
                           <tr>
                             <td>{{ $item->numero_de_identificacion }}</td>
                             <td>{{ $item->marca }}</td>
                             <td>{{ $item->modelo }}</td>
                             <td>{{ $item->dominio }}</td>
-                            <td>{{ $item->numero_de_inventario }}</td>
-                            <td>{{ $item->nombre_tipo_vehiculo }}</td>
+                            @if( $item->tipo_estado_vehiculo == 0)
+                               <td><label class="badge badge-success">Reparado</label></td>
+                            @elseif($item->tipo_estado_vehiculo == 1)
+                              <td><label class="badge badge-warning">Fuera de servicio</label></td>
+                            @elseif($item->tipo_estado_vehiculo == 2)
+                              <td><label class="badge badge-danger">Baja total</label></td>
+                            @endif
+                            <td>{{ $item->estado_fecha }}</td>
+                            <td>{{ $item->estado_razon }}</td>
                            
                             <td>
                               @can('vehiculos.informacion')
                                 <a class="btn btn-info btn-sm" href="#"><i class="fa fa-info"></i></a>
                               @endcan
-                              @can('vehiculos.editar') 
-                                <button onclick="editarVehiculo({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                              @endcan
-                              @can('vehiculos.eliminar') 
-                                <button  onclick="eliminarVehiculo('{{ $item->id_vehiculo }}','{{ $item->numero_de_identificacion }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                              @endcan
                             </td>
                           
                           </tr>
-                        @endforeach --}}
+                        @endforeach
                       </tbody>
                     </table>
 
-    {{--                   <div class="row">
-                          {{ $VehiculosListados->appends(Request::all())->links() }}
-                      </div> --}}
+                      <div class="row">
+                          {{ $estados_listado->appends(Request::all())->links() }}
+                      </div>
                    {{--  @if(isset($existe))
                     @endif
  --}}
@@ -144,30 +147,22 @@
 <script src="/dist/js/demo.js"></script>
 
 <script type="text/javascript">
-  function eliminarVehiculo(id_vehiculo,numero_de_identificacion){
+  function eliminarVehiculo(item){
+    console.log(item)
+    var dominio = $('#id_vehiculo_dominio_alta').val(item.dominio),
+        id_vehiculo = $('#id_vehiculo_baja').val(item.id_vehiculo),
+        estado = $('#id_vehiculo_estado').val(item.id_estado_vehiculo);
 
-    var numero_de_identificacion = $('#id_numero_de_identificacion_baja').val(numero_de_identificacion);
-    var id_vehiculo = $('#id_vehiculo_baja').val(id_vehiculo);
-    $('#modalBajaVehiculo').modal('show');
+      $('#modalBajaDefinitivaVehiculo').modal('show');
   }
 
-  function editarVehiculo(item){
+  function altaVehiculo(item){
     console.log(item)
-    var numero_de_identificacion = $('#id_numero_de_identificacion_modificacion').val(item.numero_de_identificacion),
-        fecha = $('#id_vehiculo_modificacion').val(item.id_vehiculo),
-        fecha = $('#id_fecha_modificacion').val(item.fecha),
-        dominio = $('#id_dominio_modificacion').val(item.dominio),
-        chasis = $('#id_chasis_modificacion').val(item.chasis),
-        motor = $('#id_motor_modificacion').val(item.motor),
-        modelo = $('#id_modelo_modificacion').val(item.modelo),
-        marca = $('#id_marca_modificacion').val(item.marca),
-        anio_de_produccion = $('#id_anio_produccion_modificacion').val(item.anio_de_produccion),
-        numero_de_inventario = $('#id_numero_de_inventario_modificacion').val(item.numero_de_inventario),
-        clases_de_unidad = $('#id_clase_de_unidad_modificacion').val(item.clase_de_unidad),
-        tipo = $('#id_tipo_modificacion').val(item.tipo),
-        kilometraje = $('#id_kilometraje_modificacion').val(item.kilometraje),
-        otras_caracteristicas = $('#id_observaciones_modificacion').val(item.otras_caracteristicas);
-        $('#modalEdicionVehiculo').modal('show');
+    var dominio = $('#dominio_vehiculo_baja').val(item.dominio),
+        id_vehiculo_alta = $('#id_vehiculo').val(item.id_vehiculo),
+        estado = $('#id_vehiculo_estado').val(item.id_estado_vehiculo);
+
+        $('#modalAltaVehiculoEstado').modal('show');
   }
 
 </script>

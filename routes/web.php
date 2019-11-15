@@ -64,7 +64,6 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::post('modificar-rol-permiso','RolController@editarRolPermiso')->name('editarRolPermiso');
 
 
-
 		//dependencias
 		Route::get('dependencias', 'dependencias\DependenciaController@index')->name('indexDependencia');
 		//alta
@@ -76,67 +75,66 @@ Route::group(['prefix' => 'admin'], function () {
 		//edicion
 		Route::post('editarDependencia', 'dependencias\DependenciaController@editarDependencia')->name('editarDependencia');
 
-/*		Route::post('alta_relaciones', 'DependenciasController@crearRelacion')->name('crearRelacion');
 
-		Route::post('editar_relacion', 'DependenciasController@edicionRelacion')->name('edicionRelacion');
+		//vehiculos
+		Route::get('alta_vehiculos', 'vehiculos\VehiculoController@index')->name('listaVehiculos');
+		//alta
+		Route::post('/alta_vehiculos', 'vehiculos\VehiculoController@crearVehiculo')->name('vehiculos.crearVehiculo');
+		//editar
+		Route::post('/editar_vehiculo', 'vehiculos\VehiculoController@updateVehiculo')->name('updateVehiculo');
+		//baja
+		Route::post('/baja_detalle_vehiculo', 'vehiculos\VehiculoController@fueraDeServicio')->name('eliminarVehiculos');
 
-		Route::get('listaPadre', 'DependenciasController@listaPadre');
+		//tipo vehiculos
+		Route::get('tipo_vehiculos','vehiculos\TipoVehiculoController@index')->name('listaTipoVehiculos');
+		//alta
+		Route::post('alta_tipo_vehiculo','vehiculos\TipoVehiculoController@crearTipoVehiculo')->name('crearTipoVehiculo');
+		//modificacion
+		Route::post('editar_tipo_vehiculo','vehiculos\TipoVehiculoController@editarTipoVehiculo')->name('editarTipoVehiculo');
+		//baja
+		Route::post('baja_tipo_vehiculo','vehiculos\TipoVehiculoController@eliminarTipoVehiculo')->name('eliminarTipoVehiculo');
 
-		Route::get('listaTotal', 'DependenciasController@listadoCompleto');
-
-		Route::get('listaHijo', 'DependenciasController@listaHijo');
-
-		//crear dependencias
-		Route::post('alta_dependencia', 'DependenciasController@crearDependencia')->name('crearDependencia');
-
-		Route::post('direcciones_generales', 'DependenciasController@edicionDependencia')->name('edicionDependencia');
-
-		Route::get('direcciones_generales', 'DependenciasController@indexDireccionesGenerales');
-
-		Route::get('direcciones', 'DependenciasController@indexDirecciones');
-
-		Route::get('departamentos', 'DependenciasController@indexDepartamentos');
-
-		Route::get('divisiones', 'DependenciasController@indexDivisiones');
-
-		Route::get('secciones', 'DependenciasController@indexSecciones');
-
-		Route::get('totalDependencias/{nivel}', 'DependenciasController@listDependencias');*/
+		//estado vehiculo
+		///fuera de servicio
+		Route::get('fuera_de_servicio', 'vehiculos\VehiculoController@indexEstadoFueraServicio')->name('listadoEstadoVehiculo');
+		//baja definitiva
+		Route::get('baja_definitiva', 'vehiculos\VehiculoController@indexEstadoBajaDefinitiva')->name('listadoEstadoBajaDefinitiva');
+		//historial completo
+		Route::get('historial_completo','vehiculos\VehiculoController@indexEstadoHistorialCompleto')->name('historialCompleto');
+		//reparacion
+		Route::post('fuera_de_servicio','vehiculos\VehiculoController@estadoVehiculoAlta')->name('altaEstadoVehiculo');
+		//baja definitiva
+		Route::post('baja_definitiva','vehiculos\VehiculoController@bajaDefinitiva')->name('bajaDefinitiva');
 
 
+		//asignacion
+		Route::get('asignacion','vehiculos\AsignacionController@index')->name('listaAsignacion');
 
 
-		//vehiculo listado
+
+
 		Route::get('totalVehiculos/{nombre?}', 'vehiculos\vehiculos\VehiculoController@getTotalVehiculos')->name('getTotalVehiculos');
 
-		Route::get('alta_vehiculos', 'vehiculos\VehiculoController@index')->name('listaVehiculos');
+		
 
 		Route::post('conseguirVehiculo', 'vehiculos\VehiculoController@getidVehiculo')->name('getidVehiculo');
 
 
 
-		//vehiculos alta
-		Route::post('/alta_vehiculos', 'vehiculos\VehiculoController@crearVehiculo')->name('vehiculos.crearVehiculo');
-																		
 
-		//vehiculos editar
-		Route::post('/editar_vehiculo', 'vehiculos\VehiculoController@updateVehiculo')->name('updateVehiculo');
 
 
 
 		Route::get('Descargar_pdf_Vehiculos/{dato}', 'vehiculos\VehiculoController@exportarPdfVehiculos');
 
-		//baja
-		Route::get('baja_vehiculos', 'vehiculos\VehiculoController@listadoEstadoVehiculo')->name('listadoEstadoVehiculo');
 
-		Route::post('/baja_detalle_vehiculo', 'vehiculos\VehiculoController@fueraDeServicio')->name('eliminarVehiculos');
 
 		//baja definitiva
-		Route::post('/baja_vehiculos', 'vehiculos\VehiculoController@bajaDefinitiva')->name('bajaDefinitiva');
+/*		Route::post('/baja_vehiculos', 'vehiculos\VehiculoController@bajaDefinitiva')->name('bajaDefinitiva');
 
 		Route::get('/baja_definitiva', 'vehiculos\VehiculoController@bajaDefinitivaView')->name('bajaDefinitivaView');
 
-		Route::get('/historial_vehiculos_baja_definitiva', 'vehiculos\VehiculoController@getHistorialVehiculosBajaDefinitiva')->name('getHistorialVehiculosBajaDefinitiva');
+		Route::get('/historial_vehiculos_baja_definitiva', 'vehiculos\VehiculoController@getHistorialVehiculosBajaDefinitiva')->name('getHistorialVehiculosBajaDefinitiva');*/
 
 		//reanimacion
 
@@ -164,7 +162,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::get('/detalleVehiculoIndividual/{id}','vehiculos\VehiculoController@getdetalleVehiculoIndividual');
 
-		Route::get('/historial_completo','vehiculos\VehiculoController@getAllHistorial');
+		/*Route::get('/historial_completo','vehiculos\VehiculoController@getAllHistorial');*/
 
 
 		//asignacion
