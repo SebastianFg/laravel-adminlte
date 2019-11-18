@@ -109,13 +109,30 @@ Route::group(['prefix' => 'admin'], function () {
 
 		//asignacion
 		Route::get('asignacion','vehiculos\AsignacionController@index')->name('listaAsignacion');
+		//getAllVehiculosDisponibles -> select 2
+		Route::get('vehiculos_disponibles','vehiculos\AsignacionController@getAllVehiculosDisponibles')->name('getAllVehiculosDisponibles');
+		//getAllAfectadosDisponibles -> select 2
+		Route::get('afectados_disponibles','vehiculos\AsignacionController@getAllAfectadosDisponibles')->name('getAllAfectadosDisponibles');
+		//guardamos asignacion
+		Route::post('asignacion','vehiculos\AsignacionController@crearAsignacion')->name('crearAsignacion');
+		//eliminar asignacion
+		Route::post('eliminar_asignacion','vehiculos\AsignacionController@eliminarAsignacion')->name('eliminarAsignacion');
 
 
+		//vehiculos detalle
+		Route::get('/detalleVehiculo/{id?}', 'vehiculos\DetallesController@index')->name('detalleVehiculo');
 
 
 		Route::get('totalVehiculos/{nombre?}', 'vehiculos\vehiculos\VehiculoController@getTotalVehiculos')->name('getTotalVehiculos');
 
 		
+
+
+
+
+
+
+
 
 		Route::post('conseguirVehiculo', 'vehiculos\VehiculoController@getidVehiculo')->name('getidVehiculo');
 
@@ -140,8 +157,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::post('/estado_alta_vehiculo', 'vehiculos\VehiculoController@AltadeVehiculosDadosDeBaja')->name('AltadeVehiculosDadosDeBaja');
 
-		//vehiculos detalle
-		Route::get('/detalleVehiculo/{id}', 'vehiculos\VehiculoController@detalleVehiculo')->name('vehiculos.detalleVehiculo');
+
 		//datatable detalles
 		Route::get('/detalle_Datatable/{vehiculo}', 'vehiculos\VehiculoController@detalleDatatable')->name('detalleDatatable');
 		//impresion pdf historial del vehiculo (historial asignacion)

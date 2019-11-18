@@ -2,7 +2,7 @@
 
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -23,7 +23,7 @@
               <div class="row">
                 <div class="col-md-3">
                   @can('vehiculos.asignarNuevo')
-                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModal"> <i class="fa fa-plus"> Nueva</i> </button> 
+                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAsignacion"> <i class="fa fa-plus"> Nueva</i> </button> 
                   @endcan
 {{--                   @can('vehiculos.imprimirLista')
                     <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
@@ -33,6 +33,7 @@
 
           {{-- extiendo los modales --}}
           @extends('vehiculos/asignacion/modales/modal_asignacion_vehiculo')
+          @extends('vehiculos/asignacion/modales/modal_eliminar_vehiculo_asignado')
 {{--           @extends('vehiculos/modales/modal_baja_vehiculo')
           @extends('vehiculos/modales/modal_editar_vehiculo') --}}
            </div>
@@ -65,7 +66,7 @@
                       <thead>
                         <tr>
 
-                          <th>Numero de identificacion</th>
+                          <th>N de identificacion</th>
                           <th>N de inventario</th>
                           <th>Dominio</th>
                           <th>Afectado</th>
@@ -76,30 +77,32 @@
                         </tr>
                       </thead>
                       <tbody>
-{{--                         @foreach($asignacion as $item)
+                        
+                        @foreach($asignacion as $item)
                         
                           <tr>
                             <td>{{ $item->numero_de_identificacion }}</td>
+                            <td>{{ $item->numero_de_inventario }}</td>
+                            <td>{{ $item->dominio }}</td>
+                            <td>{{ $item->nombre_dependencia }}</td>
+                            <td>{{ $item->fecha }}</td>
                             <td>{{ $item->marca }}</td>
                             <td>{{ $item->modelo }}</td>
-                            <td>{{ $item->dominio }}</td>
-                            <td>{{ $item->numero_de_inventario }}</td>
-                            <td>{{ $item->nombre_tipo_vehiculo }}</td>
                            
                             <td>
                               @can('vehiculos.informacion')
                                 <a class="btn btn-info btn-sm" href="#"><i class="fa fa-info"></i></a>
                               @endcan
-                              @can('vehiculos.editar') 
-                                <button onclick="editarVehiculo({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                              @endcan
-                              @can('vehiculos.eliminar') 
-                                <button  onclick="eliminarVehiculo('{{ $item->id_vehiculo }}','{{ $item->numero_de_identificacion }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+  {{--                             @can('vehiculos.asignarEditar') 
+                                <button onclick="editarAsignacion('{{ $item->id_detalle }}','{{ $item->id_vehiculo }}','{{ $item->id_dependencia }}')" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                              @endcan --}}
+                              @can('vehiculos.asignarEliminar') 
+                                <button  onclick="eliminarAsignacion('{{ $item->id_vehiculo }}','{{ $item->numero_de_identificacion }}','{{ $item->dominio }}','{{ $item->id_detalle }}','{{ $item->nombre_dependencia }}','{{ $item->id_dependencia }}');" title="Eliminar asignacion"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                               @endcan
                             </td>
                           
                           </tr>
-                        @endforeach --}}
+                        @endforeach
                       </tbody>
                     </table>
 
@@ -132,7 +135,6 @@
 @section('javascript')
 <!-- jQuery -->
 
-
 <script src="/dist/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="/dist/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -143,32 +145,93 @@
 
 <script src="/dist/js/demo.js"></script>
 
+{{-- select 2 --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script> 
+
 <script type="text/javascript">
-  function eliminarVehiculo(id_vehiculo,numero_de_identificacion){
+  function eliminarAsignacion(id_vehiculo,numero_de_identificacion,dominio,id_detalle,nombre_dependencia,id_dependencia){
+    cadena = 'Dominio: '+dominio+' Identificacion: '+numero_de_identificacion;
 
-    var numero_de_identificacion = $('#id_numero_de_identificacion_baja').val(numero_de_identificacion);
-    var id_vehiculo = $('#id_vehiculo_baja').val(id_vehiculo);
-    $('#modalBajaVehiculo').modal('show');
+    var id_detalle = $('#id_detalle_asignacion').val(id_detalle),
+        identificacion_vehiculo = $('#id_nombre_vehiculo_eliminado').val(cadena),
+        id_vehiculo = $('#id_identificacion_vehiculo_eliminado').val(id_vehiculo),
+        id_dependencia = $('#id_nombre_afectado_eliminado').val(nombre_dependencia),
+        dependencia = $('#id_afectado_eliminado').val(id_dependencia);
+
+    $('#idModalAsignacionBorrado').modal('show');
   }
 
-  function editarVehiculo(item){
-    console.log(item)
-    var numero_de_identificacion = $('#id_numero_de_identificacion_modificacion').val(item.numero_de_identificacion),
-        fecha = $('#id_vehiculo_modificacion').val(item.id_vehiculo),
-        fecha = $('#id_fecha_modificacion').val(item.fecha),
-        dominio = $('#id_dominio_modificacion').val(item.dominio),
-        chasis = $('#id_chasis_modificacion').val(item.chasis),
-        motor = $('#id_motor_modificacion').val(item.motor),
-        modelo = $('#id_modelo_modificacion').val(item.modelo),
-        marca = $('#id_marca_modificacion').val(item.marca),
-        anio_de_produccion = $('#id_anio_produccion_modificacion').val(item.anio_de_produccion),
-        numero_de_inventario = $('#id_numero_de_inventario_modificacion').val(item.numero_de_inventario),
-        clases_de_unidad = $('#id_clase_de_unidad_modificacion').val(item.clase_de_unidad),
-        tipo = $('#id_tipo_modificacion').val(item.tipo),
-        kilometraje = $('#id_kilometraje_modificacion').val(item.kilometraje),
-        otras_caracteristicas = $('#id_observaciones_modificacion').val(item.otras_caracteristicas);
-        $('#modalEdicionVehiculo').modal('show');
-  }
+</script>
+<script type="text/javascript">
 
+  $("#id_vehiculo").select2({
+    dropdownParent: $("#select"),
+    placeholder:"Seleccione Vehiculo",
+    allowClear: true,
+    minimumInputLength: 2,
+
+    type: "GET",
+    ajax: {
+      dataType: 'json',
+      url: '{{ route("getAllVehiculosDisponibles") }}',
+      delay: 250,
+      data: function (params) {
+
+        console.log(params)
+        return {
+          termino: $.trim(params.term),
+          page: params.page
+        };
+      },
+      processResults: function (data) {
+        return {
+            results:  $.map(data, function (item) {
+                return {
+                    text: item.dominio+' - N Identificacion '+item.numero_de_identificacion,
+                    id: item.id_vehiculo,
+                }
+            })
+        };
+    },
+    cache: true,
+
+      },
+  });
+
+  $("#id_afectado").select2({
+    dropdownParent: $("#select"),
+    placeholder:"Seleccione Afectado",
+    allowClear: true,
+    minimumInputLength: 2,
+
+    type: "GET",
+    ajax: {
+      dataType: 'json',
+      url: '{{ route("getAllAfectadosDisponibles") }}',
+      delay: 250,
+      data: function (params) {
+
+        console.log(params)
+        return {
+          termino: $.trim(params.term),
+          page: params.page
+        };
+      },
+      processResults: function (data) {
+        console.log(data)
+        return {
+            results:  $.map(data, function (item) {
+                return {
+                    text: item.nombre_dependencia,
+                    id: item.id_dependencia,
+                }
+            })
+        };
+    },
+    cache: true,
+
+      },
+  });
 </script>
 @stop

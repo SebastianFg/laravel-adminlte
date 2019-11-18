@@ -194,7 +194,7 @@
 
                     </li> 
                     <li class="nav-item has-treeview" id="pie">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('detalleVehiculo') }}" class="nav-link">
                             <i class="nav-icon fa fa-edit"></i>
                             <p>
                               Detalles

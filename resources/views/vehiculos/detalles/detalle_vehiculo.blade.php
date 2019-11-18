@@ -20,26 +20,9 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <div class="row">
-                <div class="col-md-3">
-                  @can('vehiculos.crear')
-                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModal"> <i class="fa fa-plus"> Nuevo</i> </button> 
-                  @endcan
-                  @can('vehiculos.imprimirLista')
-                    <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
-                  @endcan  
-                </div>
-
-{{--                 <div class="col-md-3">
-                  <button type="button" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"> Buscar</i>  </button> 
-                  <button type="button" id="btnLimpiar" class="btn btn-warning left"> <i class="fa fa-paint-brush"> Limpiar</i> </button> 
-                </div> --}}
-          </div>
 
           {{-- extiendo los modales --}}
-          @extends('vehiculos/altas/modales/modal_alta_vehiculo')
-          @extends('vehiculos/altas/modales/modal_baja_vehiculo')
-          @extends('vehiculos/altas/modales/modal_editar_vehiculo')
+
            </div>
 
             </div>
@@ -47,24 +30,16 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Vehiculos</u></strong>
+                  <strong><u>Detalles</u></strong>
                 </div>
 
                 <div class="card-body">
-                  <div class="row">
-                    <form model="" class="navbar-form navbar-left pull-right" role="search">
+                  <div class="row col-md-12">
+                    <form action="{{ route('detalleVehiculo') }}" class="navbar-form navbar-left pull-right" role="search">
                       <div class="row">
                         
                         <div class="form-group">
                           <input type="text" name="vehiculoBuscado" class="form-control" placeholder="numero de identificacion">
-                        </div>
-                        <div class="col-md-">
-                          <select name="id_tipo_vehiculo_lista"  class="form-control">
-                            <option value="" selected="">Seleccione un tipo de vehiculo</option>
-                            @foreach ($tipo_vehiculo as $item)
-                              <option value="{{ $item->id_tipo_vehiculo }}">{{ $item->nombre_tipo_vehiculo }}</option>
-                            @endforeach
-                          </select>
                         </div>
                         <div class="form-group">
                            <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
@@ -73,7 +48,109 @@
                       </div>
                     </form>
                   </div>
+	              <hr>
                   <div class="row">
+                  	@if($existe == 0)
+                  		<p>no se puede ver</p>
+                  	@else
+	                  	<div class="card-body">
+				        	<div class="row">	
+		                  		<div class="col-md-12">
+			                  		<div class="card col-md-5">
+					            		<strong ><u>Vehiculo</u></strong>
+			                  			
+										<label class="texto" >Numero de identificacion</label>
+										<p class="parrafos" >{{ $VehiculosListados[0]->numero_de_identificacion }}</p>
+										<label class="texto">Clase de unidad</label>
+										<p class="parrafos" >{{$VehiculosListados[0]->clase_de_unidad  }}</p>						
+										<label class="texto">Marca</label>
+										<p class="parrafos" >{{$VehiculosListados[0]->marca  }}</p>
+										
+										<label class="texto">Modelo</label>
+										<p class="parrafos" >{{$VehiculosListados[0]->modelo  }}</p>
+										
+										<label class="texto" >Chasis</label>
+										<p class="parrafos" >{{$VehiculosListados[0]->chasis  }}</p>
+										
+										<label class="texto">Motor</label>
+										<p class="parrafos" >{{$VehiculosListados[0]->motor  }}</p>
+										
+										<label class="texto">Año de produccion</label>
+										<p class="parrafos" >{{$VehiculosListados[0]->anio_de_produccion  }}</p>
+										
+										<label class="texto">dominio </label>
+										<p class="parrafos" >{{$VehiculosListados[0]->dominio  }}</p>
+
+
+										<label class="texto">Kilometraje</label>
+										<p class="parrafos" >{{$VehiculosListados[0]->kilometraje  }} km</p>
+
+										<label  class="texto">Observaciones</label>
+										@if($VehiculosListados[0]->otras_caracteristicas == null)
+											<p class="parrafos">No posee obs.</p>
+										@else
+											<p class="parrafos" >{{$VehiculosListados[0]->otras_caracteristicas  }}</p>
+										@endif
+
+										<label class="texto">Fecha</label>
+										<p class="parroafos">{{$VehiculosListados[0]->fecha  }}</p>
+			                  		</div>
+			                  		<div class="card col-md-5">
+			                  			<strong><u>Asignacion actual</u></strong>
+			                  			@if( isset($asignacion_actual))
+											<label class="texto" >Dependencia Actual</label>
+											<p class="parrafos" >{{ $asignacion_actual[0]->nombre_dependencia }}</p>
+											<label class="texto" >Responsable de entrega</label>
+											<p class="parrafos" >{{ $asignacion_actual[0]->nombre }}</p>
+										@endif
+
+										<label  class="texto">Observaciones</label>
+
+										@if($VehiculosListados[0]->otras_caracteristicas == null)
+											<p class="parrafos">No posee obs.</p>
+										@else
+											<p class="parrafos" >{{$asignacion_actual[0]->observaciones  }}</p>
+										@endif
+			                  		</div>
+		                  		</div>
+				        	</div>
+	                  	</div>
+	                  		
+                  	@endif
+               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
                       <thead>
                         <tr>
@@ -88,7 +165,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($VehiculosListados as $item)
+                        {{-- @foreach($VehiculosListados as $item)
                         
                           <tr>
                             <td>{{ $item->numero_de_identificacion }}</td>
@@ -100,7 +177,7 @@
                            
                             <td>
                               @can('vehiculos.informacion')
-                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
+                                <a class="btn btn-info btn-sm" href="#"><i class="fa fa-info"></i></a>
                               @endcan
                               @can('vehiculos.editar') 
                                 <button onclick="editarVehiculo({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
@@ -111,13 +188,13 @@
                             </td>
                           
                           </tr>
-                        @endforeach
+                        @endforeach --}}
                       </tbody>
                     </table>
 
-                      <div class="row">
+{{--                       <div class="row">
                           {{ $VehiculosListados->appends(Request::all())->links() }}
-                      </div>
+                      </div> --}}
                    {{--  @if(isset($existe))
                     @endif
  --}}
@@ -184,3 +261,21 @@
 
 </script>
 @stop
+<style type="text/css">
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+</style>
+
+<style type="text/css">
+	
+	.texto{
+		text-decoration: underline black;
+	}
+	.parrafos{
+		font-family: Vegur, 'PT Sans', Verdana, sans-serif;
+	}
+
+
+</style>
