@@ -109,10 +109,8 @@
                           <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
-
                     <ul class="nav nav-treeview">
                         <ul>
-                            
                             <li class="nav-item noPuntos" id="pie">
                                 <a href="{{ route('listaVehiculos') }}" class="nav-link">
                                     <i class="fa fa-plus nav-icon"></i>
@@ -120,7 +118,7 @@
                                 </a>
                             </li>
                         </ul>
-                       
+  
 
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
@@ -192,6 +190,25 @@
                             </p>
                         </a>
 
+                    </li> 
+                    <li class="nav-item has-treeview" id="pie">
+                        <a href="{{ route('listaAsignacion') }}" class="nav-link">
+                            <i class="nav-icon fa fa-edit"></i>
+                            <p>
+                              Siniestros
+                              <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <ul>
+                                <li class="nav-item noPuntos" id="pie">
+                                    <a href="{{ route('indexSiniestros') }}" class="nav-link">
+                                        <i class="fa fa-plus nav-icon"></i>
+                                        <p>Alta</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </ul>
                     </li> 
                     <li class="nav-item has-treeview" id="pie">
                         <a href="{{ route('detalleVehiculo') }}" class="nav-link">

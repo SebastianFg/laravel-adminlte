@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\softDeletes;
 
 
 
+
+
 class dependencia extends Model
 {
     protected $table = 'dependencias';
@@ -31,4 +33,6 @@ class dependencia extends Model
 
     	}
     }
+
+
 }

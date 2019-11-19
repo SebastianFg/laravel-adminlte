@@ -84,6 +84,8 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::post('/editar_vehiculo', 'vehiculos\VehiculoController@updateVehiculo')->name('updateVehiculo');
 		//baja
 		Route::post('/baja_detalle_vehiculo', 'vehiculos\VehiculoController@fueraDeServicio')->name('eliminarVehiculos');
+		//lista de vehiculos para select2
+		Route::get('/vehiculos_select','vehiculos\VehiculoController@getAllVehiculos')->name('listaVehiculos');
 
 		//tipo vehiculos
 		Route::get('tipo_vehiculos','vehiculos\TipoVehiculoController@index')->name('listaTipoVehiculos');
@@ -121,6 +123,33 @@ Route::group(['prefix' => 'admin'], function () {
 
 		//vehiculos detalle
 		Route::get('/detalleVehiculo/{id?}', 'vehiculos\DetallesController@index')->name('detalleVehiculo');
+
+		//asignacion de siniestros
+		Route::get('/siniestros', 'vehiculos\SiniestroController@indexSiniestros')->name('indexSiniestros');
+
+		Route::post('/siniestros', 'vehiculos\SiniestroController@altaSiniestro')->name('altaSiniestro');
+
+		Route::get('/total_siniestros', 'vehiculos\SiniestroController@getAllSiniestros')->name('getAllSiniestros');
+
+		Route::post('/detalle_pdf_siniestro','vehiculos\SiniestroController@getAllPdfsSiniestro');
+
+		Route::get('/descargar_pdf_siniestro/{nombre}','vehiculos\SiniestroController@descargaPdfSiniestro')->name('descargarPDF');
+
+		Route::post('/editar_siniestro','vehiculos\SiniestroController@editarSiniestro')->name('EditarSiniestro');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 		Route::get('totalVehiculos/{nombre?}', 'vehiculos\vehiculos\VehiculoController@getTotalVehiculos')->name('getTotalVehiculos');
@@ -199,7 +228,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::post('/asignar_vehiculos_repuestos', 'vehiculos\VehiculoController@AsignarRepuesto')->name('vehiculos.AsignarRepuesto');
 
-		Route::get('/vehiculos_select','vehiculos\VehiculoController@getAllVehiculos');
+		
 
 		Route::get('/vehiculos_select_vehiculos_disponibles','vehiculos\VehiculoController@getAllVehiculosDisponibles');
 
@@ -207,18 +236,6 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::get('asignar_vehiculos_repuestos/{id}', 'vehiculos\VehiculoController@exportarPdfRepuestos');
 
-		//asignacion de siniestros
-		Route::get('/siniestros', 'vehiculos\VehiculoController@indexSiniestros')->name('indexSiniestros');
-
-		Route::post('/siniestros', 'vehiculos\VehiculoController@altaSiniestro')->name('altaSiniestro');
-
-		Route::get('/total_siniestros', 'vehiculos\VehiculoController@getAllSiniestros')->name('getAllSiniestros');
-
-		Route::post('/detalle_pdf_siniestro','vehiculos\VehiculoController@getAllPdfsSiniestro');
-
-		Route::get('/descargar_pdf_siniestro/{nombre}','vehiculos\VehiculoController@descargaPdfSiniestro')->name('descargarPDF');
-
-		Route::post('/editar_siniestro','vehiculos\VehiculoController@editarSiniestro')->name('EditarSiniestro');
 
 
 	});

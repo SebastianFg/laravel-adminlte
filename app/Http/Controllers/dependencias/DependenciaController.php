@@ -66,6 +66,8 @@ class DependenciaController extends Controller
 		if ($Request->nombreDependencia == null && $Request->nivel_dependencia == null ) {
         	$dependencias = dependencia::orderBy('dep.id_dependencia')->join('dependencias as dep','dep.id_padre_dependencia','=','dependencias.id_dependencia')
         	->select('dependencias.nombre_dependencia as padre','dep.nombre_dependencia as hijo','dep.id_dependencia as id_hijo','dependencias.id_dependencia as id_padre','dep.nivel_dependencia as nivel','dependencias.deleted_at')->whereNull('dep.deleted_at')->get();
+
+            
         	$dependencias = $this->paginar($dependencias);
         	$existe = 1;
 	      	//return $dependencias;

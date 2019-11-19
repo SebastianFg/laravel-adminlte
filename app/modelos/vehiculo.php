@@ -4,6 +4,8 @@ namespace App\modelos;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\softDeletes;
+//use App\Modelos\asignacion_vehiculo;
+
 class vehiculo extends Model
 {
     use SoftDeletes;
@@ -26,4 +28,7 @@ class vehiculo extends Model
 
     	}
     }
+
+
+
 }

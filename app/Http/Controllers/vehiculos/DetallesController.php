@@ -17,6 +17,7 @@ use App\modelos\pdf_Estado;
 use App\modelos\imagen_vehiculo;
 use App\modelos\estado_vehiculo;
 use App\modelos\asignacion_vehiculo;
+use App\modelos\historial_asignacion;
 use App\User;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -36,7 +37,6 @@ class DetallesController extends Controller
 
     }
 	protected function paginar($datos){
-
     	 $currentPage = LengthAwarePaginator::resolveCurrentPage();
 
          $currentPage = LengthAwarePaginator::resolveCurrentPage();
@@ -48,7 +48,7 @@ class DetallesController extends Controller
         $por_pagina = 10;
  
         //armamos el paginador... sin el resolvecurrentpage arma la paginacion pero no mueve el selector
-        $datos= new LengthAwarePaginator(
+        $datos = new LengthAwarePaginator(
             $collection->forPage(Paginator::resolveCurrentPage() , $por_pagina),
             $collection->count(), $por_pagina,
             Paginator::resolveCurrentPage(),
@@ -60,7 +60,19 @@ class DetallesController extends Controller
     ////////////////////////////////////// DETALLES ////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+    protected function HistorialVehiculo($id){
+        $historial = historial_asignacion::join('dependencias','dependencias.id_dependencia','=','historial_asignacion.id_dependencia')
+                                            ->where('id_vehiculo','=',$id)->orderBy('fecha','asc')->get();
+        $historial = $this->paginar($historial);
+        return $historial;
+    }
+    protected function AsignacionActual($id){
+        $asignacion_actual = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
+                                                ->join('users','detalle_asignacion_vehiculos.id_responsable','=','users.id')
+                                                ->where('id_vehiculo','=',$id)->get();
+        //$asignacion_actual = $this->paginar($asignacion_actual);
+        return $asignacion_actual;
+}
 
     public function index(Request $Request,$id = null){
 
@@ -73,21 +85,26 @@ class DetallesController extends Controller
 
 
         if ($id == null && $Request->vehiculoBuscado == null) {
-        	$existe = 0;			
+        	$existe = 0;
         }elseif($id != null && $Request->vehiculoBuscado == null){
         	$existe = 1;
         	$VehiculosListados = \DB::select('select * from vehiculos where id_vehiculo ='. $id);
 
+            $historial = $this->HistorialVehiculo($id);
+            $asignacion_actual = $this->AsignacionActual($id);
+            //return $VehiculosListados;
+
         }elseif( $Request->vehiculoBuscado != null && $id == null){
         	$existe = 1;
-        	$asignacion_actual = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
-        											->join('users','detalle_asignacion_vehiculos.id_responsable','=','users.id')->get();
+        	
+            $historial = $this->HistorialVehiculo($Request->vehiculoBuscado);
+
+            $asignacion_actual = $this->AsignacionActual($Request->vehiculoBuscado);
+
         	$VehiculosListados = \DB::select('select * from vehiculos where id_vehiculo ='. $Request->vehiculoBuscado);
-        	//return $asignacion_actual;
         }
 
-      //  return $VehiculosListados;
-         return view('vehiculos.detalles.detalle_vehiculo',compact('existe','VehiculosListados','asignacion_actual'));
+        return view('vehiculos.detalles.detalle_vehiculo',compact('existe','VehiculosListados','asignacion_actual','historial'));
     }
 
 }

@@ -1,213 +1,167 @@
-@extends('plantilla')
+@extends('layouts.master')
 
-@section('seccion')
+{{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
+@section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
 
-<div class="panel panel-success">
+  <!-- Main content -->
+  <div class="content">
+    @if(strpos(Auth::User()->roles,'Suspendido'))
+      su usuario se encuentra suspendido
+    @else
+    <div class="container-fluid">
+      <div class="row" style="padding-top: 5px;">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-3">
+                  @can('vehiculos.crear')
+                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAltaSiniestro"> <i class="fa fa-plus"> Nuevo</i> </button> 
+                  @endcan
+                  @can('vehiculos.imprimirLista')
+                    <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
+                  @endcan  
+                </div>
 
-  <div class="panel panel-heading ">
-    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#miModalSiniestro"> <i class="glyphicon glyphicon-plus"></i> Nuevo Siniestro</button>  
-  </div>
-  {{-- Modales --}}
-  @extends('vehiculos/siniestros/modal_alta_siniestro')
-  @extends('vehiculos/siniestros/modal_edicion_siniestro')
-  @extends('vehiculos/modales/modal_pdf_siniestro')
+{{--                 <div class="col-md-3">
+                  <button type="button" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"> Buscar</i>  </button> 
+                  <button type="button" id="btnLimpiar" class="btn btn-warning left"> <i class="fa fa-paint-brush"> Limpiar</i> </button> 
+                </div> --}}
+          </div>
 
+          {{-- extiendo los modales --}}
+          @extends('vehiculos/siniestros/modales/modal_alta_siniestro')
+{{--           @extends('vehiculos/altas/modales/modal_baja_vehiculo')
+          @extends('vehiculos/altas/modales/modal_editar_vehiculo') --}}
+           </div>
 
+            </div>
 
-    <div class="col-md-12 panel panel-body">
-      <table id="lista_siniestros" tableStyle="width:auto"  class=" table table-striped table-hover table-condensed table-bordered">
-        <thead>
-          <tr>
-            <th>N° Interno</th>
+              <hr>
+              <div class="card">
+                <div class="card-header">
+                  <strong><u>Vehiculos</u></strong>
+                </div>
 
-            <th>Afectado</th>
-            <th>Lugar</th>
-            <th>Fecha</th>
-            <th>Lesiones</th>
-            <th>Colision</th>
-            <th>Presentacion</th>
-            <th>Observaciones</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-      </table>
-    
+                <div class="card-body">
+                  <div class="row">
+                    <form model="" class="navbar-form navbar-left pull-right" role="search">
+                      <div class="row">
+                        
+                        <div class="form-group">
+                          <input type="text" name="vehiculoBuscado" class="form-control" placeholder="numero de identificacion">
+                        </div>
+{{--                         <div class="col-md-">
+                          <select name="id_tipo_vehiculo_lista"  class="form-control">
+                            <option value="" selected="">Seleccione un tipo de vehiculo</option>
+                            @foreach ($tipo_vehiculo as $item)
+                              <option value="{{ $item->id_tipo_vehiculo }}">{{ $item->nombre_tipo_vehiculo }}</option>
+                            @endforeach
+                          </select>
+                        </div> --}}
+                        <div class="form-group">
+                           <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
+                        </div>
+                         
+                      </div>
+                    </form>
+                  </div>
+                  <div class="row">
+                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                      <thead>
+                        <tr>
+                          <th>N° Identificacion</th>
+                          <th>Afectado</th>
+                          <th>Lugar</th>
+                          <th>Fecha</th>
+                          <th>Lesiones</th>
+                          <th>Colision</th>
+                          <th>Presentacion</th>
+                          <th>Observaciones</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($siniestros as $item)
+                        
+                          <tr>
+                            <td>{{ $item->numero_de_identificacion }}</td>
+                            <td>{{ $item->nombre_dependencia }}</td>
+                            <td>{{ $item->lugar_siniestro }}</td>
+                            <td>{{ $item->fecha_siniestro }}</td>
+                            @if($item->lesiones_siniestro == 1)
+                              <td><label class="badge badge-danger">Si</label></td>
+                            @else
+                              <td><label class="badge badge-success">No</label></td>
+                            @endif
+                            <td>{{ $item->descripcion_siniestro }}</td>
+                            <td>{{ $item->fecha_presentacion }}</td>
+                            <td>{{ $item->observaciones_siniestro }}</td>
+
+                            <td>
+                              @can('vehiculos.informacion')
+                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
+                              @endcan
+                              @can('vehiculos.editar') 
+                                <button onclick="editarVehiculo({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                              @endcan
+                              @can('vehiculos.eliminar') 
+                                <button  onclick="eliminarVehiculo('{{ $item->id_vehiculo }}','{{ $item->numero_de_identificacion }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                              @endcan
+                            </td>
+                          
+                          </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+
+        {{--               <div class="row">
+                          {{ $VehiculosListados->appends(Request::all())->links() }}
+                      </div> --}}
+                   {{--  @if(isset($existe))
+                    @endif
+ --}}
+                  </div>
+                </div>
+              </div>
+                          </div>
+          {{-- card --}}
+          </div>
+        {{-- col 12 --}}
+        </div>
+      {{-- row --}}
+      </div>
+    {{-- fluid --}}
     </div>
+  @endif
+  <!-- /.content -->
   </div>
-
-
-
-
-
+  {{-- final --}}
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"defer ></script>
+
+@endsection
+
+@section('javascript')
+<!-- jQuery -->
 
 
+<script src="/dist/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/dist/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE -->
+<script src="/dist/js/adminlte.js"></script>
 
+<!-- OPTIONAL SCRIPTS -->
+<script src="/dist/js/demo.js"></script>
 
-<script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"defer></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"defer></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"defer></script>
-<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+{{-- select2 --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script> 
-<script>
-   
-    $(document).ready(function() {
-
-      var table = $('#lista_siniestros').DataTable({
-            "Sdom": 'Blrtip',
-           // "pageLength": 5,
-           "bsearching": true,
-            "bprocessing": true,
-            "bserverSide": true,
-            "bPaginate": true,
-            "bLengthChange": true,
-            "bFilter": true,
-         /*   "ordering": true,*/
-            "bInfo": true,
-            "lengthMenu": [10, 25, 50, 75, 100],
-            "bAutoWidth": false,
-    /*        "lengthMenu": [[5,10,100,-1],["5","10","100","Todos"]],*/
-            "json":false,
-            "ajax":{"url":"{{ url('admin/total_siniestros') }}","dataType": "JSON"},
-            "columns": [
-                {data: 'numero_de_identificacion'},
-                {data: 'afectado_siniestro'},
-                {data: 'lugar_siniestro'},
-                {data: 'fecha_siniestro',
-
-                  "type": "date ",
-                  "render":function (value) {
-                  if (value === null) return "";
-                  var data = value.split('-');
-                  return (data[2] + "/" + data[1] + "/" + data[0])}
-                },
-                {data: 'lesiones_siniestro',
-                render: function (data, type, row) {
-                 // return data
-                  if (data == "0") {
-                    return 'No';
-                  }else {
-                    return 'Si';
-                  }
-                    }
-              },
-                {data: 'descripcion_siniestro'},
-                {data: 'fecha_presentacion',
-
-                  "type": "date ",
-                  "render":function (value) {
-                  if (value === null) return "";
-                  var data = value.split('-');
-                  return (data[2] + "/" + data[1] + "/" + data[0])}
-                },
-                {data: 'observaciones_siniestro'},
-                 {"defaultContent": '<button title="detalles" class="detallesbtn btn btn-info btn-sm"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span></button><button data-toggle="modal" data-target="#miModalSiniestroEdicion" title="mas detalles"  class=" Editarbtn btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button><button data-toggle="modal"   title="Descargar PDF"  class="Descargarbtn btn btn-danger btn-sm"><span class="fa fa-file-pdf-o"></span></button>'},
-            ],
-            "language": Lenguaje_Español,
-        });
-        obtener_data_detalles("#lista_siniestros",table);
-        editar_vehiculo("#lista_siniestros",table);
-        obtener_data_mas_detalles("#lista_siniestros",table);
-    });
-/*data-target="#miModalPdfSiniestro"*/
-    var redireccionar_detalles = function(data){
-      window.location.href = "http://127.0.0.1:8000/admin/detalleVehiculo/"+data;
-      //console.log(data)
-    }
-
-    var obtener_data_detalles = function(tbody,table){
-      $(tbody).on("click","button.detallesbtn",function(){
-        var data = table.row($(this).parents("tr")).data();
-        redireccionar_detalles(data.id_vehiculo)
-         
-      }); 
-    }
-    var editar_vehiculo = function(tbody,table){
-      $(tbody).on("click","button.Editarbtn",function(){
-        var data = table.row($(this).parents("tr")).data();
-        console.log(data.id_siniestro)
-        var id_vehiculo = $('#id_vehiculo_siniestro').val(data.id_vehiculo),
-         lesiones_siniestro = $('#id_lesionados').val(data.lesiones_siniestro),
-         identificacion = $('#id_identificacion_interna').val(data.numero_de_identificacion),
-         fecha_siniestro = $('#id_fecha_siniestro').val(data.fecha_siniestro),
-         fecha_presentacion = $('#id_fecha_presentacion').val(data.fecha_presentacion),
-         lugar_siniestro = $('#id_lugar_siniestro').val(data.lugar_siniestro),
-         observaciones = $('#id_observaciones_siniestro').val(data.observaciones_siniestro),
-         descripcion_siniestro = $('#id_descripcion_siniestro').val(data.descripcion_siniestro),
-         observaciones_siniestro = $('#id_observaciones_siniestro').val(data.observaciones_siniestro),
-         siniestro_id = $('#id_siniestro').val(data.id_siniestro);
-         
-      }); 
-    }
-
-
-
-    function obtener_data_mas_detalles(tbody,table) {
-     $(tbody).on("click","button.Descargarbtn",function(){
-        var data = table.row($(this).parents("tr")).data();
-       
-
-       $.ajax({
-          url: '/admin/detalle_pdf_siniestro',
-          data:{
-
-            "_token": $('meta[name="csrf-token"]').attr('content'),
-            "id_siniestro" :data.id_siniestro,
-          },
-          type: "POST",
-          success: function(r){
-           $("#miModalPdfSiniestro").modal('show');
-            $('#modalopen').html(r);
-          },
-          'error': function(data){
-            $("#miModalPdfSiniestro").modal('hide');
-            swal("Error!!", "no hay pdfs para descargar", "error");
-          },
-
-        });
-      }); 
-    }
-
-    var Lenguaje_Español = {
-                "emptyTable":     "No hay datos disponibles en la tabla.",
-                "info":           "Del _START_ al _END_ de _TOTAL_ ",
-                "infoEmpty":      "Mostrando 0 registros de un total de 0.",
-                "infoFiltered":     "(filtrados de un total de _MAX_ registros)",
-                "infoPostFix":      "(actualizados)",
-                "lengthMenu":     "Cantidad de registros _MENU_",
-                "loadingRecords":   "Cargando...",
-                "processing":     "Procesando...",
-                "search":       "Buscar:",
-                "searchPlaceholder":  "Dato para buscar",
-                "zeroRecords":      "No se han encontrado coincidencias.",
-                "paginate": {
-                  "first":      "Primera",
-                  "last":       "Última",
-                  "next":       "Siguiente",
-                  "previous":     "Anterior"
-                },
-                "aria": {
-                  "sortAscending":  "Ordenación ascendente",
-                  "sortDescending": "Ordenación descendente"
-                }
-              };
-  </script>
-
 
 <script type="text/javascript">
-  $.fn.select2.defaults.set('language', 'es');
-
-
-
   $("#id_vehiculo").select2({
     dropdownParent: $("#select"),
     placeholder:"Seleccione Vehiculo",
@@ -217,17 +171,17 @@
     type: "GET",
     ajax: {
       dataType: 'json',
-      url: '{{ url("/admin/vehiculos_select") }}',
+      url: '{{ route("listaVehiculos") }}',
       delay: 250,
       data: function (params) {
 
+        console.log(params)
         return {
           termino: $.trim(params.term),
           page: params.page
         };
       },
       processResults: function (data) {
-
         return {
             results:  $.map(data, function (item) {
                 return {
@@ -241,54 +195,31 @@
 
       },
   });
-  function getComboA(id_select) {
-      var value = id_select.value; 
-      var mandatarios = value.split('/');
-      if(mandatarios[0] == 5){
-      
-        $('#div_mandatario1').css('display','block')
-        $('#div_separacion1').css('display','none')
-      }else{
-        $('#div_mandatario1').css('display','none')
-        $('#div_separacion1').css('display','block')
-      }
-  } 
+  function eliminarVehiculo(id_vehiculo,numero_de_identificacion){
+
+    var numero_de_identificacion = $('#id_numero_de_identificacion_baja').val(numero_de_identificacion);
+    var id_vehiculo = $('#id_vehiculo_baja').val(id_vehiculo);
+    $('#modalBajaVehiculo').modal('show');
+  }
+
+  function editarVehiculo(item){
+    console.log(item)
+    var numero_de_identificacion = $('#id_numero_de_identificacion_modificacion').val(item.numero_de_identificacion),
+        fecha = $('#id_vehiculo_modificacion').val(item.id_vehiculo),
+        fecha = $('#id_fecha_modificacion').val(item.fecha),
+        dominio = $('#id_dominio_modificacion').val(item.dominio),
+        chasis = $('#id_chasis_modificacion').val(item.chasis),
+        motor = $('#id_motor_modificacion').val(item.motor),
+        modelo = $('#id_modelo_modificacion').val(item.modelo),
+        marca = $('#id_marca_modificacion').val(item.marca),
+        anio_de_produccion = $('#id_anio_produccion_modificacion').val(item.anio_de_produccion),
+        numero_de_inventario = $('#id_numero_de_inventario_modificacion').val(item.numero_de_inventario),
+        clases_de_unidad = $('#id_clase_de_unidad_modificacion').val(item.clase_de_unidad),
+        tipo = $('#id_tipo_modificacion').val(item.tipo),
+        kilometraje = $('#id_kilometraje_modificacion').val(item.kilometraje),
+        otras_caracteristicas = $('#id_observaciones_modificacion').val(item.otras_caracteristicas);
+        $('#modalEdicionVehiculo').modal('show');
+  }
+
 </script>
-
-
-<style>
-.ProbandoColor{
-  background-color: #FF0000;
-  border-radius: 10px;
-
-}
-.ProbandoColor1{
-  background-color: #00EA0D;
-  color: #FFFFFF;
-  border-radius: 10px;
-}
-
-.dataTables_wrapper .dataTables_length {
-float: left;
-text-align: center;
-}
-.dataTables_wrapper .dataTables_filter {  
-float: right;
-text-align: left;
-}
-.dataTables_wrapper .dataTables_paginate {  
-float: right;
-text-align: left;
-}
-.two-fields {
-  width:100%;
-}
-.two-fields .input-group {
-  width:100%;
-}
-.two-fields input {
-  width:50% !important;
-}
-</style>
-@endsection
-
+@stop

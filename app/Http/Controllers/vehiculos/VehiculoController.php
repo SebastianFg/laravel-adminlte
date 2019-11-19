@@ -429,6 +429,15 @@ class VehiculoController extends Controller
         } 
     }
 
+    public function getAllVehiculos(Request $Request){
+        
+        $vehiculos_disponibles = \DB::select("select * from vehiculos
+                                            inner join detalle_asignacion_vehiculos on detalle_asignacion_vehiculos.id_vehiculo = vehiculos.id_vehiculo
+                                            where  vehiculos.dominio ilike '%".$Request->termino."%' or vehiculos.numero_de_identificacion ilike '%".$Request->termino."%' 
+                                            and vehiculos.baja != 2" );
 
+        return response()->json($vehiculos_disponibles);
+
+    }
 
 }

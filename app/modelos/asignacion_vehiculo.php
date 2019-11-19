@@ -4,6 +4,8 @@ namespace App\modelos;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Modelos\Vehiculo;
+
 class asignacion_vehiculo extends Model
 {
 	protected $primaryKey = 'id_detalle';
@@ -13,4 +15,8 @@ class asignacion_vehiculo extends Model
     {
         return $this->belongsTo('App\modelos\dependencia');
     }
+
+
+
 }
+
