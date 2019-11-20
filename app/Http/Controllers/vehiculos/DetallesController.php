@@ -18,6 +18,7 @@ use App\modelos\imagen_vehiculo;
 use App\modelos\estado_vehiculo;
 use App\modelos\asignacion_vehiculo;
 use App\modelos\historial_asignacion;
+use App\modelos\Siniestro;
 use App\User;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -72,7 +73,15 @@ class DetallesController extends Controller
                                                 ->where('id_vehiculo','=',$id)->get();
         //$asignacion_actual = $this->paginar($asignacion_actual);
         return $asignacion_actual;
-}
+    }
+
+    protected function Siniestros($id){
+        $siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
+                                ->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')
+                                ->where('vehiculos.id_vehiculo','=',$id)->get();
+        //$asignacion_actual = $this->paginar($asignacion_actual);
+        return $siniestros;
+    }
 
     public function index(Request $Request,$id = null){
 
@@ -92,6 +101,7 @@ class DetallesController extends Controller
 
             $historial = $this->HistorialVehiculo($id);
             $asignacion_actual = $this->AsignacionActual($id);
+            $imagenes_vehiculo = \DB::select('select nombre_imagen from imagen_vehiculo where id_vehiculo = '. $id);
             //return $VehiculosListados;
 
         }elseif( $Request->vehiculoBuscado != null && $id == null){
@@ -100,11 +110,13 @@ class DetallesController extends Controller
             $historial = $this->HistorialVehiculo($Request->vehiculoBuscado);
 
             $asignacion_actual = $this->AsignacionActual($Request->vehiculoBuscado);
+            $siniestros = $this->Siniestros($Request->vehiculoBuscado);
+            $imagenes_vehiculo = \DB::select('select nombre_imagen from imagen_vehiculo where id_vehiculo = '. $Request->vehiculoBuscado);
 
         	$VehiculosListados = \DB::select('select * from vehiculos where id_vehiculo ='. $Request->vehiculoBuscado);
         }
 
-        return view('vehiculos.detalles.detalle_vehiculo',compact('existe','VehiculosListados','asignacion_actual','historial'));
+        return view('vehiculos.detalles.detalle_vehiculo',compact('existe','VehiculosListados','asignacion_actual','historial','siniestros','imagenes_vehiculo'));
     }
 
 }

@@ -34,6 +34,7 @@
 
           {{-- extiendo los modales --}}
           @extends('vehiculos/siniestros/modales/modal_alta_siniestro')
+          @extends('vehiculos/siniestros/modales/modal_edicion_siniestro')
 {{--           @extends('vehiculos/altas/modales/modal_baja_vehiculo')
           @extends('vehiculos/altas/modales/modal_editar_vehiculo') --}}
            </div>
@@ -105,11 +106,11 @@
                               @can('vehiculos.informacion')
                                 <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                               @endcan
-                              @can('vehiculos.editar') 
-                                <button onclick="editarVehiculo({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                              @can('vehiculos.editarSiniestro') 
+                                <button onclick="editarSiniestro({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                               @endcan
-                              @can('vehiculos.eliminar') 
-                                <button  onclick="eliminarVehiculo('{{ $item->id_vehiculo }}','{{ $item->numero_de_identificacion }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                              @can('vehiculos.eliminarSiniestro') 
+                                <button  onclick="eliminarVehiculo('{{ $item->id_siniestro }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                               @endcan
                             </td>
                           
@@ -202,23 +203,20 @@
     $('#modalBajaVehiculo').modal('show');
   }
 
-  function editarVehiculo(item){
+  function editarSiniestro(item){
     console.log(item)
-    var numero_de_identificacion = $('#id_numero_de_identificacion_modificacion').val(item.numero_de_identificacion),
-        fecha = $('#id_vehiculo_modificacion').val(item.id_vehiculo),
-        fecha = $('#id_fecha_modificacion').val(item.fecha),
-        dominio = $('#id_dominio_modificacion').val(item.dominio),
-        chasis = $('#id_chasis_modificacion').val(item.chasis),
-        motor = $('#id_motor_modificacion').val(item.motor),
-        modelo = $('#id_modelo_modificacion').val(item.modelo),
-        marca = $('#id_marca_modificacion').val(item.marca),
-        anio_de_produccion = $('#id_anio_produccion_modificacion').val(item.anio_de_produccion),
-        numero_de_inventario = $('#id_numero_de_inventario_modificacion').val(item.numero_de_inventario),
-        clases_de_unidad = $('#id_clase_de_unidad_modificacion').val(item.clase_de_unidad),
-        tipo = $('#id_tipo_modificacion').val(item.tipo),
-        kilometraje = $('#id_kilometraje_modificacion').val(item.kilometraje),
-        otras_caracteristicas = $('#id_observaciones_modificacion').val(item.otras_caracteristicas);
-        $('#modalEdicionVehiculo').modal('show');
+        var id_vehiculo = $('#id_vehiculo_siniestro').val(item.id_vehiculo),
+         lesiones_siniestro = $('#id_lesionados').val(item.lesiones_siniestro),
+         identificacion = $('#id_identificacion_interna').val(item.numero_de_identificacion),
+         fecha_siniestro = $('#id_fecha_siniestro').val(item.fecha_siniestro),
+         fecha_presentacion = $('#id_fecha_presentacion').val(item.fecha_presentacion),
+         lugar_siniestro = $('#id_lugar_siniestro').val(item.lugar_siniestro),
+         observaciones = $('#id_observaciones_siniestro').val(item.observaciones_siniestro),
+         descripcion_siniestro = $('#id_descripcion_siniestro').val(item.descripcion_siniestro),
+         observaciones_siniestro = $('#id_observaciones_siniestro').val(item.observaciones_siniestro),
+         siniestro_id = $('#id_siniestro').val(item.id_siniestro);
+         
+        $('#idModalEdicionSiniestro').modal('show');
   }
 
 </script>

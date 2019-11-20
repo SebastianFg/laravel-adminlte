@@ -5,10 +5,6 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-
-  <!-- /.content-header -->
-
 
   <!-- Main content -->
   <div class="content">
@@ -17,7 +13,6 @@
     @else
     <div class="container-fluid"> 
       <hr>
-
           <div class="card">
             <div class="card-body">
               <form action="{{ route('detalleVehiculo') }}" class="navbar-form navbar-left pull-left" role="search">
@@ -36,111 +31,182 @@
           </div> 
 
       
-      <div class="row">
-
         @if($existe == 0)
-        <p>no se puede ver</p>
-        @else
-        <div class="col-md-6">
-          <div class="card">
+
+        <div class="row ">
+          <div class="card col-sm-12">
             <div class="card-body">
-              <h4 class="card-title">Detalle</h4>
+              <h4 class="card-title">Ingrese algun numero de identificacion o dominio del vehiculo</h4> 
               <br>
-                @if(count($VehiculosListados)>0)
-                  <label class="texto" >Numero de identificacion</label>
-                  <p class="parrafos" >{{ $VehiculosListados[0]->numero_de_identificacion }}</p>
-                  <label class="texto">Clase de unidad</label>
-                  <p class="parrafos" >{{$VehiculosListados[0]->clase_de_unidad  }}</p>                       
-                  <label class="texto">Marca</label>
-                  <p class="parrafos" >{{$VehiculosListados[0]->marca  }}</p>
-                  
-                  <label class="texto">Modelo</label>
-                  <p class="parrafos" >{{$VehiculosListados[0]->modelo  }}</p>
-                  
-                  <label class="texto" >Chasis</label>
-                  <p class="parrafos" >{{$VehiculosListados[0]->chasis  }}</p>
-                  
-                  <label class="texto">Motor</label>
-                  <p class="parrafos" >{{$VehiculosListados[0]->motor  }}</p>
-                  
-                  <label class="texto">Año de produccion</label>
-                  <p class="parrafos" >{{$VehiculosListados[0]->anio_de_produccion  }}</p>
-                  
-                  <label class="texto">dominio </label>
-                  <p class="parrafos" >{{$VehiculosListados[0]->dominio  }}</p>
-
-
-                  <label class="texto">Kilometraje</label>
-                  <p class="parrafos" >{{$VehiculosListados[0]->kilometraje  }} km</p>
-
-                  <label  class="texto">Observaciones</label>
-                  @if($VehiculosListados[0]->otras_caracteristicas == null)
-                      <p class="parrafos">No posee obs.</p>
-                  @else
-                      <p class="parrafos" >{{$VehiculosListados[0]->otras_caracteristicas  }}</p>
-                  @endif
-
-                  <label class="texto">Fecha</label>
-                  <p class="parroafos">{{$VehiculosListados[0]->fecha  }}</p>
-                @else
-                  asdas
-                @endif
             </div>
           </div>
         </div>
-          {{-- derecha --}}
-        <div class="col-md-6">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">Afectado Actual</h4> 
-              <br>
-                @if(count($asignacion_actual)>0)
-                  <label class="texto" >Dependencia Actual</label>
-                  <p class="parrafos" >{{ $asignacion_actual[0]->nombre_dependencia }}</p>
-                  <label class="texto" >Responsable de entrega</label>
-                  <p class="parrafos" >{{ $asignacion_actual[0]->nombre }}</p>
 
-                  <label  class="texto">Observaciones</label>
+        @else
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Detalle</h4>
+                <br>
+                  @if(count($VehiculosListados)>0)
+                    <label class="texto" >Numero de identificacion</label>
+                    <p class="parrafos" >{{ $VehiculosListados[0]->numero_de_identificacion }}</p>
+                    <label class="texto">Clase de unidad</label>
+                    <p class="parrafos" >{{$VehiculosListados[0]->clase_de_unidad  }}</p>                       
+                    <label class="texto">Marca</label>
+                    <p class="parrafos" >{{$VehiculosListados[0]->marca  }}</p>
+                    
+                    <label class="texto">Modelo</label>
+                    <p class="parrafos" >{{$VehiculosListados[0]->modelo  }}</p>
+                    
+                    <label class="texto" >Chasis</label>
+                    <p class="parrafos" >{{$VehiculosListados[0]->chasis  }}</p>
+                    
+                    <label class="texto">Motor</label>
+                    <p class="parrafos" >{{$VehiculosListados[0]->motor  }}</p>
+                    
+                    <label class="texto">Año de produccion</label>
+                    <p class="parrafos" >{{$VehiculosListados[0]->anio_de_produccion  }}</p>
+                    
+                    <label class="texto">dominio </label>
+                    <p class="parrafos" >{{$VehiculosListados[0]->dominio  }}</p>
 
+
+                    <label class="texto">Kilometraje</label>
+                    <p class="parrafos" >{{$VehiculosListados[0]->kilometraje  }} km</p>
+
+                    <label  class="texto">Observaciones</label>
                     @if($VehiculosListados[0]->otras_caracteristicas == null)
-                      <p class="parrafos">No posee obs.</p>
+                        <p class="parrafos">No posee obs.</p>
                     @else
-                      <p class="parrafos" >{{$asignacion_actual[0]->observaciones  }}</p>
+                        <p class="parrafos" >{{$VehiculosListados[0]->otras_caracteristicas  }}</p>
                     @endif
-                @else
-                  @if($VehiculosListados[0]->baja == 1)
-                    <p>vehiculo fuera de servicio</p>
+
+                    <label class="texto">Fecha</label>
+                    <p class="parroafos">{{$VehiculosListados[0]->fecha  }}</p>
+                  @else
+                    asdas
                   @endif
-                  @if($VehiculosListados[0]->baja == 2)
-                    <p>vehiculo dado de baja definitivamente</p>
-                  @endif
-                @endif
+              </div>
             </div>
           </div>
-          
-          <div class="card">
+            {{-- derecha --}}
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Afectado Actual</h4> 
+                <br>
+                  @if(count($asignacion_actual)>0)
+                    <label class="texto" >Dependencia Actual</label>
+                    <p class="parrafos" >{{ $asignacion_actual[0]->nombre_dependencia }}</p>
+                    <label class="texto" >Responsable de entrega</label>
+                    <p class="parrafos" >{{ $asignacion_actual[0]->nombre }}</p>
+
+                    <label  class="texto">Observaciones</label>
+
+                      @if($VehiculosListados[0]->otras_caracteristicas == null)
+                        <p class="parrafos">No posee obs.</p>
+                      @else
+                        <p class="parrafos" >{{$asignacion_actual[0]->observaciones  }}</p>
+                      @endif
+                  @else
+                    @if($VehiculosListados[0]->baja == 1)
+                      <p>vehiculo fuera de servicio</p>
+                    @endif
+                    @if($VehiculosListados[0]->baja == 2)
+                      <p>vehiculo dado de baja definitivamente</p>
+                    @endif
+                  @endif
+              </div>
+            </div>
+            
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Historial</h4> 
+                <br>
+                @if(count($historial))
+                  <table  tableStyle="width:auto"  class=" table table-striped table-hover table-condensed table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Afectado</th>
+                        <th>Fecha</th>
+                        <th>Observaciones</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                          @foreach($historial as $item)
+                            <tr>
+                              <td>{{ $item->nombre_dependencia }}</td>
+                              <td>{{ $item->fecha }}</td>
+                              <td>{{ $item->observaciones }}</td>
+                            </tr>
+                          @endforeach
+                      </tbody>
+                  </table>
+                  <div class="row">
+                    {{ $historial->appends(Request::all())->links() }}
+                  </div>
+                @else
+                  <p>no posee</p>
+                @endif
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="card col-sm-12">
             <div class="card-body">
-              <h4 class="card-title">Historial</h4> 
+              <h4 class="card-title">Siniestros</h4> 
               <br>
-              @if(count($historial))
-                <table  tableStyle="width:auto"  class=" table table-striped table-hover table-condensed table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Afectado</th>
-                      <th>Fecha</th>
-                      <th>Observaciones</th>
-                    </tr>
-                  </thead>
-                    <tbody>
-                        @foreach($historial as $item)
+              @if(count($siniestros))
+                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                      <thead>
+                        <tr>
+                          <th>N° Identificacion</th>
+                          <th>Afectado</th>
+                          <th>Lugar</th>
+                          <th>Fecha</th>
+                          <th>Lesiones</th>
+                          <th>Colision</th>
+                          <th>Presentacion</th>
+                          <th>Observaciones</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($siniestros as $item)
+                        
                           <tr>
+                            <td>{{ $item->numero_de_identificacion }}</td>
                             <td>{{ $item->nombre_dependencia }}</td>
-                            <td>{{ $item->fecha }}</td>
-                            <td>{{ $item->observaciones }}</td>
+                            <td>{{ $item->lugar_siniestro }}</td>
+                            <td>{{ $item->fecha_siniestro }}</td>
+                            @if($item->lesiones_siniestro == 1)
+                              <td><label class="badge badge-danger">Si</label></td>
+                            @else
+                              <td><label class="badge badge-success">No</label></td>
+                            @endif
+                            <td>{{ $item->descripcion_siniestro }}</td>
+                            <td>{{ $item->fecha_presentacion }}</td>
+                            <td>{{ $item->observaciones_siniestro }}</td>
+
+                            <td>
+                              @can('vehiculos.informacion')
+                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
+                              @endcan
+                              @can('vehiculos.editarSiniestro') 
+                                <button onclick="editarSiniestro({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                              @endcan
+                              @can('vehiculos.eliminarSiniestro') 
+                                <button  onclick="eliminarVehiculo('{{ $item->id_siniestro }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                              @endcan
+                            </td>
+                          
                           </tr>
                         @endforeach
-                    </tbody>
-                </table>
+                      </tbody>
+                    </table>
                 <div class="row">
                   {{ $historial->appends(Request::all())->links() }}
                 </div>
@@ -150,14 +216,52 @@
             </div>
           </div>
         </div>
-        </div>
-    @endif
-  @endif
-  <!-- /.content -->
-  </div>
-  {{-- final --}}
-</div>
 
+        <div class="row ">
+          <div class="card col-sm-12">
+            <div class="card-body">
+              <h4 class="card-title">Imagenes</h4> 
+              <br>
+                <div class="panel panel-body col-md-12">
+    
+    <div class="col-md-12 "  >
+      <div id="carousel-example-generic" class="carousel slide col-md-6 " data-ride="carousel">
+       
+        <ol class="carousel-indicators">
+           @foreach( $imagenes_vehiculo as $photo )
+              <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+           @endforeach
+        </ol>
+       
+        <div class="carousel-inner" >
+          @foreach( $imagenes_vehiculo as $photo )
+             <div class="item {{ $loop->first ? 'active' : '' }}">
+                 <img class="d-block img-fluid" src="../../images/{{ $photo->nombre_imagen }}" >
+
+             </div>
+          @endforeach
+        </div>
+        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+            </div>
+          </div>
+        </div>
+        @endif
+  <!-- container-fluid -->
+      </div>
+  {{-- content --}}
+      @endif
+  </div>
+  {{-- content-wrapper --}}
+</div>
 @endsection
 
 @section('javascript')
