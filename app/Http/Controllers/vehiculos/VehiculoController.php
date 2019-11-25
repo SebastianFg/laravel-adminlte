@@ -72,7 +72,7 @@ class VehiculoController extends Controller
 
         if ($Request->vehiculoBuscado ==null && $Request->id_tipo_vehiculo_lista ==null ) {
         	$VehiculosListados = vehiculo::join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
-                                                ->select('vehiculos.*','tipos_vehiculos.*')->orderBy('vehiculos.id_vehiculo')->get();
+                                                ->select('vehiculos.*','tipos_vehiculos.*')->orderBy('vehiculos.id_vehiculo','desc')->get();
         	$VehiculosListados = $this->paginar($VehiculosListados);
 	      
         }else{
@@ -274,7 +274,7 @@ class VehiculoController extends Controller
                                                     estado_vehiculos_1.id_vehiculo
                                                    FROM estado_vehiculos estado_vehiculos_1
                                                   WHERE estado_vehiculos_1.tipo_estado_vehiculo = 1
-                                                  GROUP BY estado_vehiculos_1.id_vehiculo) r ON r.id_vehiculo = vehiculos.id_vheiculo
+                                                  GROUP BY estado_vehiculos_1.id_vehiculo) r ON r.id_vehiculo = vehiculos.id_vehiculo
                                              JOIN estado_vehiculos ON r.maxestado = estado_vehiculos.id_estado_vehiculo
                                           WHERE vehiculos.baja = 1');                                    
            $estados_listado = $this->paginar($estados_listado);

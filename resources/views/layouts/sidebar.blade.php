@@ -87,7 +87,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-edit"></i>
+                        <i class="nav-icon fa fa-codepen"></i>
                         <p>
                           Dependencias
                           <i class="fa fa-angle-left right"></i>

@@ -75,8 +75,8 @@ class AsignacionController extends Controller
 	}
 
     public function getAllVehiculosDisponibles(Request $Request){
-        $vehiculos_disponibles = \DB::select("select * from view_vehiculos_disponibles 
-                                            where view_vehiculos_disponibles.dominio ilike '%".$Request->termino."%' or view_vehiculos_disponibles.numero_de_identificacion ilike '%".$Request->termino."%'" );
+      /*  $vehiculos_disponibles = \DB::select("select * from view_vehiculos_disponibles 
+                                            where view_vehiculos_disponibles.dominio ilike '%".$Request->termino."%' or view_vehiculos_disponibles.numero_de_identificacion ilike '%".$Request->termino."%'" );*/
         $vehiculos_disponibles = \DB::select('select *  FROM vehiculos
   WHERE NOT (vehiculos.id_vehiculo IN ( SELECT DISTINCT detalle_asignacion_vehiculos.id_vehiculo
            FROM detalle_asignacion_vehiculos)) AND vehiculos.baja = 0');
