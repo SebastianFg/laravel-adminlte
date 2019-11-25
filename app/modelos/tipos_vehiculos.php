@@ -15,6 +15,7 @@ class tipos_vehiculos extends Model
 
     	if (trim($identificacion) != "") {
     		return $query->where('nombre_tipo_vehiculo','ilike','%'.$identificacion.'%')
+    					->orderBy('id_tipo_vehiculo')
     					->get();
 
     	}

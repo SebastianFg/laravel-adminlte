@@ -111,6 +111,9 @@
                         <p class="parrafos" >{{$asignacion_actual[0]->observaciones  }}</p>
                       @endif
                   @else
+                    @if($VehiculosListados[0]->baja == 0)
+                      <p>Vehiculo sin asignar</p>
+                    @endif
                     @if($VehiculosListados[0]->baja == 1)
                       <p>vehiculo fuera de servicio</p>
                     @endif
@@ -125,7 +128,7 @@
               <div class="card-body">
                 <h4 class="card-title">Historial</h4> 
                 <br>
-                @if(count($historial))
+                @if(count($historial)>0)
                   <table  tableStyle="width:auto"  class=" table table-striped table-hover table-condensed table-bordered">
                     <thead>
                       <tr>
@@ -159,7 +162,7 @@
             <div class="card-body">
               <h4 class="card-title">Siniestros</h4> 
               <br>
-              @if(count($siniestros))
+              @if(count($siniestros) >0)
                     <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
                       <thead>
                         <tr>
@@ -192,9 +195,6 @@
                             <td>{{ $item->observaciones_siniestro }}</td>
 
                             <td>
-                              @can('vehiculos.informacion')
-                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
-                              @endcan
                               @can('vehiculos.editarSiniestro') 
                                 <button onclick="editarSiniestro({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                               @endcan
@@ -222,35 +222,35 @@
             <div class="card-body">
               <h4 class="card-title">Imagenes</h4> 
               <br>
-                <div class="panel panel-body col-md-12">
-    
-    <div class="col-md-12 "  >
-      <div id="carousel-example-generic" class="carousel slide col-md-6 " data-ride="carousel">
-       
-        <ol class="carousel-indicators">
-           @foreach( $imagenes_vehiculo as $photo )
-              <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
-           @endforeach
-        </ol>
-       
-        <div class="carousel-inner" >
-          @foreach( $imagenes_vehiculo as $photo )
-             <div class="item {{ $loop->first ? 'active' : '' }}">
-                 <img class="d-block img-fluid" src="../../images/{{ $photo->nombre_imagen }}" >
+                @if(count($imagenes_vehiculo)>0)
+                <div class="col-md-12 "  >
+                  <div id="carousel-example-generic" class="carousel slide col-md-6 " data-ride="carousel">
+                   
+                    <ol class="carousel-indicators">
+                       @foreach( $imagenes_vehiculo as $photo )
+                          <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+                       @endforeach
+                    </ol>
+                   
+                    <div class="carousel-inner" >
+                      @foreach( $imagenes_vehiculo as $photo )
+                         <div class="item {{ $loop->first ? 'active' : '' }}">
+                             <img class="d-block img-fluid" src="../../images/{{ $photo->nombre_imagen }}" >
 
-             </div>
-          @endforeach
-        </div>
-        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
-      </div>
-    </div>
-  </div>
-
+                         </div>
+                      @endforeach
+                    </div>
+                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                      <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                      <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                  </div>
+                </div>
+                @else
+                  <p>asdasd</p>
+                @endif
             </div>
           </div>
         </div>

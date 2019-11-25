@@ -5,9 +5,6 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-
-  <!-- /.content-header -->
 
   <!-- Main content -->
   <div class="content">
@@ -21,106 +18,83 @@
                   @role('Admin')
                   <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModalDependencia"> <i class="fa fa-plus"> Nueva dependencia</i> </button> 
                   @endrole
-{{--                   <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>   --}}
                 </div>
-
-{{--                 <div class="col-md-3">
-                  <button type="button" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"> Buscar</i>  </button> 
-                  <button type="button" id="btnLimpiar" class="btn btn-warning left"> <i class="fa fa-paint-brush"> Limpiar</i> </button> 
-                </div> --}}
+              </div>
+            </div>
           </div>
-
-          {{-- extiendo los modales --}}
+          {{-- modales --}}
           @extends('dependencias.modales.modal_alta_dependencia')
           @extends('dependencias.modales.modal_baja_dependencia')
           @extends('dependencias.modales.modal_edicion_dependencia')
-         {{--  @extends('rolesPermisos/permisos/modales/modal_edicion_permiso')
-          @extends('rolesPermisos/permisos/modales/modal_baja_permiso') --}}
-         
-           </div>
 
-            </div>
 
-              <hr>
-              <div class="card">
-                <div class="card-header">
-                  <strong><u>Lista de dependencias</u></strong>
-                </div>
+            <div class="card">
+              <div class="card-header">
+                <strong><u>Lista de dependencias</u></strong>
+              </div>
 
-                <div class="card-body">
-                  <div class="row " >
-                      <form class="navbar-form navbar-right pull-right" role="search">
-                        <div class="row cpl">
-                          
-                          <div class="form-group">
-                            <input type="text"  name="nombreDependencia" class="form-control" placeholder="ingrese permiso">
-                          </div>
-
-                          <div class="form-group">
-                            <select name="nivel_dependencia" class="form-control">
-                              <option value="">Seleccione un tipo de dependencia</option>
-                              <option value="3">Direccion General</option>
-                              <option value="4">Direccion</option>
-                              <option value="5">Departamento</option>
-                              <option value="6">Division</option>
-                              <option value="7">Seccion</option>
-                            </select>
-                          </div>
-                          <div class="form-group">
-                             <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
-                          </div>
-                           
-                        </div>
-                      </form>
-                    </div>
-                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Dependencia</th>
-                          <th>Padre</th>
-                          <th>Estado</th>
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-
-                        @foreach($dependencias as $item)
-                
-                        
-                          <tr>
-                            <td>{{ $item->hijo }}</td>
-                            <td>{{ $item->padre }}</td>
-                            @if($item->deleted_at)
-                              <td><label class="badge badge-danger"> Inactivo {{ $item->deleted_at }}</label></td>
-                            @else
-                              <td><label class="badge badge-success">Activo</label></td>
-                            @endif
-                           
-                            <td>
-                              @role('Admin')
-                                <button  data-toggle="modal" onclick="editarDependencia({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                              @can('dependencias.eliminarDepencencia') 
-                                <button  onclick="eliminarDependencia({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                              @endcan
-                            
-                              @endrole
-                            </td>
-                          
-                          </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                    @if($existe)
-                      <div class="row">
-                          {{ $dependencias->appends(Request::all())->links() }}
+              <div class="card-body">
+                <div class="row">
+                  <form class="navbar-form navbar-right pull-right" role="search">
+                    <div class="row">
+                      <div class="form-group">
+                        <input type="text"  name="nombreDependencia" class="form-control" placeholder="ingrese permiso">
                       </div>
-                    @endif
-                  </div>
+                      <div class="form-group">
+                        <select name="nivel_dependencia" class="form-control">
+                          <option value="">Seleccione un tipo de dependencia</option>
+                          <option value="3">Direccion General</option>
+                          <option value="4">Direccion</option>
+                          <option value="5">Departamento</option>
+                          <option value="6">Division</option>
+                          <option value="7">Seccion</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                         <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Dependencia</th>
+                      <th>Padre</th>
+                      <th>Estado</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($dependencias as $item)
+                      <tr>
+                        <td>{{ $item->hijo }}</td>
+                        <td>{{ $item->padre }}</td>
+                        @if($item->deleted_at)
+                          <td><label class="badge badge-danger"> Inactivo {{ $item->deleted_at }}</label></td>
+                        @else
+                          <td><label class="badge badge-success">Activo</label></td>
+                        @endif
+                        <td>
+                          @role('Admin')
+                            <button  data-toggle="modal" onclick="editarDependencia({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                          @can('dependencias.eliminarDepencencia') 
+                            <button  onclick="eliminarDependencia({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                          @endcan
+                        
+                          @endrole
+                        </td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+                  @if($existe)
+                    <div class="row">
+                        {{ $dependencias->appends(Request::all())->links() }}
+                    </div>
+                  @endif
                 </div>
               </div>
-                          </div>
-          {{-- card --}}
-          </div>
         {{-- col 12 --}}
         </div>
       {{-- row --}}
@@ -169,15 +143,18 @@
 <script>
   $(document).ready(function(){
     $('#IdnivelDependencia').on('change',function(){
+
       var id_dependencia = $(this).val();
+
       if ($.trim(id_dependencia) != '') {
         $.get('getDependencias',{idDependenciaPadre: id_dependencia },function(dependencias){
-          console.log(dependencias)
-            $('#id_dependencia_habilitada_padre').empty();
+         // console.log(dependencias)
+            $('#id_dependencia_habilitada').empty();
 
-            $('#id_dependencia_habilitada_padre').append("<option value=''> Seleccione una dependencia padre</option>");
+            $('#id_dependencia_habilitada').append("<option value=''> Seleccione una dependencia padre</option>");
             $.each(dependencias,function(index,valor){
-                $('#id_dependencia_habilitada_padre').append("<option value='"+index+"'>"+valor+"</option>");
+              console.log('as')
+                $('#id_dependencia_habilitada').append("<option value='"+index+"'>"+valor+"</option>");
             });
         });
       }
@@ -185,6 +162,7 @@
   });
 </script>
 @stop
+
 <style type="text/css">
 .vertical-alignment-helper {
     display:table;

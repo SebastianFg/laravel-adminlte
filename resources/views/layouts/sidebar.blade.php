@@ -22,6 +22,14 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('inicio') }}" class="nav-link">
+                        <i class="nav-icon fa fa-home"></i>
+                        <p>
+                          Inicio
+                        </p>
+                    </a>
+                </li>
                 @role('Admin')
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -103,7 +111,7 @@
                 @role('Cargar Vehiculos')
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-edit"></i>
+                        <i class="nav-icon fa fa-car"></i>
                         <p>
                           Vehiculos
                           <i class="fa fa-angle-left right"></i>
@@ -121,14 +129,14 @@
   
 
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-edit"></i>
+                        <a href="{{ route('listaTipoVehiculos') }}" class="nav-link">
+                            <i class="nav-icon fa fa-asterisk"></i>
                             <p>
                               Tipo de vehiculos
                               <i class="fa fa-angle-left right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
+                        {{-- <ul class="nav nav-treeview">
                             <ul>
                                 <li class="nav-item noPuntos" id="pie">
                                     <a href="{{ route('listaTipoVehiculos') }}" class="nav-link">
@@ -137,11 +145,11 @@
                                     </a>
                                 </li>
                             </ul>
-                        </ul>
+                        </ul> --}}
                     </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fa fa-edit"></i>
+                            <i class="nav-icon fa fa-times"></i>
                             <p>
                               Estados
                               <i class="fa fa-angle-left right"></i>
@@ -183,7 +191,7 @@
                     </li>
                     <li class="nav-item has-treeview" id="pie">
                         <a href="{{ route('listaAsignacion') }}" class="nav-link">
-                            <i class="nav-icon fa fa-edit"></i>
+                            <i class="nav-icon fa fa-share"></i>
                             <p>
                               Asignar
                               <i class="fa fa-angle-left right"></i>
@@ -193,7 +201,7 @@
                     </li> 
                     <li class="nav-item has-treeview" id="pie">
                          <a href="{{ route('indexSiniestros') }}" class="nav-link">
-                            <i class="nav-icon fa fa-edit"></i>
+                            <i class="nav-icon fa fa-road"></i>
                             <p>
                               Siniestros
                               <i class="fa fa-angle-left right"></i>
@@ -209,7 +217,7 @@
                                 </li>
                             </ul>
                         </ul> --}}
-                    </li> 
+                    </li>
                     <li class="nav-item has-treeview" id="pie">
                         <a href="{{ route('detalleVehiculo') }}" class="nav-link">
                             <i class="nav-icon fa fa-edit"></i>
@@ -228,8 +236,26 @@
                         </ul> --}}
                     </li>
                 </li>
-                </ul>
+              
+                    <li class="nav-item has-treeview" id="pie">
+                         <a href="{{ route('listaRepuestos') }}" class="nav-link">
+                            <i class="nav-icon fa fa-cogs"></i>
+                            <p>
+                              Repuestos
+                              <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                    </li>
 
+                    <li class="nav-item has-treeview" id="pie">
+                         <a href="{{ route('ListaGraficos') }}" class="nav-link">
+                            <i class="nav-icon fa fa-paste"></i>
+                            <p>
+                              Graficos
+                              <i class="fa fa-angle-left right"></i>
+                            </p>
+                        </a>
+                    </li> 
                 @endrole
             </ul>
         </nav>

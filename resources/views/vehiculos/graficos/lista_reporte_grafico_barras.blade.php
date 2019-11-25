@@ -1,19 +1,10 @@
- <div class="box box-danger col-md-12">
-{{--       <div class="box-header with-border">
-        <i class="fa fa-bar-chart-o"></i>
-        <h3 class="box-title">Grafica de siniestros</h3>
-
-        <div class="box-tools pull-right">
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-          </button>
-        </div>
-      </div> --}}
-      <div class="box-body">
-        <canvas id="graficoSiniestrofiltro"></canvas>
-        {{-- <div class="panel panel-success" id="modalopen"></div> --}}
+@if(count($total_siniestros)>0)
+  <div class="box box-danger col-md-12">
+    <div class="box-body">
+      <canvas id="graficoSiniestrofiltro"></canvas>
         <div>
           <hr>
-          <table class=" table table-striped table-hover table-condensed table-bordered">
+          <table class="table-sm table table-striped table-hover table-condensed table-bordered">
             <thead>
               <tr>
                 <th>Mes</th>
@@ -25,23 +16,18 @@
                 <tr>
                   <td>{{ $item->mes }}</td>
                   <td>{{ $item->totalsiniestro }}</td>
-                <tr>
+                </tr>
               @endforeach
-                <td></td>
-              </tr>
             </tbody>
           </table>
         </div>
-      </div>
-      <div>
-        
-      </div>
-      <!-- /.box-body -->
     </div>
+  </div>
+@else
+  <p>no posee siniestros en el año seleccionado</p>
+@endif
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
 
-@extends('vehiculos/altas/script')
 
 <script type="text/javascript">
   

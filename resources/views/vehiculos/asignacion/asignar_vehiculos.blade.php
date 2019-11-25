@@ -91,7 +91,7 @@
                            
                             <td>
                               @can('vehiculos.informacion')
-                                <a class="btn btn-info btn-sm" href="#"><i class="fa fa-info"></i></a>
+                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                               @endcan
   {{--                             @can('vehiculos.asignarEditar') 
                                 <button onclick="editarAsignacion('{{ $item->id_detalle }}','{{ $item->id_vehiculo }}','{{ $item->id_dependencia }}')" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>

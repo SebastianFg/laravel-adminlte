@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth/login');
-});
+Route::view('/', 'auth/login');
 
 Auth::routes();
 
@@ -36,7 +34,8 @@ Route::group(['prefix' => 'admin'], function () {
 		//usuarios
 		Route::get('usuarios', 'UsuarioController@index')->name('listaUsuarios');//\\\->middleware('permiso:usuarios.listaUsuarios');
 		Route::post('usuarios', 'UsuarioController@asignarRol')->name('agregarRol');//->middleware('permiso:usuarios.asignarRol');
-		Route::post('eliminarUsuarios','UsuarioController@eliminarUsuario')->name('eliminarUsuario');//->middleware('permiso:usuarios.eliminarUsuario');
+		Route::post('eliminarUsuarios','UsuarioController@eliminarUsuario')->name('eliminarUsuario');
+		Route::post('editarUsuario','UsuarioController@eliminarUsuario')->name('eliminarUsuario');
 
 
 		//roles
@@ -84,8 +83,9 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::post('/editar_vehiculo', 'vehiculos\VehiculoController@updateVehiculo')->name('updateVehiculo');
 		//baja
 		Route::post('/baja_detalle_vehiculo', 'vehiculos\VehiculoController@fueraDeServicio')->name('eliminarVehiculos');
+		
 		//lista de vehiculos para select2
-		Route::get('/vehiculos_select','vehiculos\VehiculoController@getAllVehiculos')->name('listaVehiculos');
+		Route::get('/vehiculos_select','vehiculos\VehiculoController@getAllVehiculos')->name('listaVehiculosSelect');
 
 		//tipo vehiculos
 		Route::get('tipo_vehiculos','vehiculos\TipoVehiculoController@index')->name('listaTipoVehiculos');
@@ -137,12 +137,37 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::post('/editar_siniestro','vehiculos\SiniestroController@editarSiniestro')->name('EditarSiniestro');
 
+		//asignacion repuestos
+		Route::get('repuestos', 'vehiculos\RepuestoController@index')->name('listaRepuestos');
+
+		Route::post('/repuestos', 'vehiculos\RepuestoController@AsignarRepuesto')->name('asignarRepuesto');
+
+		
+
+		Route::get('/vehiculos_select_vehiculos_disponibles','vehiculos\RepuestoController@getAllVehiculosDisponiblesRepuestos')->name('getAllVehiculosDisponiblesRepuestos');
+
+		
+
+		Route::get('asignar_vehiculos_repuestos', 'vehiculos\RepuestoController@exportarPdfRepuestos')->name('descargarPDFRepuesto');
 
 
 
 
+		//reportes gdona
+		Route::get('/reportes', 'vehiculos\GraficosController@index')->name('ListaGraficos');
 
+		Route::post('/reportesFiltro', 'vehiculos\GraficosController@reportesListadoFiltro')->name('reportesListadoFiltro');
 
+/*
+		Route::POST('/recargaBuscador','GraficosController@getVehiculosAfectados');
+
+		Route::get('/buscarVehiculos','GraficosController@getVehiculosEnReparacion');
+
+		Route::post('/detalleVehiculoController','GraficosController@getDetalleVehiculoTodo');
+
+		Route::get('/detalleVehiculoIndividual/{id}','GraficosController@getdetalleVehiculoIndividual');
+
+		Route::get('/historial_completo','GraficosController@getAllHistorial');*/
 
 
 
@@ -163,7 +188,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-		Route::post('conseguirVehiculo', 'vehiculos\VehiculoController@getidVehiculo')->name('getidVehiculo');
+		//Route::post('conseguirVehiculo', 'vehiculos\VehiculoController@getidVehiculo')->name('getidVehiculo');
 
 
 
@@ -171,7 +196,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-		Route::get('Descargar_pdf_Vehiculos/{dato}', 'vehiculos\VehiculoController@exportarPdfVehiculos');
+		//Route::get('Descargar_pdf_Vehiculos/{dato}', 'vehiculos\VehiculoController@exportarPdfVehiculos');
 
 
 
@@ -193,25 +218,12 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::get('historial_lista_pdf/{id}', 'vehiculos\VehiculoController@exportarPdfHistorial')->name('pdfVehiculos');
 
 
-		//reportes gdona
-		Route::get('/reportes', 'vehiculos\VehiculoController@reportesListado')->name('reportesListado');
-
-		Route::post('/reportesFiltro', 'vehiculos\VehiculoController@reportesListadoFiltro')->name('reportesListadoFiltro');
-
-
-		Route::POST('/recargaBuscador','vehiculos\VehiculoController@getVehiculosAfectados');
-
-		Route::get('/buscarVehiculos','vehiculos\VehiculoController@getVehiculosEnReparacion');
-
-		Route::post('/detallevehiculos\VehiculoController','vehiculos\VehiculoController@getDetalleVehiculoTodo');
-
-		Route::get('/detalleVehiculoIndividual/{id}','vehiculos\VehiculoController@getdetalleVehiculoIndividual');
 
 		/*Route::get('/historial_completo','vehiculos\VehiculoController@getAllHistorial');*/
 
 
 		//asignacion
-		Route::get('/posibles_afectados','vehiculos\VehiculoController@getPosibleAfectado');
+/*		Route::get('/posibles_afectados','vehiculos\VehiculoController@getPosibleAfectado');
 
 		Route::get('asignar_vehiculos', 'vehiculos\VehiculoController@asignarlistado')->name('asignarlistado');
 
@@ -221,20 +233,9 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::post('/editar_asignacion', 'vehiculos\VehiculoController@editarAsignacion')->name('editar_vehiculo_asignado');
 
-		Route::get('asignar_vehiculos/{id}', 'vehiculos\VehiculoController@exportarPdfCargo')->name('pdfVehiculosCargo');
+		Route::get('asignar_vehiculos/{id}', 'vehiculos\VehiculoController@exportarPdfCargo')->name('pdfVehiculosCargo');*/
 
-		//asignacion repuestos
-		Route::get('asignar_vehiculos_repuestos', 'vehiculos\VehiculoController@ListaDeVehiculosParaAsignarRepuestos')->name('asignarlistadorepuestos');
 
-		Route::post('/asignar_vehiculos_repuestos', 'vehiculos\VehiculoController@AsignarRepuesto')->name('vehiculos.AsignarRepuesto');
-
-		
-
-		Route::get('/vehiculos_select_vehiculos_disponibles','vehiculos\VehiculoController@getAllVehiculosDisponibles');
-
-		Route::get('/vehiculos_repuestos_asignados','vehiculos\VehiculoController@getVehiculosRepuestosAsignados');
-
-		Route::get('asignar_vehiculos_repuestos/{id}', 'vehiculos\VehiculoController@exportarPdfRepuestos');
 
 
 

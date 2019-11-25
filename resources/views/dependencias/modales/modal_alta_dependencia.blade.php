@@ -1,4 +1,4 @@
-s
+
   <div class="modal fade" id="miModalDependencia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content col-md-12">
@@ -38,7 +38,7 @@ s
                   </div>
                   <div class="form-group col-md-6">
                     <label>Dependencia padre</label>
-                    <select name="dependencia_habilitada_padre" id="id_dependencia_habilitada_padre" class="form-control">
+                    <select name="dependencia_habilitada_padre" id="id_dependencia_habilitada" class="form-control">
                       <option>Seleccione una dependencia padre</option>
                     </select>
                   </div>

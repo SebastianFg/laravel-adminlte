@@ -96,24 +96,35 @@ class DetallesController extends Controller
         if ($id == null && $Request->vehiculoBuscado == null) {
         	$existe = 0;
         }elseif($id != null && $Request->vehiculoBuscado == null){
-        	$existe = 1;
-        	$VehiculosListados = \DB::select('select * from vehiculos where id_vehiculo ='. $id);
 
+        	$existe = 1;
+            $VehiculosListados = \DB::select('select * from vehiculos where id_vehiculo = '.$id);
+        	$siniestros = $this->Siniestros($id);
             $historial = $this->HistorialVehiculo($id);
             $asignacion_actual = $this->AsignacionActual($id);
-            $imagenes_vehiculo = \DB::select('select nombre_imagen from imagen_vehiculo where id_vehiculo = '. $id);
-            //return $VehiculosListados;
+            $imagenes_vehiculo = imagen_vehiculo::where('id_vehiculo','=',$id)->select('nombre_imagen')->get();
 
         }elseif( $Request->vehiculoBuscado != null && $id == null){
-        	$existe = 1;
+
+            //$vehiculo = vehiculo::where('numero_de_identificacion','=',$Request->vehiculoBuscado)->select('id_vehiculo')->get();
+            $vehiculo = \DB::select("select id_vehiculo from vehiculos where numero_de_identificacion = '".$Request->vehiculoBuscado."' or dominio = '".$Request->vehiculoBuscado."'");
+
+            if (count($vehiculo)>0) {
+                $existe = 1;
+        	  // return $vehiculo;
+                $historial = $this->HistorialVehiculo($vehiculo[0]->id_vehiculo);
+                $asignacion_actual = $this->AsignacionActual($vehiculo[0]->id_vehiculo);
+                //return $asignacion_actual;
+                $siniestros = $this->Siniestros($vehiculo[0]->id_vehiculo);
+                $imagenes_vehiculo = imagen_vehiculo::where('id_vehiculo','=',$vehiculo[0]->id_vehiculo)->select('nombre_imagen')->get();
+                $VehiculosListados = \DB::select('select * from vehiculos where id_vehiculo = '.$vehiculo[0]->id_vehiculo);
+            }else{
+                $existe = 0;
+            }
+           // return $vehiculo[0]->id_vehiculo;
         	
-            $historial = $this->HistorialVehiculo($Request->vehiculoBuscado);
-
-            $asignacion_actual = $this->AsignacionActual($Request->vehiculoBuscado);
-            $siniestros = $this->Siniestros($Request->vehiculoBuscado);
-            $imagenes_vehiculo = \DB::select('select nombre_imagen from imagen_vehiculo where id_vehiculo = '. $Request->vehiculoBuscado);
-
-        	$VehiculosListados = \DB::select('select * from vehiculos where id_vehiculo ='. $Request->vehiculoBuscado);
+            //$VehiculosListados = vehiculo::where('id_vehiculo','=',$vehiculo[0]->id_vehiculo)->get();
+            //return $VehiculosListados;
         }
 
         return view('vehiculos.detalles.detalle_vehiculo',compact('existe','VehiculosListados','asignacion_actual','historial','siniestros','imagenes_vehiculo'));

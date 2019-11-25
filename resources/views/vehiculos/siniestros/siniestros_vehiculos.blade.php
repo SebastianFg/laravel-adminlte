@@ -44,7 +44,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Vehiculos</u></strong>
+                  <strong><u>Siniestros</u></strong>
                 </div>
 
                 <div class="card-body">
@@ -172,7 +172,7 @@
     type: "GET",
     ajax: {
       dataType: 'json',
-      url: '{{ route("listaVehiculos") }}',
+      url: '{{ route("listaVehiculosSelect") }}',
       delay: 250,
       data: function (params) {
 

@@ -1,212 +1,187 @@
-@extends('plantilla')
+@extends('layouts.master')
 
-@section('seccion')
+{{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
+@section('content')
 
-<div class="panel panel-success ">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
-{{--   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Asignar Repuestos</li>
-    </ol>
-  </nav>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
+  <!-- /.content-header -->
+
+
+  <!-- Main content -->
+  <div class="content">
+    @if(strpos(Auth::User()->roles,'Suspendido'))
+      su usuario se encuentra suspendido
+    @else
+    <div class="container-fluid">
+      <div class="row" style="padding-top: 5px;">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-3">
+                  @can('vehiculos.crearRepuestos')
+                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAsignacionRepuesto"> <i class="fa fa-plus"> Nuevo</i> </button> 
+                  @endcan  
+                </div>
+
+{{--                 <div class="col-md-3">
+                  <button type="button" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"> Buscar</i>  </button> 
+                  <button type="button" id="btnLimpiar" class="btn btn-warning left"> <i class="fa fa-paint-brush"> Limpiar</i> </button> 
+                </div> --}}
+          </div>
+
+          {{-- extiendo los modales --}}
+          @extends('vehiculos/repuestos/modales/modal_asignacion_repuestos')
+
+           </div>
+
+            </div>
+
+              <hr>
+              <div class="card">
+                <div class="card-header">
+                  <strong><u>Repuestos</u></strong>
+                </div>
+
+                <div class="card-body">
+                  <div class="row">
+                    <form model="" class="navbar-form navbar-left pull-right" role="search">
+                      <div class="row">
+                        
+                        <div class="form-group">
+                          <input type="text" name="vehiculoBuscado" class="form-control" placeholder="numero de identificacion">
+                        </div>
+                        <div class="form-group">
+                           <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
+                        </div>
+                         
+                      </div>
+                    </form>
+                  </div>
+                  <div class="row">
+                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                      <thead>
+                        <tr>
+
+                          <th>Dominio</th>
+                          <th>Fecha</th>
+                          <th>Responsable</th>
+                          <th>N de identificacion</th>
+                          <th>Marca</th>
+                          <th>clase de unidad</th>
+                          <th>Repuestos</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($repuestos as $item)
+                        
+                          <tr>
+                            <td>{{ $item->dominio }}</td>
+                            <td>{{ $item->fecha }}</td>
+                            <td>{{ $item->usuario }}</td>
+                            <td>{{ $item->numero_de_identificacion }}</td>
+                            <td>{{ $item->marca }}</td>
+                            <td>{{ $item->clase_de_unidad }}</td>
+                            <td>{{ $item->repuestos_entregados }}</td>
+                           
+                            <td>
+                              @can('vehiculos.informacion')
+                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
+                              @endcan
+                              @can('vehiculos.editar') 
+                                <a  title="Descargar PDF" href="{{ route('descargarPDFRepuesto',$item->id_detalle_repuesto) }}"  class="btn btn-danger btn-sm"><span class="fa fa-file-pdf-o"></span></a>
+                              @endcan
+
+                            </td>
+                          
+                          </tr>
+                        @endforeach
+                      </tbody>
+                    </table>
+
+  {{--                     <div class="row">
+                          {{ $VehiculosListados->appends(Request::all())->links() }}
+                      </div> --}}
+                   {{--  @if(isset($existe))
+                    @endif
  --}}
- <div class="panel panel-heading">
-
-    <button type="button" class="btn btn-success " data-toggle="modal" data-target="#miModal"> <i class="glyphicon glyphicon-plus"></i> Asignar Repuesto</button>  
- </div>
- {{-- modal --}}
- @extends('vehiculos/repuestos/modal_asignacion_repuestos')
-<div class="panel panel-body">
-
-    <table id="listada_de_vehiculos_repuestos" tableStyle="width:auto"  class="table table-striped table-hover table-condensed table-bordered">
-      <thead>
-        <tr>
-          <th>Dominio</th>
-          <th>Fecha</th>
-          <th>Responsable</th>
-          <th>N de identificacion</th>
-          <th>Marca</th>
-          <th>clase de unidad</th>
-          <th>Repuestos</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-    </table>
-
- </div>
+                  </div>
+                </div>
+              </div>
+                          </div>
+          {{-- card --}}
+          </div>
+        {{-- col 12 --}}
+        </div>
+      {{-- row --}}
+      </div>
+    {{-- fluid --}}
+    </div>
+  @endif
+  <!-- /.content -->
+  </div>
+  {{-- final --}}
 </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src = "http://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js" defer></script>
-<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"defer ></script>
-<script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script> 
-
-
-<script>
-   
-    $(document).ready(function() {
-      var table = $('#listada_de_vehiculos_repuestos').DataTable({
-            "sdom": 'Blrtip',
-            "select":true,
-            "searching": true,
-            "destory":true,
-            "autoWidth": true,
-            "ordering": true,
-            "responsive":true,
-            
-            "json":false,
-            "ajax":{"url":"{{ url('/admin/vehiculos_repuestos_asignados') }}"},
-            "columns": [
-                {data: 'dominio'},
-                {data: 'fecha',
-
-                  "type": "date ",
-                  "render":function (value) {
-                  if (value === null) return "";
-                  var data = value.split('-');
-                  return (data[2] + "/" + data[1] + "/" + data[0])}
-                },
-                {data: 'name'},
-                {data: 'numero_de_identificacion'},
-                {data: 'marca'},
-                {data: 'clase_de_unidad'},
-                {data: 'repuestos_entregados'},
-                {"defaultContent": '<button title="detalles" class="detallesbtn btn btn-info btn-sm"><span aria-hidden="true" class="glyphicon glyphicon-eye-open"></span></button></span></button><button  title="Descargar PDF"  class="Descargarbtn btn btn-danger btn-sm"><span class="fa fa-file-pdf-o"></span></button>'},
-            ],
-            "language": Lenguaje_Español,
-        });
-        obtener_data_detalles("#listada_de_vehiculos_repuestos",table);
-        descaargar_vehiculo("#listada_de_vehiculos_repuestos",table);
-        
-    });
-    var redireccionar_detalles = function(data){
-      window.location.href = "http://127.0.0.1:8000/admin/detalleVehiculo/"+data;
-    
-    }
-    var redireccionar_descargar_pdf_cargo = function(data){
-      console.log(data)
-      window.location.href = "http://127.0.0.1:8000/admin/asignar_vehiculos_repuestos/"+data;
-      
-    }
-    var obtener_data_detalles = function(tbody,table){
-      $(tbody).on("click","button.detallesbtn",function(){
-        var data = table.row($(this).parents("tr")).data();
-        //console.log(data)
-        redireccionar_detalles(data.id_vehiculo)
-         
-      }); 
-    }
-
-    var descaargar_vehiculo = function(tbody,table){
-      $(tbody).on("click","button.Descargarbtn",function(){
-        var data = table.row($(this).parents("tr")).data();
-      //  console.log(data)
-        redireccionar_descargar_pdf_cargo(data.id_detalle_repuesto);
-      }); 
-    }
-    var Lenguaje_Español = {
-                "emptyTable":     "No hay datos disponibles en la tabla.",
-                "info":           "Del _START_ al _END_ de _TOTAL_ ",
-                "infoEmpty":      "Mostrando 0 registros de un total de 0.",
-                "infoFiltered":     "(filtrados de un total de _MAX_ registros)",
-                "infoPostFix":      "(actualizados)",
-                "lengthMenu":     "Cantidad de registros _MENU_",
-                "loadingRecords":   "Cargando...",
-                "processing":     "Procesando...",
-                "search":       "Buscar:",
-                "searchPlaceholder":  "Dato para buscar",
-                "zeroRecords":      "No se han encontrado coincidencias.",
-                "paginate": {
-                  "first":      "Primera",
-                  "last":       "Última",
-                  "next":       "Siguiente",
-                  "previous":     "Anterior"
-                },
-                "aria": {
-                  "sortAscending":  "Ordenación ascendente",
-                  "sortDescending": "Ordenación descendente"
-                }
-              };
-  </script>
-
-
-
-<script type="text/javascript">
-  
-
-
-$.fn.select2.defaults.set('language', 'es');
-
-$("#id_vehiculo").select2({
-  dropdownParent: $("#select"),
-  placeholder:"Seleccione Vehiculo",
-  allowClear: true,
-  minimumInputLength: 2,
-
-  type: "GET",
-  ajax: {
-    dataType: 'json',
-    url: '{{ url("admin/vehiculos_select") }}',
-    delay: 250,
-    data: function (params) {
-
-      return {
-        termino: $.trim(params.term),
-        page: params.page
-      };
-    },
-    processResults: function (data) {
-
-      return {
-          results:  $.map(data, function (item) {
-            console.log(data)
-              return {
-                  text: item.dominio+' - N Identificacion '+item.numero_de_identificacion,
-                  id: item.id_vehiculo,
-              }
-          })
-      };
-  },
-  cache: true,
-
-    },
-});
-
-</script>
-
-
-<style>
-
-.dataTables_wrapper .dataTables_length {
-float: left;
-text-align: center;
-}
-.dataTables_wrapper .dataTables_filter {  
-float: right;
-text-align: left;
-}
-.dataTables_wrapper .dataTables_paginate {  
-float: right;
-text-align: left;
-}
-.two-fields {
-  width:100%;
-}
-.two-fields .input-group {
-  width:100%;
-}
-.two-fields input {
-  width:50% !important;
-}
-</style>
-
-
-
-
 
 @endsection
 
+@section('javascript')
+<!-- jQuery -->
+
+
+<script src="/dist/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/dist/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE -->
+<script src="/dist/js/adminlte.js"></script>
+
+<!-- OPTIONAL SCRIPTS -->
+
+<script src="/dist/js/demo.js"></script>
+{{-- select 2 --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script> 
+<script type="text/javascript">
+
+
+
+  $("#id_vehiculo").select2({
+    dropdownParent: $("#select"),
+    placeholder:"Seleccione Vehiculo",
+    allowClear: true,
+    minimumInputLength: 2,
+
+    type: "GET",
+    ajax: {
+      dataType: 'json',
+      url: '{{ route("getAllVehiculosDisponiblesRepuestos") }}',
+      delay: 250,
+      data: function (params) {
+
+        console.log(params)
+        return {
+          termino: $.trim(params.term),
+          page: params.page
+        };
+      },
+      processResults: function (data) {
+        return {
+            results:  $.map(data, function (item) {
+                return {
+                    text: item.dominio+' - N Identificacion '+item.numero_de_identificacion,
+                    id: item.id_vehiculo,
+                }
+            })
+        };
+    },
+    cache: true,
+
+      },
+  });
+
+</script>
+@stop

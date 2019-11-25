@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label>Apellido y nombre</label>
-                            <input type="text" name="nombre" id="apellidoynombre_id" maxlength="6" placeholder="Ingrese apellido y nombre" required class="form-control md-2" value="{{ old('nombre') }}" autofocus> 
+                            <input type="text" name="nombre" id="apellidoynombre_id" placeholder="Ingrese apellido y nombre" required class="form-control md-2" value="{{ old('nombre') }}" autofocus> 
                         </div>
                     </div>
                     <div class="row">

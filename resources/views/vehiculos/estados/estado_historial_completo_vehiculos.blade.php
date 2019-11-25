@@ -44,7 +44,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Historial definitivo</u></strong>
+                  <strong><u>Historial completo</u></strong>
                 </div>
 
                 <div class="card-body">
@@ -97,7 +97,7 @@
                            
                             <td>
                               @can('vehiculos.informacion')
-                                <a class="btn btn-info btn-sm" href="#"><i class="fa fa-info"></i></a>
+                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                               @endcan
                             </td>
                           

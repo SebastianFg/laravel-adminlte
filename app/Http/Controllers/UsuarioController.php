@@ -100,9 +100,24 @@ class UsuarioController extends Controller
             return $this->getMensaje('No se puede modificar un usuario administracion','listaUsuarios',false);
         }
         
-		$usuarios->syncRoles($Request->role);
+		
+
+		if ($Request->nombre != null) {
+			$usuarios->nombre = $Request->nombre;
+		}
+		if ($Request->nombre_usuario_id != null) {
+			$usuarios->usuario = $Request->nombre_usuario_id;
+		}
+
+		if ($usuarios->update()) {
+			$usuarios->syncRoles($Request->role);
+			return $this->getMensaje('Rol asignado con exito','listaUsuarios',true);
+		}else{
+			return $this->getMensaje('Algo fallo... intente nuevamente','listaUsuarios',false);
+		}
+
 	
-		return $this->getMensaje('Rol asignado con exito','listaUsuarios',true);
+		
 /*
 		$usuarios->syncRoles($Request->role);
 		return $usuarios;*/
@@ -119,6 +134,7 @@ class UsuarioController extends Controller
 		}*/
 		
 	}
+
 	public function eliminarUsuario(Request $Request){
         $Validar = \Validator::make($Request->all(), [
             'motivo_de_baja' => 'required|max:255'

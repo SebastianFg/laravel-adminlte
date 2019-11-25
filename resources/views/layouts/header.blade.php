@@ -1,5 +1,5 @@
  <!-- Navbar -->
- <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+ <nav class="main-header navbar navbar-expand bg-dark navbar-light border-bottom">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -28,14 +28,17 @@
                         {{ Auth::user()->nombre }} 
                     </a>
 
-                    <ul class="dropdown-menu" role="menu">
+                    <ul class="dropdown-menu bg-dark" role="menu">
                         <li>
-                            <a href="{{ url('/logout') }}"
-                                onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
 
+                              <li class="user-footer">
+        {{--                         <div class="pull-left">
+                                  <a href="#" class="btn btn-info btn-flat"  style="border-radius: 5px;">Profile</a>
+                                </div> --}}
+                                <div class="pull-right">
+                                  <a class="btn btn-info btn-flat" style="border-radius: 5px;" href="{{ url('/logout') }}"> <i class="fa fa-power-off"> Logout</i></a>
+                                </div>
+                              </li>
                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                 {{ csrf_field() }}
                             </form>

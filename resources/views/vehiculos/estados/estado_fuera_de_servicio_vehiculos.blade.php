@@ -81,7 +81,7 @@
                            
                             <td>
                               @can('vehiculos.informacion')
-                                <a class="btn btn-info btn-sm" href="#"><i class="fa fa-info"></i></a>
+                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                               @endcan
                               @can('estados.altaEstado') 
                                 <button onclick="altaVehiculo('{{ $item->dominio }}','{{ $item->id_vehiculo }}','{{ $item->id_estado_vehiculo }}')" title="Alta vehiculo"   class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>

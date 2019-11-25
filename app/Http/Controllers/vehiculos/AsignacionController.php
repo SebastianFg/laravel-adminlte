@@ -65,7 +65,8 @@ class AsignacionController extends Controller
        
 
         $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
-        									->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')->get();
+        									->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
+                                            ->orderBy('id_detalle')->get(); 
 
 		return view('vehiculos.asignacion.asignar_vehiculos',compact('asignacion'));
 	}

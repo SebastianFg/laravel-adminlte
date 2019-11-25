@@ -23,7 +23,7 @@
             <div class="card">
               <div class="card-header">
                 <div class="row">
-                  <div class="col-md-3">
+                  <div class="col-md-3-responsive">
                     @role('Admin')
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModal"> <i class="fa fa-plus"> Nuevo Usuario</i> </button> 
                     @endrole

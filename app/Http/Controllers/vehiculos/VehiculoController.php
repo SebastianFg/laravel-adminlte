@@ -72,7 +72,7 @@ class VehiculoController extends Controller
 
         if ($Request->vehiculoBuscado ==null && $Request->id_tipo_vehiculo_lista ==null ) {
         	$VehiculosListados = vehiculo::join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
-                                                ->select('vehiculos.*','tipos_vehiculos.*')->get();
+                                                ->select('vehiculos.*','tipos_vehiculos.*')->orderBy('vehiculos.id_vehiculo')->get();
         	$VehiculosListados = $this->paginar($VehiculosListados);
 	      
         }else{
