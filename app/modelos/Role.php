@@ -13,14 +13,11 @@ class Role extends Model
 	protected $table = 'roles'
 
 
-    public static function scopebuscaRole($query,$identificacion){
-        //dd($identificacion);
 
-        if (trim($identificacion) != "") {
-            return $query->where('name','ilike','%'.$identificacion.'%')
-                        ->get();
 
-        }
+	public function users(){
+	    return $this
+	        ->belongsToMany('App\User');
     }
 
 
