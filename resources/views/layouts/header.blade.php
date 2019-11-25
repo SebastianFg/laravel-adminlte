@@ -14,7 +14,8 @@
         <ul class="nav navbar-nav">
             &nbsp;
         </ul>
-        
+
+
 
         <!-- Right Side Of Navbar -->
         <ul class="nav navbar-nav navbar-right">
@@ -23,27 +24,32 @@
                 <li><a href="{{ url('/login') }}">Login</a></li>
                 <li><a href="{{ url('/register') }}">Register</a></li>
             @else
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         {{ Auth::user()->nombre }} 
                     </a>
+                    <div class="col-md-12">
 
-                    <ul class="dropdown-menu bg-dark" role="menu">
-                        <li>
+                        <ul class="dropdown-menu bg-dark" role="menu">
+                            <li>
 
-                              <li class="user-footer">
-        {{--                         <div class="pull-left">
-                                  <a href="#" class="btn btn-info btn-flat"  style="border-radius: 5px;">Profile</a>
-                                </div> --}}
-                                <div class="pull-right">
-                                  <a class="btn btn-info btn-flat" style="border-radius: 5px;" href="{{ url('/logout') }}"> <i class="fa fa-power-off"> Logout</i></a>
-                                </div>
-                              </li>
-                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul>
+                                  <li class="user-footer">
+            {{--                         <div class="pull-left">
+                                      <a href="#" class="btn btn-info btn-flat"  style="border-radius: 5px;">Profile</a>
+                                    </div> --}}
+                                    <div class="pull-right">
+                                        <img src="images/pdf_iimages/logosp.png">
+                                        <a class="btn btn-info btn-flat" style="border-radius: 5px;" href="{{ url('/logout') }}"> <i class="fa fa-power-off"> Logout</i></a>
+                                    </div>
+                                  </li>
+                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+                        </ul>
+                        
+                    </div>
                 </li>
             @endif
         </ul>
