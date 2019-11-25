@@ -14,18 +14,15 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-/*        User::create([
+        User::create([
         	'nombre' => 'Sebastian Fernandes',
         	'usuario' => 'c261',
         	'password' => '34367714',
         	
-        ]);*/
+        ]);
         
-        $user = User::find(1); //Italo Morales
+        $user = User::find(1);
         $user->assignRole('Admin');
 
-/*        $user2 = User::find(2); //Italo Morales
-        $user2->assignRole('Guest');
-*/
     }
 }

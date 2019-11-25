@@ -61,21 +61,25 @@ class AsignacionController extends Controller
              return redirect('/login');
         }
 
-        $lista_dependencias = dependencia::all();
+            $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
+            									->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
+                                                ->orderBy('id_detalle')->get(); 
+/*      if ($Request->vehiculoBuscado == null) {
+      }else{
+            $asignacion = vehiculo::Identificacion($Request->vehiculoBuscado)
+      }*/
        
 
-        $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
-        									->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
-                                            ->orderBy('id_detalle')->get(); 
 
 		return view('vehiculos.asignacion.asignar_vehiculos',compact('asignacion'));
 	}
 
     public function getAllVehiculosDisponibles(Request $Request){
         $vehiculos_disponibles = \DB::select("select * from view_vehiculos_disponibles 
-                                            
                                             where view_vehiculos_disponibles.dominio ilike '%".$Request->termino."%' or view_vehiculos_disponibles.numero_de_identificacion ilike '%".$Request->termino."%'" );
-
+        $vehiculos_disponibles = \DB::select('select *  FROM vehiculos
+  WHERE NOT (vehiculos.id_vehiculo IN ( SELECT DISTINCT detalle_asignacion_vehiculos.id_vehiculo
+           FROM detalle_asignacion_vehiculos)) AND vehiculos.baja = 0');
         return response()->json($vehiculos_disponibles);
 
     }

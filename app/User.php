@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use modelos\Role;
 use \DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\softDeletes;
 class User extends Authenticatable
 {
@@ -55,5 +56,9 @@ class User extends Authenticatable
                         ->get();
 
         }
+    }
+
+    public function setPasswordAttribute($pass){
+        $this->attributes['password'] = Hash::make($pass);
     }
 }
