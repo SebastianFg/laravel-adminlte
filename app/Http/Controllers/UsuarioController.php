@@ -95,12 +95,9 @@ class UsuarioController extends Controller
 
 		$usuarios = User::findorfail($Request->usuario);
 		
-		if (strpos($usuarios->getRoleNames(),'Admin')) {
-          
-            return $this->getMensaje('No se puede modificar un usuario administracion','listaUsuarios',false);
+		if (strpos($usuarios->getRoleNames(),'Super Admin')) {
+            return $this->getMensaje('No se puede modificar un usuario Super Admin','listaUsuarios',false);
         }
-        sss
-		
 
 		if ($Request->nombre != null) {
 			$usuarios->nombre = $Request->nombre;
@@ -148,9 +145,9 @@ class UsuarioController extends Controller
 		$usuario_dado_de_baja = User::findorfail($Request->id_usuario);
 
 
-		if (strpos($usuario_dado_de_baja->getRoleNames(),'Admin')) {
+		if (strpos($usuario_dado_de_baja->getRoleNames(),'Super Admin')) {
           
-            return $this->getMensaje('No se puede modificar un usuario administracion','listaUsuarios',false);
+            return $this->getMensaje('No se puede modificar un usuario Super Admin','listaUsuarios',false);
         }else{
 			$this->quitarRoles($usuario_dado_de_baja);
 			$usuario_dado_de_baja->Delete();
@@ -169,7 +166,7 @@ class UsuarioController extends Controller
         }
 
 
-
+/*
 		if ($this->quitarRoles($usuario_dado_de_baja)) {
 			return $this->getMensaje('No se puede borrar a el usuario administrador','listaUsuarios',false);
 		}else{
@@ -187,6 +184,8 @@ class UsuarioController extends Controller
 	        }else{
 	            return $this->getMensaje('Verifique y Intente nuevamente','listaUsuarios',false);
 	        } 
-   		}
+   		}*/
 	}
+
+
 }

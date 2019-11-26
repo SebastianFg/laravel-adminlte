@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
         ]);
         
         $user = User::find(1);
-        $user->assignRole('Admin');
+        $user->assignRole('Super Admin');
 
     }
 }
