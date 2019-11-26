@@ -99,7 +99,7 @@ class UsuarioController extends Controller
           
             return $this->getMensaje('No se puede modificar un usuario administracion','listaUsuarios',false);
         }
-        
+        sss
 		
 
 		if ($Request->nombre != null) {
