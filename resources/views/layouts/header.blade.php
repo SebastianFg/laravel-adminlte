@@ -25,22 +25,31 @@
                 <li><a href="{{ url('/register') }}">Register</a></li>
             @else
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        {{ Auth::user()->nombre }} 
-                    </a>
+                <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> -->
+                    <!-- <img src="{{asset("/dist/img/user2-160x160.jpg")}}" class="user-image" alt="User Image"> -->
+              <span class="hidden-xs">{{ Auth::user()->nombre }} </span>       
+                </a>
                     <div class="col-md-12">
 
-                        <ul class="dropdown-menu bg-dark" role="menu">
+                        <ul class="dropdown-menu">
+                        <li class="user-header">
+                                <img src="{{asset("/dist/img/user2-160x160.jpg")}}" class="img-circle" alt="User Image">
+
+                            <p>
+                                 {{ Auth::user()->nombre }}
+                                <small>{{ Auth::user()->roles[0]->name}}</small>
+                            </p>
+                       </li>
                             <li>
 
                                   <li class="user-footer">
-            {{--                         <div class="pull-left">
+                                   <div class="pull-left">
                                       <a href="#" class="btn btn-info btn-flat"  style="border-radius: 5px;">Profile</a>
-                                    </div> --}}
+                                    </div>
                                     <div class="pull-right">
-                                        <img src="images/pdf_iimages/logosp.png">
-                                        <a class="btn btn-info btn-flat" style="border-radius: 5px;" href="{{ url('/logout') }}"> <i class="fa fa-power-off"> Logout</i></a>
+                                        <a class="btn btn-info btn-flat" style="border-radius: 5px;" href="{{ url('/logout') }}">Logout</i></a>
                                     </div>
                                   </li>
                                 <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
