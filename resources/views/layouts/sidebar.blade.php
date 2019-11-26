@@ -30,7 +30,7 @@
                         </p>
                     </a>
                 </li>
-                @role('Admin')
+                @can('usuarios.listaUsuarios')
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-user"></i>
@@ -73,9 +73,10 @@
                             </li>
                         </ul>
                     </ul>
+                    @endcan
+                    @can('usuarios.asignarPermisosARoles')
                     <ul class="nav nav-treeview">
                         <ul>
-                            
                             <li class="nav-item noPuntos">
                                 <a href="{{ route('rolPermisos') }}" class="nav-link">
                                     <i class="fa fa-plus nav-icon"></i>
@@ -84,31 +85,21 @@
                             </li>
                         </ul>
                     </ul>
+                    @endcan
                 </li>
+
+                @can('dependencias.dependencias')
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('indexDependencia') }}" class="nav-link">
                         <i class="nav-icon fa fa-codepen"></i>
                         <p>
                           Dependencias
                           <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <ul>
-                            
-                            <li class="nav-item noPuntos">
-                                <a href="{{ route('indexDependencia') }}" class="nav-link">
-                                    <i class="fa fa-plus nav-icon"></i>
-                                    <p>Alta</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </ul>
-                       
-
                 </li>
-                @endrole
-                @role('Cargar Vehiculos')
+                @endcan
+                @can('vehiculos.index')
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-car"></i>
@@ -136,17 +127,9 @@
                               <i class="fa fa-angle-left right"></i>
                             </p>
                         </a>
-                        {{-- <ul class="nav nav-treeview">
-                            <ul>
-                                <li class="nav-item noPuntos" id="pie">
-                                    <a href="{{ route('listaTipoVehiculos') }}" class="nav-link">
-                                        <i class="fa fa-plus nav-icon"></i>
-                                        <p>Alta</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </ul> --}}
                     </li>
+                    @endcan
+                    @can('vehiculos.eliminar')
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-times"></i>
@@ -189,6 +172,8 @@
                             </ul>
                         </ul>
                     </li>
+                    @endcan
+                    @can('vehiculos.listaAsignacion')
                     <li class="nav-item has-treeview" id="pie">
                         <a href="{{ route('listaAsignacion') }}" class="nav-link">
                             <i class="nav-icon fa fa-share"></i>
@@ -197,8 +182,9 @@
                               <i class="fa fa-angle-left right"></i>
                             </p>
                         </a>
-
                     </li> 
+                    @endcan
+                    @can('vehiculos.siniestros')
                     <li class="nav-item has-treeview" id="pie">
                          <a href="{{ route('indexSiniestros') }}" class="nav-link">
                             <i class="nav-icon fa fa-road"></i>
@@ -207,17 +193,9 @@
                               <i class="fa fa-angle-left right"></i>
                             </p>
                         </a>
-{{--                         <ul class="nav nav-treeview">
-                            <ul>
-                                <li class="nav-item noPuntos" id="pie">
-                                    <a href="{{ route('indexSiniestros') }}" class="nav-link">
-                                        <i class="fa fa-plus nav-icon"></i>
-                                        <p>Alta</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </ul> --}}
                     </li>
+                    @endcan
+                    @can('vehiculos.informacion')
                     <li class="nav-item has-treeview" id="pie">
                         <a href="{{ route('detalleVehiculo') }}" class="nav-link">
                             <i class="nav-icon fa fa-edit"></i>
@@ -226,17 +204,9 @@
                               <i class="fa fa-angle-left right"></i>
                             </p>
                         </a>
-{{--                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="fa fa-list nav-icon"></i>
-                                    <p></p>
-                                </a>
-                            </li>
-                        </ul> --}}
                     </li>
-                </li>
-              
+                    @endcan
+                    @can('vehiculos.repuestos')
                     <li class="nav-item has-treeview" id="pie">
                          <a href="{{ route('listaRepuestos') }}" class="nav-link">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -246,7 +216,8 @@
                             </p>
                         </a>
                     </li>
-
+                    @endcan
+                    @can('vehiculos.graficos')
                     <li class="nav-item has-treeview" id="pie">
                          <a href="{{ route('ListaGraficos') }}" class="nav-link">
                             <i class="nav-icon fa fa-paste"></i>
@@ -255,8 +226,9 @@
                               <i class="fa fa-angle-left right"></i>
                             </p>
                         </a>
-                    </li> 
-                @endrole
+                    </li>
+                    @endcan 
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

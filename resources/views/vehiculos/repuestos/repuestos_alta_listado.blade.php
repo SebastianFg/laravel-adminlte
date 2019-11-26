@@ -26,11 +26,6 @@
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAsignacionRepuesto"> <i class="fa fa-plus"> Nuevo</i> </button> 
                   @endcan  
                 </div>
-
-{{--                 <div class="col-md-3">
-                  <button type="button" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"> Buscar</i>  </button> 
-                  <button type="button" id="btnLimpiar" class="btn btn-warning left"> <i class="fa fa-paint-brush"> Limpiar</i> </button> 
-                </div> --}}
           </div>
 
           {{-- extiendo los modales --}}
@@ -92,7 +87,7 @@
                               @can('vehiculos.informacion')
                                 <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                               @endcan
-                              @can('vehiculos.editar') 
+                              @can('vehiculos.descargarPDFRepuesto') 
                                 <a  title="Descargar PDF" href="{{ route('descargarPDFRepuesto',$item->id_detalle_repuesto) }}"  class="btn btn-danger btn-sm"><span class="fa fa-file-pdf-o"></span></a>
                               @endcan
 
