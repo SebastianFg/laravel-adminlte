@@ -36,6 +36,7 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::post('usuarios', 'UsuarioController@asignarRol')->name('agregarRol');//->middleware('permiso:usuarios.asignarRol');
 		Route::post('eliminarUsuarios','UsuarioController@eliminarUsuario')->name('eliminarUsuario');
 		Route::post('editarUsuario','UsuarioController@eliminarUsuario')->name('eliminarUsuario');
+		Route::post('resetPassword/{id}','UsuarioController@eliminarUsuario')->name('resetPassword')->middleware('permiso:usuarios.resetPassword');;
 
 
 		//roles
