@@ -72,7 +72,5 @@ class PermissionsTableSeeder extends Seeder
             'estados.altaEstado'
         ]);
 
-/*        $user = User::find(1); //Italo Morales
-        $user->assignRole('Admin');*/
     }
 }
