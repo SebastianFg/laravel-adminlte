@@ -47,6 +47,9 @@ class SiniestroController extends Controller
 //siniestros
     //index siniestro
     public function indexSiniestros(){
+        if (Auth::User()->primer_logeo == null) {
+            return redirect('admin/primerIngreso');
+        }
     	$siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
     							->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')->get();
     	//return $siniestros;

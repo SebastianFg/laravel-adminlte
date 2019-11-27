@@ -44,7 +44,9 @@ class PermisosController extends Controller
     }
     public function index(Request $Request)
     {
-        
+        if (Auth::User()->primer_logeo == null) {
+            return redirect('admin/primerIngreso');
+        }
         $existe = 1;
         if ($Request->permisoBuscado ==null ) {
             $permisos = Permission::all();
