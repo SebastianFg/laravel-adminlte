@@ -15,9 +15,9 @@
             <div class="card-header">
               <div class="row">
                 <div class="col-md-3">
-                  @role('Admin')
+                  @can('dependencias.crearDependencia')
                   <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModalDependencia"> <i class="fa fa-plus"> Nueva dependencia</i> </button> 
-                  @endrole
+                  @endcan
                 </div>
               </div>
             </div>
@@ -76,13 +76,14 @@
                           <td><label class="badge badge-success">Activo</label></td>
                         @endif
                         <td>
-                          @role('Admin')
+                          @can('dependencias.editarDependencia')
                             <button  data-toggle="modal" onclick="editarDependencia({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                          @endcan
                           @can('dependencias.eliminarDepencencia') 
                             <button  onclick="eliminarDependencia({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                           @endcan
                         
-                          @endrole
+                
                         </td>
                       </tr>
                     @endforeach

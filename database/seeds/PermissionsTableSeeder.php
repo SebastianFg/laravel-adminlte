@@ -45,6 +45,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'usuarios.resetPassword']);
 
         Permission::create(['name' => 'dependencias.dependencias']);
+        Permission::create(['name' => 'dependencias.crearDependencia']);
         Permission::create(['name' => 'dependencias.editarDependencia']);
         Permission::create(['name' => 'dependencias.eliminarDepencencia']);
 
@@ -87,6 +88,7 @@ class PermissionsTableSeeder extends Seeder
             'usuarios.resetPassword',
 
             'dependencias.dependencias',
+            'dependencias.crearDependencia',
             'dependencias.editarDependencia',
             'dependencias.eliminarDepencencia',
 
