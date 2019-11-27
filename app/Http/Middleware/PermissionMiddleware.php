@@ -19,7 +19,7 @@ class PermissionMiddleware
     {
         /*if (Auth::guest()){
             return redirect('/login');
-        */}
+        */
         if (!$request->user()->can($permiso)) {
             abort(403);
         }

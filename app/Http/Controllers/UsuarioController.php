@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use DateTime;
 
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -190,10 +191,16 @@ class UsuarioController extends Controller
 
 	public function resetPassword($id){
 		$usuarios = User::findorfail($id);
+		$usuarios->password = 'informatica2019++';
+		$usuarios->primer_logeo = null;
+		//return $usuarios;
+		if ($usuarios->update()) {
+			return $this->getMensaje('password puesto por default correctamente','listaUsuarios',true);
+		}else{
+			return $this->getMensaje('Verifique e intente nuevamente','listaUsuarios',false);
+		}
 
-		$usuarios->password = Hash::make('informatica2019++');
-
-		return $this->getMensaje('password puesto por default correctamente','listaUsuarios',true); 
+		 
 	}
 
 	public function registroUsuario(Request $Request){
@@ -213,8 +220,9 @@ class UsuarioController extends Controller
         $nuevoUsuario->nombre = $Request->apellidoynombre;
         $nuevoUsuario->usuario = $Request->usuario;
        // $this->attributes['password'] = Hash::make($pass);
+        $passwordNueva = 'informatica2019++';
 
-        $nuevoUsuario->password = 'informatica2019++';
+        $nuevoUsuario->password = $passwordNueva;
 
         if ($nuevoUsuario->save()) {
         	$nuevoUsuario->syncRoles('Sin Rol');
@@ -230,6 +238,40 @@ class UsuarioController extends Controller
 	}
 
 	public function cambioPrimerPassword(Request $Request){
-		return $Request;
+
+        $Validar = \Validator::make($Request->all(), [
+            
+            'password_nueva' => 'required',
+            'password_confirmation' => 'required',
+        ]);
+        if ($Validar->fails()){
+            alert()->error('Error','ERROR! Intente agregar nuevamente...');
+            return  back()->withInput()->withErrors($Validar->errors());
+        }
+
+
+        $passwordActual = Auth::User()->password;
+
+        $passwordNueva = $Request->password_nueva;
+       
+        if(Hash::check( $passwordNueva, $passwordActual ) ) {
+        	return $this->getMensaje('la contraseña ingresada debe ser diferente al actual','primerPassword',false);
+        }
+
+        if ($Request->password_confirmation != $Request->password_nueva) {
+        	return $this->getMensaje('la contraseñas ingresadas deben coincidir ','primerPassword',false);
+        }
+
+        $usuario = User::findorfail(Auth::User()->id);
+       // return $usuario;
+
+        $usuario->password = $passwordNueva;
+        $usuario->primer_logeo =  new DateTime('today');
+
+        if ($usuario->update()) {
+        	return $this->getMensaje('Actualizado correctamente','inicio',true);
+        }else{
+        	return $this->getMensaje('Verifique e intente nuevamente','primerPassword',false);
+        }
 	}
 }

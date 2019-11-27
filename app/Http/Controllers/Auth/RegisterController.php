@@ -67,6 +67,7 @@ class RegisterController extends Controller
             'nombre' => $data['nombre'],
             'usuario' => $data['usuario'],
             'password' => Hash::make('informatica2019++'),
+            'remember_token' => str_random(10)
         ]);
     }
 }

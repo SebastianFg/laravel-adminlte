@@ -35,16 +35,16 @@ class HomeController extends Controller
      */
     public function index(Request $Request)
     {    
-        
+        //return 'as';
         if (Auth::User()->primer_logeo == null) {
-            return redirect('admin/primerLogeo');
+            return redirect('admin/primerIngreso');
         }
 
 
         if (strpos(Auth::User()->roles,'Suspendido')) {
             Auth::logout();
             alert()->error('Su usuario se encuentra suspendido');
-            return redirect('/login');
+           // return redirect('/login');
         }
 
 /*        $usuario = User::findorfail(Auth::User()->id);
