@@ -7,26 +7,35 @@
       Primer Ingreso
     </div>
     <hr>
-    <p><i class="fa fa-bullseye"><strong>  recuerde que la contraseña de nueva tiene que ser diferente a la antigua</strong></i></p>
+    <p><i class="fa fa-bullseye"><strong>  Recuerde que la contraseña nueva TIENE que ser diferente a la antigua</strong></i></p>
     <div class="card">
+        @if(!$errors->isEmpty())
+          <div class="alert alert-danger">
+            <ul>
+              @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach()
+            </ul>
+          </div>
+        @endif
       <div class="card-body ">
         <form action="{{ route('cambioPrimerPassword') }}" method="post">
           @csrf
-
+{{-- 
           <label>Contraseña antigua</label>
           <div class="input-group mb-3">
             <span class="fa fa-lock input-group-text"></span> 
-            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Contraseña" required>
+            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password_antigua" placeholder="Contraseña antigua" required>
             @if ($errors->has('password'))
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('password') }}</strong>
               </span> 
             @endif
-          </div>
+          </div> --}}
           <label>Nueva Contraseña</label>
           <div class="input-group mb-3">
             <span class="fa fa-lock input-group-text"></span> 
-            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Contraseña" required>
+            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password_nueva" placeholder="Contraseña nueva" required>
             @if ($errors->has('password'))
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('password') }}</strong>

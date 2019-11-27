@@ -18,6 +18,7 @@ class UsersTableSeeder extends Seeder
         	'nombre' => 'Sebastian Fernandes',
         	'usuario' => 'c261',
         	'password' => '34367714',
+            'remember_token' => str_random(10)
         	
         ]);
         

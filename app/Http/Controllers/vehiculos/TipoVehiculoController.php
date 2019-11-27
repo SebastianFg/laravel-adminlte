@@ -45,7 +45,9 @@ class TipoVehiculoController extends Controller
         return $datos;
 	}
 	public function index(Request $Request){
-
+        if (Auth::User()->primer_logeo == null) {
+            return redirect('admin/primerIngreso');
+        }
         if (strpos(Auth::User()->roles,'Suspendido')) {
             Auth::logout();
             alert()->error('Su usuario se encuentra suspendido');
