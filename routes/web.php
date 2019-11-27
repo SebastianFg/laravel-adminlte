@@ -40,7 +40,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::post('altaUsuario','UsuarioController@registroUsuario')->name('registroUsuario');
 		//primer cambio
-		Route::get('primerLogeo','UsuarioController@primerPassword')->name('primerPassword');
+		Route::get('primerIngreso','UsuarioController@primerPassword')->name('primerPassword');
 
 		Route::post('primerIngreso','UsuarioController@cambioPrimerPassword')->name('cambioPrimerPassword');
 

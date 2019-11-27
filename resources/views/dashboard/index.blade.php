@@ -1,14 +1,11 @@
 @extends('layouts.master')
-
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-
   <!-- /.content-header -->
-
   <!-- Main content -->
   <div class="content">
     <div class="container-fluid">
@@ -17,8 +14,8 @@
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Busqueda</h3>
-
-{{--                 <div class="card-tools">
+            
+{{--                <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                   <i class="fas fa-minus"></i></button>
                 <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
