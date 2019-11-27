@@ -4,7 +4,7 @@ namespace App\Http\Controllers\vehiculos;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Auth;
 /*modelos*/
 use App\Modelos\siniestro;
 use App\Modelos\asignacion_vehiculo;

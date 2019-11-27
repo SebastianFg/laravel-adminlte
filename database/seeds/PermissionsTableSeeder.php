@@ -95,7 +95,7 @@ class PermissionsTableSeeder extends Seeder
             'estados.altaEstado',
         ]);
 
-        $SuperAdmin->givePermissionTo([
+        $Admin->givePermissionTo([
             'vehiculos.index',
             'vehiculos.crear',
             'vehiculos.editar',

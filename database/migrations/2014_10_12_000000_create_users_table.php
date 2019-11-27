@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('nombre');
             $table->string('usuario',20)->unique();
             $table->string('password');
+            $table->string('imagen_perfil');
             $table->datetime('primer_logeo')->nullable();
             $table->softDeletes();
             $table->rememberToken();

@@ -35,7 +35,8 @@
 
                         <ul class="dropdown-menu">
                         <li class="user-header">
-                                <img src="{{asset("/dist/img/user2-160x160.jpg")}}" class="img-circle" alt="User Image">
+                                <img alt="User Image"class="d-block img-fluid" src="../../img/avatar/{{ Auth::User()->imagen_perfil }}" >
+                                {{-- <img src="{{asset("/dist/img/{{ Auth::User()->imagen_perfil }}")}}" class="img-circle" alt="User Image"> --}}
 
                             <p>
                                 <hr>

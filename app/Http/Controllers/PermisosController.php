@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
-
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
+
 
 class PermisosController extends Controller
 {

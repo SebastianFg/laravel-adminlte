@@ -167,7 +167,7 @@
 
   $("#id_vehiculo").select2({
     dropdownParent: $("#select"),
-    placeholder:"Seleccione Vehiculo",
+    placeholder:"Ingrese numero de identificacion - Ej: 3-730",
     allowClear: true,
     minimumInputLength: 2,
 
@@ -201,7 +201,7 @@
 
   $("#id_afectado").select2({
     dropdownParent: $("#select"),
-    placeholder:"Seleccione Afectado",
+    placeholder:"Seleccione Afectado - Ej: Jefatura,D.G Seguridad",
     allowClear: true,
     minimumInputLength: 2,
 

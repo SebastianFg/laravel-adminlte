@@ -62,9 +62,9 @@
 	                           	@endforeach
                             </td>
                             <td>
-                              @role('Admin')
+                              @can('usuarios.asignarPermisosARoles')
                                 <button  data-toggle="modal" onclick="editar({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>                            
-                              @endrole
+                              @endcan
                             </td>
                           
                           </tr>
