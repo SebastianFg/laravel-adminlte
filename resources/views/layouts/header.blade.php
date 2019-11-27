@@ -10,16 +10,13 @@
         </li>
 
     </ul>
-
     <!-- Right navbar links -->
     <div class="collapse navbar-collapse top-right" id="app-navbar-collapse">
         <!-- Left Side Of Navbar -->
         <ul class="nav navbar-nav">
             &nbsp;
         </ul>
-
-
-
+      
         <!-- Right Side Of Navbar -->
         <ul class="nav navbar-nav navbar-right">
             <!-- Authentication Links -->
@@ -34,6 +31,7 @@
                     <!-- <img src="{{asset("/dist/img/user2-160x160.jpg")}}" class="user-image" alt="User Image"> -->
               <span class="hidden-xs">{{ Auth::user()->nombre }} </span>       
                 </a>
+                @csrf
                     <div class="col-md-12">
 
                         <ul class="dropdown-menu">
@@ -41,24 +39,32 @@
                                 <img src="{{asset("/dist/img/user2-160x160.jpg")}}" class="img-circle" alt="User Image">
 
                             <p>
+                                <hr>
                                  {{ Auth::user()->nombre }}
+                                
                                 <small>{{ Auth::user()->roles[0]->name}}</small>
                             </p>
                        </li>
                             <li>
-
+                                <hr>
                                   <li class="user-footer">
-                                   <div class="pull-left">
-                                      <a href="#" class="btn btn-info btn-flat"  style="border-radius: 5px;">Profile</a>
-                                    </div>
-                                    <div class="pull-right">
-                                        <a class="btn btn-info btn-flat" style="border-radius: 5px;" href="{{ url('/logout') }}">Logout</i></a>
-                                    </div>
+                                     
+                                <div class="pull-left">
+                                  
+                                <!-- <a class="btn btn btn-flat bg-dark" style="border-radius: 5px;" href="#">Perfil</i></a> -->
+                                <button  data-toggle="modal" onclick="({{Auth::user()->roles[0]->name }})" class="btn btn btn-flat bg-dark" title="Editar Roles" style="border-radius: 5px;">Perfil</i></a>
+                                <!-- <href="#" class="btn btn-primary pull-right" data-toggle="modal" data-target="modal_editar_perfil"> -->
+                            </div>
+                                     <div class="pull-right">
+                                        <a class="btn btn btn-flat bg-dark" style="border-radius: 5px;" href="{{ url('/logout') }}">Logout</i></a>
+                                    </div>  
                                   </li>
                                 <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
+                                   
                             </li>
+                      
                         </ul>
                         
                     </div>
@@ -70,11 +76,10 @@
 </nav>
 @endif
 <!-- /.navbar -->
-
 <style type="text/css">
     .top-right {
     position: absolute;
     right: 10px;
     top: 18px;
-}
+    }
 </style>
