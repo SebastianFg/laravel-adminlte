@@ -32,7 +32,6 @@
                     <div class="col-8">
                         <div class="checkbox icheck">
                             <label>
-                <input type="checkbox"> Recordar
               </label>
                         </div>
                     </div>
@@ -44,9 +43,9 @@
                 </div>
             </form>
             <!-- /.social-auth-links -->
-            <p class="mb-0">
+{{--             <p class="mb-0">
                 <a href="{{route('register')}}" class="text-center">Register a new membership</a>
-            </p>
+            </p> --}}
         </div>
         <!-- /.login-card-body -->
     </div>

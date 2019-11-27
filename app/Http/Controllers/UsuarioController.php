@@ -221,6 +221,8 @@ class UsuarioController extends Controller
 
         $nuevoUsuario->nombre = $Request->apellidoynombre;
         $nuevoUsuario->usuario = $Request->usuario;
+        $nuevoUsuario->imagen_perfil = 'avatar_default.png';
+
        // $this->attributes['password'] = Hash::make($pass);
         $passwordNueva = 'informatica2019++';
 
