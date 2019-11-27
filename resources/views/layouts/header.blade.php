@@ -8,7 +8,6 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
         </li>
-
     </ul>
     <!-- Right navbar links -->
     <div class="collapse navbar-collapse top-right" id="app-navbar-collapse">
@@ -16,7 +15,7 @@
         <ul class="nav navbar-nav">
             &nbsp;
         </ul>
-      
+  
         <!-- Right Side Of Navbar -->
         <ul class="nav navbar-nav navbar-right">
             <!-- Authentication Links -->
@@ -52,8 +51,8 @@
                                 <div class="pull-left">
                                   
                                 <!-- <a class="btn btn btn-flat bg-dark" style="border-radius: 5px;" href="#">Perfil</i></a> -->
-                                <button  data-toggle="modal" onclick="({{Auth::user()->roles[0]->name }})" class="btn btn btn-flat bg-dark" title="Editar Roles" style="border-radius: 5px;">Perfil</i></a>
-                                <!-- <href="#" class="btn btn-primary pull-right" data-toggle="modal" data-target="modal_editar_perfil"> -->
+                               
+                                <!-- <a href="#" class="btn btn-primary pull-right" data-toggle="modal" data-target="#create">Perfil</a> -->
                             </div>
                                      <div class="pull-right">
                                         <a class="btn btn btn-flat bg-dark" style="border-radius: 5px;" href="{{ url('/logout') }}">Logout</i></a>
@@ -64,7 +63,7 @@
                                 </form>
                                    
                             </li>
-                      
+           
                         </ul>
                         
                     </div>
