@@ -54,7 +54,7 @@ class PermissionsTableSeeder extends Seeder
         //creamos los roles
      	$SuperAdmin = Role::create(['name' => 'Super Admin']);
         $sinRol = Role::create(['name' => 'Sin Rol']);
-        $admin = Role::create(['name' => 'Admin']);
+        $Admin = Role::create(['name' => 'Admin']);
         $cargarVehiculos = Role::create(['name' => 'Cargar Vehiculos']);
 
         //asignamos los permisos a los roles
