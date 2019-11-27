@@ -8,10 +8,28 @@
 
   <!-- Main content -->
   <div class="content">
-    @if(strpos(Auth::User()->roles,'Suspendido'))
-      su usuario se encuentra suspendido
-    @else
     <div class="container-fluid">
+      
+    @if(strpos(Auth::User()->roles,'Suspendido'))
+      <div class="row ">
+        <div class="card col-sm-12">
+          <div class="card-body">
+            <h4 class="card-title">Su usuario se encuentra suspendido, contacte con un administrador</h4> 
+            <br>
+          </div>
+        </div>
+      </div>
+    @else
+    @if(strpos(Auth::User()->roles,'Sin Rol'))
+      <div class="row">
+        <div class="card col-sm-12">
+          <div class="card-body">
+            <h4 class="card-title">Su usuario no posee permisos, contacte con un administrador</h4> 
+            <br>
+          </div>
+        </div>
+      </div>
+    @else
       <div class="row" style="padding-top: 5px;">
         <div class="col-12">
 
@@ -122,10 +140,11 @@
         {{-- col 12 --}}
         </div>
       {{-- row --}}
+      @endif
+    @endif
       </div>
     {{-- fluid --}}
     </div>
-  @endif
   <!-- /.content -->
   </div>
   {{-- final --}}
