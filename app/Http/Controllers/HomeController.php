@@ -35,13 +35,23 @@ class HomeController extends Controller
      */
     public function index(Request $Request)
     {    
-        //return $Request;
+        
+        if (Auth::User()->primer_logeo == null) {
+            return redirect('admin/primerLogeo');
+        }
+
+
         if (strpos(Auth::User()->roles,'Suspendido')) {
             Auth::logout();
             alert()->error('Su usuario se encuentra suspendido');
-             return redirect('/login');
+            return redirect('/login');
         }
 
+/*        $usuario = User::findorfail(Auth::User()->id);
+        return $usuario;    
+        if ($usuario->primer_logeo == null) {
+            return redirect('admin/primerPassword');
+        }*/
 
         $anios = vehiculo::select('anio_de_produccion')->orderBy('anio_de_produccion','asc')->get();
         $marca = vehiculo::select('marca')->orderBy('marca','asc')->get();

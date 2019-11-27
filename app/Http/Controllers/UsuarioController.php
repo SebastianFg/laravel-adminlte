@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\softDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -187,5 +188,48 @@ class UsuarioController extends Controller
    		}*/
 	}
 
+	public function resetPassword($id){
+		$usuarios = User::findorfail($id);
 
+		$usuarios->password = Hash::make('informatica2019++');
+
+		return $this->getMensaje('password puesto por default correctamente','listaUsuarios',true); 
+	}
+
+	public function registroUsuario(Request $Request){
+		//return $Request;
+        $Validar = \Validator::make($Request->all(), [
+            
+            'apellidoynombre' => 'required',
+            'usuario' => 'required|unique:users',
+        ]);
+        if ($Validar->fails()){
+            alert()->error('Error','ERROR! Intente agregar nuevamente...');
+            return  back()->withInput()->withErrors($Validar->errors());
+        }
+
+        $nuevoUsuario = new User;
+
+        $nuevoUsuario->nombre = $Request->apellidoynombre;
+        $nuevoUsuario->usuario = $Request->usuario;
+       // $this->attributes['password'] = Hash::make($pass);
+
+        $nuevoUsuario->password = 'informatica2019++';
+
+        if ($nuevoUsuario->save()) {
+        	$nuevoUsuario->syncRoles('Sin Rol');
+        	return $this->getMensaje('Usuario creado correctamente','listaUsuarios',true);
+        }else{
+        	return $this->getMensaje('Error... verifique e intente nuevamente','listaUsuarios',false);
+        }
+
+	}
+	public function primerPassword(){
+
+		return view('auth.primer_password');
+	}
+
+	public function cambioPrimerPassword(Request $Request){
+		return $Request;
+	}
 }

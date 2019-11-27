@@ -9,7 +9,14 @@
   <!-- Main content -->
   <div class="content">
     @if(strpos(Auth::User()->roles,'Suspendido'))
-      su usuario se encuentra suspendido
+      <div class="row ">
+        <div class="card col-sm-12">
+          <div class="card-body">
+            <h4 class="card-title">Su usuario se encuentra suspendido, contacte con un administrador</h4> 
+            <br>
+          </div>
+        </div>
+      </div>
     @else
     <div class="container-fluid"> 
       <hr>
