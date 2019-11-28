@@ -84,7 +84,9 @@ class DetallesController extends Controller
     }
 
     public function index(Request $Request,$id = null){
-
+        if (Auth::User()->primer_logeo == null) {
+            return redirect('admin/primerIngreso');
+        }
 
         if (strpos(Auth::User()->roles,'Suspendido')) {
             Auth::logout();

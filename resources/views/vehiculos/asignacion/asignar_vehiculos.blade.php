@@ -25,17 +25,13 @@
                   @can('vehiculos.asignarNuevo')
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAsignacion"> <i class="fa fa-plus"> Nueva</i> </button> 
                   @endcan
-{{--                   @can('vehiculos.imprimirLista')
-                    <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
-                  @endcan   --}}
                 </div>
           </div>
 
           {{-- extiendo los modales --}}
           @extends('vehiculos/asignacion/modales/modal_asignacion_vehiculo')
           @extends('vehiculos/asignacion/modales/modal_eliminar_vehiculo_asignado')
-{{--           @extends('vehiculos/modales/modal_baja_vehiculo')
-          @extends('vehiculos/modales/modal_editar_vehiculo') --}}
+
            </div>
 
             </div>
@@ -52,7 +48,7 @@
                       <div class="row">
                         
                         <div class="form-group">
-                          <input type="text" name="vehiculoBuscado" class="form-control" placeholder="numero de identificacion">
+                          <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
                         </div>
                         <div class="form-group">
                            <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
@@ -85,7 +81,7 @@
                             <td>{{ $item->numero_de_inventario }}</td>
                             <td>{{ $item->dominio }}</td>
                             <td>{{ $item->nombre_dependencia }}</td>
-                            <td>{{ $item->fecha }}</td>
+                            <td>{{ date('d-m-Y', strtotime($item->fecha)) }}</td>
                             <td>{{ $item->marca }}</td>
                             <td>{{ $item->modelo }}</td>
                            
@@ -106,12 +102,9 @@
                       </tbody>
                     </table>
 
-    {{--                   <div class="row">
-                          {{ $VehiculosListados->appends(Request::all())->links() }}
-                      </div> --}}
-                   {{--  @if(isset($existe))
-                    @endif
- --}}
+                    <div class="row">
+                        {{ $asignacion->appends(Request::all())->links() }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -167,7 +160,7 @@
 
   $("#id_vehiculo").select2({
     dropdownParent: $("#select"),
-    placeholder:"Seleccione Vehiculo",
+    placeholder:"Ingrese numero de identificacion - Ej: 3-730",
     allowClear: true,
     minimumInputLength: 2,
 
@@ -178,7 +171,7 @@
       delay: 250,
       data: function (params) {
 
-        console.log(params)
+       /* console.log(params)*/
         return {
           termino: $.trim(params.term),
           page: params.page
@@ -201,7 +194,7 @@
 
   $("#id_afectado").select2({
     dropdownParent: $("#select"),
-    placeholder:"Seleccione Afectado",
+    placeholder:"Seleccione Afectado - Ej: Jefatura,D.G Seguridad",
     allowClear: true,
     minimumInputLength: 2,
 

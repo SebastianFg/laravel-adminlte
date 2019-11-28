@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use DB;
 
 //modelos
@@ -49,7 +50,9 @@ class RolController extends Controller
 	}
 
 	public function index(Request $Request){
-
+		if (Auth::User()->primer_logeo == null) {
+            return redirect('admin/primerIngreso');
+        }
 		$existe = 1;
 
 		if ($Request->rolBuscado ==null ) {

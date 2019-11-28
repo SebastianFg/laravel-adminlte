@@ -59,7 +59,9 @@ class VehiculoController extends Controller
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function index(Request $Request){
 
-
+        if (Auth::User()->primer_logeo == null) {
+            return redirect('admin/primerIngreso');
+        }
         if (strpos(Auth::User()->roles,'Suspendido')) {
             Auth::logout();
             alert()->error('Su usuario se encuentra suspendido');
@@ -68,7 +70,7 @@ class VehiculoController extends Controller
 
 
         $tipo_vehiculo = tipos_vehiculos::all();
-        $existe = 1;
+       /* $existe = 1;*/
 
         if ($Request->vehiculoBuscado ==null && $Request->id_tipo_vehiculo_lista ==null ) {
         	$VehiculosListados = vehiculo::join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
@@ -116,7 +118,7 @@ class VehiculoController extends Controller
         switch ($accion) {
             case 0: //creacion --> alta
             	$vehiculo->save();
-                $images = $datos->file('file');
+                $images = $datos->file('foto');
                 
                 foreach($images as $image)
                 {
@@ -138,7 +140,7 @@ class VehiculoController extends Controller
                 if($datos->file == null){
                         $vehiculo->foto_id = $vehiculo->foto_id;
                 }else{ 
-                    $images = $datos->file('file');
+                    $images = $datos->file('foto');
   
                     foreach($images as $image){
                         $imagenvehiculo = new imagen_vehiculo;
@@ -177,7 +179,7 @@ class VehiculoController extends Controller
             'clase_de_unidad' => 'required|max:20',
             'tipo' => 'required',
             'otros' => 'required',
-            'file' => 'required'
+            'foto' => 'required'
         ]);
         if ($Validar->fails()){
             alert()->error('Error','ERROR! Intente agregar nuevamente...');
@@ -240,7 +242,7 @@ class VehiculoController extends Controller
         $vehiculoEnProceso = new estado_vehiculo;
 
         $vehiculoEnProceso->id_vehiculo = $Request->vehiculo;
-        $vehiculoEnProceso->tipo_estado_vehiculo = 3; //fuera de servicio
+        $vehiculoEnProceso->tipo_estado_vehiculo = 1; //fuera de servicio
      
         $vehiculoEnProceso->id_usuario_movimiento = $Request->id_usuario;
         $vehiculoEnProceso->estado_razon = $Request->motivo_de_baja;

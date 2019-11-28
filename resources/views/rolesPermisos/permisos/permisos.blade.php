@@ -18,9 +18,9 @@
             <div class="card-header">
               <div class="row">
                 <div class="col-md-3">
-                  @role('Admin')
+                  @can('usuarios.crear')
                   <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAlta"> <i class="fa fa-plus"> Nuevo Permiso</i> </button> 
-                  @endrole
+                  @endcan
 {{--                   <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>   --}}
                 </div>
 
@@ -51,7 +51,7 @@
                         <div class="row">
                           
                           <div class="form-group">
-                            <input type="text"  name="permisoBuscado" class="form-control" placeholder="ingrese permiso">
+                            <input type="text" autocomplete="off"  name="permisoBuscado" class="form-control" placeholder="ingrese permiso">
                           </div>
 
                           <div class="form-group">
@@ -76,12 +76,12 @@
                             <td>{{ $item->name }}</td>
                            
                             <td>
-                              @role('Admin')
+                              @can('usuarios.asignarRol')
                                 <button  data-toggle="modal" onclick="editarPermiso({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                              @endcan
                                @can('usuarios.eliminarUsuario') <button  onclick="eliminarPermiso({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                @endcan
                             
-                              @endrole
                             </td>
                           
                           </tr>

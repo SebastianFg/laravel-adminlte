@@ -25,109 +25,101 @@
                     <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
                   @endcan  
                 </div>
-
-{{--                 <div class="col-md-3">
-                  <button type="button" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"> Buscar</i>  </button> 
-                  <button type="button" id="btnLimpiar" class="btn btn-warning left"> <i class="fa fa-paint-brush"> Limpiar</i> </button> 
-                </div> --}}
+              </div>
+            </div>
           </div>
-
-          {{-- extiendo los modales --}}
           @extends('vehiculos/siniestros/modales/modal_alta_siniestro')
           @extends('vehiculos/siniestros/modales/modal_edicion_siniestro')
-{{--           @extends('vehiculos/altas/modales/modal_baja_vehiculo')
-          @extends('vehiculos/altas/modales/modal_editar_vehiculo') --}}
-           </div>
-
+          @extends('vehiculos/siniestros/modales/modal_detalle')
+          <hr>
+          <div class="card">
+            <div class="card-header">
+              <strong><u>Siniestros</u></strong>
             </div>
-
-              <hr>
-              <div class="card">
-                <div class="card-header">
-                  <strong><u>Siniestros</u></strong>
-                </div>
-
-                <div class="card-body">
+            <div class="card-body">
+              <div class="row">
+                <form model="" class="navbar-form navbar-left pull-right" role="search">
                   <div class="row">
-                    <form model="" class="navbar-form navbar-left pull-right" role="search">
-                      <div class="row">
-                        
-                        <div class="form-group">
-                          <input type="text" name="vehiculoBuscado" class="form-control" placeholder="numero de identificacion">
-                        </div>
+                    
+                    <div class="form-group">
+                      <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
+                    </div>
 {{--                         <div class="col-md-">
-                          <select name="id_tipo_vehiculo_lista"  class="form-control">
-                            <option value="" selected="">Seleccione un tipo de vehiculo</option>
-                            @foreach ($tipo_vehiculo as $item)
-                              <option value="{{ $item->id_tipo_vehiculo }}">{{ $item->nombre_tipo_vehiculo }}</option>
-                            @endforeach
-                          </select>
-                        </div> --}}
-                        <div class="form-group">
-                           <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
-                        </div>
-                         
-                      </div>
-                    </form>
-                  </div>
-                  <div class="row">
-                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
-                      <thead>
-                        <tr>
-                          <th>N° Identificacion</th>
-                          <th>Afectado</th>
-                          <th>Lugar</th>
-                          <th>Fecha</th>
-                          <th>Lesiones</th>
-                          <th>Colision</th>
-                          <th>Presentacion</th>
-                          <th>Observaciones</th>
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($siniestros as $item)
-                        
-                          <tr>
-                            <td>{{ $item->numero_de_identificacion }}</td>
-                            <td>{{ $item->nombre_dependencia }}</td>
-                            <td>{{ $item->lugar_siniestro }}</td>
-                            <td>{{ $item->fecha_siniestro }}</td>
-                            @if($item->lesiones_siniestro == 1)
-                              <td><label class="badge badge-danger">Si</label></td>
-                            @else
-                              <td><label class="badge badge-success">No</label></td>
-                            @endif
-                            <td>{{ $item->descripcion_siniestro }}</td>
-                            <td>{{ $item->fecha_presentacion }}</td>
-                            <td>{{ $item->observaciones_siniestro }}</td>
-
-                            <td>
-                              @can('vehiculos.informacion')
-                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
-                              @endcan
-                              @can('vehiculos.editarSiniestro') 
-                                <button onclick="editarSiniestro({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                              @endcan
-                              @can('vehiculos.eliminarSiniestro') 
-                                <button  onclick="eliminarVehiculo('{{ $item->id_siniestro }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                              @endcan
-                            </td>
-                          
-                          </tr>
+                      <select name="id_tipo_vehiculo_lista"  class="form-control">
+                        <option value="" selected="">Seleccione un tipo de vehiculo</option>
+                        @foreach ($tipo_vehiculo as $item)
+                          <option value="{{ $item->id_tipo_vehiculo }}">{{ $item->nombre_tipo_vehiculo }}</option>
                         @endforeach
-                      </tbody>
-                    </table>
-
-        {{--               <div class="row">
-                          {{ $VehiculosListados->appends(Request::all())->links() }}
-                      </div> --}}
-                   {{--  @if(isset($existe))
-                    @endif
- --}}
+                      </select>
+                    </div> --}}
+                    <div class="form-group">
+                       <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
+                    </div>
+                     
                   </div>
-                </div>
+                </form>
               </div>
+              <div class="row">
+                <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered responsive">
+                  <thead>
+                    <tr>
+                      <th>N° Identificacion</th>
+                      <th>Afectado</th>
+                      <th>Direccion</th>
+                      <th>Fecha</th>
+                      <th>Lesiones</th>
+                      <th>Colisión</th>
+                      <th>Presentacion</th>
+                      <th>Observaciones</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($siniestros as $item)
+                    
+                      <tr>
+                        <td>{{ $item->numero_de_identificacion }}</td>
+                        <td>{{ $item->nombre_dependencia }}</td>
+                        <td>{{ substr($item->lugar_siniestro ,0,10) }}...<a href="" onclick="detalle('{{ $item->lugar_siniestro }}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
+                        </td>
+
+                        <td>{{ date('d-m-Y', strtotime($item->fecha_siniestro)) }}</td>
+                        @if($item->lesiones_siniestro == 1)
+                          <td><label class="badge badge-danger">Si</label></td>
+                        @else
+                          <td><label class="badge badge-success">No</label></td>
+                        @endif
+                        <td>{{ substr($item->descripcion_siniestro,0,10) }}...<a href="" onclick="detalle('{{ $item->descripcion_siniestro }}')" data-toggle="modal" data-target="#modalDetalleDesc">ver mas</a>
+                        </td>
+
+                        <td>{{ date('d-m-Y', strtotime($item->fecha_presentacion)) }}</td>
+                        <td>{{ substr($item->observaciones_siniestro,0,10) }}...<a href="" onclick="detalle('{{ $item->observaciones_siniestro }}')" data-toggle="modal" data-target="#modalDetalleObs">ver mas</a>
+                        </td>
+                        <td>
+                          @can('vehiculos.informacion')
+                            <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
+                          @endcan
+                          @can('vehiculos.editarSiniestro') 
+                            <button onclick="editarSiniestro({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                          @endcan
+{{--                               @can('vehiculos.eliminarSiniestro') 
+                            <button  onclick="eliminarVehiculo('{{ $item->id_siniestro }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                          @endcan --}}
+                        </td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+
+    {{--               <div class="row">
+                      {{ $VehiculosListados->appends(Request::all())->links() }}
+                  </div> --}}
+               {{--  @if(isset($existe))
+                @endif
+--}}
+              </div>
+            </div>
+          </div>
                           </div>
           {{-- card --}}
           </div>
@@ -196,12 +188,12 @@
 
       },
   });
-  function eliminarVehiculo(id_vehiculo,numero_de_identificacion){
+/*  function eliminarVehiculo(id_vehiculo,numero_de_identificacion){
 
     var numero_de_identificacion = $('#id_numero_de_identificacion_baja').val(numero_de_identificacion);
     var id_vehiculo = $('#id_vehiculo_baja').val(id_vehiculo);
     $('#modalBajaVehiculo').modal('show');
-  }
+  }*/
 
   function editarSiniestro(item){
     console.log(item)
@@ -219,5 +211,41 @@
         $('#idModalEdicionSiniestro').modal('show');
   }
 
+  function detalle(item){
+    var asdasd = $('#idDetalle').val(item);
+    $('#modalDetalleLugar').modal('show');
+  }
+
 </script>
 @stop
+<style type="text/css">
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events: all;
+}
+.modal-body {
+    position: relative;
+    overflow-y: auto;
+    max-height: 400px;
+    padding: 15px;
+}
+
+</style>
+
+

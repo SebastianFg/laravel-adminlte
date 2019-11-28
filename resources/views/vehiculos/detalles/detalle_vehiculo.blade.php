@@ -9,7 +9,14 @@
   <!-- Main content -->
   <div class="content">
     @if(strpos(Auth::User()->roles,'Suspendido'))
-      su usuario se encuentra suspendido
+      <div class="row ">
+        <div class="card col-sm-12">
+          <div class="card-body">
+            <h4 class="card-title">Su usuario se encuentra suspendido, contacte con un administrador</h4> 
+            <br>
+          </div>
+        </div>
+      </div>
     @else
     <div class="container-fluid"> 
       <hr>
@@ -19,7 +26,7 @@
                 <div class="row">
                   
                   <div class="form-group">
-                    <input type="text" name="vehiculoBuscado" class="form-control" placeholder="numero de identificacion">
+                    <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
                   </div>
                   <div class="form-group">
                      <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
@@ -29,7 +36,7 @@
               </form>
             </div>
           </div> 
-
+          @extends('vehiculos/siniestros/modales/modal_detalle')
       
         @if($existe == 0)
 
@@ -84,7 +91,7 @@
                     @endif
 
                     <label class="texto">Fecha</label>
-                    <p class="parroafos">{{$VehiculosListados[0]->fecha  }}</p>
+                    <p class="parroafos">{{ date('d-m-Y', strtotime($VehiculosListados[0]->fecha )) }}</p>
                   @else
                     asdas
                   @endif
@@ -141,7 +148,8 @@
                           @foreach($historial as $item)
                             <tr>
                               <td>{{ $item->nombre_dependencia }}</td>
-                              <td>{{ $item->fecha }}</td>
+                              <td>{{ date('d-m-Y', strtotime($item->fecha )) }}</td>
+                              <
                               <td>{{ $item->observaciones }}</td>
                             </tr>
                           @endforeach
@@ -174,7 +182,6 @@
                           <th>Colision</th>
                           <th>Presentacion</th>
                           <th>Observaciones</th>
-                          <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -183,32 +190,27 @@
                           <tr>
                             <td>{{ $item->numero_de_identificacion }}</td>
                             <td>{{ $item->nombre_dependencia }}</td>
-                            <td>{{ $item->lugar_siniestro }}</td>
-                            <td>{{ $item->fecha_siniestro }}</td>
+                            <td>{{ substr($item->lugar_siniestro ,0,10) }}...<a href="" onclick="detalle('{{ $item->lugar_siniestro }}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
+                            </td>
+
+                            <td>{{ date('d-m-Y', strtotime($item->fecha_siniestro)) }}</td>
                             @if($item->lesiones_siniestro == 1)
                               <td><label class="badge badge-danger">Si</label></td>
                             @else
                               <td><label class="badge badge-success">No</label></td>
                             @endif
-                            <td>{{ $item->descripcion_siniestro }}</td>
-                            <td>{{ $item->fecha_presentacion }}</td>
-                            <td>{{ $item->observaciones_siniestro }}</td>
-
-                            <td>
-                              @can('vehiculos.editarSiniestro') 
-                                <button onclick="editarSiniestro({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                              @endcan
-                              @can('vehiculos.eliminarSiniestro') 
-                                <button  onclick="eliminarVehiculo('{{ $item->id_siniestro }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                              @endcan
+                            <td>{{ substr($item->descripcion_siniestro,0,10) }}...<a href="" onclick="detalle('{{ $item->descripcion_siniestro }}')" data-toggle="modal" data-target="#modalDetalleDesc">ver mas</a>
                             </td>
-                          
+
+                            <td>{{ date('d-m-Y', strtotime($item->fecha_presentacion)) }}</td>
+                            <td>{{ substr($item->observaciones_siniestro,0,10) }}...<a href="" onclick="detalle('{{ $item->observaciones_siniestro }}')" data-toggle="modal" data-target="#modalDetalleObs">ver mas</a>
+                            </td>
                           </tr>
                         @endforeach
                       </tbody>
                     </table>
                 <div class="row">
-                  {{ $historial->appends(Request::all())->links() }}
+                  {{ $siniestros->appends(Request::all())->links() }}
                 </div>
               @else
                 <p>no posee</p>
@@ -298,6 +300,10 @@
         kilometraje = $('#id_kilometraje_modificacion').val(item.kilometraje),
         otras_caracteristicas = $('#id_observaciones_modificacion').val(item.otras_caracteristicas);
         $('#modalEdicionVehiculo').modal('show');
+  }
+  function detalle(item){
+    var asdasd = $('#idDetalle').val(item);
+    $('#modalDetalleLugar').modal('show');
   }
 
 </script>

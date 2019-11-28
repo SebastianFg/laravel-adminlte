@@ -15,9 +15,9 @@
             <div class="card-header">
               <div class="row">
                 <div class="col-md-3">
-                  @role('Admin')
+                  @can('dependencias.crearDependencia')
                   <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModalDependencia"> <i class="fa fa-plus"> Nueva dependencia</i> </button> 
-                  @endrole
+                  @endcan
                 </div>
               </div>
             </div>
@@ -38,7 +38,7 @@
                   <form class="navbar-form navbar-right pull-right" role="search">
                     <div class="row">
                       <div class="form-group">
-                        <input type="text"  name="nombreDependencia" class="form-control" placeholder="ingrese permiso">
+                        <input type="text" autocomplete="off"  name="nombreDependencia" class="form-control" placeholder="ingrese permiso">
                       </div>
                       <div class="form-group">
                         <select name="nivel_dependencia" class="form-control">
@@ -76,13 +76,14 @@
                           <td><label class="badge badge-success">Activo</label></td>
                         @endif
                         <td>
-                          @role('Admin')
+                          @can('dependencias.editarDependencia')
                             <button  data-toggle="modal" onclick="editarDependencia({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                          @endcan
                           @can('dependencias.eliminarDepencencia') 
                             <button  onclick="eliminarDependencia({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                           @endcan
                         
-                          @endrole
+                
                         </td>
                       </tr>
                     @endforeach

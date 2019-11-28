@@ -45,6 +45,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'usuarios.resetPassword']);
 
         Permission::create(['name' => 'dependencias.dependencias']);
+        Permission::create(['name' => 'dependencias.crearDependencia']);
         Permission::create(['name' => 'dependencias.editarDependencia']);
         Permission::create(['name' => 'dependencias.eliminarDepencencia']);
 
@@ -52,7 +53,8 @@ class PermissionsTableSeeder extends Seeder
 
         //creamos los roles
      	$SuperAdmin = Role::create(['name' => 'Super Admin']);
-        $admin = Role::create(['name' => 'Admin']);
+        $sinRol = Role::create(['name' => 'Sin Rol']);
+        $Admin = Role::create(['name' => 'Admin']);
         $cargarVehiculos = Role::create(['name' => 'Cargar Vehiculos']);
 
         //asignamos los permisos a los roles
@@ -86,13 +88,14 @@ class PermissionsTableSeeder extends Seeder
             'usuarios.resetPassword',
 
             'dependencias.dependencias',
+            'dependencias.crearDependencia',
             'dependencias.editarDependencia',
             'dependencias.eliminarDepencencia',
 
             'estados.altaEstado',
         ]);
 
-        $SuperAdmin->givePermissionTo([
+        $Admin->givePermissionTo([
             'vehiculos.index',
             'vehiculos.crear',
             'vehiculos.editar',

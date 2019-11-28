@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label>Permiso</label>
-                            <input type="text" readonly="" name="permiso_nombre" id="id_permiso_rol_nombre"  required class="form-control md-2" value="{{ old('permiso_nombre') }}" autofocus> 
+                            <input type="text" readonly="" autocomplete="off" name="permiso_nombre" id="id_permiso_rol_nombre"  required class="form-control md-2" value="{{ old('permiso_nombre') }}" autofocus> 
                             <input type="text"  id="id_permiso" hidden  name="id_permiso" class="form-control">
                         </div>
                     </div>

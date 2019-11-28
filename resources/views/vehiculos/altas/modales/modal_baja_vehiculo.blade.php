@@ -23,7 +23,7 @@
                   <label>Vehiculo</label>
                   <br>
                   <input type="text" readonly="" hidden="" id="id_vehiculo_baja" class="form-control" name="vehiculo" >
-                  <input class="form-control" type="text" readonly=""  id="id_numero_de_identificacion_baja" name="numero_de_identificacion" >
+                  <input class="form-control" type="text" readonly="" autocomplete="off"  id="id_numero_de_identificacion_baja" name="numero_de_identificacion" >
                   <input type="text" value="{{ Auth::user()->id }}" hidden name="id_usuario">
                 </div>
                 <div class="form-group col-md-6">
@@ -33,7 +33,7 @@
               </div>
                 <div class="form-group col-md-12">
                     <label for="">Motivo de baja</label>
-                    <textarea type="text" name="motivo_de_baja" placeholder="Motivo de la baja" class="form-control" value="{{ old('observaciones') }}"></textarea>
+                    <textarea type="text" autocomplete="off" name="motivo_de_baja" placeholder="Motivo de la baja" class="form-control" value="{{ old('observaciones') }}"></textarea>
                     {{-- <input type="text" name="otros" placeholder="Otras Caracteristicas" class="form-control" required value="{{ old('otros') }}"> --}}
                 </div>
 

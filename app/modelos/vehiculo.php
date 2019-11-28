@@ -20,7 +20,7 @@ class vehiculo extends Model
     					->orWhere('marca','ilike','%'.$identificacion.'%')
     					->orWhere('modelo','ilike','%'.$identificacion.'%')
     					//->orWhere('numero_de_inventario','ilike','%'.$identificacion.'%')
-    					->orWhere('tipo','ilike',$identificacion)
+    					/*->orWhere('tipo','ilike',$identificacion)*/
                         ->orWhere('clase_de_unidad','ilike','%'.$identificacion.'%')
                         ->orWhere('anio_de_produccion','ilike','%'.$identificacion.'%')
                         ->join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')

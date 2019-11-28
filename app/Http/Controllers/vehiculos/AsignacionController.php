@@ -54,20 +54,35 @@ class AsignacionController extends Controller
 	}
 
 	public function index(Request $Request){
-
+        if (Auth::User()->primer_logeo == null) {
+            return redirect('admin/primerIngreso');
+        }
         if (strpos(Auth::User()->roles,'Suspendido')) {
             Auth::logout();
             alert()->error('Su usuario se encuentra suspendido');
              return redirect('/login');
         }
 
-            $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
-            									->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
-                                                ->orderBy('id_detalle')->get(); 
-/*      if ($Request->vehiculoBuscado == null) {
+       /* $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
+        									->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
+                                            ->orderBy('id_detalle')->get();*/
+
+      if ($Request->vehiculoBuscado == null) {
+        $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
+                                                ->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
+                                                ->orderBy('id_detalle')
+                                                ->get();
+        $asignacion = $this->paginar($asignacion);
       }else{
-            $asignacion = vehiculo::Identificacion($Request->vehiculoBuscado)
-      }*/
+
+        $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
+                                            ->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
+                                            ->where('numero_de_identificacion','ilike',$Request->vehiculoBuscado)
+                                            ->orwhere('dominio','ilike',$Request->vehiculoBuscado)
+                                            ->orderBy('id_detalle')
+                                            ->get();
+        $asignacion = $this->paginar($asignacion);
+      }
        
 
 
@@ -77,9 +92,11 @@ class AsignacionController extends Controller
     public function getAllVehiculosDisponibles(Request $Request){
       /*  $vehiculos_disponibles = \DB::select("select * from view_vehiculos_disponibles 
                                             where view_vehiculos_disponibles.dominio ilike '%".$Request->termino."%' or view_vehiculos_disponibles.numero_de_identificacion ilike '%".$Request->termino."%'" );*/
-        $vehiculos_disponibles = \DB::select('select *  FROM vehiculos
-  WHERE NOT (vehiculos.id_vehiculo IN ( SELECT DISTINCT detalle_asignacion_vehiculos.id_vehiculo
-           FROM detalle_asignacion_vehiculos)) AND vehiculos.baja = 0');
+        $vehiculos_disponibles = \DB::select('select *  
+                                            FROM vehiculos
+                                            WHERE vehiculos.id_vehiculo not IN ( SELECT DISTINCT detalle_asignacion_vehiculos.id_vehiculo
+                                                       FROM detalle_asignacion_vehiculos)
+                                            AND vehiculos.baja = 0');
         return response()->json($vehiculos_disponibles);
 
     }

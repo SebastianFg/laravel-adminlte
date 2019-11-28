@@ -33,7 +33,7 @@
                         <div class="row">
                           
                           <div class="form-group">
-                            <input type="text"  name="RolPermisoBuscado" class="form-control" placeholder="ingrese permiso">
+                            <input type="text" autocomplete="off"  name="RolPermisoBuscado" class="form-control" placeholder="ingrese permiso">
                           </div>
 
                           <div class="form-group">
@@ -62,9 +62,9 @@
 	                           	@endforeach
                             </td>
                             <td>
-                              @role('Admin')
+                              @can('usuarios.asignarPermisosARoles')
                                 <button  data-toggle="modal" onclick="editar({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>                            
-                              @endrole
+                              @endcan
                             </td>
                           
                           </tr>

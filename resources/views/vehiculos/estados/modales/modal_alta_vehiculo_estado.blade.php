@@ -32,7 +32,7 @@
                   </div>
                   <div class="form-group col-md-12">
                       <label for="">Motivo de alta</label>
-                      <textarea type="text" name="motivo_de_alta" placeholder="Motivo de alta" class="form-control" value="{{ old('observaciones') }}"></textarea>
+                      <textarea type="text" name="motivo_de_alta" autocomplete="off" placeholder="Motivo de alta" class="form-control" value="{{ old('observaciones') }}"></textarea>
                   </div>
 
                   <div class="col-md-12 modal-footer" style="position:relative;">

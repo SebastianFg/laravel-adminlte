@@ -12,7 +12,7 @@
                 @csrf
                 <div class="input-group mb-3">
                     <span class="fa fa-user input-group-text"></span>
-                    <input id="usuario"  class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
+                    <input id="usuario"  autocomplete="off" class="form-control{{ $errors->has('usuario') ? ' is-invalid' : '' }}" name="usuario" value="{{ old('usuario') }}" required autofocus>
                         @if ($errors->has('usuario'))
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $errors->first('usuario') }}</strong>
@@ -29,13 +29,6 @@
                     @endif
                 </div>
                 <div class="row">
-                    <div class="col-8">
-                        <div class="checkbox icheck">
-                            <label>
-                <input type="checkbox"> Recordar
-              </label>
-                        </div>
-                    </div>
                     <!-- /.col -->
                     <div class="col-4">
                         <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
@@ -43,10 +36,6 @@
                     <!-- /.col -->
                 </div>
             </form>
-            <!-- /.social-auth-links -->
-            <p class="mb-0">
-                <a href="{{route('register')}}" class="text-center">Register a new membership</a>
-            </p>
         </div>
         <!-- /.login-card-body -->
     </div>

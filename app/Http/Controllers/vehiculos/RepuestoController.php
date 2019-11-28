@@ -44,6 +44,9 @@ class RepuestoController extends Controller
 	}
 
    public function index(){
+        if (Auth::User()->primer_logeo == null) {
+            return redirect('admin/primerIngreso');
+        }
   		$repuestos = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
   							->join('users','users.id','=','detalle_asignacion_repuestos.id_responsable')
   							->orderBy('id_detalle_repuesto','desc')

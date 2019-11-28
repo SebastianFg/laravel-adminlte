@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
-
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
+
 
 class PermisosController extends Controller
 {
@@ -44,7 +45,9 @@ class PermisosController extends Controller
     }
     public function index(Request $Request)
     {
-        
+        if (Auth::User()->primer_logeo == null) {
+            return redirect('admin/primerIngreso');
+        }
         $existe = 1;
         if ($Request->permisoBuscado ==null ) {
             $permisos = Permission::all();

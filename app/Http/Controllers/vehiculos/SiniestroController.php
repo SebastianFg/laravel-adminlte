@@ -4,11 +4,17 @@ namespace App\Http\Controllers\vehiculos;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Auth;
 /*modelos*/
 use App\Modelos\siniestro;
 use App\Modelos\asignacion_vehiculo;
 use App\Modelos\pdf_siniestro;
+
+
+//paginador
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+
 
 class SiniestroController extends Controller
 {
@@ -47,9 +53,12 @@ class SiniestroController extends Controller
 //siniestros
     //index siniestro
     public function indexSiniestros(){
+        if (Auth::User()->primer_logeo == null) {
+            return redirect('admin/primerIngreso');
+        }
     	$siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
     							->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')->get();
-    	//return $siniestros;
+    	$siniestros = $this->paginar($siniestros);
         return view('vehiculos/siniestros/siniestros_vehiculos',compact('siniestros'));
     }
 

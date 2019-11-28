@@ -29,13 +29,14 @@
                 <div class="row">
                   <div class="col-md-3-responsive">
                     @can('usuarios.crear')
-                      <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModal"> <i class="fa fa-plus"> Nuevo Usuario</i> </button> 
+                      <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#modalAltaUsuario"> <i class="fa fa-plus"> Nuevo Usuario</i> </button> 
                     @endcan
                   </div>
                 </div>
                 {{-- extiendo los modales --}}
                 @extends('usuarios/modales/modal_asignar_rol')
                 @extends('usuarios/modales/modal_baja_usuario')
+                @extends('usuarios/modales/modal_nuevo_usuario')
               </div>
 
             </div>
@@ -49,7 +50,7 @@
                   <form class="navbar-form navbar-right pull-right" role="search">
                     <div class="row">
                       <div class="form-group">
-                        <input type="text"  name="usuarioBuscado" class="form-control" placeholder="Nombre, apellido o usuario">
+                        <input type="text" autocomplete="off" name="usuarioBuscado" class="form-control" placeholder="Nombre, apellido o usuario">
                       </div>
                       <div class="form-group">
                          <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
@@ -85,8 +86,8 @@
                           @can('usuarios.eliminarUsuario') 
                             <button  onclick="eliminarUsuario({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                           @endcan
-                          @can('usuarios.resetPassword') 
-                            <button  title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                          @can('usuarios.resetPassword')
+                            <a class="btn btn-secondary btn-sm" href="{{ route('resetPassword',$item->id) }}"><i class="fa fa-undo"></i></a>
                           @endcan
                         </td>
                       </tr>

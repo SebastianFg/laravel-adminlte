@@ -21,7 +21,7 @@
                   <div class="row">
                     <div class="form-group col-md-12">
                         <label>Tipo Vehiculo</label>
-                        <input type="text" id="id_nombre_tipo_vehiculo_editar" name="nombre_tipo_vehiculo_editar" maxlength="6" placeholder="tipo vehiculo" required class="form-control md-2" value="{{ old('nombre_tipo_vehiculo_editar') }}"> 
+                        <input type="text" id="id_nombre_tipo_vehiculo_editar" name="nombre_tipo_vehiculo_editar" autocomplete="off" maxlength="6" placeholder="tipo vehiculo" required class="form-control md-2" value="{{ old('nombre_tipo_vehiculo_editar') }}"> 
                         <input type="text" hidden  name="id_tipo_vehiculo" id="id_tipo_vehiculo">
                     </div>    
 

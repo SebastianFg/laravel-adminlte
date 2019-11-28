@@ -20,7 +20,7 @@
 		                <div class="row">
 		                    <div class="form-group ">
 		                        <label>Permiso</label>
-		                        <input type="text" name="nombre_permiso"  placeholder="ingrese permiso" required class="form-control md-2" value="{{ old('nombre_permiso') }}"> 
+		                        <input type="text" name="nombre_permiso" autocomplete="off" placeholder="ingrese permiso" required class="form-control md-2" value="{{ old('nombre_permiso') }}"> 
 		                    </div>
 		                </div>
 		                <div class="modal-footer">

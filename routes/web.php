@@ -34,9 +34,15 @@ Route::group(['prefix' => 'admin'], function () {
 		//usuarios
 		Route::get('usuarios', 'UsuarioController@index')->name('listaUsuarios');//\\\->middleware('permiso:usuarios.listaUsuarios');
 		Route::post('usuarios', 'UsuarioController@asignarRol')->name('agregarRol');//->middleware('permiso:usuarios.asignarRol');
-		Route::post('eliminarUsuarios','UsuarioController@eliminarUsuario')->name('eliminarUsuario');
+	/*	Route::post('eliminarUsuarios','UsuarioController@eliminarUsuario')->name('eliminarUsuario');*/
 		Route::post('editarUsuario','UsuarioController@eliminarUsuario')->name('eliminarUsuario');
-		Route::post('resetPassword/{id}','UsuarioController@eliminarUsuario')->name('resetPassword')->middleware('permiso:usuarios.resetPassword');;
+		Route::get('resetPassword/{id}','UsuarioController@resetPassword')->name('resetPassword')->middleware('permiso:usuarios.resetPassword');
+
+		Route::post('altaUsuario','UsuarioController@registroUsuario')->name('registroUsuario');
+		//primer cambio
+		Route::get('primerIngreso','UsuarioController@primerPassword')->name('primerPassword');
+
+		Route::post('primerIngreso','UsuarioController@cambioPrimerPassword')->name('cambioPrimerPassword');
 
 
 		//roles
