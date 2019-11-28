@@ -83,7 +83,7 @@
                     </div>
                     <div class="form-group col-md-6" style="background-color: #FFF;" id="divFile">
                       <label>Selecionar imagenes</label>
-                      <input type="file" name="file[]"  id="file" accept="image/*" multiple />
+                      <input type="file" name="foto[]"  id="file" accept="image/*" multiple />
                     </div>
                   </div>
             

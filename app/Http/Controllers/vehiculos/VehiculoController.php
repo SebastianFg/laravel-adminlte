@@ -179,7 +179,7 @@ class VehiculoController extends Controller
             'clase_de_unidad' => 'required|max:20',
             'tipo' => 'required',
             'otros' => 'required',
-            'file' => 'required'
+            'foto' => 'required'
         ]);
         if ($Validar->fails()){
             alert()->error('Error','ERROR! Intente agregar nuevamente...');

@@ -44,7 +44,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Historial completo</u></strong>
+                  <strong><u>Historial de taller</u></strong>
                 </div>
 
                 <div class="card-body">
