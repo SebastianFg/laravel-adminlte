@@ -67,7 +67,7 @@ class UsuarioController extends Controller
 
     }
 	public function index(Request $Request){
-        
+
 		if (Auth::User()->primer_logeo == null) {
             return redirect('admin/primerIngreso');
         }

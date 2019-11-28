@@ -30,7 +30,7 @@
           <label>Usuario</label>
           <div class="input-group mb-3">
             <span class="fa fa-user input-group-text"></span> 
-            <input id="usuario" type="text" class="form-control" minlength="4" name="usuario" value="{{ old('usuario') }}" placeholder="Ingrese nombre de usuario">
+            <input id="usuario" type="text" class="form-control" pattern="[^\s]+" minlength="4" name="usuario" value="{{ old('usuario') }}" placeholder="Ingrese nombre de usuario">
               @if ($errors->has('usuario'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('usuario') }}</strong>
