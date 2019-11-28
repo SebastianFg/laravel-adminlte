@@ -80,15 +80,18 @@
                           @endif
                         </td>
                         <td>
-                          @can('usuarios.asignarRol')
-                            <button  data-toggle="modal" onclick="agregarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                          @endcan
-                          @can('usuarios.eliminarUsuario') 
-                            <button  onclick="eliminarUsuario({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                          @endcan
-                          @can('usuarios.resetPassword')
-                            <a class="btn btn-secondary btn-sm" href="{{ route('resetPassword',$item->id) }}"><i class="fa fa-undo"></i></a>
-                          @endcan
+                        
+                          @if(strcmp($item->getRoleNames(),'Super Admin') != 0)
+                            @can('usuarios.asignarRol')
+                              <button  data-toggle="modal" onclick="agregarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                            @endcan
+                            @can('usuarios.eliminarUsuario') 
+                              <button  onclick="eliminarUsuario({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                            @endcan
+                            @can('usuarios.resetPassword')
+                              <a class="btn btn-secondary btn-sm" href="{{ route('resetPassword',$item->id) }}"><i class="fa fa-undo"></i></a>
+                            @endcan
+                          @endif
                         </td>
                       </tr>
                     @endforeach

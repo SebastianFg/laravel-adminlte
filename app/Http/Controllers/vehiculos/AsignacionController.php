@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use App\modelos\asignacion_vehiculo;
 use App\modelos\dependencia;
 use App\modelos\vehiculo;
+use App\User;
 
-
+use Barryvdh\DomPDF\Facade as PDF;
 
 
 
@@ -140,5 +141,20 @@ class AsignacionController extends Controller
         }else{
             return $this->getMensaje('Error, Intente nuevamente...','listaAsignacion',false);
         };
+    }
+    public function exportarPdfCargo($id){
+           // return $id;
+            $detalle_asignacion_vehiculo = asignacion_vehiculo::where('id_vehiculo','=',$id)->get();
+           
+            $detalleVehiculo = Vehiculo::findOrFail($detalle_asignacion_vehiculo[0]->id_vehiculo);
+           // return $detalleVehiculo;
+            $user = User::findOrFail($detalle_asignacion_vehiculo[0]->id_responsable);
+     
+            $nombre_responsable_entrega = $user->name;
+            $nombre_responsable_recibio = $detalle_asignacion_vehiculo[0]->destino;
+
+            $pdf = PDF::loadView('vehiculos.asignacion.pdf_cargo_lista', compact('detalleVehiculo','nombre_responsable_entrega','nombre_responsable_recibio'));
+
+            return $pdf->stream($detalleVehiculo->dominio.'.pdf');
     }
 }

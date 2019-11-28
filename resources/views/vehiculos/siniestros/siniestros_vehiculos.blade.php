@@ -111,9 +111,9 @@
                   </tbody>
                 </table>
 
-    {{--               <div class="row">
-                      {{ $VehiculosListados->appends(Request::all())->links() }}
-                  </div> --}}
+                <div class="row">
+                    {{ $siniestros->appends(Request::all())->links() }}
+                </div>
                {{--  @if(isset($existe))
                 @endif
 --}}

@@ -9,6 +9,9 @@ use Barryvdh\DomPDF\Facade as PDF;
 
 /*modelos*/
 use App\modelos\repuesto;
+//paginador
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class RepuestoController extends Controller
 {
@@ -43,15 +46,24 @@ class RepuestoController extends Controller
         return $datos;
 	}
 
-   public function index(){
+   public function index(Request $Request){
         if (Auth::User()->primer_logeo == null) {
             return redirect('admin/primerIngreso');
         }
-  		$repuestos = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
-  							->join('users','users.id','=','detalle_asignacion_repuestos.id_responsable')
-  							->orderBy('id_detalle_repuesto','desc')
-  							->get();
-  		//return $repuestos;
+        if ($Request->vehiculoBuscado == null) {
+      		$repuestos = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
+      							->join('users','users.id','=','detalle_asignacion_repuestos.id_responsable')
+      							->orderBy('id_detalle_repuesto','desc')
+      							->get();
+        }else{
+            $repuestos = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
+                                ->join('users','users.id','=','detalle_asignacion_repuestos.id_responsable')
+                                ->where('vehiculos.numero_de_identificacion','ilike',$Request->vehiculoBuscado)
+                                ->orwhere('vehiculos.dominio','ilike',$Request->vehiculoBuscado)
+                                ->orderBy('id_detalle_repuesto','desc')
+                                ->get();
+        }
+        $repuestos = $this->paginar($repuestos);
         return view('vehiculos.repuestos.repuestos_alta_listado',compact('repuestos'));
     }
 

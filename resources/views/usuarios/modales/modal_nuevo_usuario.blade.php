@@ -40,9 +40,11 @@
           </div>
 
           <div class="row">
-            <div class="col-6">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Guardar</button>
-            </div>
+
+                  <div class="col-md-12 modal-footer" style="position:relative;">
+                      <button class="btn btn-success col-md-4 d-inline" id="btnSubmit" type="submit">Guardar</button>
+                      <button class="btn btn-danger col-md-4 d-inline" data-dismiss="modal">Cancelar</button>  
+                  </div>
           </div>
         </form>
         </div>

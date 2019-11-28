@@ -126,7 +126,8 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::post('asignacion','vehiculos\AsignacionController@crearAsignacion')->name('crearAsignacion');
 		//eliminar asignacion
 		Route::post('eliminar_asignacion','vehiculos\AsignacionController@eliminarAsignacion')->name('eliminarAsignacion');
-
+		//PDF
+		Route::get('asignar_vehiculos/{id}', 'vehiculos\AsignacionController@exportarPdfCargo')->name('pdfVehiculosCargo');
 
 		//vehiculos detalle
 		Route::get('/detalleVehiculo/{id?}', 'vehiculos\DetallesController@index')->name('detalleVehiculo');
@@ -155,7 +156,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 		
 
-		Route::get('asignar_vehiculos_repuestos', 'vehiculos\RepuestoController@exportarPdfRepuestos')->name('descargarPDFRepuesto');
+		Route::get('asignar_vehiculos_repuestos/{id}', 'vehiculos\RepuestoController@exportarPdfRepuestos')->name('descargarPDFRepuesto');
 
 
 
