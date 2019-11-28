@@ -21,7 +21,7 @@
                         <div class="form-group ">
                             <label>Nombre Rol</label>
                              <input type="text" hidden="" name="id_rol" id="id_rol_baja"  required value="{{ old('nombre_rol') }}"> 
-                            <input type="text" readonly="" name="nombre_rol" id="id_nombre_rol_baja" maxlength="15" placeholder="ingrese nombre del rol" required class="form-control md-2" value="{{ old('nombre_rol') }}"> 
+                            <input type="text" readonly="" autocomplete="off" name="nombre_rol" id="id_nombre_rol_baja" maxlength="15" placeholder="ingrese nombre del rol" required class="form-control md-2" value="{{ old('nombre_rol') }}"> 
                         </div>
                     </div>
                     <div class="modal-footer">

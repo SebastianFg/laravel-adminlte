@@ -22,7 +22,7 @@
                 <div class="form-group col-md-6"  >
                   <label>Usuario</label>
                   <br>
-                  <input type="text" readonly="" hidden="" id="id_usuario_baja" class="form-control" name="id_usuario" >
+                  <input autocomplete="off" type="text" readonly="" hidden="" id="id_usuario_baja" class="form-control" name="id_usuario" >
                   <input class="form-control" type="text" readonly=""  id="id_nombre_apellido" name="id_nombre_apellido" >
                   
                   <input type="text" value="{{ Auth::user()->id }}" hidden name="id_usuario_movimiento">

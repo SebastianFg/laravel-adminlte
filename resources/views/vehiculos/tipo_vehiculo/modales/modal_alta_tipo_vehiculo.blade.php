@@ -20,7 +20,7 @@
                 <div class="row">
                   <div class="form-group col-md-12">
                       <label>Ingrese tipo de vehiculo</label>
-                      <input type="" name="nombre_tipo_vehiculo" class="form-control" >
+                      <input type="" name="nombre_tipo_vehiculo" autocomplete="off" class="form-control" >
                   </div>
                 </div>
                 <div class="col-md-12 modal-footer" style="position:relative;">

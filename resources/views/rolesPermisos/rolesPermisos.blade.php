@@ -33,7 +33,7 @@
                         <div class="row">
                           
                           <div class="form-group">
-                            <input type="text"  name="RolPermisoBuscado" class="form-control" placeholder="ingrese permiso">
+                            <input type="text" autocomplete="off"  name="RolPermisoBuscado" class="form-control" placeholder="ingrese permiso">
                           </div>
 
                           <div class="form-group">

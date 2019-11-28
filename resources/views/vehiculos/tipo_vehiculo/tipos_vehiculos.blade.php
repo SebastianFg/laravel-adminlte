@@ -57,7 +57,7 @@
                       <div class="row">
                         
                         <div class="form-group">
-                          <input type="text" name="tipoVehiculoBuscado" class="form-control" placeholder="tipo vehiculo">
+                          <input type="text" name="tipoVehiculoBuscado" autocomplete="off" class="form-control" placeholder="tipo vehiculo">
                         </div>
                         <div class="form-group">
                            <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 

@@ -26,7 +26,7 @@
                 <div class="row">
                   
                   <div class="form-group">
-                    <input type="text" name="vehiculoBuscado" class="form-control" placeholder="numero de identificacion">
+                    <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
                   </div>
                   <div class="form-group">
                      <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
@@ -181,7 +181,7 @@
                           <th>Colision</th>
                           <th>Presentacion</th>
                           <th>Observaciones</th>
-                          <th>Acciones</th>
+                   {{--        <th>Acciones</th> --}}
                         </tr>
                       </thead>
                       <tbody>
@@ -200,7 +200,7 @@
                             <td>{{ $item->descripcion_siniestro }}</td>
                             <td>{{ $item->fecha_presentacion }}</td>
                             <td>{{ $item->observaciones_siniestro }}</td>
-
+{{-- 
                             <td>
                               @can('vehiculos.editarSiniestro') 
                                 <button onclick="editarSiniestro({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
@@ -208,7 +208,7 @@
                               @can('vehiculos.eliminarSiniestro') 
                                 <button  onclick="eliminarVehiculo('{{ $item->id_siniestro }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                               @endcan
-                            </td>
+                            </td> --}}
                           
                           </tr>
                         @endforeach

@@ -49,16 +49,16 @@
             <div class="row">
               <div class="form-group col-md-12">
                   <label for="">Lugar</label>
-                  <textarea type="text" name="lugar_siniestro" placeholder="Lugar del siniestro" class="form-control" required ></textarea>
+                  <textarea type="text" name="lugar_siniestro"  maxlength="191" autocomplete="off" placeholder="Lugar del siniestro" class="form-control" required ></textarea>
               </div>
               <div class="form-group col-md-12">
                   <label for="">Descripcion</label>
-                  <textarea type="text" name="descripcion_siniestro" placeholder="Ingrese descripcion del siniestro" class="form-control"></textarea>
+                  <textarea type="text" name="descripcion_siniestro"  maxlength="191" autocomplete="off" placeholder="Ingrese descripcion del siniestro" class="form-control"></textarea>
               </div>
             </div>
             <div class="form-group col-md-12">
                 <label for="">Observaciones</label>
-                <textarea type="text" name="observaciones_siniestro" placeholder="Ingrese alguna observacion" class="form-control"></textarea>
+                <textarea type="text" name="observaciones_siniestro"  maxlength="191"  autocomplete="off"placeholder="Ingrese alguna observacion" class="form-control"></textarea>
             </div>
 
             <div class="form-group col-md-12">

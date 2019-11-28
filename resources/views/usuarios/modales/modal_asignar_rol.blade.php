@@ -31,7 +31,7 @@
                         <div class="form-group col-md-6">
                             <label for="">Usuario</label>
                             <input type="text"  id="usuario_id" hidden  name="usuario" placeholder="Ingrese usuario" class="form-control">
-                            <input type="text"  id="nombre_usuario_id"  name="nombre_usuario_id" placeholder="Ingrese usuario" class="form-control">
+                            <input type="text" autocomplete="off" id="nombre_usuario_id"  name="nombre_usuario_id" placeholder="Ingrese usuario" class="form-control">
                         </div> 
                         <div class="form-group col-md-6">
                             <label for="">Seleccione Rol</label>  

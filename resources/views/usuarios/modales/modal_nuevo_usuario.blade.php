@@ -19,7 +19,7 @@
           <label>Nombre y Apellido</label>
           <div class="input-group mb-3">
             <span class="fa fa-user input-group-text"></span>
-            <input id="nombre" type="text" class="form-control" minlength="10" name="apellidoynombre" value="{{ old('apellidoynombre') }}" placeholder="Ingrese su nombre completo"
+            <input id="nombre" type="text" autocomplete="off" class="form-control" minlength="10" name="apellidoynombre" value="{{ old('apellidoynombre') }}" placeholder="Ingrese su nombre completo"
               required autofocus> 
             @if ($errors->has('nombre'))
               <span class="invalid-feedback" role="alert">

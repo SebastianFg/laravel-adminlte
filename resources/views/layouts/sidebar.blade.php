@@ -241,5 +241,5 @@
 <style type="text/css">
     .noPuntos{
         list-style:none;
-    }
+    } 
 </style>

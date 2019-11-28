@@ -42,7 +42,7 @@
                   </div>
                   <div class="form-group col-md-12">
                       <label for="">Observaciones</label>
-                      <textarea type="text" name="otros" placeholder="Observaciones" class="form-control" required value="{{ old('otros') }}"></textarea>
+                      <textarea type="text" name="otros" autocomplete="off" placeholder="Observaciones" class="form-control" required value="{{ old('otros') }}"></textarea>
                   </div>
 
 

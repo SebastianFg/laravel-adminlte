@@ -53,7 +53,7 @@
                       <div class="row">
                         
                         <div class="form-group">
-                          <input type="text" name="vehiculoBuscado" class="form-control" placeholder="numero de identificacion">
+                          <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
                         </div>
 {{--                         <div class="col-md-">
                           <select name="id_tipo_vehiculo_lista"  class="form-control">
@@ -71,15 +71,15 @@
                     </form>
                   </div>
                   <div class="row">
-                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered responsive">
                       <thead>
                         <tr>
                           <th>N° Identificacion</th>
                           <th>Afectado</th>
-                          <th>Lugar</th>
+                          <th>Direccion</th>
                           <th>Fecha</th>
                           <th>Lesiones</th>
-                          <th>Colision</th>
+                          <th>Colisión</th>
                           <th>Presentacion</th>
                           <th>Observaciones</th>
                           <th>Acciones</th>
@@ -91,17 +91,52 @@
                           <tr>
                             <td>{{ $item->numero_de_identificacion }}</td>
                             <td>{{ $item->nombre_dependencia }}</td>
-                            <td>{{ $item->lugar_siniestro }}</td>
+                            <td>{{ substr($item->lugar_siniestro ,0,10) }}...<a href="" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a></td>
+                            <div class="modal fade" id="modalDetalleLugar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content col-md-12">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Direccion de la colisión</h4>
+                                  </div>
+                                  <div class="modal-body col-md-12">
+                                    {{ $item->lugar_siniestro  }}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <td>{{ $item->fecha_siniestro }}</td>
                             @if($item->lesiones_siniestro == 1)
                               <td><label class="badge badge-danger">Si</label></td>
                             @else
                               <td><label class="badge badge-success">No</label></td>
                             @endif
-                            <td>{{ $item->descripcion_siniestro }}</td>
+                            <td>{{ substr($item->descripcion_siniestro,0,10) }}...<a href="" data-toggle="modal" data-target="#modalDetalleDesc">ver mas</a></td>
+                            <div class="modal fade" id="modalDetalleDesc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content col-md-12">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Descripcion  de la colisión</h4>
+                                  </div>
+                                  <div class="modal-body col-md-12">
+                                    {{ $item->descripcion_siniestro  }}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <td>{{ $item->fecha_presentacion }}</td>
-                            <td>{{ $item->observaciones_siniestro }}</td>
-
+                            <td>{{ substr($item->observaciones_siniestro,0,10) }}...<a href="" data-toggle="modal" data-target="#modalDetalleObs">ver mas</a></td>
+                            <div class="modal fade" id="modalDetalleObs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content col-md-12">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel">Otras observaciones</h4>
+                                  </div>
+                                  <div class="modal-body col-md-12">
+                                    {{ $item->observaciones_siniestro  }}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                             <td>
                               @can('vehiculos.informacion')
                                 <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
@@ -109,9 +144,9 @@
                               @can('vehiculos.editarSiniestro') 
                                 <button onclick="editarSiniestro({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                               @endcan
-                              @can('vehiculos.eliminarSiniestro') 
+{{--                               @can('vehiculos.eliminarSiniestro') 
                                 <button  onclick="eliminarVehiculo('{{ $item->id_siniestro }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                              @endcan
+                              @endcan --}}
                             </td>
                           
                           </tr>
@@ -221,3 +256,34 @@
 
 </script>
 @stop
+<style type="text/css">
+.vertical-alignment-helper {
+    display:table;
+    height: 100%;
+    width: 100%;
+    pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
+}
+.vertical-align-center {
+    /* To center vertically */
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events:none;
+}
+.modal-content {
+    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+    width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;
+    pointer-events: all;
+}*/
+.modal-body {
+    position: relative;
+    overflow-y: auto;
+    max-height: 400px;
+    padding: 15px;
+}
+
+</style>
+{{-- 
+

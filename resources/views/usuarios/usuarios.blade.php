@@ -50,7 +50,7 @@
                   <form class="navbar-form navbar-right pull-right" role="search">
                     <div class="row">
                       <div class="form-group">
-                        <input type="text"  name="usuarioBuscado" class="form-control" placeholder="Nombre, apellido o usuario">
+                        <input type="text" autocomplete="off" name="usuarioBuscado" class="form-control" placeholder="Nombre, apellido o usuario">
                       </div>
                       <div class="form-group">
                          <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 

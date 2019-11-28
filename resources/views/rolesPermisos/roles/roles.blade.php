@@ -51,7 +51,7 @@
                       <div class="row">
                         
                         <div class="form-group">
-                          <input type="text"  name="rolBuscado" class="form-control" placeholder="ingrese Rol">
+                          <input type="text"  autocomplete="off" name="rolBuscado" class="form-control" placeholder="ingrese Rol">
                         </div>
 
                         <div class="form-group">

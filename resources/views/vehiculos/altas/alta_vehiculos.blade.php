@@ -58,14 +58,14 @@
                         <div class="form-group">
                           <input type="text" name="vehiculoBuscado" class="form-control" placeholder="numero de identificacion">
                         </div>
-                        <div class="col-md-">
+{{--                         <div class="col-md-">
                           <select name="id_tipo_vehiculo_lista"  class="form-control">
                             <option value="" selected="">Seleccione un tipo de vehiculo</option>
                             @foreach ($tipo_vehiculo as $item)
                               <option value="{{ $item->id_tipo_vehiculo }}">{{ $item->nombre_tipo_vehiculo }}</option>
                             @endforeach
                           </select>
-                        </div>
+                        </div> --}}
                         <div class="form-group">
                            <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
                         </div>

@@ -24,17 +24,17 @@
                   <br>
                   <input type="text" name="id_vehiculo" hidden id="id_vehiculo_siniestro">
                   <input type="text" name="id_siniestro" hidden id="id_siniestro">
-                  <input type="text" name="id_identificacion_interna"class="form-control " readonly=""  id="id_identificacion_interna">
+                  <input type="text" name="id_identificacion_interna"  autocomplete="off"class="form-control " readonly=""  id="id_identificacion_interna">
               </div>
               <div class="form-group col-md-6">
                  <label>Lesionados</label>
-                 <select class="form-control" name="id_lesionados" id="id_lesionados">
+                 <select class="form-control" name="id_lesionados"  autocomplete="off"id="id_lesionados">
                    <option value="0" selected>No</option>
                    <option value="1">Si</option>
                  </select>
               </div>
             </div>
-            <input type="text" hidden="" name="id_usuario" value="{{ Auth::user()->id }}">
+            <input type="text" hidden="" name="id_usuario"  autocomplete="off"value="{{ Auth::user()->id }}">
             <div class="row">
               <div class="form-group col-md-6">
                   <label for="">Fecha Siniestro</label>
@@ -47,15 +47,15 @@
             </div>
             <div class="form-group col-md-12">
                 <label for="">Lugar</label>
-                <textarea type="text" name="lugar_siniestro" id="id_lugar_siniestro" placeholder="Lugar del siniestro" class="form-control" required ></textarea>
+                <textarea type="text" name="lugar_siniestro" autocomplete="off" id="id_lugar_siniestro" placeholder="Lugar del siniestro" class="form-control" required ></textarea>
             </div>
             <div class="form-group col-md-12">
                 <label for="">Observaciones</label>
-                <textarea type="text" name="observaciones_siniestro" id="id_observaciones_siniestro" placeholder="Ingrese alguna observacion" class="form-control"></textarea>
+                <textarea type="text" name="observaciones_siniestro" autocomplete="off" id="id_observaciones_siniestro" placeholder="Ingrese alguna observacion" class="form-control"></textarea>
             </div>
             <div class="form-group col-md-12">
                 <label for="">Descripcion</label>
-                <textarea type="text" name="descripcion_siniestro" id="id_descripcion_siniestro" placeholder="Ingrese descripcion del siniestro" class="form-control"></textarea>
+                <textarea type="text" name="descripcion_siniestro" autocomplete="off" id="id_descripcion_siniestro" placeholder="Ingrese descripcion del siniestro" class="form-control"></textarea>
             </div>
 
             <div class="form-group col-md-12">

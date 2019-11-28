@@ -20,7 +20,7 @@
 		                <div class="row">
 		                    <div class="form-group ">
 		                        <label>Nombre Rol</label>
-		                        <input type="text" name="nombre_rol" maxlength="20" placeholder="ingrese nombre del rol" required class="form-control md-2" value="{{ old('nombre_rol') }}"> 
+		                        <input type="text" name="nombre_rol" autocomplete="off" maxlength="20" placeholder="ingrese nombre del rol" required class="form-control md-2" value="{{ old('nombre_rol') }}"> 
 		                    </div>
 		                </div>
 		                <div class="modal-footer">

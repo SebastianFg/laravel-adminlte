@@ -35,7 +35,7 @@
             <input type="text" name="id_usuario" readonly="" hidden="" placeholder="Entregado por" required class="form-control " value="{{ Auth::User()->id }}">
             <div class="form-group col-md-12">
                 <label for="">Repuestos Entregados</label>
-                <textarea type="text" name="repuestos_entregados" placeholder="Repuestos entregados" class="form-control" required value="{{ old('repuestos_entregados') }}"></textarea>
+                <textarea type="text" name="repuestos_entregados" autocomplete="off" placeholder="Repuestos entregados" class="form-control" required value="{{ old('repuestos_entregados') }}"></textarea>
             </div>
 
             <div class="form-group col-md-12">
