@@ -58,7 +58,7 @@
             </div>
             <div class="form-group col-md-12">
                 <label for="">Observaciones</label>
-                <textarea type="text" name="observaciones_siniestro"  maxlength="191"  autocomplete="off"placeholder="Ingrese alguna observacion" class="form-control"></textarea>
+                <textarea type="text" name="observaciones_siniestro"  maxlength="191"  autocomplete="off" placeholder="Ingrese alguna observacion" class="form-control"></textarea>
             </div>
 
             <div class="form-group col-md-12">
