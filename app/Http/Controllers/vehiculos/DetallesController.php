@@ -78,9 +78,7 @@ class DetallesController extends Controller
     protected function Siniestros($id){
         $siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
                                 ->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')
-                                ->where('vehiculos.id_vehiculo','=',$id)
-                                ->get();
-
+                                ->where('vehiculos.id_vehiculo','=',$id)->get();
         $siniestros = $this->paginar($siniestros);
         return $siniestros;
     }
