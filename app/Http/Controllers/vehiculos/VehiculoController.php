@@ -70,7 +70,7 @@ class VehiculoController extends Controller
 
 
         $tipo_vehiculo = tipos_vehiculos::all();
-        $existe = 1;
+       /* $existe = 1;*/
 
         if ($Request->vehiculoBuscado ==null && $Request->id_tipo_vehiculo_lista ==null ) {
         	$VehiculosListados = vehiculo::join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')

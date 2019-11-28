@@ -63,13 +63,26 @@ class AsignacionController extends Controller
              return redirect('/login');
         }
 
-            $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
-            									->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
-                                                ->orderBy('id_detalle')->get(); 
-/*      if ($Request->vehiculoBuscado == null) {
+       /* $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
+        									->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
+                                            ->orderBy('id_detalle')->get();*/
+
+      if ($Request->vehiculoBuscado == null) {
+        $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
+                                                ->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
+                                                ->orderBy('id_detalle')
+                                                ->get();
+        $asignacion = $this->paginar($asignacion);
       }else{
-            $asignacion = vehiculo::Identificacion($Request->vehiculoBuscado)
-      }*/
+
+        $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
+                                            ->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
+                                            ->where('numero_de_identificacion','ilike',$Request->vehiculoBuscado)
+                                            ->orwhere('dominio','ilike',$Request->vehiculoBuscado)
+                                            ->orderBy('id_detalle')
+                                            ->get();
+        $asignacion = $this->paginar($asignacion);
+      }
        
 
 

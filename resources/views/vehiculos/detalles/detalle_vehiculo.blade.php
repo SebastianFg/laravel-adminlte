@@ -182,7 +182,6 @@
                           <th>Colision</th>
                           <th>Presentacion</th>
                           <th>Observaciones</th>
-                   {{--        <th>Acciones</th> --}}
                         </tr>
                       </thead>
                       <tbody>
@@ -211,7 +210,7 @@
                       </tbody>
                     </table>
                 <div class="row">
-                  {{ $historial->appends(Request::all())->links() }}
+                  {{ $siniestros->appends(Request::all())->links() }}
                 </div>
               @else
                 <p>no posee</p>

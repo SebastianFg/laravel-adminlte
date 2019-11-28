@@ -10,6 +10,12 @@ use App\Modelos\siniestro;
 use App\Modelos\asignacion_vehiculo;
 use App\Modelos\pdf_siniestro;
 
+
+//paginador
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+
+
 class SiniestroController extends Controller
 {
 
@@ -52,7 +58,7 @@ class SiniestroController extends Controller
         }
     	$siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
     							->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')->get();
-    	//return $siniestros;
+    	$siniestros = $this->paginar($siniestros);
         return view('vehiculos/siniestros/siniestros_vehiculos',compact('siniestros'));
     }
 

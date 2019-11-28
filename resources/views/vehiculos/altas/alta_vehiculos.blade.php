@@ -30,10 +30,6 @@
                   @endcan  
                 </div>
 
-{{--                 <div class="col-md-3">
-                  <button type="button" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"> Buscar</i>  </button> 
-                  <button type="button" id="btnLimpiar" class="btn btn-warning left"> <i class="fa fa-paint-brush"> Limpiar</i> </button> 
-                </div> --}}
           </div>
 
           {{-- extiendo los modales --}}
@@ -118,9 +114,9 @@
                       <div class="row">
                           {{ $VehiculosListados->appends(Request::all())->links() }}
                       </div>
-                   {{--  @if(isset($existe))
-                    @endif
- --}}
+  {{--                   @if(count($existe)>0)
+                    @endif --}}
+
                   </div>
                 </div>
               </div>
