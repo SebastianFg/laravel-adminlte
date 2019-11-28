@@ -96,9 +96,9 @@
                       </tbody>
                     </table>
 
-           {{--            <div class="row">
+                      <div class="row">
                           {{ $estados_listado->appends(Request::all())->links() }}
-                      </div> --}}
+                      </div>
                    {{--  @if(isset($existe))
                     @endif
  --}}

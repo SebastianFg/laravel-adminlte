@@ -149,7 +149,7 @@
                             <tr>
                               <td>{{ $item->nombre_dependencia }}</td>
                               <td>{{ date('d-m-Y', strtotime($item->fecha )) }}</td>
-                              <
+                              
                               <td>{{ $item->observaciones }}</td>
                             </tr>
                           @endforeach
@@ -209,9 +209,9 @@
                         @endforeach
                       </tbody>
                     </table>
-                <div class="row">
-                  {{ $siniestros->appends(Request::all())->links() }}
-                </div>
+                  <div class="row">
+                    {{ $siniestros->appends(Request::all())->links() }}
+                  </div>
               @else
                 <p>no posee</p>
               @endif

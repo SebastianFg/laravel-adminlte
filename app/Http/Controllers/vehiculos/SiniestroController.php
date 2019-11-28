@@ -52,12 +52,23 @@ class SiniestroController extends Controller
 	}
 //siniestros
     //index siniestro
-    public function indexSiniestros(){
+    public function indexSiniestros(Request $Request){
         if (Auth::User()->primer_logeo == null) {
             return redirect('admin/primerIngreso');
         }
-    	$siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
-    							->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')->get();
+
+        if ($Request->vehiculoBuscado == null) {
+            
+        	$siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
+        							->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')
+                                    ->get();
+        }else{
+            $siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
+                                    ->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')
+                                    ->where('vehiculos.numero_de_identificacion','ilike',$Request->vehiculoBuscado)
+                                    ->orwhere('vehiculos.dominio','ilike',$Request->vehiculoBuscado)
+                                    ->get();
+        }
     	$siniestros = $this->paginar($siniestros);
         return view('vehiculos/siniestros/siniestros_vehiculos',compact('siniestros'));
     }
@@ -180,6 +191,7 @@ class SiniestroController extends Controller
     
         return view('vehiculos/siniestros/modal_pdf_siniestro',compact('historial_pdf'));
     }
+
 
 
 

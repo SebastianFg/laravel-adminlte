@@ -95,6 +95,9 @@
                               @can('vehiculos.asignarEliminar') 
                                 <button  onclick="eliminarAsignacion('{{ $item->id_vehiculo }}','{{ $item->numero_de_identificacion }}','{{ $item->dominio }}','{{ $item->id_detalle }}','{{ $item->nombre_dependencia }}','{{ $item->id_dependencia }}');" title="Eliminar asignacion"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                               @endcan
+                              @can('vehiculos.descargarPDFCargo') 
+                                <a title="Descargar PDF Cargo" href="{{ route('pdfVehiculosCargo',$item->id_detalle) }}" class=" btn btn-danger btn-sm"><i class="fa fa-file-pdf"></i></a>
+                              @endcan
                             </td>
                           
                           </tr>

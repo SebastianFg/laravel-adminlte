@@ -27,7 +27,9 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'vehiculos.asignarNuevo']);
         Permission::create(['name' => 'vehiculos.asignarEditar']);
         Permission::create(['name' => 'vehiculos.asignarEliminar']);
+        Permission::create(['name' => 'vehiculos.descargarPDFCargo']);
 
+    
         Permission::create(['name' => 'vehiculos.siniestros']);
         Permission::create(['name' => 'vehiculos.altaSiniestro']);
         Permission::create(['name' => 'vehiculos.editarSiniestro']);
@@ -70,6 +72,7 @@ class PermissionsTableSeeder extends Seeder
             'vehiculos.asignarNuevo',
             'vehiculos.asignarEditar',
             'vehiculos.asignarEliminar',
+            'vehiculos.descargarPDFCargo',
 
             'vehiculos.siniestros',
             'vehiculos.altaSiniestro',
@@ -107,6 +110,7 @@ class PermissionsTableSeeder extends Seeder
             'vehiculos.asignarNuevo',
             'vehiculos.asignarEditar',
             'vehiculos.asignarEliminar',
+            'vehiculos.descargarPDFCargo',
 
             'vehiculos.siniestros',
             'vehiculos.altaSiniestro',
