@@ -38,7 +38,7 @@
                   <form class="navbar-form navbar-right pull-right" role="search">
                     <div class="row">
                       <div class="form-group">
-                        <input type="text"  name="nombreDependencia" class="form-control" placeholder="ingrese permiso">
+                        <input type="text" autocomplete="off"  name="nombreDependencia" class="form-control" placeholder="ingrese permiso">
                       </div>
                       <div class="form-group">
                         <select name="nivel_dependencia" class="form-control">

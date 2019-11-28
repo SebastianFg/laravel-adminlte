@@ -21,7 +21,7 @@
 		                    <div class="form-group ">
                           <input type="text" hidden="" name="id_permiso_edicion" id="id_permiso_edicion"  required value="{{ old('id_permiso_edicion') }}">
 		                      <label>Permiso</label>
-		                      <input type="text" name="nombre_permiso" id="id_nombre_permiso_edicion" placeholder="ingrese permiso" required class="form-control md-2" value="{{ old('nombre_permiso') }}"> 
+		                      <input type="text" autocomplete="off" name="nombre_permiso" id="id_nombre_permiso_edicion" placeholder="ingrese permiso" required class="form-control md-2" value="{{ old('nombre_permiso') }}"> 
 		                    </div>
 		                </div>
 		                <div class="modal-footer">

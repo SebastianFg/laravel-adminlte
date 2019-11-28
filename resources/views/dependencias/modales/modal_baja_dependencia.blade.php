@@ -19,7 +19,7 @@
                 @csrf
                   <div class="form-group col-md-12">
                       <label>Ingrese Nombre de la Dependencia</label>
-                      <input type="text" readonly="" name="nombre_dependencia" id="id_nombre_dependencia_hijo_eliminar" class="form-control" >
+                      <input type="text" readonly="" autocomplete="off" name="nombre_dependencia" id="id_nombre_dependencia_hijo_eliminar" class="form-control" >
                       <input type="text" hidden="" name="id_dependencia" id="id_dependencia_eliminar" class="form-control" >
                       <input type="text" hidden="" name="id_nivel" id="id_nivel" class="form-control" >
                   </div>

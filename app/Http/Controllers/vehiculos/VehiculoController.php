@@ -118,7 +118,7 @@ class VehiculoController extends Controller
         switch ($accion) {
             case 0: //creacion --> alta
             	$vehiculo->save();
-                $images = $datos->file('file');
+                $images = $datos->file('foto');
                 
                 foreach($images as $image)
                 {
@@ -140,7 +140,7 @@ class VehiculoController extends Controller
                 if($datos->file == null){
                         $vehiculo->foto_id = $vehiculo->foto_id;
                 }else{ 
-                    $images = $datos->file('file');
+                    $images = $datos->file('foto');
   
                     foreach($images as $image){
                         $imagenvehiculo = new imagen_vehiculo;

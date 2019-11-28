@@ -20,7 +20,7 @@
                 <div class="row">
                   <div class="form-group col-md-12">
                       <label>Ingrese Nombre de la Dependencia</label>
-                      <input type="" name="nombre_dependencia" class="form-control" >
+                      <input type="" autocomplete="off" name="nombre_dependencia" class="form-control" >
                       
                   </div>
                 </div>
