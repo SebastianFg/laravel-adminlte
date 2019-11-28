@@ -25,17 +25,13 @@
                   @can('vehiculos.asignarNuevo')
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAsignacion"> <i class="fa fa-plus"> Nueva</i> </button> 
                   @endcan
-{{--                   @can('vehiculos.imprimirLista')
-                    <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
-                  @endcan   --}}
                 </div>
           </div>
 
           {{-- extiendo los modales --}}
           @extends('vehiculos/asignacion/modales/modal_asignacion_vehiculo')
           @extends('vehiculos/asignacion/modales/modal_eliminar_vehiculo_asignado')
-{{--           @extends('vehiculos/modales/modal_baja_vehiculo')
-          @extends('vehiculos/modales/modal_editar_vehiculo') --}}
+
            </div>
 
             </div>
