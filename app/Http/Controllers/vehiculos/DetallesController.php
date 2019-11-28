@@ -79,7 +79,7 @@ class DetallesController extends Controller
         $siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
                                 ->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')
                                 ->where('vehiculos.id_vehiculo','=',$id)->get();
-        //$asignacion_actual = $this->paginar($asignacion_actual);
+        $siniestros = $this->paginar($siniestros);
         return $siniestros;
     }
 
