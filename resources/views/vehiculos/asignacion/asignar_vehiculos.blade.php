@@ -178,7 +178,7 @@
       delay: 250,
       data: function (params) {
 
-        console.log(params)
+       /* console.log(params)*/
         return {
           termino: $.trim(params.term),
           page: params.page

@@ -242,7 +242,7 @@ class VehiculoController extends Controller
         $vehiculoEnProceso = new estado_vehiculo;
 
         $vehiculoEnProceso->id_vehiculo = $Request->vehiculo;
-        $vehiculoEnProceso->tipo_estado_vehiculo = 3; //fuera de servicio
+        $vehiculoEnProceso->tipo_estado_vehiculo = 1; //fuera de servicio
      
         $vehiculoEnProceso->id_usuario_movimiento = $Request->id_usuario;
         $vehiculoEnProceso->estado_razon = $Request->motivo_de_baja;
