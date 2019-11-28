@@ -145,7 +145,7 @@ class AsignacionController extends Controller
     public function exportarPdfCargo($id){
            // return $id;
             $detalle_asignacion_vehiculo = asignacion_vehiculo::where('id_vehiculo','=',$id)->get();
-           
+             
             $detalleVehiculo = Vehiculo::findOrFail($detalle_asignacion_vehiculo[0]->id_vehiculo);
            // return $detalleVehiculo;
             $user = User::findOrFail($detalle_asignacion_vehiculo[0]->id_responsable);
@@ -155,6 +155,6 @@ class AsignacionController extends Controller
 
             $pdf = PDF::loadView('vehiculos.asignacion.pdf_cargo_lista', compact('detalleVehiculo','nombre_responsable_entrega','nombre_responsable_recibio'));
 
-            return $pdf->stream($detalleVehiculo->dominio.'.pdf');
+            return $pdf->download($detalleVehiculo->dominio.'.pdf');
     }
 }
