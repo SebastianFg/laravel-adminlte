@@ -83,7 +83,7 @@
                         <td>{{ substr($item->lugar_siniestro ,0,10) }}...<a href="" onclick="detalle('{{ $item->lugar_siniestro }}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
                         </td>
 
-                        <td>{{ $item->fecha_siniestro }}</td>
+                        <td>{{ date('d-m-Y', strtotime($item->fecha_siniestro)) }}</td>
                         @if($item->lesiones_siniestro == 1)
                           <td><label class="badge badge-danger">Si</label></td>
                         @else
@@ -91,33 +91,10 @@
                         @endif
                         <td>{{ substr($item->descripcion_siniestro,0,10) }}...<a href="" onclick="detalle('{{ $item->descripcion_siniestro }}')" data-toggle="modal" data-target="#modalDetalleDesc">ver mas</a>
                         </td>
-{{--                           <div class="modal fade" id="modalDetalleDesc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                              <div class="modal-content col-md-12">
-                                <div class="modal-header">
-                                  <h4 class="modal-title" id="myModalLabel">Descripcion  de la colisión</h4>
-                                </div>
-                                <div class="modal-body col-md-12">
-                                  {{ $item->descripcion_siniestro  }}
-                                </div>
-                              </div>
-                            </div>
-                          </div> --}}
-                        <td>{{ $item->fecha_presentacion }}</td>
+
+                        <td>{{ date('d-m-Y', strtotime($item->fecha_presentacion)) }}</td>
                         <td>{{ substr($item->observaciones_siniestro,0,10) }}...<a href="" onclick="detalle('{{ $item->observaciones_siniestro }}')" data-toggle="modal" data-target="#modalDetalleObs">ver mas</a>
                         </td>
-{{--                           <div class="modal fade" id="modalDetalleObs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                              <div class="modal-content col-md-12">
-                                <div class="modal-header">
-                                  <h4 class="modal-title" id="myModalLabel">Otras observaciones</h4>
-                                </div>
-                                <div class="modal-body col-md-12">
-                                  {{ $item->observaciones_siniestro  }}
-                                </div>
-                              </div>
-                            </div>
-                          </div> --}}
                         <td>
                           @can('vehiculos.informacion')
                             <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
@@ -261,7 +238,7 @@
     /* To center horizontally */
     margin: 0 auto;
     pointer-events: all;
-}*/
+}
 .modal-body {
     position: relative;
     overflow-y: auto;
@@ -270,5 +247,5 @@
 }
 
 </style>
-{{-- 
+
 

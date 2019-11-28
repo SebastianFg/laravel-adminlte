@@ -36,7 +36,7 @@
               </form>
             </div>
           </div> 
-
+          @extends('vehiculos/siniestros/modales/modal_detalle')
       
         @if($existe == 0)
 
@@ -91,7 +91,7 @@
                     @endif
 
                     <label class="texto">Fecha</label>
-                    <p class="parroafos">{{$VehiculosListados[0]->fecha  }}</p>
+                    <p class="parroafos">{{ date('d-m-Y', strtotime($VehiculosListados[0]->fecha )) }}</p>
                   @else
                     asdas
                   @endif
@@ -148,7 +148,8 @@
                           @foreach($historial as $item)
                             <tr>
                               <td>{{ $item->nombre_dependencia }}</td>
-                              <td>{{ $item->fecha }}</td>
+                              <td>{{ date('d-m-Y', strtotime($item->fecha )) }}</td>
+                              <
                               <td>{{ $item->observaciones }}</td>
                             </tr>
                           @endforeach
@@ -190,26 +191,21 @@
                           <tr>
                             <td>{{ $item->numero_de_identificacion }}</td>
                             <td>{{ $item->nombre_dependencia }}</td>
-                            <td>{{ $item->lugar_siniestro }}</td>
-                            <td>{{ $item->fecha_siniestro }}</td>
+                            <td>{{ substr($item->lugar_siniestro ,0,10) }}...<a href="" onclick="detalle('{{ $item->lugar_siniestro }}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
+                            </td>
+
+                            <td>{{ date('d-m-Y', strtotime($item->fecha_siniestro)) }}</td>
                             @if($item->lesiones_siniestro == 1)
                               <td><label class="badge badge-danger">Si</label></td>
                             @else
                               <td><label class="badge badge-success">No</label></td>
                             @endif
-                            <td>{{ $item->descripcion_siniestro }}</td>
-                            <td>{{ $item->fecha_presentacion }}</td>
-                            <td>{{ $item->observaciones_siniestro }}</td>
-{{-- 
-                            <td>
-                              @can('vehiculos.editarSiniestro') 
-                                <button onclick="editarSiniestro({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                              @endcan
-                              @can('vehiculos.eliminarSiniestro') 
-                                <button  onclick="eliminarVehiculo('{{ $item->id_siniestro }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                              @endcan
-                            </td> --}}
-                          
+                            <td>{{ substr($item->descripcion_siniestro,0,10) }}...<a href="" onclick="detalle('{{ $item->descripcion_siniestro }}')" data-toggle="modal" data-target="#modalDetalleDesc">ver mas</a>
+                            </td>
+
+                            <td>{{ date('d-m-Y', strtotime($item->fecha_presentacion)) }}</td>
+                            <td>{{ substr($item->observaciones_siniestro,0,10) }}...<a href="" onclick="detalle('{{ $item->observaciones_siniestro }}')" data-toggle="modal" data-target="#modalDetalleObs">ver mas</a>
+                            </td>
                           </tr>
                         @endforeach
                       </tbody>
@@ -305,6 +301,10 @@
         kilometraje = $('#id_kilometraje_modificacion').val(item.kilometraje),
         otras_caracteristicas = $('#id_observaciones_modificacion').val(item.otras_caracteristicas);
         $('#modalEdicionVehiculo').modal('show');
+  }
+  function detalle(item){
+    var asdasd = $('#idDetalle').val(item);
+    $('#modalDetalleLugar').modal('show');
   }
 
 </script>

@@ -76,7 +76,7 @@
                         
                           <tr>
                             <td>{{ $item->dominio }}</td>
-                            <td>{{ $item->fecha }}</td>
+                            <td>{{ date('d-m-Y', strtotime($item->fecha )) }}</td>
                             <td>{{ $item->usuario }}</td>
                             <td>{{ $item->numero_de_identificacion }}</td>
                             <td>{{ $item->marca }}</td>

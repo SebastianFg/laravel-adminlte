@@ -76,7 +76,7 @@
                             @elseif($item->tipo_estado_vehiculo == 2)
                               <td><label class="badge badge-danger">Baja total</label></td>
                             @endif
-                            <td>{{ $item->estado_fecha }}</td>
+                            <td>{{ date('d-m-Y', strtotime($item->estado_fecha )) }}</td>
                             <td>{{ $item->estado_razon }}</td>
                            
                             <td>
