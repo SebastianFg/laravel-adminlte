@@ -117,6 +117,14 @@ class AsignacionController extends Controller
              return redirect('/login');
         }
 
+        $Validar = \Validator::make($Request->all(), [
+            
+            'vehiculo' => 'required|unique:detalle_asignacion_vehiculos'
+        ]);
+        if ($Validar->fails()){
+            alert()->error('Error','ERROR! Intente agregar nuevamente...');
+            return  back()->withInput()->withErrors($Validar->errors());
+        }
         $nueva_asignacion = new asignacion_vehiculo;
 
         $nueva_asignacion->id_vehiculo = $Request->vehiculo;

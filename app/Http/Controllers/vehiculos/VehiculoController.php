@@ -333,7 +333,6 @@ class VehiculoController extends Controller
             $estados_listado = estado_vehiculo::join('vehiculos','vehiculos.id_vehiculo','=','estado_vehiculos.id_vehiculo')
                                                 ->select('vehiculos.*','estado_vehiculos.*')
                                                 ->orderBy('estado_vehiculos.id_estado_vehiculo','desc')
-                                                
                                                 ->get();
             $estados_listado = $this->paginar($estados_listado);
           
