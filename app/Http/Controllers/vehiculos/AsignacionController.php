@@ -119,11 +119,11 @@ class AsignacionController extends Controller
 
         $Validar = \Validator::make($Request->all(), [
             
-            'vehiculo' => 'required|unique:detalle_asignacion_vehiculos'
+            'id_vehiculo' => 'required|unique:detalle_asignacion_vehiculos'
         ]);
         if ($Validar->fails()){
-            alert()->error('Error','ERROR! Intente agregar nuevamente...');
-            return  back()->withInput()->withErrors($Validar->errors());
+            alert()->error('Error','ERROR! El vehiculo ya fue asignado previamente...');
+            return  back()->withInput()->withErrors('El vehiculo ya fue asignado previamente...');
         }
         $nueva_asignacion = new asignacion_vehiculo;
 
