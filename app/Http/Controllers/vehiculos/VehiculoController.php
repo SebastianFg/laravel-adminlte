@@ -172,7 +172,7 @@ class VehiculoController extends Controller
             'chasis' => 'required|unique:vehiculos|max:20',
             'motor' => 'required|unique:vehiculos|max:20',
             'modelo' => 'required|max:20',
-            'marca' => 'required|max:20',
+            'marca' => 'required|max:50',
             'anio_produccion' => 'required|numeric',
             'tipo' => 'required',
             'numero_de_inventario' => 'required|unique:vehiculos',

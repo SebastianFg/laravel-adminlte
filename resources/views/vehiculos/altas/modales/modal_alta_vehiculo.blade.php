@@ -35,7 +35,7 @@
                     </div> 
                     <div class="form-group col-md-6">
                         <label for="">Chasis</label>
-                        <input type="text" name="chasis" autocomplete="off" placeholder="Chasis" maxlength="20" class="form-control" required value="{{ old('chasis') }}">
+                        <input type="text" name="chasis" autocomplete="off" placeholder="Chasis" maxlength="50" class="form-control" required value="{{ old('chasis') }}">
                     </div> 
                   </div>
                   <div class="row">
@@ -51,7 +51,7 @@
                   <div class="row">
                     <div class="form-group col-md-6">
                         <label for="">Marca</label>
-                        <input type="text" name="marca" autocomplete="off" placeholder="Marca"  maxlength="20" class="form-control" required value="{{ old('marca') }}">
+                        <input type="text" name="marca" autocomplete="off" placeholder="Marca"  maxlength="50" class="form-control" required value="{{ old('marca') }}">
                     </div> 
 
                     <div class="form-group col-md-6">
