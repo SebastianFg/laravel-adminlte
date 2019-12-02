@@ -122,7 +122,7 @@ class AsignacionController extends Controller
             'id_vehiculo' => 'required|unique:detalle_asignacion_vehiculos'
         ]);
         if ($Validar->fails()){
-            alert()->error('Error','ERROR! El vehiculo ya fue asignado previamente...');
+            alert()->error('Error','ERROR! El vehiculo ya fue asignado previamente...')->autoclose(3000);;
             return  back()->withInput()->withErrors('El vehiculo ya fue asignado previamente...');
         }
         $nueva_asignacion = new asignacion_vehiculo;
