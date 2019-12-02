@@ -56,7 +56,8 @@ class TipoVehiculoController extends Controller
 
 
         if ($Request->tipoVehiculoBuscado ==null) {
-        	$tipo_vehiculo = tipos_vehiculos::all();
+        	$tipo_vehiculo = tipos_vehiculos::orderby('id_tipo_vehiculo','desc')->get();
+            //return $tipo_vehiculo;
         	$tipo_vehiculo = $this->paginar($tipo_vehiculo);
 	      
         }else{

@@ -81,9 +81,9 @@
                  
                         </select>
                     </div>
-                    <div class="form-group col-md-6" style="background-color: #FFF;" id="divFile">
+                    <div class="form-group col-md-6" style="background-color: #FFF;" id="divFileAlta">
                       <label>Selecionar imagenes</label>
-                      <input type="file" name="foto[]"  id="file" accept="image/*" multiple />
+                      <input type="file" name="foto[]"  id="foto" accept="image/*" multiple />
                     </div>
                   </div>
             
@@ -94,9 +94,8 @@
                       <textarea type="text" name="otros" autocomplete="off" placeholder="Observaciones" class="form-control" required value="{{ old('otros') }}"></textarea>
                   </div>
 
-
                   <div class="col-md-12 modal-footer" style="position:relative;">
-                      <button class="btn btn-success col-md-4 d-inline" id="btnSubmit" type="submit">Guardar</button>
+                      <button class="btn btn-success col-md-4 d-inline" id="btnSubmitAlta" type="submit">Guardar</button>
                       <button class="btn btn-danger col-md-4 d-inline" data-dismiss="modal">Cancelar</button>  
                   </div>
                               

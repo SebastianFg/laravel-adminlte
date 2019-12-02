@@ -39,6 +39,7 @@ class estado_vehiculo extends Model
 	                        ->select('vehiculos.*','estado_vehiculos.*')
 	                        ->orderBy('estado_vehiculos.id_estado_vehiculo','desc')
 	                        ->where('vehiculos.numero_de_identificacion','ilike',$identificacion)
+                            ->orwhere('vehiculos.dominio','ilike',$identificacion)
 	                        ->get();
     	}
     }

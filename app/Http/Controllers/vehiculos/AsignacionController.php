@@ -93,11 +93,11 @@ class AsignacionController extends Controller
     public function getAllVehiculosDisponibles(Request $Request){
       /*  $vehiculos_disponibles = \DB::select("select * from view_vehiculos_disponibles 
                                             where view_vehiculos_disponibles.dominio ilike '%".$Request->termino."%' or view_vehiculos_disponibles.numero_de_identificacion ilike '%".$Request->termino."%'" );*/
-        $vehiculos_disponibles = \DB::select('select *  
+        $vehiculos_disponibles = \DB::select("select *  
                                             FROM vehiculos
-                                            WHERE vehiculos.id_vehiculo not IN ( SELECT DISTINCT detalle_asignacion_vehiculos.id_vehiculo
+                                            WHERE vehiculos.dominio ilike '%".$Request->termino."%' or vehiculos.numero_de_identificacion ilike '%".$Request->termino."%' and vehiculos.id_vehiculo not IN ( SELECT DISTINCT detalle_asignacion_vehiculos.id_vehiculo
                                                        FROM detalle_asignacion_vehiculos)
-                                            AND vehiculos.baja = 0');
+                                            AND vehiculos.baja = 0");
         return response()->json($vehiculos_disponibles);
 
     }

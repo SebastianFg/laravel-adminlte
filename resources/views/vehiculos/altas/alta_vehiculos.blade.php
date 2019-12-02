@@ -177,6 +177,22 @@
         otras_caracteristicas = $('#id_observaciones_modificacion').val(item.otras_caracteristicas);
         $('#modalEdicionVehiculo').modal('show');
   }
+</script>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+  var boton = document.getElementById('btnSubmitAlta');
+        $("#foto").on("change", function() {
+          if ($("#foto")[0].files.length > 6) {
+            $('#divFileAlta').css('background-color', 'red');
+            $('#divFileAlta').css('border-radius', '5px');
+            boton.disabled = true;
+          } else {
+            boton.disabled = false;
+            $('#divFileAlta').css('background-color', 'white');
+          }
+      });
+    
+    });
 </script>
 @stop

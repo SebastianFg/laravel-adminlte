@@ -52,7 +52,7 @@
                       <thead>
                         <tr>
 
-                          <th>Vehiculo</th>
+                          <th>Numero de identificacion</th>
                           <th>Marca</th>
                           <th>Modelo</th>
                           <th>Dominio</th>
@@ -63,9 +63,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {{-- {{ $estados_listado[0]->marca }} --}}
                         @foreach($estados_listado as $item)
-                          {{ $item->marca }}
                           <tr>
                             <td>{{ $item->numero_de_identificacion }}</td>
                             <td>{{ $item->marca }}</td>

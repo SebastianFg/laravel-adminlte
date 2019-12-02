@@ -225,6 +225,7 @@
               <h4 class="card-title">Imagenes</h4> 
               <br>
                 @if(count($imagenes_vehiculo)>0)
+    
                 <div class="col-md-12 "  >
                   <div id="carousel-example-generic" class="carousel slide col-md-6 " data-ride="carousel">
                    
@@ -235,10 +236,65 @@
                     </ol>
                    
                     <div class="carousel-inner" >
+
                       @foreach( $imagenes_vehiculo as $photo )
-                         <div class="item {{ $loop->first ? 'active' : '' }}">
+                     
+                         <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                              <img class="d-block img-fluid" src="../../images/{{ $photo->nombre_imagen }}" >
 
+                         </div>
+                      @endforeach
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+                </div>
+
+
+{{--                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                    <ol class="carousel-indicators">
+                      @foreach( $imagenes_vehiculo as $photo )
+                        <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+                      @endforeach
+                    </ol>
+                    <div class="carousel-item active">
+                      @foreach( $imagenes_vehiculo as $photo )
+                         <div class="item {{ $loop->first ? 'active' : '' }}">
+                            <img class="d-block img-fluid" src="../../images/{{ $photo->nombre_imagen }}">
+                         </div>
+                      @endforeach
+                    </div>
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a> --}}
+                </div>
+
+                
+{{--                 <div class="col-md-12">
+                  <div id="carousel-example-generic" class="carousel slide col-md-6 " data-ride="carousel">
+                   
+                    <ol class="carousel-indicators">
+                      @foreach( $imagenes_vehiculo as $photo )
+                        <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+                      @endforeach
+                    </ol>
+                    <div class="carousel-inner" >
+                      @foreach( $imagenes_vehiculo as $photo )
+                         <div class="item {{ $loop->first ? 'active' : '' }}">
+                            <img class="d-block img-fluid" src="../../images/{{ $photo->nombre_imagen }}">
                          </div>
                       @endforeach
                     </div>
@@ -249,9 +305,9 @@
                       <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                   </div>
-                </div>
+                </div> --}}
                 @else
-                  <p>asdasd</p>
+                  <p> no posee imagenes</p>
                 @endif
             </div>
           </div>

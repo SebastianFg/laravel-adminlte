@@ -52,7 +52,7 @@
                       <thead>
                         <tr>
 
-                          <th>Vehiculo</th>
+                          <th>Numero de identificacion</th>
                           <th>Marca</th>
                           <th>Modelo</th>
                           <th>Dominio</th>
