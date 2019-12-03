@@ -27,7 +27,7 @@ s
                   @endcan
                   @can('vehiculos.imprimirLista')
                   <a type="button" id="redireccionar" class=" btn btn-danger" href="{{ route('exportarPdfVehiculos') }}"><i class="fa fa-file-pdf-o"> Imprimir lista completa</i> </a>
-{{--                     <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button> --}}
+
                   @endcan  
                 </div>
 
