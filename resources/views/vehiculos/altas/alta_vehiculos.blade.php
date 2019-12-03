@@ -26,7 +26,10 @@
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModal"> <i class="fa fa-plus"> Nuevo</i> </button> 
                   @endcan
                   @can('vehiculos.imprimirLista')
-                    <button type="button" id="redireccionar" class=" btn btn-danger" title="Descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
+<<<<<<< HEAD
+                  <a type="button" id="redireccionar" class=" btn btn-danger" href="{{ route('exportarPdfVehiculos') }}"><i class="fa fa-file-pdf-o"> Imprimir lista completa</i> </a>
+
+
                   @endcan  
                 </div>
 
