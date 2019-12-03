@@ -100,9 +100,10 @@ class UsuarioController extends Controller
 
       //  return $Request->role;
 
-        $pepe = Role::where('id',$Request->role)->select('name')->get();
+        //$pepe = Role::where('id',$Request->role)->select('name')->get();
 
-		if (Auth::User()->roles[0]->name != 'Super Admin' and $pepe[0]->name == 'Super Admin') {
+		if (Auth::User()->roles[0]->name != 'Super Admin' and strpos(Auth::User()->roles,'Super Admin') == true){
+
             return $this->getMensaje('Error! Ud. no tiene permiso para asignar este rol','listaUsuarios',false);
             //dd('asd');
         }/*else{

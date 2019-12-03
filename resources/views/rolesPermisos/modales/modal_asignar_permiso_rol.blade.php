@@ -33,7 +33,12 @@
                             <label for="">Seleccione Rol</label>  
                             <select name="role[]" id="role_id" required="" multiple="" class="form-control">
                               @foreach ($lista_roles as $item)
-                                <option value="{{ $item->id }}" id="id_rol_seleccionado">{{ $item->name }}</option>
+                                @if($item->name == 'Super Admin'  and strpos(Auth::User()->roles,'Super Admin') == true )
+                                  <option value="{{ $item->id }}" id="id_rol_seleccionado">{{ $item->name }}</option>
+                                @endif
+                                @if($item->name != 'Super Admin' )
+                                  <option value="{{ $item->id }}" id="id_rol_seleccionado">{{ $item->name }}</option>
+                                @endif
                               @endforeach
                      
                             </select>
