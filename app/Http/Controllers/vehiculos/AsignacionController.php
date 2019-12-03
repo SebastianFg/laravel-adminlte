@@ -24,6 +24,10 @@ use Illuminate\Pagination\Paginator;
 
 class AsignacionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getMensaje($mensaje,$destino,$desicion){
         if (!$desicion) {
             alert()->error('Error',$mensaje);
@@ -114,7 +118,7 @@ class AsignacionController extends Controller
         if (strpos(Auth::User()->roles,'Suspendido')) {
             Auth::logout();
             alert()->error('Su usuario se encuentra suspendido');
-             return redirect('/login');
+            return redirect('/login');
         }
 
         $Validar = \Validator::make($Request->all(), [
@@ -122,12 +126,13 @@ class AsignacionController extends Controller
             'id_vehiculo' => 'required|unique:detalle_asignacion_vehiculos'
         ]);
         if ($Validar->fails()){
-            alert()->error('Error','ERROR! El vehiculo ya fue asignado previamente...')->autoclose(3000);;
+            alert()->error('Error','ERROR! El vehiculo ya fue asignado previamente...')->autoclose(2300);;
             return  back()->withInput()->withErrors('El vehiculo ya fue asignado previamente...');
         }
+
         $nueva_asignacion = new asignacion_vehiculo;
 
-        $nueva_asignacion->id_vehiculo = $Request->vehiculo;
+        $nueva_asignacion->id_vehiculo = $Request->id_vehiculo;
         $nueva_asignacion->id_dependencia = $Request->afectado;
         $nueva_asignacion->fecha = $Request->fecha;
         $nueva_asignacion->observaciones = $Request->otros;

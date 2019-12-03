@@ -22,7 +22,7 @@
                     <div class="form-group col-md-6">
                         <label>Seleccione Vehiculo</label>
                         <div id="select">
-                            <select type="text" class="form-control" id="id_vehiculo" value="{{ old('vehiculo') }}" data-width="100%" name="vehiculo">
+                            <select type="text" class="form-control" id="id_vehiculo" value="{{ old('vehiculo') }}" data-width="100%" name="id_vehiculo">
                             </select>
                         </div>
                     </div>

@@ -98,8 +98,20 @@ class UsuarioController extends Controller
 
 	public function asignarRol(Request $Request){
 
+      //  return $Request->role;
+
+        $pepe = Role::where('id',$Request->role)->select('name')->get();
+
+		if (Auth::User()->roles[0]->name != 'Super Admin' and $pepe[0]->name == 'Super Admin') {
+            return $this->getMensaje('Error! Ud. no tiene permiso para asignar este rol','listaUsuarios',false);
+            //dd('asd');
+        }/*else{
+            return 'chroma';
+        }
+*/
 		$usuarios = User::findorfail($Request->usuario);
-		
+
+
 		if (strpos($usuarios->getRoleNames(),'Super Admin')) {
             return $this->getMensaje('No se puede modificar un usuario Super Admin','listaUsuarios',false);
         }

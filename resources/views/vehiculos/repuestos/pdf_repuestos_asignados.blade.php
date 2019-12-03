@@ -65,8 +65,8 @@
 				    		<td >{{ $item->fecha }}</td>
 				    		<td >{{ $item->usuario }}</td>
 				    		<td >{{ $item->numero_de_identificacion }}</td>
-				    		<td >{{ $item->clase_de_unidad }}</td>
 				    		<td >{{ $item->marca }}</td>
+				    		<td >{{ $item->clase_de_unidad }}</td>
 				    		<td>{{ $item->repuestos_entregados }}</td>
 				    	</tr>
 			    	@endforeach

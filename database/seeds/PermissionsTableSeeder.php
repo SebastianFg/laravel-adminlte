@@ -22,6 +22,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'vehiculos.eliminar']);
         Permission::create(['name' => 'vehiculos.informacion']);
         Permission::create(['name' => 'vehiculos.graficos']);
+        Permission::create(['name' => 'vehiculos.imprimirLista']);
 
         Permission::create(['name' => 'vehiculos.listaAsignacion']);
         Permission::create(['name' => 'vehiculos.asignarNuevo']);

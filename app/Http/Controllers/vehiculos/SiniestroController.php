@@ -18,7 +18,10 @@ use Illuminate\Pagination\Paginator;
 
 class SiniestroController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getMensaje($mensaje,$destino,$desicion){
         if (!$desicion) {
             alert()->error('Error',$mensaje);

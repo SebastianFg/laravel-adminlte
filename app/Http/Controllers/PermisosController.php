@@ -13,7 +13,11 @@ use Spatie\Permission\Models\Permission;
 
 class PermisosController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
 
+    }
     protected function getMensaje($mensaje,$destino,$desicion){
         if (!$desicion) {
             alert()->error('Error',$mensaje);
@@ -47,6 +51,11 @@ class PermisosController extends Controller
     {
         if (Auth::User()->primer_logeo == null) {
             return redirect('admin/primerIngreso');
+        }
+        if (strpos(Auth::User()->roles,'Suspendido')) {
+            Auth::logout();
+            alert()->error('Su usuario se encuentra suspendido');
+           // return redirect('/login');
         }
         $existe = 1;
         if ($Request->permisoBuscado ==null ) {

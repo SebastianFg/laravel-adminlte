@@ -22,6 +22,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 class VehiculoController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+
+    }
 
     public function getMensaje($mensaje,$destino,$desicion){
         if (!$desicion) {
@@ -58,10 +62,10 @@ class VehiculoController extends Controller
     ////////////////////////////////////// VEHICULOS ////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function index(Request $Request){
-
         if (Auth::User()->primer_logeo == null) {
             return redirect('admin/primerIngreso');
         }
+
         if (strpos(Auth::User()->roles,'Suspendido')) {
             Auth::logout();
             alert()->error('Su usuario se encuentra suspendido');

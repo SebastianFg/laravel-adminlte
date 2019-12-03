@@ -18,7 +18,11 @@ use modelos\role_has_permission;
 
 class RolController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
 
+    }
     protected function getMensaje($mensaje,$destino,$desicion){
         if (!$desicion) {
             alert()->error('Error',$mensaje);
@@ -52,6 +56,11 @@ class RolController extends Controller
 	public function index(Request $Request){
 		if (Auth::User()->primer_logeo == null) {
             return redirect('admin/primerIngreso');
+        }
+        if (strpos(Auth::User()->roles,'Suspendido')) {
+            Auth::logout();
+            alert()->error('Su usuario se encuentra suspendido');
+           // return redirect('/login');
         }
 		$existe = 1;
 
