@@ -149,7 +149,7 @@ class RepuestoController extends Controller
                 inner join users on users.id = detalle_asignacion_Repuestos.responsable
                 where detalle_asignacion_Repuestos.id_detalle_repuesto =".$id);*/
         //return $vehiculos_repuestos_asignados;
-        $pdf = PDF::loadView('vehiculos.repuestos.pdf_repuestos_asignados', compact('vehiculos_repuestos_asignados'));
+        $pdf = PDF::loadView('vehiculos.repuestos.pdf_repuestos_asignados', compact('vehiculos_repuestos_asignados'))->setPaper('A4');;
 
         return $pdf->download($vehiculos_repuestos_asignados[0]->dominio.'.pdf');
     }
