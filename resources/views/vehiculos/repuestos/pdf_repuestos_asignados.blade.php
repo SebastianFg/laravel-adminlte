@@ -15,8 +15,8 @@
 			<br>
 			<div class="col-md-3 " style="float:center; text-align: center;">
 				
-				<p> <h4>DIRECCION GENERAL ADMINISTRACION</h4>
-					<h4>DIRECCION PATRIMONIO</h4>
+				<p> <h4>DIRECCIÓN GENERAL ADMINISTRACIÓN</h4>
+					<h4>DIRECCIÓN PATRIMONIO</h4>
 					<h4>DEPARTAMENTO AUTOMOTORES</h4>
 				</p>
 			</div>
@@ -27,30 +27,33 @@
 
 		<div style="text-align: center;">
 			<hr>
-			<h2 ><strong>Repuestos</strong></h2>
+			<h2 >Lista de repuestos</strong></h2>
 		
 			<div class="col-md-12 ">
 				<div class="col-md-6" style="display: inline-block; ">
-					<p  class="pdf_historial">Dominio:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->dominio }}</strong> </p>
+					<p  class="pdf_historial">Dominio:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->dominio }} </p>
 
-					<p class="pdf_historial" >Numero de inventario:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->numero_de_inventario }} </strong></p>
-					<p class="pdf_historial" >Numero de identificacion:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->numero_de_identificacion }} </strong></p>
+					<p class="pdf_historial" >Numero de inventario:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->numero_de_inventario }} </p>
+					<p class="pdf_historial" >Numero de identificación:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->numero_de_identificacion }} </p>
+					
 				</div>
-			</div>
+	
+			
 			<hr>
+			</div>
 		</div>
 
 		<div class="col-md-12" >
 			<table   class=" table table-striped table-hover table-condensed table-bordered">
 			    <thead>
 			      <tr>
-{{-- 			        <th>Dominio</th> --}}
-			        <th colspan="2">Fecha</th>
+			        <th>Dominio</th>
+			        <th>Fecha</th>
 			        <th>Responsable</th>
-{{-- 			        <th>N° de identificacion</th> --}}
+			        <th>N° de identificación</th>
 			        <th>Marca</th>
 			        <th>Clase de unidad</th>
-			        {{-- <th>Repuestos</th> --}}
+			        <th>Repuestos</th>
 			      </tr>
 			    </thead>
 			   
@@ -58,13 +61,13 @@
 			    	
 			    	@foreach($vehiculos_repuestos_asignados as $item)
 				    	<tr>
-				    	{{-- 	<td >{{ $item->dominio }}</td> --}}
-				    		<td colspan="2" >{{ $item->fecha }}</td>
+				    		<td >{{ $item->dominio }}</td>
+				    		<td >{{ $item->fecha }}</td>
 				    		<td >{{ $item->usuario }}</td>
-{{-- 				    		<td >{{ $item->numero_de_identificacion }}</td> --}}
+				    		<td >{{ $item->numero_de_identificacion }}</td>
 				    		<td >{{ $item->marca }}</td>
 				    		<td >{{ $item->clase_de_unidad }}</td>
-				    		{{-- <td>{{ $item->repuestos_entregados }}</td> --}}
+				    		<td>{{ $item->repuestos_entregados }}</td>
 				    	</tr>
 			    	@endforeach
 
@@ -73,54 +76,7 @@
 		</div>
 
 	</div>
-	<div class="col-md-12 pdf_historial">
-		<hr>
-		<br>
-		<label><strong>Descripcion de repuestos entregados:</strong></label>
-		<p>{{ $vehiculos_repuestos_asignados[0]->repuestos_entregados }}</p>
-	</div>
-	<div class="col-md-12">
-		<br>
-		<br>
-		<div class="col-md-3" style="float:left;">
-			<br>
-			<strong>RESPONSABLE DE AREA</strong>
-			<br>
 
-			<br>
-			<strong>Firma:</strong>
-			<br>
-			.................................................
-			<br>
-			
-			<strong>Aclaración:</strong>
-			<br>
-			.................................................
-			<br>
-			<strong>Jerarquia:</strong>
-			<br>
-			.................................................
-		</div>
-		<div class="col-md-3" style="float:right;">
-			<br>
-			<strong>RECIBE CONFORME</strong>
-			<br>
-
-			<br>
-			<strong>Firma:</strong>
-			<br>
-			.................................................
-			<br>
-			
-			<strong>Aclaración:</strong>
-			<br>
-			.................................................
-			<br>
-			<strong>Jerarquia:</strong>
-			<br>
-			.................................................
-		</div>
-	</div>
 </div>
 
 

@@ -17,7 +17,7 @@
                 <img src="/img/profile.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block"> {{auth()->user()->name!=null ? auth()->user()->name : "Administrator"}} </a>
+                <a href="#" class="d-block"> {{auth()->user()->name!=null ? auth()->user()->name : "Administrador"}} </a>
             </div>
         </div>
 
@@ -224,7 +224,7 @@
                          <a href="{{ route('ListaGraficos') }}" class="nav-link">
                             <i class="nav-icon fa fa-paste"></i>
                             <p>
-                              Graficos
+                              Gráficos
                               <i class="fa fa-angle-left right"></i>
                             </p>
                         </a>

@@ -16,7 +16,7 @@
               <div class="row">
                 <div class="col-md-3">
                   @can('dependencias.crearDependencia')
-                  <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModalDependencia"> <i class="fa fa-plus"> Nueva dependencia</i> </button> 
+                  <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModalDependencia"> <i class="fa fa-plus"> Nueva Dependencia</i> </button> 
                   @endcan
                 </div>
               </div>
@@ -30,7 +30,7 @@
 
             <div class="card">
               <div class="card-header">
-                <strong><u>Lista de dependencias</u></strong>
+                <strong><u>Lista de Dependencias</u></strong>
               </div>
 
               <div class="card-body">
@@ -42,12 +42,12 @@
                       </div>
                       <div class="form-group">
                         <select name="nivel_dependencia" class="form-control">
-                          <option value="">Seleccione un tipo de dependencia</option>
-                          <option value="3">Direccion General</option>
-                          <option value="4">Direccion</option>
+                          <option value="">Seleccione un tipo de Dependencia</option>
+                          <option value="3">Dirección General</option>
+                          <option value="4">Dirección</option>
                           <option value="5">Departamento</option>
-                          <option value="6">Division</option>
-                          <option value="7">Seccion</option>
+                          <option value="6">División</option>
+                          <option value="7">Sección</option>
                         </select>
                       </div>
                       <div class="form-group">
@@ -59,7 +59,7 @@
                 <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
                   <thead>
                     <tr>
-                      <th>Dependencia</th>
+                      <th>Dependencias</th>
                       <th>Padre</th>
                       <th>Estado</th>
                       <th>Acciones</th>

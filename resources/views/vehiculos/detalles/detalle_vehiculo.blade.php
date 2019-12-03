@@ -2,7 +2,7 @@
 
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
-
+<title>@yield('titulo', 'Patrimonio') | Jefatura</title>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
@@ -12,7 +12,7 @@
       <div class="row ">
         <div class="card col-sm-12">
           <div class="card-body">
-            <h4 class="card-title">Su usuario se encuentra suspendido, contacte con un administrador</h4> 
+            <h4 class="card-title">Su usuario se encuentra suspendido, contacte con un administrador!</h4> 
             <br>
           </div>
         </div>
@@ -43,7 +43,7 @@
         <div class="row ">
           <div class="card col-sm-12">
             <div class="card-body">
-              <h4 class="card-title">Ingrese algun numero de identificacion o dominio del vehiculo</h4> 
+              <h4 class="card-title">Ingrese numero de identificación o dominio del vehiculo</h4> 
               <br>
             </div>
           </div>
@@ -57,7 +57,7 @@
                 <h4 class="card-title">Detalle</h4>
                 <br>
                   @if(count($VehiculosListados)>0)
-                    <label class="texto" >Numero de identificacion</label>
+                    <label class="texto" >Numero de identificación</label>
                     <p class="parrafos" >{{ $VehiculosListados[0]->numero_de_identificacion }}</p>
                     <label class="texto">Clase de unidad</label>
                     <p class="parrafos" >{{$VehiculosListados[0]->clase_de_unidad  }}</p>                       
@@ -73,7 +73,7 @@
                     <label class="texto">Motor</label>
                     <p class="parrafos" >{{$VehiculosListados[0]->motor  }}</p>
                     
-                    <label class="texto">Año de produccion</label>
+                    <label class="texto">Año de producción</label>
                     <p class="parrafos" >{{$VehiculosListados[0]->anio_de_produccion  }}</p>
                     
                     <label class="texto">dominio </label>
@@ -174,13 +174,13 @@
                     <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
                       <thead>
                         <tr>
-                          <th>N° Identificacion</th>
+                          <th>N° Identificación</th>
                           <th>Afectado</th>
                           <th>Lugar</th>
                           <th>Fecha</th>
                           <th>Lesiones</th>
                           <th>Colision</th>
-                          <th>Presentacion</th>
+                          <th>Presentación</th>
                           <th>Observaciones</th>
                         </tr>
                       </thead>
@@ -247,11 +247,11 @@
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Previous</span>
+                      <span class="sr-only">Siguiente</span>
                     </a>
                     <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Next</span>
+                      <span class="sr-only">Anterior</span>
                     </a>
                   </div>
                 </div>
@@ -307,7 +307,7 @@
                   </div>
                 </div> --}}
                 @else
-                  <p> no posee imagenes</p>
+                  <p> No posee imagenes!</p>
                 @endif
             </div>
           </div>

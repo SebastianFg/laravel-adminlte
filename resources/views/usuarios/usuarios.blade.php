@@ -2,7 +2,7 @@
 
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
-
+<title>@yield('titulo', 'Patrimonio') | Jefatura</title>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -15,7 +15,7 @@
       <div class="row ">
         <div class="card col-sm-12">
           <div class="card-body">
-            <h4 class="card-title">Su usuario se encuentra suspendido, contactese con un administrador</h4> 
+            <h4 class="card-title">Su usuario se encuentra suspendido, contactese con un administrador!</h4> 
             <br>
           </div>
         </div>

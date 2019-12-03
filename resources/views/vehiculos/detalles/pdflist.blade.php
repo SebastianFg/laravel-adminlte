@@ -15,8 +15,8 @@
 			<br>
 			<div class="col-md-3 " style="float:center; text-align: center;">
 				
-				<p> <h4>DIRECCION GENERAL ADMINISTRACION</h4>
-					<h4>DIRECCION PATRIMONIO</h4>
+				<p> <h4>DIRECCIÓN GENERAL ADMINISTRACIÓN</h4>
+					<h4>DIRECCIÓN PATRIMONIO</h4>
 					<h4>DEPARTAMENTO AUTOMOTORES</h4>
 				</p>
 			</div>
@@ -35,7 +35,7 @@
 					<p class="pdf_historial" >Dominio:<strong class="encabezado_pdf_historial"> {{ $vehiculo[0]->dominio }} </p>
 
 					<p class="pdf_historial" >Numero de inventario:<strong class="encabezado_pdf_historial"> {{ $vehiculo[0]->numero_de_inventario }} </p>
-					<p class="pdf_historial" >Numero de identificacion:<strong class="encabezado_pdf_historial"> {{ $vehiculo[0]->numero_de_identificacion }} </p>
+					<p class="pdf_historial" >Numero de identificación:<strong class="encabezado_pdf_historial"> {{ $vehiculo[0]->numero_de_identificacion }} </p>
 	
 				<hr>
 			</div>
@@ -44,7 +44,7 @@
 			<table   class=" table table-striped table-hover table-condensed table-bordered">
 			    <thead>
 			      <tr >
-			        <th >Fecha y hora</th>
+			        <th>Fecha y hora</th>
 			        <th>Historia</th>
 			      </tr>
 

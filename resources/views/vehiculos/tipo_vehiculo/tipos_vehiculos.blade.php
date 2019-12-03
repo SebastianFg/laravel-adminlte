@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+<title>@yield('titulo', 'Patrimonio') | Jefatura</title>
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
 
@@ -14,7 +14,7 @@
   <!-- Main content -->
   <div class="content">
     @if(strpos(Auth::User()->roles,'Suspendido'))
-      su usuario se encuentra suspendido
+      Su usuario se encuentra suspendido
     @else
     <div class="container-fluid">
       <div class="row" style="padding-top: 5px;">

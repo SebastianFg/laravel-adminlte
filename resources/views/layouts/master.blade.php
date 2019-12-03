@@ -12,7 +12,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content={{csrf_token()}}>
 
-    {{-- <title>Laravel Starter</title> --}}
+    {{-- <title>Departamento del Automotor</title> --}}
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/dist/plugins/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->

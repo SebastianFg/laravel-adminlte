@@ -32,7 +32,7 @@
                 </div> 
               </div>
                 <div class="form-group col-md-12">
-                    <label for="">Motivo de baja</label>
+                    <label for="">Motivo de la baja</label>
                     <textarea type="text" autocomplete="off" name="motivo_de_baja" placeholder="Motivo de la baja" class="form-control" value="{{ old('observaciones') }}"></textarea>
                     {{-- <input type="text" name="otros" placeholder="Otras Caracteristicas" class="form-control" required value="{{ old('otros') }}"> --}}
                 </div>

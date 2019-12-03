@@ -1,5 +1,5 @@
 @extends('layouts.master')
-
+<title>@yield('titulo', 'Patrimonio') | Jefatura</title>
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
@@ -63,13 +63,13 @@
                 <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered responsive">
                   <thead>
                     <tr>
-                      <th>N° Identificacion</th>
+                      <th>N° Identificación</th>
                       <th>Afectado</th>
-                      <th>Direccion</th>
+                      <th>Dirección</th>
                       <th>Fecha</th>
                       <th>Lesiones</th>
                       <th>Colisión</th>
-                      <th>Presentacion</th>
+                      <th>Presentación</th>
                       <th>Observaciones</th>
                       <th>Acciones</th>
                     </tr>

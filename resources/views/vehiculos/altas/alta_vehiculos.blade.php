@@ -6,14 +6,14 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper ">
   <!-- Content Header (Page header) -->
-
+  <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
   <!-- /.content-header -->
 
-s
+
   <!-- Main content -->
   <div class="content">
     @if(strpos(Auth::User()->roles,'Suspendido'))
-      su usuario se encuentra suspendido
+      Su usuario se encuentra suspendido!
     @else
     <div class="container-fluid">
       <div class="row" style="padding-top: 5px;">
@@ -26,7 +26,9 @@ s
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModal"> <i class="fa fa-plus"> Nuevo</i> </button> 
                   @endcan
                   @can('vehiculos.imprimirLista')
+<<<<<<< HEAD
                   <a type="button" id="redireccionar" class=" btn btn-danger" href="{{ route('exportarPdfVehiculos') }}"><i class="fa fa-file-pdf-o"> Imprimir lista completa</i> </a>
+
 
                   @endcan  
                 </div>
@@ -188,7 +190,7 @@ s
             $('#divFileAlta').css('background-color', 'red');
             $('#divFileAlta').css('border-radius', '5px');
             boton.disabled = true;
-          }else{
+          } else {
             boton.disabled = false;
             $('#divFileAlta').css('background-color', 'white');
           }
