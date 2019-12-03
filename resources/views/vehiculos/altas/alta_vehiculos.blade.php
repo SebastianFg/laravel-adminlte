@@ -9,7 +9,7 @@
   <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
   <!-- /.content-header -->
 
-s
+
   <!-- Main content -->
   <div class="content">
     @if(strpos(Auth::User()->roles,'Suspendido'))
@@ -26,12 +26,7 @@ s
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModal"> <i class="fa fa-plus"> Nuevo</i> </button> 
                   @endcan
                   @can('vehiculos.imprimirLista')
-<<<<<<< HEAD
                     <button type="button" id="redireccionar" class=" btn btn-danger" title="Descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
-=======
-                  <a type="button" id="redireccionar" class=" btn btn-danger" href="{{ route('exportarPdfVehiculos') }}"><i class="fa fa-file-pdf-o"> Imprimir lista completa</i> </a>
-{{--                     <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button> --}}
->>>>>>> 8238536a9ce1d7b0e69521b408eb700839d52508
                   @endcan  
                 </div>
 
@@ -192,7 +187,7 @@ s
             $('#divFileAlta').css('background-color', 'red');
             $('#divFileAlta').css('border-radius', '5px');
             boton.disabled = true;
-          }else{
+          } else {
             boton.disabled = false;
             $('#divFileAlta').css('background-color', 'white');
           }
