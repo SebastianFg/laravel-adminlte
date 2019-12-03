@@ -69,13 +69,14 @@
                   </thead>
                   <tbody>
                     @foreach($usuarios as $item)
+                      @if(strpos($item->getRoleNames(),'Super Admin') == false)
                       <tr>
                         <td>{{ $item->nombre }}</td>
                         <td>{{ $item->usuario }}</td>
                         <td> 
                           @if(!empty($item->getRoleNames()))
                             @foreach($item->getRoleNames() as $v)
-                               <label class="badge badge-success">{{ $v }}</label>
+                              <label class="badge badge-success">{{ $v }}</label>
                             @endforeach
                           @endif
                         </td>
@@ -94,6 +95,7 @@
                           @endif
                         </td>
                       </tr>
+                      @endif
                     @endforeach
                   </tbody>
                 </table>
