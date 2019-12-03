@@ -57,9 +57,11 @@
                             <td>{{ $item->name }}</td>
                             <td> 
 	                        	@foreach($item->roles as $key)
-	                           		@if($key == 'Super Admin'  and strpos(Auth::User()->roles,'Super Admin') == true )
+	                           		@if($key->name == 'Super Admin'  and strpos(Auth::User()->roles,'Super Admin') == true )
 	                           		  <label class="badge badge-success">{{ $key->name }}</label>
-                                
+                                @endif
+                                @if($key->name != 'Super Admin' )
+                                  <label class="badge badge-success">{{ $key->name }}</label>
                                 @endif
 	                           	@endforeach
                             </td>
