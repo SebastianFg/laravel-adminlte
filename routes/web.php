@@ -21,7 +21,7 @@ Auth::routes();
 // Route::get('/dashboard/v3', 'DashboardController@versionthree')->name('v3');
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-
+Route::get('alta_vehiculos', 'vehiculos\VehiculoController@listaAutobomba')->name('listaVehiculos');
 
 
 
@@ -44,7 +44,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::post('primerIngreso','UsuarioController@cambioPrimerPassword')->name('cambioPrimerPassword');
 
-		Route::get('alta_vehiculos', 'vehiculos\VehiculoController@listaAutobomba')->name('listaVehiculos');
+
 		//roles
 		Route::get('roles','RolController@index')->name('listaRoles');
 		//alta
@@ -204,7 +204,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-		Route::get('Descargar_pdf_Vehiculos', 'vehiculos\VehiculoController@exportarPdfVehiculos')->name('exportarPdfVehiculos');
+		//Route::get('Descargar_pdf_Vehiculos/{dato}', 'vehiculos\VehiculoController@exportarPdfVehiculos');
 
 
 
