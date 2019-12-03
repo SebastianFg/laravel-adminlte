@@ -44,7 +44,7 @@
 
               <div class="col-md-12 modal-footer" >
                   <button class="btn btn-success col-md-2 d-inline" type="submit">Guardar</button>
-                  <a class="btn btn-danger col-md-2 d-inline" href="{{ route('listaVehiculos') }}">Cancelar</a> 
+                  <a class="btn btn-danger col-md-2 d-inline" href="{{ route('listaUsuarios') }}">Cancelar</a> 
               </div>
             </form>
           </div>
