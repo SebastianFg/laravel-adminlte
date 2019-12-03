@@ -52,7 +52,7 @@
                   <textarea type="text" name="lugar_siniestro"  maxlength="191" autocomplete="off" placeholder="Lugar del siniestro" class="form-control" required ></textarea>
               </div>
               <div class="form-group col-md-12">
-                  <label for="">Descripcion</label>
+                  <label for="">Descripción</label>
                   <textarea type="text" name="descripcion_siniestro"  maxlength="191" autocomplete="off" placeholder="Ingrese descripcion del siniestro" class="form-control"></textarea>
               </div>
             </div>

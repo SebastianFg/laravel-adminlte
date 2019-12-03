@@ -76,7 +76,7 @@
               <tr>
                 <th>Total de vehiculos</th>
                 <th>Baja Total</th>
-                <th>En Reparacion</th>
+                <th>En Reparación</th>
                 <th>Total de vehiculos disponibles</th>
               </tr>
             </thead>
@@ -142,7 +142,7 @@
               <tr>
                 <th>Total de vehiculos</th>
                 <th>Baja Total</th>
-                <th>En Reparacion</th>
+                <th>En Reparación</th>
                 <th>Total de vehiculos disponibles</th>
               </tr>
             </thead>

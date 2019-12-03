@@ -21,7 +21,7 @@
                   <input type="text" name="vehiculo" hidden="" id="id_vehiculo_modificacion" >
                   <div class="row">
                     <div class="form-group col-md-6">
-                        <label>Nro de identificacion</label>
+                        <label>Nº de Identificación</label>
                         <input type="text" id="id_numero_de_identificacion_modificacion" name="numero_de_identificacion" autocomplete="off" maxlength="6" placeholder="Numero de identificacion" required class="form-control md-2" value="{{ old('numero_de_identificacion') }}"> 
                     </div>
                     <div class="form-group col-md-6">
@@ -66,7 +66,7 @@
                   <div class="row">
                     
                     <div class="form-group col-md-6">
-                        <label for="">Nro de inventario</label>
+                        <label for="">Nº de inventario</label>
                         <input type="text" name="numero_de_inventario" autocomplete="off" id="id_numero_de_inventario_modificacion"  maxlength="15" placeholder="Numero de inventario: Ej-> 3000" class="form-control" required value="{{ old('numero_de_inventario') }}">
                     </div> 
                     <div class="form-group col-md-6">

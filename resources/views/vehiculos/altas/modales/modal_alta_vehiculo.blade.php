@@ -20,7 +20,7 @@
                   @csrf
                   <div class="row">
                     <div class="form-group col-md-6">
-                        <label>Nro de identificacion</label>
+                        <label>Nº de Identificación</label>
                         <input type="text" name="numero_de_identificacion" autocomplete="off" maxlength="6" placeholder="Numero de identificacion" required class="form-control md-2" value="{{ old('numero_de_identificacion') }}"> 
                     </div>
                     <div class="form-group col-md-6">
@@ -55,13 +55,13 @@
                     </div> 
 
                     <div class="form-group col-md-6">
-                        <label for="">Año de produccion</label>
+                        <label for="">Año de Producción</label>
                         <input type="number"  name="anio_produccion" autocomplete="off" placeholder="Año de Produccion" class="form-control" required value="{{ old('anio_produccion') }}">
                     </div> 
                   </div>
                   <div class="row">
                     <div class="form-group col-md-6">
-                        <label for="">Nro de inventario</label>
+                        <label for="">Nº de inventario</label>
                         <input type="text" name="numero_de_inventario" autocomplete="off"  maxlength="15" placeholder="Numero de inventario: Ej-> 3000" class="form-control" required value="{{ old('numero_de_inventario') }}">
                     </div> 
                     <div class="form-group col-md-6">

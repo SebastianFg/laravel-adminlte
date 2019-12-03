@@ -6,7 +6,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-
+  <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
   <!-- /.content-header -->
 
 
@@ -62,7 +62,7 @@
                       <thead>
                         <tr>
 
-                          <th>N de identificacion</th>
+                          <th>N de identificación</th>
                           <th>N de inventario</th>
                           <th>Dominio</th>
                           <th>Afectado</th>

@@ -20,7 +20,7 @@
               <div class="row">
                 
                 <div class="form-group col-md-6"  >
-                  <label>Usuario</label>
+                  <label>Nombre Y Apellido</label>
                   <br>
                   <input autocomplete="off" type="text" readonly="" hidden="" id="id_usuario_baja" class="form-control" name="id_usuario" >
                   <input class="form-control" type="text" readonly=""  id="id_nombre_apellido" name="id_nombre_apellido" >

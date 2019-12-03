@@ -2,7 +2,7 @@
 
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
-
+<title>@yield('titulo', 'Patrimonio') | Jefatura</title>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper ">
@@ -14,7 +14,7 @@
   <!-- Main content -->
   <div class="content">
     @if(strpos(Auth::User()->roles,'Suspendido'))
-      su usuario se encuentra suspendido
+      Su usuario se encuentra suspendido
     @else
     <div class="container-fluid">
       
@@ -69,7 +69,7 @@
                   <tr>
                     <th>Total de vehiculos</th>
                     <th>Baja Total</th>
-                    <th>En Reparacion</th>
+                    <th>En Reparación</th>
                     <th>Total de vehiculos disponibles</th>
                   </tr>
                 </thead>

@@ -1,5 +1,5 @@
 <div class="panel panel-success">
-	<div class="panel-heading">Lista de pdfs <strong></strong> </div>
+	<div class="panel-heading">Lista de PDF's <strong></strong> </div>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<div class="panel-body">

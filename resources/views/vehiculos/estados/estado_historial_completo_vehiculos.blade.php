@@ -8,12 +8,12 @@
   <!-- Content Header (Page header) -->
 
   <!-- /.content-header -->
-
+  <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
 
   <!-- Main content -->
   <div class="content">
     @if(strpos(Auth::User()->roles,'Suspendido'))
-      su usuario se encuentra suspendido
+      Su usuario se encuentra suspendido!
     @else
     <div class="container-fluid">
       <div class="row" style="padding-top: 5px;">
@@ -67,14 +67,14 @@
                       <thead>
                         <tr>
 
-                          <th>Numero de identificacion</th>
+                          <th>Numero de identificación</th>
                           <th>Marca</th>
                           <th>Modelo</th>
                           <th>Dominio</th>
                           <th>Estado</th>
                           <th>Fecha</th>
                           <th>Razon</th>
-                          <th>Accion</th>
+                          <th>Acción</th>
                         </tr>
                       </thead>
                       <tbody>

@@ -19,8 +19,8 @@
 			<br>
 			<div class="col-md-3 " style="float:center; text-align: center;">
 				
-				<p> <h4>DIRECCION GENERAL ADMINISTRACION</h4>
-					<h4>DIRECCION PATRIMONIO</h4>
+				<p> <h4>DIRECCIÓN GENERAL ADMINISTRACIÓN</h4>
+					<h4>DIRECCIÓN PATRIMONIO</h4>
 					<h4>DEPARTAMENTO AUTOMOTORES</h4>
 				</p>
 			</div>
@@ -52,7 +52,7 @@
 		<h1>Cargo Automotor</h1>
 	</div>
 	<div class="col-md-12">
-		<strong>Numero de identificacion:</strong> <strong>{{ $detalleVehiculo->numero_de_identificacion}}</strong>
+		<strong>Numero de identificación:</strong> <strong>{{ $detalleVehiculo->numero_de_identificacion}}</strong>
 		<br>
 		<strong>Entregado por:</strong> {{ $nombre_responsable_entrega }}
 		<br>
@@ -68,7 +68,7 @@
 		<br>
 		<strong>Motor:</strong> {{$detalleVehiculo->motor  }}
 		<br>
-		<strong>Año de produccion:</strong> {{$detalleVehiculo->anio_de_produccion  }}
+		<strong>Año de producción:</strong> {{$detalleVehiculo->anio_de_produccion  }}
 		<br>
 		<strong>Dominio:</strong> {{$detalleVehiculo->dominio  }}
 		<br>

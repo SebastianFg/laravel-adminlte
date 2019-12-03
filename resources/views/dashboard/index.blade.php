@@ -13,7 +13,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Busqueda</h3>
+              <h3 class="card-title">Búsqueda</h3>
             
 {{--                <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -56,7 +56,7 @@
                   </div>
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label>N de identificación</label>
+                      <label>Nº de identificación</label>
                       <br>
                       <input type="text" name="dominio" id="id_identificacion" placeholder="ingrese numero de identificación" required class="form-control ">
                     </div>
@@ -79,7 +79,7 @@
             <div class="card-body">
               <meta name="csrf-token" content="{{ csrf_token() }}">
               <button class="btn btn-success col-md-2 d-inline" style="padding: 5px;" id="btnBuscar" >
-               <i class="glyphicon glyphicon-search"> Buscar</i>
+               <i class="glyphicon glyphicon-search">Buscar</i>
                
              </button>
               <button class="btn btn-warning col-md-2 d-inline" style="padding: 5px;" id="limpiar"> <i class="fa fa-paint-brush"> Limpiar</i> </button>

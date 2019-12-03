@@ -6,7 +6,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-
+  <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
   <!-- /.content-header -->
 
   <!-- Main content -->
@@ -24,7 +24,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Lista de roles y sus permisos</u></strong>
+                  <strong><u>Lista de roles y Permisos</u></strong>
                 </div>
 
                 <div class="card-body">

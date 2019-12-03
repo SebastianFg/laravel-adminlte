@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content col-md-12">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Nueva dependencia</h4>
+                <h4 class="modal-title" id="myModalLabel">Nueva Dependencia</h4>
             </div>
             @if(!$errors->isEmpty())
             <div class="alert alert-danger">
@@ -19,21 +19,21 @@
                 @csrf
                 <div class="row">
                   <div class="form-group col-md-12">
-                      <label>Ingrese Nombre de la Dependencia</label>
+                      <label>Ingrese Nombre de la nueva Dependencia</label>
                       <input type="" autocomplete="off" name="nombre_dependencia" class="form-control" >
                       
                   </div>
                 </div>
                 <div class="row">
                   <div class="form-group">
-                    <label>Tipo dependnecia</label>
+                    <label>Tipo Dependencia</label>
                     <select name="nivel_dependencia" id="IdnivelDependencia" class="form-control">
                       <option value="">Seleccione un tipo de dependencia</option>
-                      <option value="3">Direccion General</option>
-                      <option value="4">Direccion</option>
+                      <option value="3">Dirección General</option>
+                      <option value="4">Dirección</option>
                       <option value="5">Departamento</option>
-                      <option value="6">Division</option>
-                      <option value="7">Seccion</option>
+                      <option value="6">División</option>
+                      <option value="7">Sección</option>
                     </select>
                   </div>
                   <div class="form-group col-md-6">

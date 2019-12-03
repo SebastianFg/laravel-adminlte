@@ -25,20 +25,20 @@
                   </div>
                 <div class="row col-md-12">
                   <div class="form-group col-md-6">
-                    <label>Tipo dependnecia</label>
+                    <label>Tipo Dependencia</label>
                     <select name="nivel_dependencia_edicion" id="id_nivel_dependencia_edicion" class="form-control">
-                      <option value="">Seleccione un tipo de dependencia</option>
-                      <option value="3">Direccion General</option>
-                      <option value="4">Direccion</option>
+                      <option value="">Seleccione un tipo de Dependencia</option>
+                      <option value="3">Dirección General</option>
+                      <option value="4">Dirección</option>
                       <option value="5">Departamento</option>
-                      <option value="6">Division</option>
-                      <option value="7">Seccion</option>
+                      <option value="6">División</option>
+                      <option value="7">Sección</option>
                     </select>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Dependencia padre</label>
                     <select name="dependencia_habilitada_padre_edicion" id="id_dependencia_habilitada_padre" class="form-control">
-                      <option value="">Seleccione una dependencia padre</option>
+                      <option value="">Seleccione una Dependencia padre</option>
                     </select>
                   </div>
                 </div>

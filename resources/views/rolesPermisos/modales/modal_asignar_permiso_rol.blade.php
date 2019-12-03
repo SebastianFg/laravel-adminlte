@@ -6,7 +6,7 @@
         <div class="modal-dialog  vertical-align-center" role="document">
             <div class="modal-content col-md-5">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Asignar Permiso a un rol</h4>
+                    <h4 class="modal-title" id="myModalLabel">Asignar Permiso a un Rol</h4>
                 </div>
                 @if(!$errors->isEmpty())
                 <div class="alert alert-danger">

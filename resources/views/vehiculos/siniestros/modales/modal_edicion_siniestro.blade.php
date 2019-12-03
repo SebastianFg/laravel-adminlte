@@ -41,7 +41,7 @@
                   <input type="date"  name="fecha_siniestro" id="id_fecha_siniestro" class="form-control" required >
               </div>
               <div class="form-group col-md-6">
-                  <label for="">Fecha Presentacion</label>
+                  <label for="">Fecha Presentación</label>
                   <input type="date"  name="fecha_presentacion" id="id_fecha_presentacion" class="form-control" required >
               </div> 
             </div>
@@ -54,7 +54,7 @@
                 <textarea type="text" name="observaciones_siniestro" autocomplete="off" id="id_observaciones_siniestro" placeholder="Ingrese alguna observacion" class="form-control"></textarea>
             </div>
             <div class="form-group col-md-12">
-                <label for="">Descripcion</label>
+                <label for="">Descripción</label>
                 <textarea type="text" name="descripcion_siniestro" autocomplete="off" id="id_descripcion_siniestro" placeholder="Ingrese descripcion del siniestro" class="form-control"></textarea>
             </div>
 

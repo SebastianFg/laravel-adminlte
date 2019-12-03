@@ -56,7 +56,7 @@
                                 <!-- <a href="#" class="btn btn-primary pull-right" data-toggle="modal" data-target="#create">Perfil</a> -->
                             </div>
                                      <div class="pull-right">
-                                        <a class="btn btn btn-flat bg-dark" style="border-radius: 5px;" href="{{ url('/logout') }}">Logout</i></a>
+                                        <a class="btn btn btn-flat bg-dark" style="border-radius: 5px;" href="{{ url('/logout') }}">Salir</i></a>
                                     </div>  
                                   </li>
                                 <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">

@@ -8,7 +8,7 @@
         <th>Dominio</th>
         <th>Motor</th>
         <th>Chasis</th>
-        <th>N de identificacion</th>
+        <th>Nº de identificación</th>
     </tr>
   </thead>
   <tbody>
