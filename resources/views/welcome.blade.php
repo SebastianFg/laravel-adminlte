@@ -89,7 +89,7 @@
                                 <th>Dominio</th>
                                 <th>Motor</th>
                                 <th>Chasis</th>
-                                <th>N de identificación</th>
+                                <th>N de identificacion</th>
                                 <th>Acciones</th>
                             </tr>
                           </thead>
@@ -116,7 +116,7 @@
                                 <div class="row col-md-12">
                                   <div class="card col-md-12">
                                     <div class="card-body">
-                                      <h4 class="card-title">Ingrese numero de identificación o dominio del vehiculo</h4> 
+                                      <h4 class="card-title">Ingrese algun numero de identificacion o dominio del vehiculo</h4> 
                                       <br>
                                     </div>
                                   </div>
