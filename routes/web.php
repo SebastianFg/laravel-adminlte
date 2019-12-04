@@ -204,7 +204,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-		//Route::get('Descargar_pdf_Vehiculos/{dato}', 'vehiculos\VehiculoController@exportarPdfVehiculos');
+		Route::get('Descargar_pdf_Vehiculos', 'vehiculos\VehiculoController@exportarPdfVehiculos')->name('exportarPdfVehiculos');
 
 
 

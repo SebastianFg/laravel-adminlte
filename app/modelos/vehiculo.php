@@ -29,8 +29,4 @@ class vehiculo extends Model
 
     	}
     }
-
-
-
-
 }

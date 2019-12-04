@@ -156,18 +156,17 @@ class AsignacionController extends Controller
         };
     }
     public function exportarPdfCargo($id){
-           // return $id;
-            $detalle_asignacion_vehiculo = asignacion_vehiculo::where('id_vehiculo','=',$id)->get();
-             
-            $detalleVehiculo = Vehiculo::findOrFail($detalle_asignacion_vehiculo[0]->id_vehiculo);
-           // return $detalleVehiculo;
-            $user = User::findOrFail($detalle_asignacion_vehiculo[0]->id_responsable);
-     
-            $nombre_responsable_entrega = $user->name;
-            $nombre_responsable_recibio = $detalle_asignacion_vehiculo[0]->destino;
+            //return $id;
+            $detalle_asignacion_vehiculo = asignacion_vehiculo::join('users','users.id','=','detalle_asignacion_vehiculos.id_responsable')
+                                                                ->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
+                                                                ->join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
+                                                                ->where('id_detalle','=',$id)
+                                                                ->select('users.nombre','dependencias.nombre_dependencia','vehiculos.*','detalle_asignacion_vehiculos.*')
+                                                                ->get();
+           // return $detalle_asignacion_vehiculo;
 
-            $pdf = PDF::loadView('vehiculos.asignacion.pdf_cargo_lista', compact('detalleVehiculo','nombre_responsable_entrega','nombre_responsable_recibio'));
+            $pdf = PDF::loadView('vehiculos.asignacion.pdf_cargo_lista', compact('detalle_asignacion_vehiculo'));
 
-            return $pdf->download($detalleVehiculo->dominio.'.pdf');
+            return $pdf->stream($detalle_asignacion_vehiculo[0]->dominio.'.pdf');
     }
 }

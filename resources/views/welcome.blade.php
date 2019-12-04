@@ -116,7 +116,7 @@
                                 <div class="row col-md-12">
                                   <div class="card col-md-12">
                                     <div class="card-body">
-                                      <h4 class="card-title">Ingrese algun numero de identificacion o dominio del vehiculo</h4> 
+                                      <h4 class="card-title">Ingrese algun numero de identificación o dominio del vehiculo</h4> 
                                       <br>
                                     </div>
                                   </div>

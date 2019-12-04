@@ -19,29 +19,28 @@
 			<br>
 			<div class="col-md-3 " style="float:center; text-align: center;">
 				
-				<p> <h4>DIRECCIÓN GENERAL ADMINISTRACIÓN</h4>
+				<p><h4>DIR. GENERAL ADMINISTRACIÓN</h4>
 					<h4>DIRECCIÓN PATRIMONIO</h4>
 					<h4>DEPARTAMENTO AUTOMOTORES</h4>
 				</p>
 			</div>
 
 			<div class="col-md-3" style="float:right;position: fixed; margin-top: -30px;">
-				<img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate('N. de identificación: '.$detalleVehiculo->numero_de_identificacion.'-'.
-                                        'Entregado por : '.$nombre_responsable_entrega.'-'.
-                                        'Recibe : '.$nombre_responsable_recibio.'-'.
-                                        'Fecha : '.$detalleVehiculo->fecha.'-'.
-                                        'clase de unidad : '.$detalleVehiculo->clase_de_unidad.'-'.
-                                        'marca : '.$detalleVehiculo->marca.'-'.
-                                        'chasis : '.$detalleVehiculo->chasis.'-'.
-                                        'motor : '.$detalleVehiculo->motor.'-'.
-                                        'año de produccion : '.$detalleVehiculo->anio_produccion.'-'.
-                                        'dominio : '.$detalleVehiculo->dominio.'-'.
-                                        'bateria : '.$detalleVehiculo->bateria.'-'.
-                                        'kilometraje : '.$detalleVehiculo->kilometraje.'-'.
-                                        'cubiertas : '.$detalleVehiculo->neumaticos.'-'.
-                                        'observaciones : '.$detalleVehiculo->otras_caracteristicas.'-'.
-                                        'Id Vehiculo : '.$detalleVehiculo->idvehiculo.'-'.
-                                        'http://127.0.0.1:8000/detalleVehiculo/'.$detalleVehiculo->id_vehiculo)) !!} ">
+				<img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate('N. de identificación: '.$detalle_asignacion_vehiculo[0]->numero_de_identificacion.'-'.
+                                        'Entregado por : '.$detalle_asignacion_vehiculo[0]->nombre.'-'.
+                                        'Recibe : '.$detalle_asignacion_vehiculo[0]->nombre_dependencia.'-'.
+                                        'Fecha : '.date('d-m-Y', strtotime($detalle_asignacion_vehiculo[0]->fecha)) .'-'.
+                                        'clase de unidad : '.$detalle_asignacion_vehiculo[0]->clase_de_unidad.'-'.
+                                        'marca : '.$detalle_asignacion_vehiculo[0]->marca.'-'.
+                                        'chasis : '.$detalle_asignacion_vehiculo[0]->chasis.'-'.
+                                        'motor : '.$detalle_asignacion_vehiculo[0]->motor.'-'.
+                                        'año de produccion : '.$detalle_asignacion_vehiculo[0]->anio_produccion.'-'.
+                                        'dominio : '.$detalle_asignacion_vehiculo[0]->dominio.'-'.
+                                        'kilometraje : '.$detalle_asignacion_vehiculo[0]->kilometraje.'-'.
+                                        'cubiertas : '.$detalle_asignacion_vehiculo[0]->neumaticos.'-'.
+                                        'observaciones : '.$detalle_asignacion_vehiculo[0]->otras_caracteristicas.'-'.
+                                        'Id Vehiculo : '.$detalle_asignacion_vehiculo[0]->idvehiculo.'-'.
+                                        'http://127.0.0.1:8000/detalleVehiculo/'.$detalle_asignacion_vehiculo[0]->id_vehiculo)) !!} ">
 			</div>
 		</div>
 	</div>
@@ -52,36 +51,34 @@
 		<h1>Cargo Automotor</h1>
 	</div>
 	<div class="col-md-12">
-		<strong>Numero de identificación:</strong> <strong>{{ $detalleVehiculo->numero_de_identificacion}}</strong>
+		<strong>Numero de identificación:</strong> <strong>{{ $detalle_asignacion_vehiculo[0]->numero_de_identificacion}}</strong>
 		<br>
-		<strong>Entregado por:</strong> {{ $nombre_responsable_entrega }}
+		<strong>Entregado por:</strong> {{ $detalle_asignacion_vehiculo[0]->nombre }}
 		<br>
-		<strong>Recibe:</strong> {{ $nombre_responsable_recibio }}
+		<strong>Recibe:</strong> {{ $detalle_asignacion_vehiculo[0]->nombre_dependencia }}
 		<br>
-		<strong>Fecha:</strong> {{$detalleVehiculo->fecha  }}
+		<strong>Fecha:</strong> {{date('d-m-Y', strtotime($detalle_asignacion_vehiculo[0]->fecha))   }}
 		<br>
-		<strong>Clase de unidad:</strong> {{$detalleVehiculo->clase_de_unidad  }}
+		<strong>Clase de unidad:</strong> {{$detalle_asignacion_vehiculo[0]->clase_de_unidad  }}
 		<br>
-		<strong>Marca:</strong> {{$detalleVehiculo->marca  }}
+		<strong>Marca:</strong> {{$detalle_asignacion_vehiculo[0]->marca  }}
 		<br>
-		<strong>Chasis:</strong> {{$detalleVehiculo->chasis  }}
+		<strong>Chasis:</strong> {{$detalle_asignacion_vehiculo[0]->chasis  }}
 		<br>
-		<strong>Motor:</strong> {{$detalleVehiculo->motor  }}
+		<strong>Motor:</strong> {{$detalle_asignacion_vehiculo[0]->motor  }}
 		<br>
-		<strong>Año de producción:</strong> {{$detalleVehiculo->anio_de_produccion  }}
+		<strong>Año de producción:</strong> {{$detalle_asignacion_vehiculo[0]->anio_de_produccion  }}
 		<br>
-		<strong>Dominio:</strong> {{$detalleVehiculo->dominio  }}
+		<strong>Dominio:</strong> {{$detalle_asignacion_vehiculo[0]->dominio  }}
 		<br>
-		<strong>Bateria:</strong> {{$detalleVehiculo->bateria  }}
-		<br>
-		<strong>Kilometraje:</strong> {{$detalleVehiculo->kilometraje  }}
+		<strong>Kilometraje:</strong> {{$detalle_asignacion_vehiculo[0]->kilometraje  }} Km
 
 		<br>
 		{{-- <div style="text-align: center;"> --}}
 			
-			<strong>Cubiertas:</strong> {{$detalleVehiculo->otras_caracteristicas  }}
+			<strong>Cubiertas:</strong> {{$detalle_asignacion_vehiculo[0]->otras_caracteristicas  }}
 			<br>
-			<strong>Observaciones:</strong> {{$detalleVehiculo->otras_caracteristicas  }}
+			<strong>Observaciones:</strong> {{$detalle_asignacion_vehiculo[0]->otras_caracteristicas  }}
 	{{-- 	</div> --}}
 		
 		<hr>
@@ -97,7 +94,11 @@
 			<br>
 			.................................................
 			<br>
-			<strong>D.N.I</strong>
+			<strong>Jerarquia:</strong>
+			<br>
+			.................................................
+			<br>
+			<strong>Fecha Hora:</strong>
 			<br>
 			.................................................
 		</div>
@@ -111,7 +112,11 @@
 			<br>
 			.................................................
 			<br>
-			<strong>D.N.I</strong>
+			<strong>Jerarquia:</strong>
+			<br>
+			.................................................
+			<br>
+			<strong>Fecha Hora:</strong>
 			<br>
 			.................................................
 		</div>

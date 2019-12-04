@@ -123,12 +123,13 @@ class RepuestoController extends Controller
     }
 
     public function exportarPdfRepuestos($id){
+
     	$vehiculos_repuestos_asignados = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
   							->join('users','users.id','=','detalle_asignacion_repuestos.id_responsable')
   							->where('detalle_asignacion_repuestos.id_detalle_repuesto','=',$id)
   							->orderBy('id_detalle_repuesto','desc')
   							->get();
-    	//return $repuestos;
+    	//return $vehiculos_repuestos_asignados[0]->dominio;
 
 /*        $vehiculos_repuestos_asignados = \DB::select("
                 select to_char(detalle_asignacion_Repuestos.fecha,'DD/MM/YYYY') as fecha,
@@ -151,6 +152,6 @@ class RepuestoController extends Controller
         //return $vehiculos_repuestos_asignados;
         $pdf = PDF::loadView('vehiculos.repuestos.pdf_repuestos_asignados', compact('vehiculos_repuestos_asignados'));
 
-        return $pdf->stream($vehiculos_repuestos_asignados[0]->dominio.'.pdf');
+        return $pdf->download($vehiculos_repuestos_asignados[0]->dominio.'.pdf');
     }
 }

@@ -36,7 +36,7 @@
               </form>
             </div>
           </div> 
-          @extends('vehiculos/siniestros/modales/modal_detalle')
+          @extends('vehiculos/modales/modal_detalle')
       
         @if($existe == 0)
 
