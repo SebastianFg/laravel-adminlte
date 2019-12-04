@@ -30,7 +30,7 @@
           </div>
           @extends('vehiculos/siniestros/modales/modal_alta_siniestro')
           @extends('vehiculos/siniestros/modales/modal_edicion_siniestro')
-          @extends('vehiculos/siniestros/modales/modal_detalle')
+          @extends('vehiculos/modales/modal_detalle')
           <hr>
           <div class="card">
             <div class="card-header">

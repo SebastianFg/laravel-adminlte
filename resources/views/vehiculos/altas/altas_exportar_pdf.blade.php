@@ -10,67 +10,64 @@
 
 <div class="panel panel-success col-md-12 "  >
 	<div class="header">
-		<div class="col-md-12"style=" display: block;"  >
+		<div class="col-md-12" style=" display: block;"  >
 			<div class="col-md-3 "  style="float:left; position: relative;" >
 				<img src="images/pdf_images/logosp.png">
 			</div>
 			<br>
 			<div class="col-md-3 " style="float:center; text-align: center;">
 				
-				<p> <h4>DIRECCIÓN GENERAL ADMINISTRACIÓN</h4>
-					<h4>DIRECCIÓN PATRIMONIO</h4>
+				<p> <h4>DIRECCION GENERAL ADMINISTRACION</h4>
+					<h4>DIRECCION PATRIMONIO</h4>
 					<h4>DEPARTAMENTO AUTOMOTORES</h4>
 				</p>
 			</div>
 		</div>
 	</div>
 
-<div class=" panel panel-body " style=" display: block; margin-top: 120px;">
+	<div class=" panel panel-body " style=" display: block; margin-top: 120px;">
 		<hr>
-	@if(isset($detalle_asignacion_vehiculo[0]->nombre_tipo_vehiculo))
-		<div style="text-align: center;">Lista {{ $detalle_asignacion_vehiculo[0]->nombre_tipo_vehiculo }} <br> {{ $cantidad_total }}
+		<div class="col-md-12" style="float:center; text-align: center;" >
+			<p><h4>LISTA DE VEHICUOLOS | {{  $cantidad_total }}</h4> </p>
+			<br>
 		</div>
+		<br>
 		<hr>
 		<div class="col-md-12 ">
 			<table id="listada_de_vehiculos" tableStyle="width:auto"  class=" table table-striped table-hover table-condensed table-bordered">
 				<thead>
 					<tr>
-					 	<th >I. INTERNA </th>
+						<th colspan="1" width="25">N°</th>
+					 	<th width="60">I. INTERNA </th>
 						<th >AFECTADO </th>
 						<th >MARCA </th>
-						<th >AÑO </th>
-						<th >DOMINIO </th>
+						<th width="25">AÑO </th>
+						<th width="45">DOMINIO </th>
 						<th >MOTOR </th>
-						<th >CHASIS </th>
+						<th>CHASIS</th>
+						<th width="50">TIPO</th>
 						<th >N° DE INVENTARIO </th>
 					</tr>
 				</thead>
 				<tbody>
-		 			@foreach ($detalle_asignacion_vehiculo as $item)
+		 			@foreach ($detalle_asignacion_vehiculo as $key => $item)
 		 				<tr>
-		 			
-		        			<td class="automatico">{{ $item->numero_de_identificacion  }}</td>
-		        			@if(!isset($item->destino))
-		        			<td>--------</td>
-		        			@else
-		        			<td >{{ $item->destino  }}</td>
-		        			@endif
+		 					<td >{{ $key +1}}</td>
+		        			<td >{{ $item->numero_de_identificacion  }}</td>
+		        			<td >{{ $item->nombre_dependencia  }}</td>
 		        			<td >{{ $item->marca  }}</td>
 		        			<td class="automatico">{{ $item->anio_de_produccion  }}</td>
 		        			<td class="automatico">{{ $item->dominio  }}</td>
 		        			<td >{{ $item->motor  }}</td>
 		        			<td >{{ $item->chasis  }}</td>
+		        			<td >{{ $item->nombre_tipo_vehiculo  }}</td>
 					        <td class="automatico">{{ $item->numero_de_inventario  }}</td>
 				      	</tr>
 					@endforeach
 				</tbody>
+			</table>
 		</div>
-
-	@else
-	{{-- <p><strong><img src="images/fondo_pdf/fondo_pdf_x.jpg" /></strong></p> --}}
-	<p style="text-align: center;"><span class="glyphicon glyphicon-remove"> <strong>No hay vehiculos disponibles para mostrar, por favor cargue un nuevo vehiculo y vuelva a imprimir</strong></span></p>
-	@endif
-</div>
+	</div>
 
 
 
@@ -123,6 +120,11 @@
 
 #contenedor div{ float:left; }
 
+@page {
+      margin-top:  0px;
+      margin-right: 0px;
+      margin-left: 0px;
+    }
 
 
 

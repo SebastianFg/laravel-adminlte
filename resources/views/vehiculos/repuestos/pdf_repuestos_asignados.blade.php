@@ -27,7 +27,7 @@
 
 		<div style="text-align: center;">
 			<hr>
-			<h2 >Lista de repuestos</strong></h2>
+			<h2><strong>Repuestos</strong></h2>
 		
 			<div class="col-md-12 ">
 				<div class="col-md-6" style="display: inline-block; ">
@@ -35,11 +35,8 @@
 
 					<p class="pdf_historial" >Numero de inventario:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->numero_de_inventario }} </p>
 					<p class="pdf_historial" >Numero de identificación:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->numero_de_identificacion }} </p>
-					
 				</div>
-	
-			
-			<hr>
+				<hr>
 			</div>
 		</div>
 
@@ -47,32 +44,62 @@
 			<table   class=" table table-striped table-hover table-condensed table-bordered">
 			    <thead>
 			      <tr>
-			        <th>Dominio</th>
 			        <th>Fecha</th>
 			        <th>Responsable</th>
-			        <th>N° de identificación</th>
 			        <th>Marca</th>
 			        <th>Clase de unidad</th>
-			        <th>Repuestos</th>
 			      </tr>
 			    </thead>
-			   
 			    <tbody>
-			    	
 			    	@foreach($vehiculos_repuestos_asignados as $item)
 				    	<tr>
-				    		<td >{{ $item->dominio }}</td>
-				    		<td >{{ $item->fecha }}</td>
+				    		<td>{{ date('d-m-Y', strtotime($item->fecha)) }}</td>
 				    		<td >{{ $item->usuario }}</td>
-				    		<td >{{ $item->numero_de_identificacion }}</td>
 				    		<td >{{ $item->marca }}</td>
 				    		<td >{{ $item->clase_de_unidad }}</td>
-				    		<td>{{ $item->repuestos_entregados }}</td>
 				    	</tr>
 			    	@endforeach
-
 			    </tbody>
 			</table>
+		</div>
+		<hr>
+		<div class="col-md-12">
+			<br>
+			<label><strong>Repuestos entregados:</strong></label>
+			<p>{{ $vehiculos_repuestos_asignados[0]->repuestos_entregados }}</p>
+		</div>
+		<br>
+		<br>
+		<hr>
+		<div class="col-md-12" >
+			<div class="col-md-3" style="float:left;">
+				<br>
+				<strong>ENCARGADO DE ÁREA</strong>
+				<br>
+				.................................................
+				<br>
+				<strong>Aclaración:</strong>
+				<br>
+				.................................................
+				<br>
+				<strong>Jerarquia:</strong>
+				<br>
+				.................................................
+			</div>
+			<div class="col-md-3" style="float:right;">
+				<br>
+				<strong>RECIBE CONFORME</strong>
+				<br>
+				.................................................
+				<br>
+				<strong>Aclaración:</strong>
+				<br>
+				.................................................
+				<br>
+				<strong>Jerarquia:</strong>
+				<br>
+				.................................................
+			</div>
 		</div>
 
 	</div>

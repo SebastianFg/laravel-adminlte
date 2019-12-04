@@ -30,6 +30,7 @@
 
           {{-- extiendo los modales --}}
           @extends('vehiculos/repuestos/modales/modal_asignacion_repuestos')
+          @extends('vehiculos/modales/modal_detalle')
 
            </div>
 
@@ -81,7 +82,8 @@
                             <td>{{ $item->numero_de_identificacion }}</td>
                             <td>{{ $item->marca }}</td>
                             <td>{{ $item->clase_de_unidad }}</td>
-                            <td>{{ $item->repuestos_entregados }}</td>
+                       {{--      <td>{{ $item->repuestos_entregados }}</td> --}}
+                            <td>{{ substr($item->repuestos_entregados ,0,10) }}...<a href="" onclick="detalle('{{ $item->repuestos_entregados }}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
                            
                             <td>
                               @can('vehiculos.informacion')
@@ -177,6 +179,9 @@
 
       },
   });
-
+  function detalle(item){
+    var asdasd = $('#idDetalle').val(item);
+    $('#modalDetalleLugar').modal('show');
+  }
 </script>
 @stop

@@ -20,6 +20,9 @@ use App\User;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+
+//pdf
+use Barryvdh\DomPDF\Facade as PDF;
 class VehiculoController extends Controller
 {
     public function __construct(){
@@ -451,5 +454,31 @@ class VehiculoController extends Controller
         return response()->json($vehiculos_disponibles);
 
     }
+    public function exportarPdfVehiculos(){
 
+        $detalle_asignacion_vehiculo = vehiculo::join('detalle_asignacion_vehiculos','detalle_asignacion_vehiculos.id_vehiculo','=','vehiculos.id_vehiculo')
+                                ->join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
+                                ->join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
+                                ->get();
+      //   return $detalle_asignacion_vehiculo;
+
+       // return $vehiculos;
+
+        //return $dato;
+/*        $detalle_asignacion_vehiculo = \DB::select("select * from view_total_afectados  
+                                                inner join tipo_vehiculos on view_total_afectados.tipo = tipo_vehiculos.id_tipo_vehiculo
+                                                where baja = 0 and  tipo_vehiculos.id_tipo_vehiculo ='".$dato."'"); 
+        //return $detalle_asignacion_vehiculo;
+        if (($detalle_asignacion_vehiculo == null)) {
+            $detalle_asignacion_vehiculo = \DB::select("select * from vehiculos  
+                                                inner join tipo_vehiculos on vehiculos.tipo = tipo_vehiculos.id_tipo_vehiculo 
+                                                where baja = 0 and  tipo_vehiculos.id_tipo_vehiculo ='".$dato."'");
+        }*/
+       
+        $cantidad_total ='CANTIDAD TOTAL: '. count($detalle_asignacion_vehiculo );
+
+        $pdf = PDF::loadView('vehiculos.altas.altas_exportar_pdf',compact('detalle_asignacion_vehiculo','cantidad_total'));//->setPaper('legal', 'landscape');
+        $pdf->setPaper('legal', 'landscape');
+        return $pdf->download('lista completa de vehiculos.pdf');
+    }
 }

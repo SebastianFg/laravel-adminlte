@@ -151,6 +151,6 @@ class RepuestoController extends Controller
         //return $vehiculos_repuestos_asignados;
         $pdf = PDF::loadView('vehiculos.repuestos.pdf_repuestos_asignados', compact('vehiculos_repuestos_asignados'));
 
-        return $pdf->download($vehiculos_repuestos_asignados[0]->dominio.'.pdf');
+        return $pdf->stream($vehiculos_repuestos_asignados[0]->dominio.'.pdf');
     }
 }
