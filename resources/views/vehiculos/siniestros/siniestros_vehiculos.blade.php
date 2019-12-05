@@ -70,7 +70,7 @@
                       <th>Lesiones</th>
                       <th>Colisión</th>
                       <th>Presentación</th>
-                      <th>Observaciones</th>
+                      <th width="10">Observaciones</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -100,8 +100,9 @@
                             <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                           @endcan
                           @can('vehiculos.editarSiniestro') 
-                            <button onclick="editarSiniestro({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                            <button onclick="editarSiniestro({{ $item }})" title="Editar siniestro"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                           @endcan
+              
 {{--                               @can('vehiculos.eliminarSiniestro') 
                             <button  onclick="eliminarVehiculo('{{ $item->id_siniestro }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                           @endcan --}}

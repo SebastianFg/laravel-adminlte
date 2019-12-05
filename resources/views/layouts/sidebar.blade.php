@@ -97,7 +97,6 @@
                         <i class="nav-icon fa fa-codepen"></i>
                         <p>
                           Dependencias
-                          <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
                 </li>
@@ -128,7 +127,7 @@
                             <i class="nav-icon fa fa-asterisk"></i>
                             <p>
                               Tipo de vehiculos
-                              <i class="fa fa-angle-left right"></i>
+                 
                             </p>
                         </a>
                     </li>
@@ -183,7 +182,7 @@
                             <i class="nav-icon fa fa-share"></i>
                             <p>
                               Asignar
-                              <i class="fa fa-angle-left right"></i>
+                            
                             </p>
                         </a>
                     </li> 
@@ -194,7 +193,7 @@
                             <i class="nav-icon fa fa-road"></i>
                             <p>
                               Siniestros
-                              <i class="fa fa-angle-left right"></i>
+           
                             </p>
                         </a>
                     </li>
@@ -205,7 +204,7 @@
                             <i class="nav-icon fa fa-edit"></i>
                             <p>
                               Detalles
-                              <i class="fa fa-angle-left right"></i>
+                        
                             </p>
                         </a>
                     </li>
@@ -216,7 +215,7 @@
                             <i class="nav-icon fa fa-cogs"></i>
                             <p>
                               Repuestos
-                              <i class="fa fa-angle-left right"></i>
+                   
                             </p>
                         </a>
                     </li>
@@ -227,7 +226,7 @@
                             <i class="nav-icon fa fa-paste"></i>
                             <p>
                               Gráficos
-                              <i class="fa fa-angle-left right"></i>
+                  
                             </p>
                         </a>
                     </li>

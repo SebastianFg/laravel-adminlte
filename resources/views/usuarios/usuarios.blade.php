@@ -37,6 +37,7 @@
                 @extends('usuarios/modales/modal_asignar_rol')
                 @extends('usuarios/modales/modal_baja_usuario')
                 @extends('usuarios/modales/modal_nuevo_usuario')
+                
               </div>
 
             </div>

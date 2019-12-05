@@ -15,58 +15,48 @@
         <ul class="nav navbar-nav">
             &nbsp;
         </ul>
-  
+        
         <!-- Right Side Of Navbar -->
         <ul class="nav navbar-nav navbar-right">
             <!-- Authentication Links -->
             @if (Auth::guest())
                 <li><a href="{{ url('/login') }}">Login</a></li>
-                <li><a href="{{ url('/register') }}">Register</a></li>
+               {{--  <li><a href="{{ url('/register') }}">Register</a></li> --}}
             @else
-
                 <li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> -->
-                    <!-- <img src="{{asset("/dist/img/user2-160x160.jpg")}}" class="user-image" alt="User Image"> -->
-              <span class="hidden-xs">{{ Auth::user()->nombre }} </span>       
-                </a>
-                @csrf
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="hidden-xs">{{ Auth::user()->nombre }} </span>       
+                    </a>
+                    @csrf
                     <div class="col-md-12">
 
                         <ul class="dropdown-menu">
-                        <li class="user-header">
+                            <li class="user-header">
                                 <img alt="User Image"class="d-block img-fluid" src="../../img/avatar/{{ Auth::User()->imagen_perfil }}" >
-                                {{-- <img src="{{asset("/dist/img/{{ Auth::User()->imagen_perfil }}")}}" class="img-circle" alt="User Image"> --}}
-
-                            <p>
-                                <hr>
-                                 {{ Auth::user()->nombre }}
-                                <br>
-                                <small>{{ Auth::user()->roles[0]->name}}</small>
-                            </p>
-                       </li>
+                                <div class="col-md-12 col-md-offset-2">
+                                    <p>
+                                        <hr>
+                                        {{ Auth::user()->nombre }}
+                                        <br>
+                                        @foreach(Auth::user()->roles as $item)
+                                            <small>{{ $item->name}} |</small>
+                                        @endforeach
+                                    </p>
+                                </div>
+                            </li>
                             <li>
                                 <hr>
-                                  <li class="user-footer">
-                                     
-                                <div class="pull-left">
-                                  
-                                <!-- <a class="btn btn btn-flat bg-dark" style="border-radius: 5px;" href="#">Perfil</i></a> -->
-                               
-                                <!-- <a href="#" class="btn btn-primary pull-right" data-toggle="modal" data-target="#create">Perfil</a> -->
-                            </div>
-                                     <div class="pull-right">
-                                        <a class="btn btn btn-flat bg-dark" style="border-radius: 5px;" href="{{ url('/logout') }}">Salir</i></a>
+                                <li class="user-footer" style="padding-right: 2px;">
+                                    <div class="pull-right">
+                                        <a class="btn btn btn-flat bg-dark" style="border-radius: 5px; " href="{{ url('/logout') }}"><i class="fa fa-power-off"></i> Salir </a>
+                                    </div> 
+                                    <div class="pull-left" style="padding-left: 2px;">
+                   
+                                        <a class="btn btn btn-flat bg-dark" data-toggle="modal" data-target="#modalEditarPerfil" style="border-radius: 5px; padding-left:2px;;" href="{{ route('editarPerfil') }}"><i class="fa fa-cogs"></i> Editar </a>
                                     </div>  
-                                  </li>
-                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                                   
+                                </li>     
                             </li>
-           
                         </ul>
-                        
                     </div>
                 </li>
             @endif
@@ -74,6 +64,7 @@
     </div>
 
 </nav>
+
 @endif
 <!-- /.navbar -->
 <style type="text/css">

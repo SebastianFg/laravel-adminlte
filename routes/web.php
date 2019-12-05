@@ -39,6 +39,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::post('primerIngreso','UsuarioController@cambioPrimerPassword')->name('cambioPrimerPassword');
 
+		Route::post('editarPerfil','UsuarioController@editarPerfil')->name('editarPerfil');
+
 
 		//roles
 		Route::get('roles','RolController@index')->name('listaRoles');

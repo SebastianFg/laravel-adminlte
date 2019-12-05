@@ -170,6 +170,7 @@ class VehiculoController extends Controller
 
     //alta nuevo vehiculo
     public function crearVehiculo(Request $Request){
+    
         
         $Validar = \Validator::make($Request->all(), [
             
@@ -199,7 +200,7 @@ class VehiculoController extends Controller
   
     //actualizacion de vehiculo cargado (edicion)
     public function updateVehiculo(Request $Request){
-
+        
 
         $Validar = \Validator::make($Request->all(), [
               
