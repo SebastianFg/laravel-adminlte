@@ -318,7 +318,7 @@ class UsuarioController extends Controller
                     $usuario_foto = User::findorfail(Auth::User()->id);
                     $usuario_foto->imagen_perfil = $filename;
                     $usuario_foto->update();
-                    return $this->getMensaje('Foto actualizada con exito','inicio',true);
+                    //return $this->getMensaje('Foto actualizada con exito','inicio',true);
 
                     }
                 }
