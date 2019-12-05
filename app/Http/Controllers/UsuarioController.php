@@ -299,7 +299,7 @@ class UsuarioController extends Controller
     
             if ($Request->foto != null){
                 $Validar = \Validator::make($Request->all(), [
-                    'foto' => 'required|image'
+                    'foto' => 'required|image|mimes:jpg, jpeg'
                 ]);
 
                 if ($Validar->fails()){
