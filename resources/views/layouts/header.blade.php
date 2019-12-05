@@ -41,7 +41,7 @@
                             <p>
                                 <hr>
                                  {{ Auth::user()->nombre }}
-                                
+                                <br>
                                 <small>{{ Auth::user()->roles[0]->name}}</small>
                             </p>
                        </li>
