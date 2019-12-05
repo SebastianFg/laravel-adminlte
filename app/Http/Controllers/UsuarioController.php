@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Imagick;
+use Image;
 use DateTime;
 
 //paginador
@@ -307,25 +307,22 @@ class UsuarioController extends Controller
                    return  back()->withInput()->withErrors($Validar->errors());
                 }
 
-            
-                if($Request->hasFile('foto')){
-                    $images = $Request->file('foto');
 
-                    $nombre_archivo_nuevo = time().$images->getClientOriginalName();
-                    $imagen = new Imagick($nombre_archivo_nuevo);
-                    $image->adaptiveResizeImage(400,768);
-                    return $imagen;
+                if ($Request->file('foto')->isValid()) {
+                    $avatar = $Request->file('foto');
 
-                    //return $nombre_archivo_nuevo->adaptiveResizeImage(400,768);
-                    $images->move(public_path().'/img/avatar/',$nombre_archivo_nuevo);
-                    
+                    $filename = time() . '-' . $avatar->getClientOriginalName();
+
+                    Image::make($avatar)->resize(300, 300)->save( public_path('/img/avatar/' . $filename ));
+
                     $usuario_foto = User::findorfail(Auth::User()->id);
-                  //  return $usuario_foto;
-                    $usuario_foto->imagen_perfil = $nombre_archivo_nuevo;
+                    $usuario_foto->imagen_perfil = $filename;
                     $usuario_foto->update();
-                    /*return $this->getMensaje('Foto actualizada con exito','inicio',true);*/
+                    return $this->getMensaje('Foto actualizada con exito','inicio',true);
+
+                    }
                 }
-            }
+            
 
             if (($Request->password_nueva && $Request->password_confirmation) != null) {
                 
@@ -349,44 +346,5 @@ class UsuarioController extends Controller
             }   
             return $this->getMensaje('Perfil actualizado con exito','inicio',true);
   
-    }
-
-
-    function redimensionarJPEG ($origen, $destino, $ancho_max, $alto_max, $fijar){
-
-        $info_imagen= getimagesize($origen);
-        $ancho=$info_imagen[0];
-        $alto=$info_imagen[1];
-        if ($ancho>=$alto)
-        {
-            $nuevo_alto= round($alto * $ancho_max / $ancho,0);
-            $nuevo_ancho=$ancho_max;
-        }
-        else
-        {
-            $nuevo_ancho= round($ancho * $alto_max / $alto,0);
-            $nuevo_alto=$alto_max;
-        }
-        switch ($fijar)
-        {
-            case "ancho":
-                $nuevo_alto= round($alto * $ancho_max / $ancho,0);
-                $nuevo_ancho=$ancho_max;
-                break;
-            case "alto":
-                $nuevo_ancho= round($ancho * $alto_max / $alto,0);
-                $nuevo_alto=$alto_max;
-                break;
-            default:
-                $nuevo_ancho=$nuevo_ancho;
-                $nuevo_alto=$nuevo_alto;
-                break;
-        }
-        $imagen_nueva= imagecreatetruecolor($nuevo_ancho,$nuevo_alto);
-        $imagen_vieja= imagecreatefromjpeg($origen);
-        imagecopyresampled($imagen_nueva, $imagen_vieja, 0, 0, 0, 0,$nuevo_ancho, $nuevo_alto, $ancho, $alto);
-        imagejpeg($imagen_nueva,$destino);
-        imagedestroy($imagen_nueva);
-        imagedestroy($imagen_vieja);
     }
 }

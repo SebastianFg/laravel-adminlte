@@ -162,6 +162,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         //agregados 
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -213,7 +214,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         //agregados
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
-        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 
