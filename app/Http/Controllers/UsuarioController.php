@@ -310,6 +310,7 @@ class UsuarioController extends Controller
 
                 if ($Request->file('foto')->isValid()) {
                     $avatar = $Request->file('foto');
+                    $imagen_a_borrar = Auth::User()->nombre_;
 
                     $filename = time() . '-' . $avatar->getClientOriginalName();
 

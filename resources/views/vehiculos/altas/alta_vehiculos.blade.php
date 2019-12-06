@@ -11,7 +11,7 @@
 
 
   <!-- Main content -->
-  <div class="content">
+  <div class="content ">
     @if(strpos(Auth::User()->roles,'Suspendido'))
       Su usuario se encuentra suspendido!
     @else
@@ -69,8 +69,8 @@
                       </div>
                     </form>
                   </div>
-                  <div class="row">
-                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                  <div class="row table-responsive">
+                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered ">
                       <thead>
                         <tr>
 

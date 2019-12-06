@@ -1,6 +1,6 @@
 @if(count($total_siniestros)>0)
   <div class="box box-danger col-md-12">
-    <div class="box-body">
+    <div class="box-body table-responsive">
       <canvas id="graficoSiniestrofiltro"></canvas>
         <div>
           <hr>

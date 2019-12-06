@@ -50,7 +50,7 @@
         </div>
 
         @else
-        <div class="row">
+        <div class="row table-responsive">
           <div class="col-md-6">
             <div class="card">
               <div class="card-body">
@@ -100,7 +100,7 @@
           </div>
             {{-- derecha --}}
           <div class="col-md-6">
-            <div class="card">
+            <div class="card table-responsive">
               <div class="card-body">
                 <h4 class="card-title">Afectado Actual</h4> 
                 <br>
@@ -131,8 +131,8 @@
               </div>
             </div>
             
-            <div class="card">
-              <div class="card-body">
+            <div class="card table-responsive">
+              <div class="card-body table-responsive ">
                 <h4 class="card-title">Historial</h4> 
                 <br>
                 @if(count($historial)>0)
@@ -165,7 +165,7 @@
             </div>
           </div>
         </div>
-        <div class="row ">
+        <div class="row table-responsive ">
           <div class="card col-sm-12">
             <div class="card-body">
               <h4 class="card-title">Siniestros</h4> 

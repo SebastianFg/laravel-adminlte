@@ -21,6 +21,7 @@ use App\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 
+use Image;
 //pdf
 use Barryvdh\DomPDF\Facade as PDF;
 class VehiculoController extends Controller
@@ -132,7 +133,9 @@ class VehiculoController extends Controller
                     $imagenvehiculo = new imagen_vehiculo;
                     $nuevo_nombre =time().'_'.$image->getClientOriginalName();
 
-                    $image->move(public_path('images'), $nuevo_nombre);
+                    Image::make($image)->resize(500, 500)->save( public_path('/images/' . $nuevo_nombre ));
+
+                  /*  $image->move(public_path('images'), $nuevo_nombre);*/
                     $imagenvehiculo->id_vehiculo = $vehiculo->id_vehiculo;
                     $imagenvehiculo->nombre_imagen = $nuevo_nombre;
                     $imagenvehiculo->fecha =  $datos->fecha;
@@ -143,19 +146,33 @@ class VehiculoController extends Controller
                 return  redirect()->route('listaVehiculos');
                 break;
             case 1: // edicion
+               // return $datos;
             	$vehiculo->update();
-                if($datos->file == null){
+
+                if($datos->foto == null){
+                  //  return
                         $vehiculo->foto_id = $vehiculo->foto_id;
                 }else{ 
+
+                   $vehiculo_delete_imagen = imagen_vehiculo::where('id_vehiculo','=',$datos->vehiculo)->get();
+                   foreach ($vehiculo_delete_imagen as $item) {
+                       // return $item->nombre_imagen;
+                    $image_path = public_path().'/images/'.$item->nombre_imagen;
+                    unlink($image_path);
+                    $item->delete();
+                   }
+                  // return $vehiculo_delete_imagen->delete();
+
                     $images = $datos->file('foto');
-  
+                    //return $images;
                     foreach($images as $image){
                         $imagenvehiculo = new imagen_vehiculo;
 
                         $nuevo_nombre =time().'_'.$image->getClientOriginalName();
-     
-                        $image->move(public_path('images'), $nuevo_nombre);
-                        $imagenvehiculo->id_vehiculo = $datos->id_vehiculo;;
+                       Image::make($image)->resize(400, 700)->save( public_path('/images/' . $nuevo_nombre ));
+                       // return $datos;
+                      //  $image->move(public_path('images'), $nuevo_nombre);
+                        $imagenvehiculo->id_vehiculo = $datos->vehiculo;
                         $imagenvehiculo->nombre_imagen = $nuevo_nombre;
                         $imagenvehiculo->fecha =  $datos->fecha;
                         $imagenvehiculo->save();
@@ -201,6 +218,7 @@ class VehiculoController extends Controller
     //actualizacion de vehiculo cargado (edicion)
     public function updateVehiculo(Request $Request){
         
+       // return $Request;
 
         $Validar = \Validator::make($Request->all(), [
               
@@ -461,20 +479,7 @@ class VehiculoController extends Controller
                                 ->join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
                                 ->join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
                                 ->get();
-      //   return $detalle_asignacion_vehiculo;
 
-       // return $vehiculos;
-
-        //return $dato;
-/*        $detalle_asignacion_vehiculo = \DB::select("select * from view_total_afectados  
-                                                inner join tipo_vehiculos on view_total_afectados.tipo = tipo_vehiculos.id_tipo_vehiculo
-                                                where baja = 0 and  tipo_vehiculos.id_tipo_vehiculo ='".$dato."'"); 
-        //return $detalle_asignacion_vehiculo;
-        if (($detalle_asignacion_vehiculo == null)) {
-            $detalle_asignacion_vehiculo = \DB::select("select * from vehiculos  
-                                                inner join tipo_vehiculos on vehiculos.tipo = tipo_vehiculos.id_tipo_vehiculo 
-                                                where baja = 0 and  tipo_vehiculos.id_tipo_vehiculo ='".$dato."'");
-        }*/
        
         $cantidad_total ='CANTIDAD TOTAL: '. count($detalle_asignacion_vehiculo );
 

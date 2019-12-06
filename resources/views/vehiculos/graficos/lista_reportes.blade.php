@@ -18,7 +18,7 @@
     @else
     <div class="container-fluid">
       
-      <div class="row col-md-12" style="padding-top: 5px;">
+      <div class="row col-md-12 " style="padding-top: 5px;">
         <hr>
         <div class="card col-md-6">
           <div class="card-header">
@@ -28,9 +28,9 @@
               </button>
             </div>
           </div>
-          <div class="card-body">
+          <div class="card-body table-responsive">
             <canvas id="vehiculosDisponibles"></canvas>
-            <div>
+            <div class="table-responsive ">
               <hr>
               <table class=" table table-striped table-sm table-hover table-condensed table-bordered">
                 <thead>
@@ -106,9 +106,9 @@
                 @csrf
                 <div class="input-group-prepend pull-left">
                   <span class="input-group-text fa fa-search" id="basic-addon1"></span>
-                  <input type="number" id="anio" name="anio" class="form-control" placeholder="ingrese año" aria-label="Username" aria-describedby="basic-addon1">
+                  <input type="number" id="anio" name="anio" class="form-control " placeholder="ingrese año" aria-label="Username" aria-describedby="basic-addon1">
                 </div>
-                <button class="submit btn btn-default" onclick="filtroAnio();">Buscar</button>
+                <button class="submit btn btn-default col-md-2 d-inline" onclick="filtroAnio();">Buscar</button>
               </div>
             </div>
           </div>

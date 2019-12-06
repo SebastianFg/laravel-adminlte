@@ -167,6 +167,6 @@ class AsignacionController extends Controller
 
             $pdf = PDF::loadView('vehiculos.asignacion.pdf_cargo_lista', compact('detalle_asignacion_vehiculo'));
 
-            return $pdf->stream($detalle_asignacion_vehiculo[0]->dominio.'.pdf');
+            return $pdf->download($detalle_asignacion_vehiculo[0]->dominio.'.pdf');
     }
 }
