@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 /*modelos*/
-use App\Modelos\siniestro;
-use App\Modelos\asignacion_vehiculo;
-use App\Modelos\pdf_siniestro;
+use App\modelos\siniestro;
+use App\modelos\asignacion_vehiculo;
+use App\modelos\pdf_siniestro;
 
 
 //paginador
@@ -70,6 +70,7 @@ class SiniestroController extends Controller
                                     ->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')
                                     ->where('vehiculos.numero_de_identificacion','ilike',$Request->vehiculoBuscado)
                                     ->orwhere('vehiculos.dominio','ilike',$Request->vehiculoBuscado)
+                                    ->orderBy('id_siniestro','desc')
                                     ->get();
         }
     	$siniestros = $this->paginar($siniestros);
