@@ -84,7 +84,7 @@ class VehiculoController extends Controller
         	$VehiculosListados = vehiculo::join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
                                                 ->select('vehiculos.*','tipos_vehiculos.*')->orderBy('vehiculos.id_vehiculo','desc')->get();
         	$VehiculosListados = $this->paginar($VehiculosListados);
-	      
+
         }else{
 
         	if (isset($Request->vehiculoBuscado)) {
@@ -388,7 +388,6 @@ class VehiculoController extends Controller
             alert()->error('Error','ERROR! Intente agregar nuevamente...');
             return  back()->withInput()->withErrors($Validar->errors());
         }
-
 
 
         $vehiculoEliminado= vehiculo::withTrashed()->where('id_vehiculo','=',$Request->id_vehiculo_reparado)->restore();

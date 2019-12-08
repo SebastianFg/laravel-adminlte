@@ -65,6 +65,7 @@ class SiniestroController extends Controller
         	$siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
         							->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')
                                     ->get();
+                                    
         }else{
             $siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
                                     ->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')

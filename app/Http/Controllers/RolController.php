@@ -13,7 +13,6 @@ use DB;
 //modelos
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use modelos\role_has_permission;
 
 
 class RolController extends Controller
