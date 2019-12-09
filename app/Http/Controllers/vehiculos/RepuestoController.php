@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade as PDF;
 
 /*modelos*/
-use App\modelos\repuesto;
+use App\Modelos\repuesto;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;

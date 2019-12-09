@@ -87,26 +87,25 @@
                  
                         </select>
                     </div>
-                    <div class="form-group col-md-6">
-                      <label for="">Kilometraje</label>
-                      <input type="number" name="kilometraje" autocomplete="off" id="id_kilometraje_modificacion" placeholder="Kilometraje" class="form-control" required value="{{ old('kilometraje') }}">
-                  </div> 
-                  <div class="form-group col-md-12">
-                      <label for="">Observaciones</label>
-                      <textarea type="text" name="otros" autocomplete="off" id="id_observaciones_modificacion" placeholder="Observaciones" class="form-control" required value="{{ old('otros') }}"></textarea>
-                  </div>
-                  <div class="form-group col-md-6" style="background-color: #FFF;" id="divFile">
-                      <label>Selecionar imagenes</label>
-                      <input type="file" name="foto[]"  id="file" accept="image/*" multiple />
+                      <div class="form-group col-md-6">
+                        <label for="">Kilometraje</label>
+                        <input type="number" name="kilometraje" autocomplete="off" id="id_kilometraje_modificacion" placeholder="Kilometraje" class="form-control" required value="{{ old('kilometraje') }}">
+                    </div> 
+                    <div class="form-group col-md-12">
+                        <label for="">Observaciones</label>
+                        <textarea type="text" name="otros" autocomplete="off" id="id_observaciones_modificacion" placeholder="Observaciones" class="form-control" required value="{{ old('otros') }}"></textarea>
+                    </div>
+                    <div class="form-group col-md-6" style="background-color: #FFF;" id="divFileEdit">
+                        <label>Selecionar imagenes</label>
+                        <input type="file" name="fotoEdit[]"  id="fotoEdit" accept="image/*" multiple />
                     </div>
                   </div>
                   <div class="col-md-12 modal-footer" style="position:relative;">
-                      <button class="btn btn-success col-md-4 d-inline" id="btnSubmit" type="submit">Guardar</button>
+                      <button class="btn btn-success col-md-4 d-inline" id="btnSubmitEdit" type="submit">Guardar</button>
                       <button class="btn btn-danger col-md-4 d-inline" data-dismiss="modal">Cancelar</button>  
                   </div>
                               
                 </form>
-
                 </div>
               </div>
           </div>

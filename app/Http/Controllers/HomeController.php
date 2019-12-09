@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 //modelos
-use App\modelos\dependencias;
-use App\modelos\vehiculo;
-use App\modelos\tipos_vehiculos;
+use App\Modelos\dependencias;
+use App\Modelos\vehiculo;
+use App\Modelos\tipos_vehiculos;
 use App\user;
 //adicionales
 use Illuminate\Support\Facades\Auth;

@@ -17,7 +17,7 @@ use Illuminate\Pagination\Paginator;
 
 //modelos
 
-use App\modelos\dependencia;
+use App\Modelos\dependencia;
 
 class DependenciaController extends Controller
 {

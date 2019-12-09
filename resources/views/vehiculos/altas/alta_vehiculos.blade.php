@@ -157,7 +157,7 @@
   }
 
   function editarVehiculo(item){
-    console.log(item)
+    
     var numero_de_identificacion = $('#id_numero_de_identificacion_modificacion').val(item.numero_de_identificacion),
         fecha = $('#id_vehiculo_modificacion').val(item.id_vehiculo),
         fecha = $('#id_fecha_modificacion').val(item.fecha),
@@ -179,17 +179,29 @@
 <script type="text/javascript">
   $(document).ready(function() {
   var boton = document.getElementById('btnSubmitAlta');
-        $("#foto").on("change", function() {
-          if ($("#foto")[0].files.length > 6) {
-            $('#divFileAlta').css('background-color', 'red');
-            $('#divFileAlta').css('border-radius', '5px');
-            boton.disabled = true;
-          } else {
-            boton.disabled = false;
-            $('#divFileAlta').css('background-color', 'white');
-          }
-      });
-    
+  var botonEdit = document.getElementById('btnSubmitEdit');
+
+      $("#foto").on("change", function() {
+        if ($("#foto")[0].files.length > 6) {
+          $('#divFileAlta').css('background-color', 'red');
+          $('#divFileAlta').css('border-radius', '5px');
+          boton.disabled = true;
+        } else {
+          boton.disabled = false;
+          $('#divFileAlta').css('background-color', 'white');
+        }
     });
+    $("#fotoEdit").on("change", function() {
+      if ($("#fotoEdit")[0].files.length > 6) {
+        console.log('as');
+        $('#divFileEdit').css('background-color', 'red');
+        $('#divFileEdit').css('border-radius', '5px');
+        botonEdit.disabled = true;
+      } else {
+        botonEdit.disabled = false;
+        $('#divFileEdit').css('background-color', 'white');
+      }
+    });
+  });
 </script>
 @stop

@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-use App\modelos\asignacion_vehiculo;
-use App\modelos\dependencia;
-use App\modelos\vehiculo;
+use App\Modelos\asignacion_vehiculo;
+use App\Modelos\dependencia;
+use App\Modelos\vehiculo;
 use App\User;
 
 use Barryvdh\DomPDF\Facade as PDF;

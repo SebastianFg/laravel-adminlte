@@ -1,9 +1,9 @@
 <?php
 
-namespace App\modelos;
+namespace App\Modelos;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 //use App\Modelos\asignacion_vehiculo;
 
 class vehiculo extends Model

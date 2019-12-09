@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-//modelos
+//Modelos
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\modelos\tipos_vehiculos;
-use App\modelos\vehiculo;
-use App\modelos\pdf_Estado;
-use App\modelos\imagen_vehiculo;
-use App\modelos\estado_vehiculo;
+use App\Modelos\tipos_vehiculos;
+use App\Modelos\vehiculo;
+use App\Modelos\pdf_Estado;
+use App\Modelos\imagen_vehiculo;
+use App\Modelos\estado_vehiculo;
 use App\User;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -133,11 +133,11 @@ class VehiculoController extends Controller
                     $imagenvehiculo = new imagen_vehiculo;
                     $nuevo_nombre =time().'_'.$image->getClientOriginalName();
 
-                    if (!file_exists($datos->dominio)) {
-                        mkdir($datos->dominio, 0777, true);
+                    if (!file_exists('/imagenes/'.$datos->dominio)) {
+                        mkdir('imagenes/'.$datos->dominio, true);
                     }
 
-                    Image::make($image)->resize(300, 500)->save( public_path('/'.$datos->dominio .'/' . $nuevo_nombre ));
+                    Image::make($image)->resize(300, 500)->save( public_path('imagenes/'.$datos->dominio .'/' . $nuevo_nombre ));
 
                   /*  $image->move(public_path('images'), $nuevo_nombre);*/
                     $imagenvehiculo->id_vehiculo = $vehiculo->id_vehiculo;
@@ -161,24 +161,24 @@ class VehiculoController extends Controller
                    $vehiculo_delete_imagen = imagen_vehiculo::where('id_vehiculo','=',$datos->vehiculo)->get();
                    foreach ($vehiculo_delete_imagen as $item) {
                        // return $item->nombre_imagen;
-                    $image_path = public_path().'/'.$datos->dominio .'/'.$item->nombre_imagen;
+                    $image_path = public_path().'imagenes/'.$datos->dominio .'/'.$item->nombre_imagen;
                     unlink($image_path);
                     $item->delete();
                    }
                   // return $vehiculo_delete_imagen->delete();
 
 
-                    if (!file_exists($datos->dominio)) {
-                        mkdir($datos->dominio, 0777, true);
+                    if (!file_exists('imagenes/'.$datos->dominio)) {
+                        mkdir('imagenes/'.$datos->dominio, true);
                     }
 
-                    $images = $datos->file('foto');
+                    $images = $datos->file('fotoEdit');
                     //return $images;
                     foreach($images as $image){
                         $imagenvehiculo = new imagen_vehiculo;
 
                         $nuevo_nombre =time().'_'.$image->getClientOriginalName();
-                        Image::make($image)->resize(300, 500)->save( public_path('/'.$datos->dominio .'/' . $nuevo_nombre ));
+                        Image::make($image)->resize(300, 500)->save( public_path('imagenes/'.$datos->dominio .'/' . $nuevo_nombre ));
                        // return $datos;
                       //  $image->move(public_path('images'), $nuevo_nombre);
                         $imagenvehiculo->id_vehiculo = $datos->vehiculo;

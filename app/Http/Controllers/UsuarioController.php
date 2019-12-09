@@ -19,7 +19,7 @@ use Illuminate\Pagination\Paginator;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\User;
-use App\modelos\user_baja;
+use App\Modelos\user_baja;
 
 class UsuarioController extends Controller
 {

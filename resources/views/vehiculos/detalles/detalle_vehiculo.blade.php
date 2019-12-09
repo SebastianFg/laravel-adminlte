@@ -307,7 +307,7 @@
                   </div>
                 </div> --}}
                 @else
-                  <p> No posee imagenes!</p>
+                  <p> El vehiculono posee imagenes</p>
                 @endif
             </div>
           </div>

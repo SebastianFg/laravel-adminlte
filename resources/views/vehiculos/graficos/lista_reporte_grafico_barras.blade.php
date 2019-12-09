@@ -24,7 +24,7 @@
     </div>
   </div>
 @else
-  <p>No posee siniestros en el año seleccionado</p>
+  <p>El año seleccionado no posee siniestros</p>
 @endif
 
 

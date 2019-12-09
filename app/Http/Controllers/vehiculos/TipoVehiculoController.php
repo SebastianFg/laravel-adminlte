@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 
-//modelos
-use App\modelos\tipos_vehiculos;
+//Modelos
+use App\Modelos\tipos_vehiculos;
 
 class TipoVehiculoController extends Controller
 {

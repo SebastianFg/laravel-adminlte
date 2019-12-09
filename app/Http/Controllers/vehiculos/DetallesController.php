@@ -8,17 +8,17 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-//modelos
+//Modelos
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\modelos\tipos_vehiculos;
-use App\modelos\vehiculo;
-use App\modelos\pdf_Estado;
-use App\modelos\imagen_vehiculo;
-use App\modelos\estado_vehiculo;
-use App\modelos\asignacion_vehiculo;
-use App\modelos\historial_asignacion;
-use App\modelos\Siniestro;
+use App\Modelos\tipos_vehiculos;
+use App\Modelos\vehiculo;
+use App\Modelos\pdf_Estado;
+use App\Modelos\imagen_vehiculo;
+use App\Modelos\estado_vehiculo;
+use App\Modelos\asignacion_vehiculo;
+use App\Modelos\historial_asignacion;
+use App\Modelos\Siniestro;
 use App\User;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;

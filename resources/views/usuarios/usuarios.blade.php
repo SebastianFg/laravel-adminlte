@@ -170,7 +170,7 @@
     $('#modalAsignarRoles').modal('show');
   }
   function eliminarUsuario(item){
-    console.log(item)
+
     var id_usuario_baja = $('#id_usuario_baja').val(item.id),
         apellido_nombre = $('#id_nombre_apellido').val(item.nombre),
         usuario_movimiento = $('#id_nombre_usuario').val(item.usuario);

@@ -20,7 +20,7 @@
           <label>Nueva Contraseña</label>
           <div class="input-group mb-3">
             <span class="fa fa-lock input-group-text"></span> 
-            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password_nueva" placeholder="Contraseña nueva" >
+            <input id="password" type="password" autocomplete="on" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password_nueva" placeholder="Contraseña nueva" >
             @if ($errors->has('password'))
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('password') }}</strong>
@@ -30,7 +30,7 @@
           <label>Confirmar contraseña</label>
           <div class="input-group mb-3">
             <span class="fa fa-lock input-group-text"></span> 
-            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="ingrese nuevamente su contraseña" >
+            <input id="password-confirm" type="password" class="form-control" autocomplete="on" name="password_confirmation" placeholder="ingrese nuevamente su contraseña" >
             @if ($errors->has('password'))
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('password') }}</strong>
