@@ -133,7 +133,7 @@ class VehiculoController extends Controller
                     $imagenvehiculo = new imagen_vehiculo;
                     $nuevo_nombre =time().'_'.$image->getClientOriginalName();
 
-                    Image::make($image)->resize(500, 500)->save( public_path('/images/' . $nuevo_nombre ));
+                    Image::make($image)->resize(300, 500)->save( public_path('/images/' . $nuevo_nombre ));
 
                   /*  $image->move(public_path('images'), $nuevo_nombre);*/
                     $imagenvehiculo->id_vehiculo = $vehiculo->id_vehiculo;
@@ -169,7 +169,7 @@ class VehiculoController extends Controller
                         $imagenvehiculo = new imagen_vehiculo;
 
                         $nuevo_nombre =time().'_'.$image->getClientOriginalName();
-                       Image::make($image)->resize(400, 700)->save( public_path('/images/' . $nuevo_nombre ));
+                       Image::make($image)->resize(700, 300)->save( public_path('/images/' . $nuevo_nombre ));
                        // return $datos;
                       //  $image->move(public_path('images'), $nuevo_nombre);
                         $imagenvehiculo->id_vehiculo = $datos->vehiculo;

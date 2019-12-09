@@ -227,14 +227,14 @@
                 @if(count($imagenes_vehiculo)>0)
     
                 <div class="col-md-12 "  >
-                  <div id="carousel-example-generic" class="carousel slide col-md-6 " data-ride="carousel">
+                  <div id="carrousel" class="carousel slide" data-ride="carousel">
                    
-{{--                     <ol class="carousel-indicators">
+                    <ol class="carousel-indicators">
                        @foreach( $imagenes_vehiculo as $photo )
-                          <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+                          <li data-target="#carrousel" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}">asdasdas</li>
                        @endforeach
                     </ol>
-                    --}}
+                   
                     <div class="carousel-inner" >
 
                       @foreach( $imagenes_vehiculo as $photo )
@@ -245,11 +245,11 @@
                          </div>
                       @endforeach
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" href="#carrousel" role="button" data-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                       <span class="sr-only">Siguiente</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                    <a class="carousel-control-next" href="#carrousel" role="button" data-slide="next">
                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
                       <span class="sr-only">Anterior</span>
                     </a>
@@ -379,6 +379,13 @@
 	.parrafos{
 		font-family: Vegur, 'PT Sans', Verdana, sans-serif;
 	}
+.carousel-inner img {
+    width: 100%;
+    max-height: 460px;
+}
 
+.carousel-inner{
+ height: 400px;
+}
 
 </style>
