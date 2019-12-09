@@ -229,12 +229,12 @@
                 <div class="col-md-12 "  >
                   <div id="carousel-example-generic" class="carousel slide col-md-6 " data-ride="carousel">
                    
-                    <ol class="carousel-indicators">
+{{--                     <ol class="carousel-indicators">
                        @foreach( $imagenes_vehiculo as $photo )
                           <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
                        @endforeach
                     </ol>
-                   
+                    --}}
                     <div class="carousel-inner" >
 
                       @foreach( $imagenes_vehiculo as $photo )
