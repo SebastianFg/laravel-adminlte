@@ -136,8 +136,8 @@
 
 <script type="text/javascript">
   function eliminarVehiculo(dominio,idvehiculo,idestado){
-
-    var dominio = $('#id_vehiculo_dominio_alta').val(dominio),
+    console.log(dominio)
+    var dominio = $('#dominio_vehiculo_baja').val(dominio),
         id_vehiculo = $('#id_vehiculo_baja').val(idvehiculo),
         estado = $('#id_vehiculo_estado').val(idestado);
 
@@ -146,7 +146,7 @@
 
   function altaVehiculo(dominio,idvehiculo,idestado){
     console.log(dominio)
-    var dominio = $('#dominio_vehiculo_baja').val(dominio),
+    var dominio = $('#id_vehiculo_dominio_alta').val(dominio),
         id_vehiculo_alta = $('#id_vehiculo').val(idvehiculo),
         estado = $('#id_vehiculo_estado').val(idestado);
 

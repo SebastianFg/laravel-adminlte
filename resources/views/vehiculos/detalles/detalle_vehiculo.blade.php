@@ -240,7 +240,7 @@
                       @foreach( $imagenes_vehiculo as $photo )
                      
                          <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                             <img class="d-block img-fluid" src="../../images/{{ $photo->nombre_imagen }}" >
+                             <img class="d-block img-fluid" src="../../{{ $VehiculosListados[0]->dominio }}/{{ $photo->nombre_imagen }}" >
 
                          </div>
                       @endforeach
