@@ -90,7 +90,7 @@ class RepuestoController extends Controller
        if($Request->hasFile('pdfrepuestos')){
             $file = $Request->file('pdfrepuestos');
             $nombre_archivo_nuevo = time().$file->getClientOriginalName();
-            $file->move(public_path().'/pdf/',$nombre_archivo_nuevo);
+            $file->move(public_path().'/pdf/pdf_repuestos/',$nombre_archivo_nuevo);
         }
 
 

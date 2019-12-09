@@ -65,7 +65,7 @@
                     <tr>
                       <th>N° Identificación</th>
                       <th>Afectado</th>
-                      <th>Dirección</th>
+                      <th width="8">Dirección</th>
                       <th>Fecha</th>
                       <th>Lesiones</th>
                       <th>Colisión</th>
@@ -78,7 +78,12 @@
                     @foreach($siniestros as $item)
                     
                       <tr>
-                        <td>{{ $item->numero_de_identificacion }}</td>
+                        @if($item->nombre_pdf_siniestro != null)
+                          <td><a href="{{ route('descargarPDF',$item->nombre_pdf_siniestro) }}">{{ $item->numero_de_identificacion }}</a></td>
+                        @else
+                          <td>{{ $item->numero_de_identificacion }}</td>
+                        @endif
+                        
                         <td>{{ $item->nombre_dependencia }}</td>
                         <td>{{ substr($item->lugar_siniestro ,0,10) }}...<a href="" onclick="detalle('{{ $item->lugar_siniestro }}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
                         </td>
@@ -189,12 +194,6 @@
 
       },
   });
-/*  function eliminarVehiculo(id_vehiculo,numero_de_identificacion){
-
-    var numero_de_identificacion = $('#id_numero_de_identificacion_baja').val(numero_de_identificacion);
-    var id_vehiculo = $('#id_vehiculo_baja').val(id_vehiculo);
-    $('#modalBajaVehiculo').modal('show');
-  }*/
 
   function editarSiniestro(item){
     console.log(item)

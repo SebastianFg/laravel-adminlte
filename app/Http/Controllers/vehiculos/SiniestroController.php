@@ -64,11 +64,16 @@ class SiniestroController extends Controller
             
         	$siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
         							->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')
+                                    ->select('vehiculos.*','dependencias.*','vehiculos.*','pdf_siniestros.id_pdf_siniestro','pdf_siniestros.nombre_pdf_siniestro','siniestros.*')
+                                    ->leftJoin('pdf_siniestros','siniestros.id_siniestro','=','pdf_siniestros.id_siniestro')
+                                    ->orderBy('siniestros.id_siniestro')
                                     ->get();
+           // return $siniestros;
                                     
         }else{
             $siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
                                     ->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')
+                                    ->leftJoin('pdf_siniestros','siniestros.id_siniestro','pdf_siniestros.id_siniestro')
                                     ->where('vehiculos.numero_de_identificacion','ilike',$Request->vehiculoBuscado)
                                     ->orwhere('vehiculos.dominio','ilike',$Request->vehiculoBuscado)
                                     ->orderBy('id_siniestro','desc')
@@ -101,13 +106,13 @@ class SiniestroController extends Controller
        // $afectadoSiniestro = \DB::select('select destino from view_total_afectados where id_vehiculo ='. $dato->id_vehiculo);
        //dd ($afectadoSiniestro[0]->id_dependencia);
         //siniestro
-
+        //return $dato;
         if ($accion == 2) {
             $siniestroNuevo =siniestro::findOrFail($dato->id_siniestro);
         }elseif($accion == 1){
             $siniestroNuevo = new siniestro;
         }
-        //return $siniestroNuevo;
+        //return $afectadoSiniestro;
         $siniestroNuevo->id_vehiculo = $dato->id_vehiculo;
         $siniestroNuevo->id_dependencia = $afectadoSiniestro[0]->id_dependencia;
         $siniestroNuevo->observaciones_siniestro = $dato->observaciones_siniestro;
@@ -125,7 +130,7 @@ class SiniestroController extends Controller
 
                 $file = $dato->file('pdf_siniestro');
                 $nombre_archivo_nuevo = time().$file->getClientOriginalName();
-                $file->move(public_path().'/pdf/',$nombre_archivo_nuevo);
+                $file->move(public_path().'/pdf/pdf_siniestros/',$nombre_archivo_nuevo);
                 
                 $pdfSiniestro = new pdf_siniestro;
                 $pdfSiniestro->nombre_pdf_siniestro = $nombre_archivo_nuevo;
@@ -141,7 +146,7 @@ class SiniestroController extends Controller
 
                 $file = $dato->file('pdf_siniestro');
                 $nombre_archivo_nuevo = time().$file->getClientOriginalName();
-                $file->move(public_path().'/pdf/',$nombre_archivo_nuevo);
+                $file->move(public_path().'/pdf/pdf_siniestros/',$nombre_archivo_nuevo);
                 
                 $pdfSiniestro = new pdf_siniestro;
                 $pdfSiniestro->nombre_pdf_siniestro = $nombre_archivo_nuevo;
@@ -221,7 +226,7 @@ class SiniestroController extends Controller
 
     public function descargaPdfSiniestro($nombre){
 
-        if(!$this->downloadFile(public_path()."/pdf/".$nombre)){
+        if(!$this->downloadFile(public_path()."/pdf/pdf_siniestros/".$nombre)){
             return redirect()->back();
         }
     }

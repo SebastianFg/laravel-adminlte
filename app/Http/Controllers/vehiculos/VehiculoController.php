@@ -122,7 +122,7 @@ class VehiculoController extends Controller
         }
         $vehiculo->otras_caracteristicas = $datos->otros;
 
-
+       //return $datos;
         switch ($accion) {
             case 0: //creacion --> alta
             	$vehiculo->save();
@@ -133,7 +133,11 @@ class VehiculoController extends Controller
                     $imagenvehiculo = new imagen_vehiculo;
                     $nuevo_nombre =time().'_'.$image->getClientOriginalName();
 
-                    Image::make($image)->resize(300, 500)->save( public_path('/images/' . $nuevo_nombre ));
+                    if (!file_exists($datos->dominio)) {
+                        mkdir($datos->dominio, 0777, true);
+                    }
+
+                    Image::make($image)->resize(300, 500)->save( public_path('/'.$datos->dominio .'/' . $nuevo_nombre ));
 
                   /*  $image->move(public_path('images'), $nuevo_nombre);*/
                     $imagenvehiculo->id_vehiculo = $vehiculo->id_vehiculo;
@@ -157,11 +161,16 @@ class VehiculoController extends Controller
                    $vehiculo_delete_imagen = imagen_vehiculo::where('id_vehiculo','=',$datos->vehiculo)->get();
                    foreach ($vehiculo_delete_imagen as $item) {
                        // return $item->nombre_imagen;
-                    $image_path = public_path().'/images/'.$item->nombre_imagen;
+                    $image_path = public_path().'/'.$datos->dominio .'/'.$item->nombre_imagen;
                     unlink($image_path);
                     $item->delete();
                    }
                   // return $vehiculo_delete_imagen->delete();
+
+
+                    if (!file_exists($datos->dominio)) {
+                        mkdir($datos->dominio, 0777, true);
+                    }
 
                     $images = $datos->file('foto');
                     //return $images;
@@ -169,7 +178,7 @@ class VehiculoController extends Controller
                         $imagenvehiculo = new imagen_vehiculo;
 
                         $nuevo_nombre =time().'_'.$image->getClientOriginalName();
-                       Image::make($image)->resize(700, 300)->save( public_path('/images/' . $nuevo_nombre ));
+                        Image::make($image)->resize(300, 500)->save( public_path('/'.$datos->dominio .'/' . $nuevo_nombre ));
                        // return $datos;
                       //  $image->move(public_path('images'), $nuevo_nombre);
                         $imagenvehiculo->id_vehiculo = $datos->vehiculo;
@@ -204,7 +213,7 @@ class VehiculoController extends Controller
             'clase_de_unidad' => 'required|max:20',
             'tipo' => 'required',
             'otros' => 'required',
-            'foto' => 'required'
+            "fotos.*" => "required|image|mimes:jpg,jpeg|max:2000",
         ]);
         if ($Validar->fails()){
             alert()->error('Error','ERROR! Intente agregar nuevamente...');
