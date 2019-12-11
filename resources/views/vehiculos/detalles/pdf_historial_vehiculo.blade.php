@@ -14,58 +14,49 @@
 			</div>
 			<br>
 			<div class="col-md-3 " style="float:center; text-align: center;">
-				
 				<p> <h4>DIRECCIÓN GENERAL ADMINISTRACIÓN</h4>
 					<h4>DIRECCIÓN PATRIMONIO</h4>
 					<h4>DEPARTAMENTO AUTOMOTORES</h4>
 				</p>
 			</div>
-
 		</div>
 	</div>
 
-	<div class="container divbody" >
-
+	<div class="container divbody">
 		<div style="text-align: center;">
 			<hr>
-			<h2 >Historial del vehiculo</strong></h2>
+			<h2 ><strong>Historial del vehiculo</strong></h2>
 		
 		</div>
-			<div class="col-md-12 padre">
-					<p class="pdf_historial" >Dominio:<strong class="encabezado_pdf_historial"> {{ $vehiculo[0]->dominio }} </p>
-
-					<p class="pdf_historial" >Numero de inventario:<strong class="encabezado_pdf_historial"> {{ $vehiculo[0]->numero_de_inventario }} </p>
-					<p class="pdf_historial" >Numero de identificación:<strong class="encabezado_pdf_historial"> {{ $vehiculo[0]->numero_de_identificacion }} </p>
-	
-				<hr>
-			</div>
+		<div class="col-md-12 padre">
+				<p class="pdf_historial" >Dominio:<strong class="encabezado_pdf_historial"> {{ $historialCompletoAsignacion[0]->dominio }} </p>
+				<p class="pdf_historial" >Numero de inventario:<strong class="encabezado_pdf_historial"> {{ $historialCompletoAsignacion[0]->numero_de_inventario }} </p>
+				<p class="pdf_historial" >Numero de identificación:<strong class="encabezado_pdf_historial"> {{ $historialCompletoAsignacion[0]->numero_de_identificacion }} </p>
+			<hr>
+		</div>
 		<div class="col-md-12 padre" >
-
 			<table   class=" table table-striped table-hover table-condensed table-bordered">
 			    <thead>
 			      <tr >
-			        <th>Fecha y hora</th>
 			        <th>Historia</th>
+			        <th>Fecha y hora</th>
+			        <th>Responsable</th>
 			      </tr>
 
 			    </thead>
-			   
 			    <tbody>
-			    	
 			    	@foreach($historialCompletoAsignacion as $historia)
 				    	<tr>
 				    		<td>{{ $historia->nombre_dependencia }}</td>
 				    		<td>{{ $historia->fecha }}</td>
+				    		<td>{{ $historia->nombre }}</td>
 				
 				    	</tr>
 			    	@endforeach
-
 			    </tbody>
 			</table>
 		</div>
-
 	</div>
-
 </div>
 
 

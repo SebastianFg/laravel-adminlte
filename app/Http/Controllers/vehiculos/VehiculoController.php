@@ -196,7 +196,7 @@ class VehiculoController extends Controller
 
     //alta nuevo vehiculo
     public function crearVehiculo(Request $Request){
-    
+       // return $Request;
         
         $Validar = \Validator::make($Request->all(), [
             
@@ -213,7 +213,7 @@ class VehiculoController extends Controller
             'clase_de_unidad' => 'required|max:20',
             'tipo' => 'required',
             'otros' => 'required',
-            "fotos.*" => "required|image|mimes:jpg,jpeg|max:2000",
+            "foto.*" => 'required|image|mimes:jpeg,jpg',
         ]);
         if ($Validar->fails()){
             alert()->error('Error','ERROR! Intente agregar nuevamente...');
@@ -454,7 +454,7 @@ class VehiculoController extends Controller
 
             $file = $Request->file('pdf_decreto_baja_definitiva');
             $nombre_archivo_nuevo = time().$file->getClientOriginalName();
-            $file->move(public_path().'/pdf/',$nombre_archivo_nuevo);
+            $file->move(public_path().'/pdf/pdf_baja_definitiva/',$nombre_archivo_nuevo);
             
             $pdfEstado = new pdf_Estado;
            // return $pdfEstado;

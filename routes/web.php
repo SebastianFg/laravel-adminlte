@@ -87,6 +87,8 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::post('/editar_vehiculo', 'vehiculos\VehiculoController@updateVehiculo')->name('updateVehiculo');
 		//baja
 		Route::post('/baja_detalle_vehiculo', 'vehiculos\VehiculoController@fueraDeServicio')->name('eliminarVehiculos');
+
+
 		
 		//lista de vehiculos para select2
 		Route::get('/vehiculos_select','vehiculos\VehiculoController@getAllVehiculos')->name('listaVehiculosSelect');
@@ -128,6 +130,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 		//vehiculos detalle
 		Route::get('/detalleVehiculo/{id?}', 'vehiculos\DetallesController@index')->name('detalleVehiculo');
+		//descargar el historial del vehiculo
+		Route::get('historial_completo_pdf/{id}', 'vehiculos\DetallesController@exportarPdfHistorial')->name('pdfVehiculos');
 
 		//asignacion de siniestros
 		Route::get('/siniestros', 'vehiculos\SiniestroController@indexSiniestros')->name('indexSiniestros');
@@ -164,8 +168,6 @@ Route::group(['prefix' => 'admin'], function () {
 
 		//datatable detalles
 		Route::get('/detalle_Datatable/{vehiculo}', 'vehiculos\VehiculoController@detalleDatatable')->name('detalleDatatable');
-		//impresion pdf historial del vehiculo (historial asignacion)
-		Route::get('historial_lista_pdf/{id}', 'vehiculos\VehiculoController@exportarPdfHistorial')->name('pdfVehiculos');
 
 
 

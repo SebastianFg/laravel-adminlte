@@ -72,14 +72,8 @@
 		<strong>Dominio:</strong> {{$detalle_asignacion_vehiculo[0]->dominio  }}
 		<br>
 		<strong>Kilometraje:</strong> {{$detalle_asignacion_vehiculo[0]->kilometraje  }} Km
-
 		<br>
-		{{-- <div style="text-align: center;"> --}}
-			
-			<strong>Cubiertas:</strong> {{$detalle_asignacion_vehiculo[0]->otras_caracteristicas  }}
-			<br>
-			<strong>Observaciones:</strong> {{$detalle_asignacion_vehiculo[0]->otras_caracteristicas  }}
-	{{-- 	</div> --}}
+		<strong>Observaciones:</strong> {{$detalle_asignacion_vehiculo[0]->otras_caracteristicas  }}
 		
 		<hr>
 

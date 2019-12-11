@@ -5,7 +5,7 @@
 <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper ">
+<div class="content-wrapper">
   <!-- Content Header (Page header) -->
 
   <!-- /.content-header -->
@@ -18,7 +18,7 @@
     @else
     <div class="container-fluid">
       
-      <div class="row col-md-12 " style="padding-top: 5px;">
+      <div class="row col-md-12" style="padding-top: 5px;">
         <hr>
         <div class="card col-md-6">
           <div class="card-header">

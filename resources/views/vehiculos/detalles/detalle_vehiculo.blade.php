@@ -133,9 +133,13 @@
             
             <div class="card table-responsive">
               <div class="card-body table-responsive ">
-                <h4 class="card-title">Historial</h4> 
-                <br>
+                <h4 class="card-title">Historial</h4>
+                <hr>
                 @if(count($historial)>0)
+                  <label> 
+                    <strong><a title="Descargar historial en PDF" href="{{ route('pdfVehiculos',$VehiculosListados[0]->id_vehiculo) }}" ><i class="fa fa-file-pdf"></i> Descargar historial completo</a></strong>
+                  </label>
+                  <hr>
                   <table  tableStyle="width:auto"  class=" table table-striped table-hover table-condensed table-bordered">
                     <thead>
                       <tr>
@@ -255,60 +259,10 @@
                     </a>
                   </div>
                 </div>
-
-
-{{--                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner">
-                    <ol class="carousel-indicators">
-                      @foreach( $imagenes_vehiculo as $photo )
-                        <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
-                      @endforeach
-                    </ol>
-                    <div class="carousel-item active">
-                      @foreach( $imagenes_vehiculo as $photo )
-                         <div class="item {{ $loop->first ? 'active' : '' }}">
-                            <img class="d-block img-fluid" src="../../images/{{ $photo->nombre_imagen }}">
-                         </div>
-                      @endforeach
-                    </div>
-                  </div>
-                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a> --}}
-                </div>
-
-                
-{{--                 <div class="col-md-12">
-                  <div id="carousel-example-generic" class="carousel slide col-md-6 " data-ride="carousel">
-                   
-                    <ol class="carousel-indicators">
-                      @foreach( $imagenes_vehiculo as $photo )
-                        <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
-                      @endforeach
-                    </ol>
-                    <div class="carousel-inner" >
-                      @foreach( $imagenes_vehiculo as $photo )
-                         <div class="item {{ $loop->first ? 'active' : '' }}">
-                            <img class="d-block img-fluid" src="../../images/{{ $photo->nombre_imagen }}">
-                         </div>
-                      @endforeach
-                    </div>
-                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                      <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                      <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                  </div>
-                </div> --}}
-                @else
-                  <p> El vehiculono posee imagenes</p>
-                @endif
+              </div>
+              @else
+                <p> El vehiculono posee imagenes</p>
+              @endif
             </div>
           </div>
         </div>
@@ -366,7 +320,7 @@
 @stop
 {{-- <style type="text/css">
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 100px 100px 100px 10 rgba(0,0,0,0.2);
 }
 
 </style> --}}

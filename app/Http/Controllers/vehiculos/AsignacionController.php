@@ -75,7 +75,7 @@ class AsignacionController extends Controller
       if ($Request->vehiculoBuscado == null) {
         $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
                                                 ->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
-                                                ->orderBy('id_detalle')
+                                                ->orderBy('id_detalle','desc')
                                                 ->get();
         $asignacion = $this->paginar($asignacion);
       }else{
@@ -84,7 +84,7 @@ class AsignacionController extends Controller
                                             ->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
                                             ->where('numero_de_identificacion','ilike',$Request->vehiculoBuscado)
                                             ->orwhere('dominio','ilike',$Request->vehiculoBuscado)
-                                            ->orderBy('id_detalle')
+                                            ->orderBy('id_detalle','desc')
                                             ->get();
         $asignacion = $this->paginar($asignacion);
       }
@@ -101,7 +101,7 @@ class AsignacionController extends Controller
                                             FROM vehiculos
                                             WHERE vehiculos.dominio ilike '%".$Request->termino."%' or vehiculos.numero_de_identificacion ilike '%".$Request->termino."%' and vehiculos.id_vehiculo not IN ( SELECT DISTINCT detalle_asignacion_vehiculos.id_vehiculo
                                                        FROM detalle_asignacion_vehiculos)
-                                            AND vehiculos.baja = 0");
+                                            AND vehiculos.baja != 0");
         return response()->json($vehiculos_disponibles);
 
     }

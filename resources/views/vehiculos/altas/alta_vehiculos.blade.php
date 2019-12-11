@@ -70,7 +70,7 @@
                     </form>
                   </div>
                   <div class="row table-responsive">
-                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered ">
+                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered responsive">
                       <thead>
                         <tr>
 
@@ -205,3 +205,4 @@
   });
 </script>
 @stop
+

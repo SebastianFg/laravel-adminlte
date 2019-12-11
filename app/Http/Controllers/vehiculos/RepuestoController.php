@@ -78,7 +78,7 @@ class RepuestoController extends Controller
             'id_vehiculo' => 'required',
             'fecha' => 'required',
             'repuestos_entregados' => 'required',
-            'pdfrepuestos' => 'required'
+            'pdfrepuestos' => 'required|mimes:pdf'
 
         ]);
 
@@ -129,27 +129,7 @@ class RepuestoController extends Controller
   							->where('detalle_asignacion_repuestos.id_detalle_repuesto','=',$id)
   							->orderBy('id_detalle_repuesto','desc')
   							->get();
-    	//return $vehiculos_repuestos_asignados[0]->dominio;
 
-/*        $vehiculos_repuestos_asignados = \DB::select("
-                select to_char(detalle_asignacion_Repuestos.fecha,'DD/MM/YYYY') as fecha,
-                    vehiculos.id_vehiculo,
-                    detalle_asignacion_Repuestos.id_detalle_repuesto,
-                    detalle_asignacion_Repuestos.repuestos_entregados,
-                    pdf_nombre,
-                    vehiculos.numero_de_identificacion,
-                    vehiculos.dominio,
-                    vehiculos.numero_de_inventario,
-                    vehiculos.marca,
-                    vehiculos.clase_De_unidad,
-                    users.name,
-                    users.id
-                    
-                from detalle_asignacion_Repuestos
-                inner join vehiculos on vehiculos.id_vehiculo = detalle_asignacion_Repuestos.vehiculo_id_repuestos 
-                inner join users on users.id = detalle_asignacion_Repuestos.responsable
-                where detalle_asignacion_Repuestos.id_detalle_repuesto =".$id);*/
-        //return $vehiculos_repuestos_asignados;
         $pdf = PDF::loadView('vehiculos.repuestos.pdf_repuestos_asignados', compact('vehiculos_repuestos_asignados'));
 
         return $pdf->download($vehiculos_repuestos_asignados[0]->dominio.'.pdf');
