@@ -20,7 +20,7 @@ use App\User;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
-
+use Illuminate\Support\Facades\Storage;
 use Image;
 //pdf
 use Barryvdh\DomPDF\Facade as PDF;
@@ -454,7 +454,9 @@ class VehiculoController extends Controller
 
             $file = $Request->file('pdf_decreto_baja_definitiva');
             $nombre_archivo_nuevo = time().$file->getClientOriginalName();
-            $file->move(public_path().'/pdf/pdf_baja_definitiva/',$nombre_archivo_nuevo);
+            Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($file));
+            Storage::move("public/".$nombre_archivo_nuevo, "public/pdf/pdf_baja_definitiva/".$nombre_archivo_nuevo);
+            //$file->move(public_path().'/pdf/pdf_baja_definitiva/',$nombre_archivo_nuevo);
             
             $pdfEstado = new pdf_Estado;
            // return $pdfEstado;
@@ -463,6 +465,7 @@ class VehiculoController extends Controller
             $pdfEstado->save();
             
         }
+        $vehiculoEnProceso->estado_decreto = $nombre_archivo_nuevo;
 
         if($vehiculoEnProceso->save() && $pdfEstado->save()){
             return $this->getMensaje('Vehiculo dado de baja definitivamente exitosamente','listaVehiculos',true);           
@@ -495,4 +498,34 @@ class VehiculoController extends Controller
         $pdf->setPaper('legal', 'landscape');
         return $pdf->download('lista completa de vehiculos.pdf');
     }
+
+    //tratamiento para descargar el pdf.
+    protected function downloadFile($src){
+        if(is_file($src)){
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $content_type = finfo_file($finfo, $src);
+            finfo_close($finfo);
+            $file_name = basename($src).PHP_EOL;
+            $size = filesize($src);
+            header("Content-Type: $content_type");
+            header("Content-Disposition: attachment; filename=$file_name");
+            header("Content-Transfer-Encoding: binary");
+            header("Content-Length: $size");
+            readfile($src);
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    public function exportarPdfBajaDefinitiva($nombre){
+
+
+        if(!$this->downloadFile(storage_path()."/app/public/pdf/pdf_baja_definitiva/".$nombre)){
+            return redirect()->back();
+        }
+    }
+
+
+
 }

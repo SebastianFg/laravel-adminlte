@@ -15,17 +15,17 @@ class CreateVehiculos extends Migration
     {
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->bigIncrements('id_vehiculo');
-            $table->string('numero_de_identificacion',100)->unique();
+            $table->string('numero_de_identificacion',50)->unique();
             $table->date('fecha');
             $table->string('clase_de_unidad',100);
             $table->string('marca',100);
             $table->string('modelo',100);
-            $table->string('chasis',100)->unique();
-            $table->string('motor',100)->unique();
+            $table->string('chasis',20)->unique();
+            $table->string('motor',20)->unique();
             $table->integer('anio_de_produccion');
-            $table->string('dominio',100)->unique();
+            $table->string('dominio',10)->unique();
             $table->bigInteger('kilometraje');
-            $table->string('tipo_identificacion',10)->default('JP');
+            $table->string('tipo_identificacion',2)->default('JP');
             $table->bigInteger('numero_de_inventario')->unique();
             $table->mediumText('otras_caracteristicas');
             $table->tinyInteger('tipo');

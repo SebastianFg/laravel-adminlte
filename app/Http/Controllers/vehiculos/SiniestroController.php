@@ -142,10 +142,10 @@ class SiniestroController extends Controller
 
                 $file = $dato->file('pdf_siniestro');
                 $nombre_archivo_nuevo = time().$file->getClientOriginalName();
-/*
+
                 Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($file));
-                Storage::move("public/".$nombre_archivo_nuevo, "public/pdf/pdf_siniestros/".$nombre_archivo_nuevo);*/
-                $file->move(public_path().'/pdf/pdf_siniestros/',$nombre_archivo_nuevo);
+                Storage::move("public/".$nombre_archivo_nuevo, "public/pdf/pdf_siniestros/".$nombre_archivo_nuevo);
+               // $file->move(public_path().'/pdf/pdf_siniestros/',$nombre_archivo_nuevo);
                 
                 $pdfSiniestro = new pdf_siniestro;
                 $pdfSiniestro->nombre_pdf_siniestro = $nombre_archivo_nuevo;
@@ -242,8 +242,7 @@ class SiniestroController extends Controller
     }
 
     public function descargaPdfSiniestro($nombre){
-
-        if(!$this->downloadFile(Storage::get($nombre))){
+        if(!$this->downloadFile(storage_path()."/app/public/pdf/pdf_siniestros/".$nombre)){
             return redirect()->back();
         }
     }

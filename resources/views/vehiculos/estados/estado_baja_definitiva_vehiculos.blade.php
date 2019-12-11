@@ -66,7 +66,7 @@
                         @foreach($estados_listado as $item)
                         
                           <tr>
-                            <td>{{ $item->numero_de_identificacion }}</td>
+                            <td><a href="{{ route('exportarPdfBajaDefinitiva',$item->estado_decreto) }}">{{ $item->numero_de_identificacion }}</a></td>
                             <td>{{ $item->marca }}</td>
                             <td>{{ $item->modelo }}</td>
                             <td>{{ $item->dominio }}</td>

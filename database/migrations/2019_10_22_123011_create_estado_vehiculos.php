@@ -21,6 +21,7 @@ class CreateEstadoVehiculos extends Migration
             //fk
             $table->foreign('id_usuario_movimiento')->references('id')->on('users');
             $table->string('estado_razon')->nullable();
+            $table->string('estado_decreto')->nullable();
             $table->dateTime('estado_fecha');
             $table->timestamps();
         });

@@ -78,8 +78,8 @@ class RepuestoController extends Controller
             'id_vehiculo' => 'required',
             'fecha' => 'required',
             'repuestos_entregados' => 'required',
-            'pdfrepuestos' => 'required|mimes:pdf'
-
+           /* 'pdfrepuestos' => 'required|mimes:pdf'
+*/
         ]);
 
         if ($Validar->fails()){
@@ -87,11 +87,11 @@ class RepuestoController extends Controller
            return  back()->withInput()->withErrors($Validar->errors());
         }
 
-       if($Request->hasFile('pdfrepuestos')){
+/*       if($Request->hasFile('pdfrepuestos')){
             $file = $Request->file('pdfrepuestos');
             $nombre_archivo_nuevo = time().$file->getClientOriginalName();
             $file->move(public_path().'/pdf/pdf_repuestos/',$nombre_archivo_nuevo);
-        }
+        }*/
 
 
         $vehiculo_asignado_repuesto = new repuesto;
@@ -133,5 +133,30 @@ class RepuestoController extends Controller
         $pdf = PDF::loadView('vehiculos.repuestos.pdf_repuestos_asignados', compact('vehiculos_repuestos_asignados'));
 
         return $pdf->download($vehiculos_repuestos_asignados[0]->dominio.'.pdf');
+    }
+    
+    //tratamiento para descargar el pdf.
+    protected function downloadFile($src){
+        if(is_file($src)){
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $content_type = finfo_file($finfo, $src);
+            finfo_close($finfo);
+            $file_name = basename($src).PHP_EOL;
+            $size = filesize($src);
+            header("Content-Type: $content_type");
+            header("Content-Disposition: attachment; filename=$file_name");
+            header("Content-Transfer-Encoding: binary");
+            header("Content-Length: $size");
+            readfile($src);
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    public function descargaPdfSiniestro($nombre){
+        if(!$this->downloadFile(storage_path()."/app/public/pdf/pdf_siniestros/".$nombre)){
+            return redirect()->back();
+        }
     }
 }

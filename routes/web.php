@@ -113,6 +113,8 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::post('fuera_de_servicio','vehiculos\VehiculoController@estadoVehiculoAlta')->name('altaEstadoVehiculo');
 		//baja definitiva
 		Route::post('baja_definitiva','vehiculos\VehiculoController@bajaDefinitiva')->name('bajaDefinitiva');
+		//pdf baja definitiva
+		Route::get('baja_definitiva_pdf/{id}', 'vehiculos\VehiculoController@exportarPdfBajaDefinitiva')->name('exportarPdfBajaDefinitiva');
 
 
 		//asignacion
