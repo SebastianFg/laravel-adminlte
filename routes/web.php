@@ -41,6 +41,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::post('editarPerfil','UsuarioController@editarPerfil')->name('editarPerfil');
 
+		
+
 
 		//roles
 		Route::get('roles','RolController@index')->name('listaRoles');
@@ -88,7 +90,7 @@ Route::group(['prefix' => 'admin'], function () {
 		//baja
 		Route::post('/baja_detalle_vehiculo', 'vehiculos\VehiculoController@fueraDeServicio')->name('eliminarVehiculos');
 
-
+		Route::get('storage/{carpeta}/{archivo}','vehiculos\VehiculoController@Imagen')->name('storage');
 		
 		//lista de vehiculos para select2
 		Route::get('/vehiculos_select','vehiculos\VehiculoController@getAllVehiculos')->name('listaVehiculosSelect');

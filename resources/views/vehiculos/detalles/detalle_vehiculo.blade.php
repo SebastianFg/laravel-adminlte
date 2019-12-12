@@ -240,12 +240,12 @@
                     </ol>
                    
                     <div class="carousel-inner" >
-
+                    
                       @foreach( $imagenes_vehiculo as $photo )
-                     
+                      
                          <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                             <img class="d-block img-fluid" src="../../{{ $VehiculosListados[0]->dominio }}/{{ $photo->nombre_imagen }}" >
-
+                            {{-- <img class="d-block img-fluid" src="{{ storage_path().'\app\public\imagenes/'.$VehiculosListados[0]->dominio.'/'.$photo->nombre_imagen }}" > --}}
+                            <img src="{{  route('storage',['carpeta'=>$VehiculosListados[0]->dominio,'archivo'=>$photo->nombre_imagen]) }}" alt="Card image cap">
                          </div>
                       @endforeach
                     </div>

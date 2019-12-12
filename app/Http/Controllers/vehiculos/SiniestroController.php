@@ -140,17 +140,30 @@ class SiniestroController extends Controller
         	if ($siniestroNuevo->update()) {
 				if($dato->hasFile('pdf_siniestro')){
 
-                $file = $dato->file('pdf_siniestro');
-                $nombre_archivo_nuevo = time().$file->getClientOriginalName();
+                    $file = $dato->file('pdf_siniestro');
+                    $nombre_archivo_nuevo = time().$file->getClientOriginalName();
 
-                Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($file));
-                Storage::move("public/".$nombre_archivo_nuevo, "public/pdf/pdf_siniestros/".$nombre_archivo_nuevo);
-               // $file->move(public_path().'/pdf/pdf_siniestros/',$nombre_archivo_nuevo);
-                
-                $pdfSiniestro = new pdf_siniestro;
-                $pdfSiniestro->nombre_pdf_siniestro = $nombre_archivo_nuevo;
-                $pdfSiniestro->id_siniestro = $siniestroNuevo->id_siniestro ;
-                $pdfSiniestro->save();
+                    Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($file));
+                    Storage::move("public/".$nombre_archivo_nuevo, "public/pdf/pdf_siniestros/".$nombre_archivo_nuevo);
+                   // $file->move(public_path().'/pdf/pdf_siniestros/',$nombre_archivo_nuevo);
+                    $pdf = pdf_siniestro::where('id_siniestro','=',$siniestroNuevo->id_siniestro)->count();
+
+                    if ($pdf ==0) {
+                        $pdfSiniestro = new pdf_siniestro;
+                    }else{
+                        $pdfSiniestro = pdf_siniestro::where('id_siniestro','=',$siniestroNuevo->id_siniestro)->get();
+                       // return $pdfSiniestro;
+                    }
+                    $pdfSiniestro[0]->nombre_pdf_siniestro = $nombre_archivo_nuevo;
+                    $pdfSiniestro[0]->id_siniestro = $siniestroNuevo->id_siniestro ;
+                    //return $pdfSiniestro;
+                    if ($pdf == 0) {
+                        $pdfSiniestro[0]->save();
+                    }else{
+                        //return $pdfSiniestro;
+                       $pdfSiniestro[0]->update();
+                    }
+                    
 	            }
 	        }
             return $this->getMensaje($mensaje,'indexSiniestros',true);

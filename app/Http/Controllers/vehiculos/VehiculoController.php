@@ -22,6 +22,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Storage;
 use Image;
+use File;
+use Response;
 //pdf
 use Barryvdh\DomPDF\Facade as PDF;
 class VehiculoController extends Controller
@@ -127,19 +129,23 @@ class VehiculoController extends Controller
             case 0: //creacion --> alta
             	$vehiculo->save();
                 $images = $datos->file('foto');
-                
+               /* if (!file_exists('/storage/app/imagenes/'.$datos->dominio)) {
+                    mkdir('/storage/app/imagenes/'.$datos->dominio, 0755, true);
+                }*/
+                Storage::disk('public')->makeDirectory('imagenes/'.$datos->dominio);
                 foreach($images as $image)
                 {
                     $imagenvehiculo = new imagen_vehiculo;
-                    $nuevo_nombre =time().'_'.$image->getClientOriginalName();
+                    //$nuevo_nombre =time().'_'.$image->getClientOriginalName();
 
-                    if (!file_exists('/imagenes/'.$datos->dominio)) {
-                        mkdir('imagenes/'.$datos->dominio, true);
-                    }
+                    $nombre_archivo_nuevo = time().$image->getClientOriginalName();
 
-                    Image::make($image)->resize(300, 500)->save( public_path('imagenes/'.$datos->dominio .'/' . $nuevo_nombre ));
 
-                  /*  $image->move(public_path('images'), $nuevo_nombre);*/
+                    Image::make($image)->resize(300, 500);//->save('storage/app/public/imagenes/'.$datos->dominio .'/' . $nombre_archivo_nuevo );
+                   
+                    Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($image));
+                    Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/".$datos->dominio.'/'.$nombre_archivo_nuevo);
+                    
                     $imagenvehiculo->id_vehiculo = $vehiculo->id_vehiculo;
                     $imagenvehiculo->nombre_imagen = $nuevo_nombre;
                     $imagenvehiculo->fecha =  $datos->fecha;
@@ -150,39 +156,43 @@ class VehiculoController extends Controller
                 return  redirect()->route('listaVehiculos');
                 break;
             case 1: // edicion
-               // return $datos;
+                //return $datos;
             	$vehiculo->update();
 
-                if($datos->foto == null){
-                  //  return
-                        $vehiculo->foto_id = $vehiculo->foto_id;
+                if($datos->fotoEdit == null){
+                    $vehiculo->foto_id = $vehiculo->foto_id;
                 }else{ 
 
                    $vehiculo_delete_imagen = imagen_vehiculo::where('id_vehiculo','=',$datos->vehiculo)->get();
+
                    foreach ($vehiculo_delete_imagen as $item) {
                        // return $item->nombre_imagen;
-                    $image_path = public_path().'imagenes/'.$datos->dominio .'/'.$item->nombre_imagen;
-                    unlink($image_path);
-                    $item->delete();
-                   }
-                  // return $vehiculo_delete_imagen->delete();
 
-
-                    if (!file_exists('imagenes/'.$datos->dominio)) {
-                        mkdir('imagenes/'.$datos->dominio, true);
-                    }
+                   /* $image_path = storage_path().'/storage/app/imagenes/'.$datos->dominio .'/'.$item->nombre_imagen;
+                    unlink($image_path);*/
+                        unlink(storage_path('app/public/imagenes/'.$datos->dominio.'/'.$item->nombre_imagen));
+                        $item->delete();
+                    }     
+/*                   if (!file_exists('/app/imagenes/'.$datos->dominio)) {
+                        mkdir('/app/imagenes/'.$datos->dominio, 0755, true);
+                    }*/
+                    Storage::disk('public')->makeDirectory('imagenes/'.$datos->dominio);
 
                     $images = $datos->file('fotoEdit');
-                    //return $images;
                     foreach($images as $image){
                         $imagenvehiculo = new imagen_vehiculo;
 
-                        $nuevo_nombre =time().'_'.$image->getClientOriginalName();
-                        Image::make($image)->resize(300, 500)->save( public_path('imagenes/'.$datos->dominio .'/' . $nuevo_nombre ));
-                       // return $datos;
+                        $nombre_archivo_nuevo = time().$image->getClientOriginalName();
+
+                        Image::make($image)->resize(300, 500);//->save('storage/app/public/imagenes/'.$datos->dominio .'/' . $nombre_archivo_nuevo );
+                       
+                        Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($image));
+                        Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/".$datos->dominio.'/'.$nombre_archivo_nuevo);
+                        
+                           // return $datos;
                       //  $image->move(public_path('images'), $nuevo_nombre);
                         $imagenvehiculo->id_vehiculo = $datos->vehiculo;
-                        $imagenvehiculo->nombre_imagen = $nuevo_nombre;
+                        $imagenvehiculo->nombre_imagen = $nombre_archivo_nuevo;
                         $imagenvehiculo->fecha =  $datos->fecha;
                         $imagenvehiculo->save();
                     }
@@ -241,7 +251,7 @@ class VehiculoController extends Controller
             'motor' => ['required',
                               Rule::unique('vehiculos')->ignore($Request->motor,'motor')],
             'modelo' => 'required|max:20',
-            'marca' => 'required|max:20',
+            'marca' => 'required|max:50',
             'anio_produccion' => 'required|numeric',
             'kilometraje' => 'required',
             'clase_de_unidad' => 'required|max:20',
@@ -526,6 +536,33 @@ class VehiculoController extends Controller
         }
     }
 
+    public function Imagen($carpeta,$archivo){
 
+        $path = storage_path('app/public/imagenes/'.$carpeta.'/'.$archivo);
+
+       //return $path;
+
+        if (!File::exists($path)) {
+
+            abort(404);
+
+        }
+
+      
+
+        $file = File::get($path);
+
+        $type = File::mimeType($path);
+
+      
+
+        $response = Response::make($file, 200);
+
+        $response->header("Content-Type", $type);
+
+     
+
+        return $response;
+    }
 
 }
