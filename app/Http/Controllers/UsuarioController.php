@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Image;
+
 use DateTime;
 
 //paginador
@@ -20,6 +20,10 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\User;
 use App\Modelos\user_baja;
+
+//imagen
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class UsuarioController extends Controller
 {
@@ -310,17 +314,24 @@ class UsuarioController extends Controller
 
                 if ($Request->file('foto')->isValid()) {
                     $avatar = $Request->file('foto');
-                    $imagen_a_borrar = Auth::User()->nombre_;
+                    $usuario_imgen = User::where('id','=',Auth::User()->id)->select('imagen_perfil')->get();
+                    if ($usuario_imgen[0]->imagen_perfil != 'avatar_default.png') {
+                        unlink(storage_path('app/public/imagenes/avatar/'.$usuario_imgen[0]->imagen_perfil));
+                        $usuario_imgen[0]->delete();
+                    }
 
-                    $filename = time() . '-' . $avatar->getClientOriginalName();
 
-                    Image::make($avatar)->resize(300, 300)->save( public_path('/img/avatar/' . $filename ));
+                    $nombre_archivo_nuevo = time() . '-' . $avatar->getClientOriginalName();
+
+
+                    Image::make($avatar)->resize(300, 300);
+                   
+                    Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($avatar));
+                    Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/avatar/".$nombre_archivo_nuevo);
 
                     $usuario_foto = User::findorfail(Auth::User()->id);
-                    $usuario_foto->imagen_perfil = $filename;
+                    $usuario_foto->imagen_perfil = $nombre_archivo_nuevo;
                     $usuario_foto->update();
-                    //return $this->getMensaje('Foto actualizada con exito','inicio',true);
-
                     }
                 }
             

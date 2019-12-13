@@ -133,21 +133,18 @@ class VehiculoController extends Controller
                     mkdir('/storage/app/imagenes/'.$datos->dominio, 0755, true);
                 }*/
                 Storage::disk('public')->makeDirectory('imagenes/'.$datos->dominio);
-                foreach($images as $image)
-                {
+                foreach($images as $image){
                     $imagenvehiculo = new imagen_vehiculo;
-                    //$nuevo_nombre =time().'_'.$image->getClientOriginalName();
 
                     $nombre_archivo_nuevo = time().$image->getClientOriginalName();
 
-
-                    Image::make($image)->resize(300, 500);//->save('storage/app/public/imagenes/'.$datos->dominio .'/' . $nombre_archivo_nuevo );
+                    Image::make($image)->resize(300, 500);
                    
                     Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($image));
                     Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/".$datos->dominio.'/'.$nombre_archivo_nuevo);
                     
                     $imagenvehiculo->id_vehiculo = $vehiculo->id_vehiculo;
-                    $imagenvehiculo->nombre_imagen = $nuevo_nombre;
+                    $imagenvehiculo->nombre_imagen = $nombre_archivo_nuevo;
                     $imagenvehiculo->fecha =  $datos->fecha;
                     $imagenvehiculo->save();
                 }
@@ -156,41 +153,31 @@ class VehiculoController extends Controller
                 return  redirect()->route('listaVehiculos');
                 break;
             case 1: // edicion
-                //return $datos;
             	$vehiculo->update();
-
                 if($datos->fotoEdit == null){
                     $vehiculo->foto_id = $vehiculo->foto_id;
                 }else{ 
-
                    $vehiculo_delete_imagen = imagen_vehiculo::where('id_vehiculo','=',$datos->vehiculo)->get();
 
                    foreach ($vehiculo_delete_imagen as $item) {
-                       // return $item->nombre_imagen;
-
-                   /* $image_path = storage_path().'/storage/app/imagenes/'.$datos->dominio .'/'.$item->nombre_imagen;
-                    unlink($image_path);*/
                         unlink(storage_path('app/public/imagenes/'.$datos->dominio.'/'.$item->nombre_imagen));
                         $item->delete();
                     }     
-/*                   if (!file_exists('/app/imagenes/'.$datos->dominio)) {
-                        mkdir('/app/imagenes/'.$datos->dominio, 0755, true);
-                    }*/
+
                     Storage::disk('public')->makeDirectory('imagenes/'.$datos->dominio);
 
                     $images = $datos->file('fotoEdit');
+
                     foreach($images as $image){
                         $imagenvehiculo = new imagen_vehiculo;
 
                         $nombre_archivo_nuevo = time().$image->getClientOriginalName();
 
-                        Image::make($image)->resize(300, 500);//->save('storage/app/public/imagenes/'.$datos->dominio .'/' . $nombre_archivo_nuevo );
+                        Image::make($image)->resize(300, 500);
                        
                         Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($image));
                         Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/".$datos->dominio.'/'.$nombre_archivo_nuevo);
                         
-                           // return $datos;
-                      //  $image->move(public_path('images'), $nuevo_nombre);
                         $imagenvehiculo->id_vehiculo = $datos->vehiculo;
                         $imagenvehiculo->nombre_imagen = $nombre_archivo_nuevo;
                         $imagenvehiculo->fecha =  $datos->fecha;

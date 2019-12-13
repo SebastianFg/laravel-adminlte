@@ -59,9 +59,9 @@ class PermisosController extends Controller
         }
         $existe = 1;
         if ($Request->permisoBuscado ==null ) {
-            $permisos = Permission::all();
+            $permisos = Permission::orderBy('id','desc')->get();
             $permisos = $this->paginar($permisos);
-          
+
         }else{
             $permisos = Permission::buscaPermiso($Request->permisoBuscado);
 

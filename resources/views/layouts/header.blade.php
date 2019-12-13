@@ -32,7 +32,7 @@
 
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                                <img alt="User Image"class="d-block img-fluid" src="../../img/avatar/{{ Auth::User()->imagen_perfil }}" >
+                                <img alt="User Image"class="d-block img-fluid" src="{{  route('storage',['carpeta'=>'avatar','archivo'=>Auth::User()->imagen_perfil]) }}" >
                                 <div class="col-md-12 col-md-offset-2">
                                     <p>
                                         <hr>
@@ -51,8 +51,9 @@
                                         <a class="btn btn btn-flat bg-dark" style="border-radius: 5px; " href="{{ url('/logout') }}"><i class="fa fa-power-off"></i> Salir </a>
                                     </div> 
                                     <div class="pull-left" style="padding-left: 2px;">
-                   
-                                        <a class="btn btn btn-flat bg-dark" data-toggle="modal" data-target="#modalEditarPerfil" style="border-radius: 5px; padding-left:2px;;" href="{{ route('editarPerfil') }}"><i class="fa fa-cogs"></i> Editar </a>
+                                        @can('usuarios.editarPerfil')
+                                        <a class="btn btn btn-flat bg-dark" data-toggle="modal" data-target="#modalEditarPerfil" style="border-radius: 5px; padding-left:2px;" href="{{ route('editarPerfil') }}"><i class="fa fa-cogs"></i> Editar </a>
+                                        @endcan
                                     </div>  
                                 </li>     
                             </li>

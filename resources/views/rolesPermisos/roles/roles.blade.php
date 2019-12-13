@@ -61,54 +61,57 @@
                       </div>
                     </form>
                   </div>
-                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
-                      <thead>
-                        <tr>
+                  <div class="row table-responsive">
+                    
+                      <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                        <thead>
+                          <tr>
 
-                          <th>Rol</th>
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($lista_roles as $item)
-                          @if(strpos(Auth::User()->roles,'Super Admin') == true )
-                            <tr>
-                              <td>{{ $item->name }}</td>
-                             
-                              <td>
-                                @can('usuarios.asignarRol')
-                                  <button  data-toggle="modal" onclick="editarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                                @endcan
-                                 @can('usuarios.eliminarUsuario') <button  onclick="eliminarRol({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                 @endcan
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach($lista_roles as $item)
+                            @if(strpos(Auth::User()->roles,'Super Admin') == true )
+                              <tr>
+                                <td>{{ $item->name }}</td>
+                               
+                                <td>
+                                  @can('usuarios.asignarRol')
+                                    <button  data-toggle="modal" onclick="editarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                  @endcan
+                                   @can('usuarios.eliminarUsuario') <button  onclick="eliminarRol({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                   @endcan
+                                
+                                </td>
                               
-                              </td>
-                            
-                            </tr>
-                          @endif
-                          @if($item->name != 'Super Admin'  and strpos(Auth::User()->roles,'Super Admin') != true )
-                            <tr>
-                              <td>{{ $item->name }}</td>
-                             
-                              <td>
-                                @can('usuarios.asignarRol')
-                                  <button  data-toggle="modal" onclick="editarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                                @endcan
-                                 @can('usuarios.eliminarUsuario') <button  onclick="eliminarRol({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                 @endcan
+                              </tr>
+                            @endif
+                            @if($item->name != 'Super Admin'  and strpos(Auth::User()->roles,'Super Admin') != true )
+                              <tr>
+                                <td>{{ $item->name }}</td>
+                               
+                                <td>
+                                  @can('usuarios.asignarRol')
+                                    <button  data-toggle="modal" onclick="editarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                  @endcan
+                                   @can('usuarios.eliminarUsuario') <button  onclick="eliminarRol({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                   @endcan
+                                
+                                </td>
                               
-                              </td>
-                            
-                            </tr>
-                          @endif
-                        @endforeach
-                      </tbody>
-                    </table>
-                    @if($existe)
-                      <div class="row">
-                          {{ $lista_roles->appends(Request::all())->links() }}
-                      </div>
-                    @endif
+                              </tr>
+                            @endif
+                          @endforeach
+                        </tbody>
+                      </table>
+                      @if($existe)
+                        <div class="row">
+                            {{ $lista_roles->appends(Request::all())->links() }}
+                        </div>
+                      @endif
+                  </div>
                   </div>
                 </div>
               </div>

@@ -64,7 +64,7 @@ class RolController extends Controller
 		$existe = 1;
 
 		if ($Request->rolBuscado ==null ) {
-        	$lista_roles = Role::All();
+        	$lista_roles = Role::orderBy('id','desc')->get();
         	$lista_roles = $this->paginar($lista_roles);
         	
 	      
@@ -121,7 +121,7 @@ class RolController extends Controller
 		$existe = 1;
 		
 		if ($Request->RolPermisoBuscado ==null ) {
-        	$lista_roles_permisos = Permission::with('Roles:id,name')->get();
+        	$lista_roles_permisos = Permission::with('Roles:id,name')->orderBy('id','desc')->get();
         	$lista_roles_permisos = $this->paginar($lista_roles_permisos);
 
         }else{

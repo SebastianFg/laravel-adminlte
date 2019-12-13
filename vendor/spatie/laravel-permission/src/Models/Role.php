@@ -12,7 +12,7 @@ use Spatie\Permission\Contracts\Role as RoleContract;
 use Spatie\Permission\Traits\RefreshesPermissionCache;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model implements RoleContract
 {
@@ -163,6 +163,7 @@ class Role extends Model implements RoleContract
 
         if (trim($identificacion) != "") {
             return $query->where('name','ilike','%'.$identificacion.'%')
+                        ->orderBy('id','desc')
                         ->get();
 
         }
