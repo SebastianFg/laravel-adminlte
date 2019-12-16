@@ -101,7 +101,7 @@ class AsignacionController extends Controller
                                             FROM vehiculos
                                             WHERE vehiculos.dominio ilike '%".$Request->termino."%' or vehiculos.numero_de_identificacion ilike '%".$Request->termino."%' and vehiculos.id_vehiculo not IN ( SELECT DISTINCT detalle_asignacion_vehiculos.id_vehiculo
                                                        FROM detalle_asignacion_vehiculos)
-                                            AND vehiculos.baja != 0");
+                                            AND vehiculos.baja != 2");
         return response()->json($vehiculos_disponibles);
 
     }
