@@ -20,7 +20,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <div class="row">
+              <div class="row ">
                 <div class="col-md-3">
                   @can('vehiculos.crear')
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModal"> <i class="fa fa-plus"> Nuevo</i> </button> 
@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="card-body">
-                  <div class="row">
+                  <div class="row col-md-12">
                     <form model="" class="navbar-form navbar-left pull-right" role="search">
                       <div class="row">
                         

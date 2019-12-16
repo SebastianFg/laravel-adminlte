@@ -37,7 +37,7 @@
               <strong><u>Siniestros</u></strong>
             </div>
             <div class="card-body">
-              <div class="row">
+              <div class="row col-md-12">
                 <form model="" class="navbar-form navbar-left pull-right" role="search">
                   <div class="row">
                     

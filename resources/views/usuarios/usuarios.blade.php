@@ -47,7 +47,7 @@
                 <strong><u>Lista de usuario</u></strong>
               </div>
               <div class="card-body">
-                <div class="row" >
+                <div class="row col-md-12"  >
                   <form class="navbar-form navbar-right pull-right" role="search">
                     <div class="row">
                       <div class="form-group">
@@ -59,81 +59,84 @@
                     </div>
                   </form>
                 </div>
-                <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Usuario</th>
-                      <th>Rol</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($usuarios as $item)
-                    @if(strpos(Auth::User()->roles,'Super Admin'))
-                  
-                        <tr>
-                          <td>{{ $item->nombre }}</td>
-                          <td>{{ $item->usuario }}</td>
-                          <td> 
-                            @if(!empty($item->getRoleNames()))
-                              @foreach($item->getRoleNames() as $v)
-                                <label class="badge badge-success">{{ $v }}</label>
-                              @endforeach
-                            @endif
-                          </td>
-                          <td>
-                            @if(strcmp($item->getRoleNames(),'Super Admin') != 0)
-                              @can('usuarios.asignarRol')
-                                <button  data-toggle="modal" onclick="agregarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                              @endcan
-                              @can('usuarios.eliminarUsuario') 
-                                <button  onclick="eliminarUsuario({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                              @endcan
-                              @can('usuarios.resetPassword')
-                                <a class="btn btn-secondary btn-sm" href="{{ route('resetPassword',$item->id) }}"><i class="fa fa-undo"></i></a>
-                              @endcan
-                            @endif
-                          </td>
-                        </tr>
-             
-                    @endif
-                
-                      @if(strpos($item->getRoleNames(),'Super Admin') == false and strpos(Auth::User()->roles,'Super Admin') != true ) 
-                        <tr>
-                          <td>{{ $item->nombre }}</td>
-                          <td>{{ $item->usuario }}</td>
-                          <td> 
-                            @if(!empty($item->getRoleNames()))
-                              @foreach($item->getRoleNames() as $v)
-                                <label class="badge badge-success">{{ $v }}</label>
-                              @endforeach
-                            @endif
-                          </td>
-                          <td>
-                            @if(strcmp($item->getRoleNames(),'Super Admin') != 0)
-                              @can('usuarios.asignarRol')
-                                <button  data-toggle="modal" onclick="agregarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                              @endcan
-                              @can('usuarios.eliminarUsuario') 
-                                <button  onclick="eliminarUsuario({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                              @endcan
-                              @can('usuarios.resetPassword')
-                                <a class="btn btn-secondary btn-sm" href="{{ route('resetPassword',$item->id) }}"><i class="fa fa-undo"></i></a>
-                              @endcan
-                            @endif
-                          </td>
-                        </tr>
+                <div class="row table-responsive">
+                  <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Usuario</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach($usuarios as $item)
+                      @if(strpos(Auth::User()->roles,'Super Admin'))
+                    
+                          <tr>
+                            <td>{{ $item->nombre }}</td>
+                            <td>{{ $item->usuario }}</td>
+                            <td> 
+                              @if(!empty($item->getRoleNames()))
+                                @foreach($item->getRoleNames() as $v)
+                                  <label class="badge badge-success">{{ $v }}</label>
+                                @endforeach
+                              @endif
+                            </td>
+                            <td>
+                              @if(strcmp($item->getRoleNames(),'Super Admin') != 0)
+                                @can('usuarios.asignarRol')
+                                  <button  data-toggle="modal" onclick="agregarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                @endcan
+                                @can('usuarios.eliminarUsuario') 
+                                  <button  onclick="eliminarUsuario({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                @endcan
+                                @can('usuarios.resetPassword')
+                                  <a class="btn btn-secondary btn-sm" href="{{ route('resetPassword',$item->id) }}"><i class="fa fa-undo"></i></a>
+                                @endcan
+                              @endif
+                            </td>
+                          </tr>
+               
                       @endif
+                  
+                        @if(strpos($item->getRoleNames(),'Super Admin') == false and strpos(Auth::User()->roles,'Super Admin') != true ) 
+                          <tr>
+                            <td>{{ $item->nombre }}</td>
+                            <td>{{ $item->usuario }}</td>
+                            <td> 
+                              @if(!empty($item->getRoleNames()))
+                                @foreach($item->getRoleNames() as $v)
+                                  <label class="badge badge-success">{{ $v }}</label>
+                                @endforeach
+                              @endif
+                            </td>
+                            <td>
+                              @if(strcmp($item->getRoleNames(),'Super Admin') != 0)
+                                @can('usuarios.asignarRol')
+                                  <button  data-toggle="modal" onclick="agregarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                @endcan
+                                @can('usuarios.eliminarUsuario') 
+                                  <button  onclick="eliminarUsuario({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                @endcan
+                                @can('usuarios.resetPassword')
+                                  <a class="btn btn-secondary btn-sm" href="{{ route('resetPassword',$item->id) }}"><i class="fa fa-undo"></i></a>
+                                @endcan
+                              @endif
+                            </td>
+                          </tr>
+                        @endif
 
-                    @endforeach
-                  </tbody>
-                </table>
-                @if($existe)
-                  <div class="row">
-                      {{ $usuarios->appends(Request::all())->links() }}
-                  </div>
-                @endif
+                      @endforeach
+                    </tbody>
+                  </table>
+                  @if($existe)
+                    <div class="row">
+                        {{ $usuarios->appends(Request::all())->links() }}
+                    </div>
+                  @endif
+                  
+                </div>
               </div>
             </div>
           </div>
