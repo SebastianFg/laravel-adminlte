@@ -39,19 +39,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 
 <body class="hold-transition sidebar-mini">
-    @guest @yield('content') @else
-    <div class="wrapper" id="app">
-        <!-- Header -->
-    @include('layouts.header')
-        <!-- Sidebar -->
-    @include('layouts.sidebar') @yield('content')
-    @extends('../usuarios/modales/modal_editar_perfil')
-        <!-- Footer -->
-    @include('layouts.footer')
-    </div>
-    <!-- ./wrapper -->
+    @guest 
+        @yield('content')
+    @else
+        <div class="wrapper" id="app">
+                <!-- Header -->
+            @include('layouts.header')
+                <!-- Sidebar -->
+            @include('layouts.sidebar') @yield('content')
+            @extends('../usuarios/modales/modal_editar_perfil')
+                <!-- Footer -->
+            @include('layouts.footer')
+        </div>
+        <!-- ./wrapper -->
 
-    @endguest @yield('javascript')
+    @endguest 
+    @yield('javascript')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     @include('sweet::alert')
     

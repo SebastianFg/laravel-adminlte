@@ -126,7 +126,7 @@
                     @endif
 
 {{--                       <div class="row">
-                          {{ $VehiculosListados->appends(Request::all())->links() }}
+                          {{ $vehiculoBuscado->appends(Request::all())->links() }}
                       </div> --}}
                    {{--  @if(isset($existe))
                     @endif
