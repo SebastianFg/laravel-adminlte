@@ -48,7 +48,7 @@
 			    	@foreach($historialCompletoAsignacion as $historia)
 				    	<tr>
 				    		<td>{{ $historia->nombre_dependencia }}</td>
-				    		<td>{{ $historia->fecha }}</td>
+				    		<td>{{ date('d-m-Y', strtotime($historia->fecha)) }}</td>
 				    		<td>{{ $historia->nombre }}</td>
 				
 				    	</tr>
