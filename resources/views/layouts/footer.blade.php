@@ -1,5 +1,6 @@
 <!-- Main Footer -->
 <footer class="main-footer">
-    <!-- Default to the left -->
-    {{-- <strong>Laravel Starter </strong> --}}
-  </footer>
+	<div class="pull-right">
+		<p>Versión Beta 1.0</p>
+	</div>
+</footer>

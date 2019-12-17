@@ -8,19 +8,22 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-//modelos
+//Modelos
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\modelos\tipos_vehiculos;
-use App\modelos\vehiculo;
-use App\modelos\pdf_Estado;
-use App\modelos\imagen_vehiculo;
-use App\modelos\estado_vehiculo;
+use App\Modelos\tipos_vehiculos;
+use App\Modelos\vehiculo;
+use App\Modelos\pdf_Estado;
+use App\Modelos\imagen_vehiculo;
+use App\Modelos\estado_vehiculo;
 use App\User;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
-
+use Illuminate\Support\Facades\Storage;
+use Image;
+use File;
+use Response;
 //pdf
 use Barryvdh\DomPDF\Facade as PDF;
 class VehiculoController extends Controller
@@ -83,7 +86,7 @@ class VehiculoController extends Controller
         	$VehiculosListados = vehiculo::join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
                                                 ->select('vehiculos.*','tipos_vehiculos.*')->orderBy('vehiculos.id_vehiculo','desc')->get();
         	$VehiculosListados = $this->paginar($VehiculosListados);
-	      
+
         }else{
 
         	if (isset($Request->vehiculoBuscado)) {
@@ -121,20 +124,25 @@ class VehiculoController extends Controller
         }
         $vehiculo->otras_caracteristicas = $datos->otros;
 
-
+       //return $datos;
         switch ($accion) {
             case 0: //creacion --> alta
             	$vehiculo->save();
                 $images = $datos->file('foto');
-                
-                foreach($images as $image)
-                {
-                    $imagenvehiculo = new imagen_vehiculo;
-                    $nuevo_nombre =time().'_'.$image->getClientOriginalName();
 
-                    $image->move(public_path('images'), $nuevo_nombre);
+                Storage::disk('public')->makeDirectory('imagenes/'.$datos->dominio);
+                foreach($images as $image){
+                    $imagenvehiculo = new imagen_vehiculo;
+
+                    $nombre_archivo_nuevo = time().$image->getClientOriginalName();
+
+                    Image::make($image)->resize(300, 500);
+                   
+                    Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($image));
+                    Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/".$datos->dominio.'/'.$nombre_archivo_nuevo);
+                    
                     $imagenvehiculo->id_vehiculo = $vehiculo->id_vehiculo;
-                    $imagenvehiculo->nombre_imagen = $nuevo_nombre;
+                    $imagenvehiculo->nombre_imagen = $nombre_archivo_nuevo;
                     $imagenvehiculo->fecha =  $datos->fecha;
                     $imagenvehiculo->save();
                 }
@@ -144,19 +152,32 @@ class VehiculoController extends Controller
                 break;
             case 1: // edicion
             	$vehiculo->update();
-                if($datos->file == null){
-                        $vehiculo->foto_id = $vehiculo->foto_id;
+                if($datos->fotoEdit == null){
+                    $vehiculo->foto_id = $vehiculo->foto_id;
                 }else{ 
-                    $images = $datos->file('foto');
-  
+                   $vehiculo_delete_imagen = imagen_vehiculo::where('id_vehiculo','=',$datos->vehiculo)->get();
+
+                   foreach ($vehiculo_delete_imagen as $item) {
+                        unlink(storage_path('app/public/imagenes/'.$datos->dominio.'/'.$item->nombre_imagen));
+                        $item->delete();
+                    }     
+
+                    Storage::disk('public')->makeDirectory('imagenes/'.$datos->dominio);
+
+                    $images = $datos->file('fotoEdit');
+
                     foreach($images as $image){
                         $imagenvehiculo = new imagen_vehiculo;
 
-                        $nuevo_nombre =time().'_'.$image->getClientOriginalName();
-     
-                        $image->move(public_path('images'), $nuevo_nombre);
-                        $imagenvehiculo->id_vehiculo = $datos->id_vehiculo;;
-                        $imagenvehiculo->nombre_imagen = $nuevo_nombre;
+                        $nombre_archivo_nuevo = time().$image->getClientOriginalName();
+
+                        Image::make($image)->resize(300, 500);
+                       
+                        Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($image));
+                        Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/".$datos->dominio.'/'.$nombre_archivo_nuevo);
+                        
+                        $imagenvehiculo->id_vehiculo = $datos->vehiculo;
+                        $imagenvehiculo->nombre_imagen = $nombre_archivo_nuevo;
                         $imagenvehiculo->fecha =  $datos->fecha;
                         $imagenvehiculo->save();
                     }
@@ -170,6 +191,7 @@ class VehiculoController extends Controller
 
     //alta nuevo vehiculo
     public function crearVehiculo(Request $Request){
+       // return $Request;
         
         $Validar = \Validator::make($Request->all(), [
             
@@ -186,7 +208,7 @@ class VehiculoController extends Controller
             'clase_de_unidad' => 'required|max:20',
             'tipo' => 'required',
             'otros' => 'required',
-            'foto' => 'required'
+            "foto.*" => 'required|image|mimes:jpeg,jpg',
         ]);
         if ($Validar->fails()){
             alert()->error('Error','ERROR! Intente agregar nuevamente...');
@@ -199,7 +221,7 @@ class VehiculoController extends Controller
   
     //actualizacion de vehiculo cargado (edicion)
     public function updateVehiculo(Request $Request){
-
+        
 
         $Validar = \Validator::make($Request->all(), [
               
@@ -213,7 +235,7 @@ class VehiculoController extends Controller
             'motor' => ['required',
                               Rule::unique('vehiculos')->ignore($Request->motor,'motor')],
             'modelo' => 'required|max:20',
-            'marca' => 'required|max:20',
+            'marca' => 'required|max:50',
             'anio_produccion' => 'required|numeric',
             'kilometraje' => 'required',
             'clase_de_unidad' => 'required|max:20',
@@ -231,7 +253,6 @@ class VehiculoController extends Controller
 
     public function fueraDeServicio(Request $Request){
 
-    	//return $Request;
         $Validar = \Validator::make($Request->all(), [
             'motivo_de_baja' => 'required|max:255'
         ]);
@@ -241,7 +262,6 @@ class VehiculoController extends Controller
            return  back()->withInput()->withErrors($Validar->errors());
         }
 
-        //return $Request;
         $vehiculoEliminado = vehiculo::findOrFail($Request->vehiculo);
         $vehiculoEliminado->baja = 1;
         $vehiculoEliminado->Delete();
@@ -277,7 +297,6 @@ class VehiculoController extends Controller
 
         if ($Request->vehiculoBuscado ==null) {
 
-           // $estados_listado = \DB::select('select * from view_vehiculos_en_reparacion');
             $estados_listado = \DB::select('select * FROM vehiculos
                                              JOIN ( SELECT max(estado_vehiculos_1.id_estado_vehiculo) AS maxestado,
                                                     estado_vehiculos_1.id_vehiculo
@@ -371,12 +390,10 @@ class VehiculoController extends Controller
         }
 
 
-
         $vehiculoEliminado= vehiculo::withTrashed()->where('id_vehiculo','=',$Request->id_vehiculo_reparado)->restore();
         $vehiculoEliminado= vehiculo::findorfail($Request->id_vehiculo_reparado);
-        //return $vehiculo_en_actualizacion;
+
         $vehiculoEliminado->baja = 0;
-        //$vehiculoEliminado->restore();;
 
         $vehiculoEnProceso = new estado_vehiculo;
 
@@ -396,7 +413,7 @@ class VehiculoController extends Controller
     }
 
     public function bajaDefinitiva(Request $Request){
-       // return $Request;
+
         $Validar = \Validator::make($Request->all(), [
             'motivo_de_baja_definitiva' => 'required|max:255',
             'pdf_decreto_baja_definitiva' => 'required|mimes:pdf'
@@ -427,15 +444,17 @@ class VehiculoController extends Controller
 
             $file = $Request->file('pdf_decreto_baja_definitiva');
             $nombre_archivo_nuevo = time().$file->getClientOriginalName();
-            $file->move(public_path().'/pdf/',$nombre_archivo_nuevo);
+            Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($file));
+            Storage::move("public/".$nombre_archivo_nuevo, "public/pdf/pdf_baja_definitiva/".$nombre_archivo_nuevo);
             
             $pdfEstado = new pdf_Estado;
-           // return $pdfEstado;
+
             $pdfEstado->nombre_pdf_estado = $nombre_archivo_nuevo;
             $pdfEstado->id_estado_vehiculo = $Request->id_vehiculo_estado;
             $pdfEstado->save();
             
         }
+        $vehiculoEnProceso->estado_decreto = $nombre_archivo_nuevo;
 
         if($vehiculoEnProceso->save() && $pdfEstado->save()){
             return $this->getMensaje('Vehiculo dado de baja definitivamente exitosamente','listaVehiculos',true);           
@@ -460,20 +479,7 @@ class VehiculoController extends Controller
                                 ->join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
                                 ->join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
                                 ->get();
-      //   return $detalle_asignacion_vehiculo;
 
-       // return $vehiculos;
-
-        //return $dato;
-/*        $detalle_asignacion_vehiculo = \DB::select("select * from view_total_afectados  
-                                                inner join tipo_vehiculos on view_total_afectados.tipo = tipo_vehiculos.id_tipo_vehiculo
-                                                where baja = 0 and  tipo_vehiculos.id_tipo_vehiculo ='".$dato."'"); 
-        //return $detalle_asignacion_vehiculo;
-        if (($detalle_asignacion_vehiculo == null)) {
-            $detalle_asignacion_vehiculo = \DB::select("select * from vehiculos  
-                                                inner join tipo_vehiculos on vehiculos.tipo = tipo_vehiculos.id_tipo_vehiculo 
-                                                where baja = 0 and  tipo_vehiculos.id_tipo_vehiculo ='".$dato."'");
-        }*/
        
         $cantidad_total ='CANTIDAD TOTAL: '. count($detalle_asignacion_vehiculo );
 
@@ -481,4 +487,53 @@ class VehiculoController extends Controller
         $pdf->setPaper('legal', 'landscape');
         return $pdf->download('lista completa de vehiculos.pdf');
     }
+
+    //tratamiento para descargar el pdf.
+    protected function downloadFile($src){
+        if(is_file($src)){
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $content_type = finfo_file($finfo, $src);
+            finfo_close($finfo);
+            $file_name = basename($src).PHP_EOL;
+            $size = filesize($src);
+            header("Content-Type: $content_type");
+            header("Content-Disposition: attachment; filename=$file_name");
+            header("Content-Transfer-Encoding: binary");
+            header("Content-Length: $size");
+            readfile($src);
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    public function exportarPdfBajaDefinitiva($nombre){
+
+
+        if(!$this->downloadFile(storage_path()."/app/public/pdf/pdf_baja_definitiva/".$nombre)){
+            return redirect()->back();
+        }
+    }
+
+    public function Imagen($carpeta,$archivo){
+
+        $path = storage_path('app/public/imagenes/'.$carpeta.'/'.$archivo);
+
+        if (!File::exists($path)) {
+
+            abort(404);
+
+        }
+
+        $file = File::get($path);
+
+        $type = File::mimeType($path);
+
+        $response = Response::make($file, 200);
+
+        $response->header("Content-Type", $type);
+
+        return $response;
+    }
+
 }

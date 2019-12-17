@@ -34,11 +34,11 @@
               </div>
 
               <div class="card-body">
-                <div class="row">
+                <div class="row col-md-12">
                   <form class="navbar-form navbar-right pull-right" role="search">
                     <div class="row">
                       <div class="form-group">
-                        <input type="text" autocomplete="off"  name="nombreDependencia" class="form-control" placeholder="ingrese permiso">
+                        <input type="text" autocomplete="off"  name="nombreDependencia" class="form-control" placeholder="ingrese nombre de dependencia">
                       </div>
                       <div class="form-group">
                         <select name="nivel_dependencia" class="form-control">
@@ -56,39 +56,42 @@
                     </div>
                   </form>
                 </div>
-                <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
-                  <thead>
-                    <tr>
-                      <th>Dependencias</th>
-                      <th>Padre</th>
-                      <th>Estado</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($dependencias as $item)
-                      <tr>
-                        <td>{{ $item->hijo }}</td>
-                        <td>{{ $item->padre }}</td>
-                        @if($item->deleted_at)
-                          <td><label class="badge badge-danger"> Inactivo {{ $item->deleted_at }}</label></td>
-                        @else
-                          <td><label class="badge badge-success">Activo</label></td>
-                        @endif
-                        <td>
-                          @can('dependencias.editarDependencia')
-                            <button  data-toggle="modal" onclick="editarDependencia({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                          @endcan
-                          @can('dependencias.eliminarDepencencia') 
-                            <button  onclick="eliminarDependencia({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                          @endcan
-                        
+                <div class="row table-responsive" >
+                  
                 
-                        </td>
+                  <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Dependencias</th>
+                        <th>Padre</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
                       </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      @foreach($dependencias as $item)
+                        <tr>
+                          <td>{{ $item->hijo }}</td>
+                          <td>{{ $item->padre }}</td>
+                          @if($item->deleted_at)
+                            <td><label class="badge badge-danger"> Inactivo {{ $item->deleted_at }}</label></td>
+                          @else
+                            <td><label class="badge badge-success">Activo</label></td>
+                          @endif
+                          <td>
+                            @can('dependencias.editarDependencia')
+                              <button  data-toggle="modal" onclick="editarDependencia({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                            @endcan
+                            @can('dependencias.eliminarDepencencia') 
+                              <button  onclick="eliminarDependencia({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                            @endcan
+                          
+                  
+                          </td>
+                        </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
                   @if($existe)
                     <div class="row">
                         {{ $dependencias->appends(Request::all())->links() }}
@@ -96,6 +99,7 @@
                   @endif
                 </div>
               </div>
+            </div>
         {{-- col 12 --}}
         </div>
       {{-- row --}}

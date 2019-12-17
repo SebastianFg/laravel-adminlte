@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
 use DateTime;
 
 //paginador
@@ -18,7 +19,11 @@ use Illuminate\Pagination\Paginator;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\User;
-use App\modelos\user_baja;
+use App\Modelos\user_baja;
+
+//imagen
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class UsuarioController extends Controller
 {
@@ -98,18 +103,11 @@ class UsuarioController extends Controller
 
 	public function asignarRol(Request $Request){
 
-      //  return $Request->role;
-
-        //$pepe = Role::where('id',$Request->role)->select('name')->get();
-
 		if (Auth::User()->roles[0]->name != 'Super Admin' and strpos(Auth::User()->roles,'Super Admin') == true){
 
             return $this->getMensaje('Error! Ud. no tiene permiso para asignar este rol','listaUsuarios',false);
-            //dd('asd');
-        }/*else{
-            return 'chroma';
         }
-*/
+
 		$usuarios = User::findorfail($Request->usuario);
 
 
@@ -130,24 +128,6 @@ class UsuarioController extends Controller
 		}else{
 			return $this->getMensaje('Algo fallo... intente nuevamente','listaUsuarios',false);
 		}
-
-	
-		
-/*
-		$usuarios->syncRoles($Request->role);
-		return $usuarios;*/
-		/*if ($this->quitarRoles($usuarios)) {
-			return $this->getMensaje('No se puede borrar a el usuario administrador','listaUsuarios',false);
-		}else{
-
-			foreach ($Request->role as $key){
-				//buscamos el rol con su respectivo ID
-				$role = Role::findById($key);
-				//asignamos al usuario el respectivo Rol
-				$usuarios->assignRole($role->name);
-			} 
-		}*/
-		
 	}
 
 	public function eliminarUsuario(Request $Request){
@@ -176,33 +156,14 @@ class UsuarioController extends Controller
 			$usuario_baja->id_usuario_movimiento = $Request->id_usuario_movimiento;
 			$usuario_baja->id_usuario= $Request->id_usuario;
 
+            
+
 	        if(($usuario_baja->save() and  $usuario_dado_de_baja->update())){
 	            return $this->getMensaje('Usuario dado de baja correctamente','listaUsuarios',true);           
 	        }else{
 	            return $this->getMensaje('Verifique y Intente nuevamente','listaUsuarios',false);
 	        } 
         }
-
-
-/*
-		if ($this->quitarRoles($usuario_dado_de_baja)) {
-			return $this->getMensaje('No se puede borrar a el usuario administrador','listaUsuarios',false);
-		}else{
-
-			$usuario_dado_de_baja->Delete();
-
-			$usuario_baja = new user_baja;
-
-			$usuario_baja->motivo = $Request->motivo_de_baja;
-			$usuario_baja->id_usuario_movimiento = $Request->id_usuario_movimiento;
-			$usuario_baja->id_usuario= $Request->id_usuario;
-
-	        if(($usuario_baja->save() and  $usuario_dado_de_baja->update())){
-	            return $this->getMensaje('Usuario dado de baja correctamente','listaUsuarios',true);           
-	        }else{
-	            return $this->getMensaje('Verifique y Intente nuevamente','listaUsuarios',false);
-	        } 
-   		}*/
 	}
 
 	public function resetPassword($id){
@@ -236,8 +197,6 @@ class UsuarioController extends Controller
         $nuevoUsuario->nombre = $Request->apellidoynombre;
         $nuevoUsuario->usuario = $Request->usuario;
         $nuevoUsuario->imagen_perfil = 'avatar_default.png';
-
-       // $this->attributes['password'] = Hash::make($pass);
         $passwordNueva = 'informatica2019++';
 
         $nuevoUsuario->password = $passwordNueva;
@@ -281,8 +240,6 @@ class UsuarioController extends Controller
         }
 
         $usuario = User::findorfail(Auth::User()->id);
-       // return $usuario;
-
         $usuario->password = $passwordNueva;
         $usuario->primer_logeo =  new DateTime('today');
 
@@ -292,4 +249,65 @@ class UsuarioController extends Controller
         	return $this->getMensaje('Verifique e intente nuevamente','primerPassword',false);
         }
 	}
+
+    public function editarPerfil(Request $Request){
+
+    
+            if ($Request->foto != null){
+                $Validar = \Validator::make($Request->all(), [
+                    'foto' => 'required|image|mimes:jpg,jpeg'
+                ]);
+
+                if ($Validar->fails()){
+                    alert()->error('Error','Error... debe subir una imagen');
+                   return  back()->withInput()->withErrors($Validar->errors());
+                }
+
+
+                if ($Request->file('foto')->isValid()) {
+                    $avatar = $Request->file('foto');
+                    $usuario_imgen = User::where('id','=',Auth::User()->id)->select('imagen_perfil')->get();
+                    if ($usuario_imgen[0]->imagen_perfil != 'avatar_default.png') {
+                        unlink(storage_path('app/public/imagenes/avatar/'.$usuario_imgen[0]->imagen_perfil));
+                        $usuario_imgen[0]->delete();
+                    }
+
+                    $nombre_archivo_nuevo = time() . '-' . $avatar->getClientOriginalName();
+
+
+                    Image::make($avatar)->resize(300, 300);
+                   
+                    Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($avatar));
+                    Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/avatar/".$nombre_archivo_nuevo);
+
+                    $usuario_foto = User::findorfail(Auth::User()->id);
+                    $usuario_foto->imagen_perfil = $nombre_archivo_nuevo;
+                    $usuario_foto->update();
+                    }
+                }
+            
+
+            if (($Request->password_nueva && $Request->password_confirmation) != null) {
+                
+                $passwordActual = Auth::User()->password;
+
+                $passwordNueva = $Request->password_nueva;
+
+                if(Hash::check( $passwordNueva, $passwordActual ) ) {
+                    return $this->getMensaje('la contraseña ingresada debe ser diferente al actual','inicio',false);
+                }
+
+                if ($Request->password_confirmation != $Request->password_nueva) {
+                    return $this->getMensaje('la contraseñas ingresadas deben coincidir ','inicio',false);
+                }
+
+                $usuario = User::findorfail(Auth::User()->id);
+
+                $usuario->password = $passwordNueva;
+                $usuario->update();
+
+            }   
+            return $this->getMensaje('Perfil actualizado con exito','inicio',true);
+  
+    }
 }

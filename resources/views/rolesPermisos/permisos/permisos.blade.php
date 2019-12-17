@@ -61,37 +61,40 @@
                         </div>
                       </form>
                     </div>
-                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
-                      <thead>
-                        <tr>
-
-                          <th>Permiso</th>
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($permisos as $item)
-                        
+                    <div class="row table-responsive">
+                      
+                      <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                        <thead>
                           <tr>
-                            <td>{{ $item->name }}</td>
-                           
-                            <td>
-                              @can('usuarios.asignarRol')
-                                <button  data-toggle="modal" onclick="editarPermiso({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                              @endcan
-                               @can('usuarios.eliminarUsuario') <button  onclick="eliminarPermiso({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                               @endcan
-                            
-                            </td>
-                          
+
+                            <th>Permiso</th>
+                            <th>Acciones</th>
                           </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                    @if($existe)
-                      <div class="row">
-                          {{ $permisos->appends(Request::all())->links() }}
-                      </div>
+                        </thead>
+                        <tbody>
+                          @foreach($permisos as $item)
+                          
+                            <tr>
+                              <td>{{ $item->name }}</td>
+                             
+                              <td>
+                                @can('usuarios.asignarRol')
+                                  <button  data-toggle="modal" onclick="editarPermiso({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                @endcan
+                                 @can('usuarios.eliminarUsuario') <button  onclick="eliminarPermiso({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                 @endcan
+                              
+                              </td>
+                            
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                      @if($existe)
+                        <div class="row">
+                            {{ $permisos->appends(Request::all())->links() }}
+                        </div>
+                    </div>
                     @endif
                   </div>
                 </div>

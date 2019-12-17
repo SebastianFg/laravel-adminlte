@@ -31,27 +31,27 @@
                   <div class="row">
                     <div class="form-group col-md-6">
                         <label for="">Dominio</label>
-                        <input type="text" name="dominio" autocomplete="off" placeholder="Dominio: Ej-> AB123CD"  class="form-control" required value="{{ old('dominio') }}">
+                        <input type="text" name="dominio" autocomplete="off" maxlength="10" placeholder="Dominio: Ej-> AB123CD"  class="form-control" required value="{{ old('dominio') }}">
                     </div> 
                     <div class="form-group col-md-6">
                         <label for="">Chasis</label>
-                        <input type="text" name="chasis" autocomplete="off" placeholder="Chasis" maxlength="50" class="form-control" required value="{{ old('chasis') }}">
+                        <input type="text" name="chasis" autocomplete="off" maxlength="20"  placeholder="Chasis" maxlength="50" class="form-control" required value="{{ old('chasis') }}">
                     </div> 
                   </div>
                   <div class="row">
                     <div class="form-group col-md-6">
                         <label for="">Motor</label>
-                        <input type="text" name="motor" autocomplete="off" placeholder="Motor" maxlength="20" class="form-control" required value="{{ old('motor') }}">
+                        <input type="text" name="motor" autocomplete="off" maxlength="15"  placeholder="Motor" maxlength="20" class="form-control" required value="{{ old('motor') }}">
                     </div> 
                     <div class="form-group col-md-6">
                         <label for="">Modelo</label>
-                        <input type="text" name="modelo" autocomplete="off" placeholder="Modelo" maxlength="20" class="form-control" required value="{{ old('modelo') }}">
+                        <input type="text" name="modelo" autocomplete="off" placeholder="Modelo" maxlength="30" class="form-control" required value="{{ old('modelo') }}">
                     </div>
                   </div>
                   <div class="row">
                     <div class="form-group col-md-6">
                         <label for="">Marca</label>
-                        <input type="text" name="marca" autocomplete="off" placeholder="Marca"  maxlength="50" class="form-control" required value="{{ old('marca') }}">
+                        <input type="text" name="marca" autocomplete="off" placeholder="Marca"  maxlength="60" class="form-control" required value="{{ old('marca') }}">
                     </div> 
 
                     <div class="form-group col-md-6">
@@ -62,11 +62,11 @@
                   <div class="row">
                     <div class="form-group col-md-6">
                         <label for="">Nº de inventario</label>
-                        <input type="text" name="numero_de_inventario" autocomplete="off"  maxlength="15" placeholder="Numero de inventario: Ej-> 3000" class="form-control" required value="{{ old('numero_de_inventario') }}">
+                        <input type="number" name="numero_de_inventario" autocomplete="off" placeholder="Numero de inventario: Ej-> 3000" class="form-control" required value="{{ old('numero_de_inventario') }}">
                     </div> 
                     <div class="form-group col-md-6">
                         <label for="">Clase de unidad</label>
-                        <input type="text" name="clase_de_unidad" autocomplete="off" class="form-control" placeholder="Ej:cabina simple 4x2// doble cabina 4x4" required value="{{ old('clase_de_unidad') }}">
+                        <input type="text" name="clase_de_unidad" maxlength="50"  autocomplete="off" class="form-control" placeholder="Ej:cabina simple 4x2// doble cabina 4x4" required value="{{ old('clase_de_unidad') }}">
                     </div>
                   </div>
                   <div class="row">
@@ -91,7 +91,7 @@
 
                   <div class="form-group col-md-12">
                       <label for="">Observaciones</label>
-                      <textarea type="text" name="otros" autocomplete="off" placeholder="Observaciones" class="form-control" required value="{{ old('otros') }}"></textarea>
+                      <textarea type="text" name="otros" autocomplete="off" maxlength="150"  placeholder="Observaciones" class="form-control" required value="{{ old('otros') }}"></textarea>
                   </div>
 
                   <div class="col-md-12 modal-footer" style="position:relative;">

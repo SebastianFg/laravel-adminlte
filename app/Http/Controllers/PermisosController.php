@@ -55,13 +55,13 @@ class PermisosController extends Controller
         if (strpos(Auth::User()->roles,'Suspendido')) {
             Auth::logout();
             alert()->error('Su usuario se encuentra suspendido');
-           // return redirect('/login');
+            return redirect('/login');
         }
         $existe = 1;
         if ($Request->permisoBuscado ==null ) {
-            $permisos = Permission::all();
+            $permisos = Permission::orderBy('id','desc')->get();
             $permisos = $this->paginar($permisos);
-          
+
         }else{
             $permisos = Permission::buscaPermiso($Request->permisoBuscado);
 

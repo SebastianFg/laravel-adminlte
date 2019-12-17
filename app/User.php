@@ -8,7 +8,7 @@ use Spatie\Permission\Traits\HasRoles;
 use modelos\Role;
 use \DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use Notifiable;

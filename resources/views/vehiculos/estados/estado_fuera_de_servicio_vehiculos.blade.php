@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="card-body">
-                  <div class="row">
+                  <div class="row col-md-12">
                     <form model="" class="navbar-form navbar-left pull-right" role="search">
                       <div class="row">
                         
@@ -47,7 +47,7 @@
                       </div>
                     </form>
                   </div>
-                  <div class="row">
+                  <div class="row table-responsive ">
                     <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
                       <thead>
                         <tr>
@@ -97,9 +97,6 @@
                       <div class="row">
                           {{ $estados_listado->appends(Request::all())->links() }}
                       </div>
-                   {{--  @if(isset($existe))
-                    @endif
- --}}
                   </div>
                 </div>
               </div>
@@ -136,8 +133,8 @@
 
 <script type="text/javascript">
   function eliminarVehiculo(dominio,idvehiculo,idestado){
-
-    var dominio = $('#id_vehiculo_dominio_alta').val(dominio),
+    console.log(dominio)
+    var dominio = $('#dominio_vehiculo_baja').val(dominio),
         id_vehiculo = $('#id_vehiculo_baja').val(idvehiculo),
         estado = $('#id_vehiculo_estado').val(idestado);
 
@@ -146,7 +143,7 @@
 
   function altaVehiculo(dominio,idvehiculo,idestado){
     console.log(dominio)
-    var dominio = $('#dominio_vehiculo_baja').val(dominio),
+    var dominio = $('#id_vehiculo_dominio_alta').val(dominio),
         id_vehiculo_alta = $('#id_vehiculo').val(idvehiculo),
         estado = $('#id_vehiculo_estado').val(idestado);
 

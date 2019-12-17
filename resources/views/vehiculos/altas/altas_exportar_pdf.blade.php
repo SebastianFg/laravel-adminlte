@@ -113,18 +113,17 @@
 		radial-gradient(black 15%, transparent 16%) 8px 8px,
 		radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
 		radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
-	/*	background-color:#282828;*/
 		background-size:16px 16px; 
 		font-family: Vegur, 'PT Sans', Verdana, sans-serif; border-radius: 5px; 
 	}
 
-#contenedor div{ float:left; }
+	#contenedor div{ float:left; }
 
-@page {
-      margin-top:  0px;
-      margin-right: 0px;
-      margin-left: 0px;
-    }
+	@page {
+	  margin-top:  0px;
+	  margin-right: 0px;
+	  margin-left: 0px;
+	}
 
 
 

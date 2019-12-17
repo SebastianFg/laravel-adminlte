@@ -1,10 +1,10 @@
 <?php
 
-namespace App\modelos;
+namespace App\Modelos;
 
 use Illuminate\Database\Eloquent\Model;
 use User;
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {

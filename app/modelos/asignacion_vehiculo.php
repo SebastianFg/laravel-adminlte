@@ -1,6 +1,6 @@
 <?php
 
-namespace App\modelos;
+namespace App\Modelos;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +13,7 @@ class asignacion_vehiculo extends Model
 
     public function Dependencias()
     {
-        return $this->belongsTo('App\modelos\dependencia');
+        return $this->belongsTo('App\Modelos\dependencia');
     }
 
 

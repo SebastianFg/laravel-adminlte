@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-use App\modelos\asignacion_vehiculo;
-use App\modelos\dependencia;
-use App\modelos\vehiculo;
+use App\Modelos\asignacion_vehiculo;
+use App\Modelos\dependencia;
+use App\Modelos\vehiculo;
 use App\User;
 
 use Barryvdh\DomPDF\Facade as PDF;
@@ -68,14 +68,10 @@ class AsignacionController extends Controller
              return redirect('/login');
         }
 
-       /* $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
-        									->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
-                                            ->orderBy('id_detalle')->get();*/
-
       if ($Request->vehiculoBuscado == null) {
         $asignacion = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
                                                 ->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
-                                                ->orderBy('id_detalle')
+                                                ->orderBy('id_detalle','desc')
                                                 ->get();
         $asignacion = $this->paginar($asignacion);
       }else{
@@ -84,7 +80,7 @@ class AsignacionController extends Controller
                                             ->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
                                             ->where('numero_de_identificacion','ilike',$Request->vehiculoBuscado)
                                             ->orwhere('dominio','ilike',$Request->vehiculoBuscado)
-                                            ->orderBy('id_detalle')
+                                            ->orderBy('id_detalle','desc')
                                             ->get();
         $asignacion = $this->paginar($asignacion);
       }
@@ -95,18 +91,17 @@ class AsignacionController extends Controller
 	}
 
     public function getAllVehiculosDisponibles(Request $Request){
-      /*  $vehiculos_disponibles = \DB::select("select * from view_vehiculos_disponibles 
-                                            where view_vehiculos_disponibles.dominio ilike '%".$Request->termino."%' or view_vehiculos_disponibles.numero_de_identificacion ilike '%".$Request->termino."%'" );*/
+
         $vehiculos_disponibles = \DB::select("select *  
                                             FROM vehiculos
                                             WHERE vehiculos.dominio ilike '%".$Request->termino."%' or vehiculos.numero_de_identificacion ilike '%".$Request->termino."%' and vehiculos.id_vehiculo not IN ( SELECT DISTINCT detalle_asignacion_vehiculos.id_vehiculo
                                                        FROM detalle_asignacion_vehiculos)
-                                            AND vehiculos.baja = 0");
+                                            AND vehiculos.baja != 2");
         return response()->json($vehiculos_disponibles);
 
     }
     public function getAllAfectadosDisponibles(Request $Request){
-        //return $Request->termino;
+
         $posibles_afectados = \DB::select("select * from dependencias where nombre_dependencia ilike '%".$Request->termino."%'");
 
         return response()->json($posibles_afectados);
@@ -156,18 +151,15 @@ class AsignacionController extends Controller
         };
     }
     public function exportarPdfCargo($id){
-           // return $id;
-            $detalle_asignacion_vehiculo = asignacion_vehiculo::where('id_vehiculo','=',$id)->get();
-             
-            $detalleVehiculo = Vehiculo::findOrFail($detalle_asignacion_vehiculo[0]->id_vehiculo);
-           // return $detalleVehiculo;
-            $user = User::findOrFail($detalle_asignacion_vehiculo[0]->id_responsable);
-     
-            $nombre_responsable_entrega = $user->name;
-            $nombre_responsable_recibio = $detalle_asignacion_vehiculo[0]->destino;
+            $detalle_asignacion_vehiculo = asignacion_vehiculo::join('users','users.id','=','detalle_asignacion_vehiculos.id_responsable')
+                                                                ->join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_vehiculos.id_vehiculo')
+                                                                ->join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
+                                                                ->where('id_detalle','=',$id)
+                                                                ->select('users.nombre','dependencias.nombre_dependencia','vehiculos.*','detalle_asignacion_vehiculos.*')
+                                                                ->get();
 
-            $pdf = PDF::loadView('vehiculos.asignacion.pdf_cargo_lista', compact('detalleVehiculo','nombre_responsable_entrega','nombre_responsable_recibio'));
+            $pdf = PDF::loadView('vehiculos.asignacion.pdf_cargo_lista', compact('detalle_asignacion_vehiculo'));
 
-            return $pdf->download($detalleVehiculo->dominio.'.pdf');
+            return $pdf->download($detalle_asignacion_vehiculo[0]->dominio.'.pdf');
     }
 }

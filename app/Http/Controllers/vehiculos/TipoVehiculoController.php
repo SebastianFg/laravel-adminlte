@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 
-//modelos
-use App\modelos\tipos_vehiculos;
+//Modelos
+use App\Modelos\tipos_vehiculos;
 
 class TipoVehiculoController extends Controller
 {
@@ -62,7 +62,7 @@ class TipoVehiculoController extends Controller
 
         if ($Request->tipoVehiculoBuscado ==null) {
         	$tipo_vehiculo = tipos_vehiculos::orderby('id_tipo_vehiculo','desc')->get();
-            //return $tipo_vehiculo;
+
         	$tipo_vehiculo = $this->paginar($tipo_vehiculo);
 	      
         }else{
@@ -121,7 +121,7 @@ class TipoVehiculoController extends Controller
         }
 
         $tipo_vehiculo = tipos_vehiculos::findorfail($Request->id_tipo_vehiculo);
-        //return $tipo_vehiculo;
+  
         $tipo_vehiculo->nombre_tipo_vehiculo = $Request->nombre_tipo_vehiculo_editar;
 
         if($tipo_vehiculo->save()){
@@ -133,7 +133,6 @@ class TipoVehiculoController extends Controller
 
 	public function eliminarTipoVehiculo(Request $Request){
 
-		//return $Request;
         if (strpos(Auth::User()->roles,'Suspendido')) {
             Auth::logout();
             alert()->error('Su usuario se encuentra suspendido');
@@ -142,7 +141,6 @@ class TipoVehiculoController extends Controller
 
         $tipo_vehiculo = tipos_vehiculos::findorfail($Request->id_tipo_vehiculo);
 
-        //return $tipo_vehiculo;
         $tipo_vehiculo->Delete();
 
         if($tipo_vehiculo->save()){

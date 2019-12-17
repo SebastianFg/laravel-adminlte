@@ -33,7 +33,7 @@
                         <div class="row">
                           
                           <div class="form-group">
-                            <input type="text" autocomplete="off"  name="RolPermisoBuscado" class="form-control" placeholder="ingrese permiso">
+                            <input type="text" autocomplete="off"  name="RolPermisoBuscado" class="form-control" placeholder="ingrese permiso o rol">
                           </div>
 
                           <div class="form-group">
@@ -43,43 +43,46 @@
                         </div>
                       </form>
                     </div>
-                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Permiso</th>
-                          <th>Rol</th>
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($lista_roles_permisos as $item)
+                    <div class="row table-responsive">
+                      
+                      <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                        <thead>
                           <tr>
-                            <td>{{ $item->name }}</td>
-                            <td> 
-	                        	@foreach($item->roles as $key)
-	                           		@if($key->name == 'Super Admin'  and strpos(Auth::User()->roles,'Super Admin') == true )
-	                           		  <label class="badge badge-success">{{ $key->name }}</label>
-                                @endif
-                                @if($key->name != 'Super Admin' )
-                                  <label class="badge badge-success">{{ $key->name }}</label>
-                                @endif
-	                           	@endforeach
-                            </td>
-                            <td>
-                              @can('usuarios.asignarPermisosARoles')
-                                <button  data-toggle="modal" onclick="editar({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>                            
-                              @endcan
-                            </td>
-                          
+                            <th>Permiso</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
                           </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                    @if($existe)
-                      <div class="row">
-                          {{ $lista_roles_permisos->appends(Request::all())->links() }}
-                      </div>
-                    @endif
+                        </thead>
+                        <tbody>
+                          @foreach($lista_roles_permisos as $item)
+                            <tr>
+                              <td>{{ $item->name }}</td>
+                              <td> 
+  	                        	@foreach($item->roles as $key)
+  	                           		@if($key->name == 'Super Admin'  and strpos(Auth::User()->roles,'Super Admin') == true )
+  	                           		  <label class="badge badge-success">{{ $key->name }}</label>
+                                  @endif
+                                  @if($key->name != 'Super Admin' )
+                                    <label class="badge badge-success">{{ $key->name }}</label>
+                                  @endif
+  	                           	@endforeach
+                              </td>
+                              <td>
+                                @can('usuarios.asignarPermisosARoles')
+                                  <button  data-toggle="modal" onclick="editar({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>                            
+                                @endcan
+                              </td>
+                            
+                            </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                      @if($existe)
+                        <div class="row">
+                            {{ $lista_roles_permisos->appends(Request::all())->links() }}
+                        </div>
+                      @endif
+                    </div>
                   </div>
                 </div>
               </div>

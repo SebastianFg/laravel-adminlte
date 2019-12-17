@@ -8,22 +8,24 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-//modelos
+//Modelos
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\modelos\tipos_vehiculos;
-use App\modelos\vehiculo;
-use App\modelos\pdf_Estado;
-use App\modelos\imagen_vehiculo;
-use App\modelos\estado_vehiculo;
-use App\modelos\asignacion_vehiculo;
-use App\modelos\historial_asignacion;
-use App\modelos\Siniestro;
+use App\Modelos\tipos_vehiculos;
+use App\Modelos\vehiculo;
+use App\Modelos\pdf_Estado;
+use App\Modelos\imagen_vehiculo;
+use App\Modelos\estado_vehiculo;
+use App\Modelos\asignacion_vehiculo;
+use App\Modelos\historial_asignacion;
+use App\Modelos\siniestro;
 use App\User;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 
+//pdf
+use Barryvdh\DomPDF\Facade as PDF;
 
 class DetallesController extends Controller
 {
@@ -62,12 +64,14 @@ class DetallesController extends Controller
         return $datos;
 	}
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////// DETALLES ////////////////////////////////////////////////////////////////
+    ////////////////////////////////////// DETALLES //////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     protected function HistorialVehiculo($id){
         $historial = historial_asignacion::join('dependencias','dependencias.id_dependencia','=','historial_asignacion.id_dependencia')
-                                            ->where('id_vehiculo','=',$id)->orderBy('fecha','asc')->get();
+                                            ->where('id_vehiculo','=',$id)
+                                            ->orderBy('fecha','desc')
+                                            ->get();
         $historial = $this->paginar($historial);
         return $historial;
     }
@@ -75,7 +79,6 @@ class DetallesController extends Controller
         $asignacion_actual = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
                                                 ->join('users','detalle_asignacion_vehiculos.id_responsable','=','users.id')
                                                 ->where('id_vehiculo','=',$id)->get();
-        //$asignacion_actual = $this->paginar($asignacion_actual);
         return $asignacion_actual;
     }
 
@@ -112,7 +115,6 @@ class DetallesController extends Controller
 
         }elseif( $Request->vehiculoBuscado != null && $id == null){
 
-            //$vehiculo = vehiculo::where('numero_de_identificacion','=',$Request->vehiculoBuscado)->select('id_vehiculo')->get();
             $vehiculo = \DB::select("select id_vehiculo from vehiculos where numero_de_identificacion = '".$Request->vehiculoBuscado."' or dominio = '".$Request->vehiculoBuscado."'");
 
             if (count($vehiculo)>0) {
@@ -127,13 +129,21 @@ class DetallesController extends Controller
             }else{
                 $existe = 0;
             }
-           // return $vehiculo[0]->id_vehiculo;
-        	
-            //$VehiculosListados = vehiculo::where('id_vehiculo','=',$vehiculo[0]->id_vehiculo)->get();
-            //return $VehiculosListados;
         }
 
         return view('vehiculos.detalles.detalle_vehiculo',compact('existe','VehiculosListados','asignacion_actual','historial','siniestros','imagenes_vehiculo'));
     }
 
+    public function exportarPdfHistorial($id){
+
+        $historialCompletoAsignacion = historial_asignacion::join('dependencias','dependencias.id_dependencia','=','historial_asignacion.id_dependencia')
+                                                            ->join('vehiculos','vehiculos.id_vehiculo','=','historial_asignacion.id_vehiculo')
+                                                            ->join('users','users.id','=','historial_asignacion.id_responsable')
+                                                            ->select('vehiculos.dominio','vehiculos.numero_de_inventario','vehiculos.numero_de_identificacion','dependencias.nombre_dependencia','historial_asignacion.fecha','users.nombre')
+                                                            ->where('historial_asignacion.id_vehiculo','=',$id)->get();
+
+        $pdf = PDF::loadView('vehiculos.detalles.pdf_historial_vehiculo',compact('historialCompletoAsignacion'));
+
+        return $pdf->download($historialCompletoAsignacion[0]->dominio.'.pdf');
+    }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\modelos;
+namespace App\Modelos;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 //use App\Modelos\asignacion_vehiculo;
 
 class vehiculo extends Model
@@ -19,7 +19,7 @@ class vehiculo extends Model
     					->orWhere('dominio','ilike','%'.$identificacion.'%')
     					->orWhere('marca','ilike','%'.$identificacion.'%')
     					->orWhere('modelo','ilike','%'.$identificacion.'%')
-    					//->orWhere('numero_de_inventario','ilike','%'.$identificacion.'%')
+    					->orWhere('numero_de_inventario','ilike','%'.$identificacion.'%')
     					/*->orWhere('tipo','ilike',$identificacion)*/
                         ->orWhere('clase_de_unidad','ilike','%'.$identificacion.'%')
                         ->orWhere('anio_de_produccion','ilike','%'.$identificacion.'%')
@@ -29,8 +29,4 @@ class vehiculo extends Model
 
     	}
     }
-
-
-
-
 }

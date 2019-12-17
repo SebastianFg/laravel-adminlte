@@ -1,5 +1,5 @@
 
-  <div >
+  <div class="table-responsive ">
       <table id="listada_de_vehiculos" tableStyle="width:auto"  class=" table table-striped table-hover table-condensed table-bordered">
     <thead>
       <tr>

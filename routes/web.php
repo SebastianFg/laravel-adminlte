@@ -15,11 +15,6 @@ Route::view('/', 'auth/login');
 
 Auth::routes();
 
-//Route::get('/inicio', 'DashboardController@admin')->name('admin');
-// Route::get('/dashboard/home', 'DashboardController@versionone')->name('home');
-// Route::get('/dashboard/v2', 'DashboardController@versiontwo')->name('v2');
-// Route::get('/dashboard/v3', 'DashboardController@versionthree')->name('v3');
-
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('alta_vehiculos', 'vehiculos\VehiculoController@listaAutobomba')->name('listaVehiculos');
 
@@ -43,6 +38,10 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::get('primerIngreso','UsuarioController@primerPassword')->name('primerPassword');
 
 		Route::post('primerIngreso','UsuarioController@cambioPrimerPassword')->name('cambioPrimerPassword');
+
+		Route::post('editarPerfil','UsuarioController@editarPerfil')->name('editarPerfil');
+
+		
 
 
 		//roles
@@ -90,6 +89,8 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::post('/editar_vehiculo', 'vehiculos\VehiculoController@updateVehiculo')->name('updateVehiculo');
 		//baja
 		Route::post('/baja_detalle_vehiculo', 'vehiculos\VehiculoController@fueraDeServicio')->name('eliminarVehiculos');
+
+		Route::get('storage/{carpeta}/{archivo}','vehiculos\VehiculoController@Imagen')->name('storage');
 		
 		//lista de vehiculos para select2
 		Route::get('/vehiculos_select','vehiculos\VehiculoController@getAllVehiculos')->name('listaVehiculosSelect');
@@ -114,6 +115,8 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::post('fuera_de_servicio','vehiculos\VehiculoController@estadoVehiculoAlta')->name('altaEstadoVehiculo');
 		//baja definitiva
 		Route::post('baja_definitiva','vehiculos\VehiculoController@bajaDefinitiva')->name('bajaDefinitiva');
+		//pdf baja definitiva
+		Route::get('baja_definitiva_pdf/{id}', 'vehiculos\VehiculoController@exportarPdfBajaDefinitiva')->name('exportarPdfBajaDefinitiva');
 
 
 		//asignacion
@@ -131,6 +134,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 		//vehiculos detalle
 		Route::get('/detalleVehiculo/{id?}', 'vehiculos\DetallesController@index')->name('detalleVehiculo');
+		//descargar el historial del vehiculo
+		Route::get('historial_completo_pdf/{id}', 'vehiculos\DetallesController@exportarPdfHistorial')->name('pdfVehiculos');
 
 		//asignacion de siniestros
 		Route::get('/siniestros', 'vehiculos\SiniestroController@indexSiniestros')->name('indexSiniestros');
@@ -150,112 +155,26 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::post('/repuestos', 'vehiculos\RepuestoController@AsignarRepuesto')->name('asignarRepuesto');
 
-		
-
 		Route::get('/vehiculos_select_vehiculos_disponibles','vehiculos\RepuestoController@getAllVehiculosDisponiblesRepuestos')->name('getAllVehiculosDisponiblesRepuestos');
 
-		
-
 		Route::get('asignar_vehiculos_repuestos/{id}', 'vehiculos\RepuestoController@exportarPdfRepuestos')->name('descargarPDFRepuesto');
-
-
-
 
 		//reportes gdona
 		Route::get('/reportes', 'vehiculos\GraficosController@index')->name('ListaGraficos');
 
 		Route::post('/reportesFiltro', 'vehiculos\GraficosController@reportesListadoFiltro')->name('reportesListadoFiltro');
 
-/*
-		Route::POST('/recargaBuscador','GraficosController@getVehiculosAfectados');
-
-		Route::get('/buscarVehiculos','GraficosController@getVehiculosEnReparacion');
-
-		Route::post('/detalleVehiculoController','GraficosController@getDetalleVehiculoTodo');
-
-		Route::get('/detalleVehiculoIndividual/{id}','GraficosController@getdetalleVehiculoIndividual');
-
-		Route::get('/historial_completo','GraficosController@getAllHistorial');*/
-
-
-
-
-
-
-
-
-
 		Route::get('totalVehiculos/{nombre?}', 'vehiculos\vehiculos\VehiculoController@getTotalVehiculos')->name('getTotalVehiculos');
 
-		
-
-
-
-
-
-
-
-
-		//Route::post('conseguirVehiculo', 'vehiculos\VehiculoController@getidVehiculo')->name('getidVehiculo');
-
-
-
-
-
-
-
-		//Route::get('Descargar_pdf_Vehiculos/{dato}', 'vehiculos\VehiculoController@exportarPdfVehiculos');
-
-
-
-		//baja definitiva
-/*		Route::post('/baja_vehiculos', 'vehiculos\VehiculoController@bajaDefinitiva')->name('bajaDefinitiva');
-
-		Route::get('/baja_definitiva', 'vehiculos\VehiculoController@bajaDefinitivaView')->name('bajaDefinitivaView');
-
-		Route::get('/historial_vehiculos_baja_definitiva', 'vehiculos\VehiculoController@getHistorialVehiculosBajaDefinitiva')->name('getHistorialVehiculosBajaDefinitiva');*/
-
-		//reanimacion
+		Route::get('Descargar_pdf_Vehiculos', 'vehiculos\VehiculoController@exportarPdfVehiculos')->name('exportarPdfVehiculos');
 
 		Route::post('/estado_alta_vehiculo', 'vehiculos\VehiculoController@AltadeVehiculosDadosDeBaja')->name('AltadeVehiculosDadosDeBaja');
 
-
 		//datatable detalles
 		Route::get('/detalle_Datatable/{vehiculo}', 'vehiculos\VehiculoController@detalleDatatable')->name('detalleDatatable');
-		//impresion pdf historial del vehiculo (historial asignacion)
-		Route::get('historial_lista_pdf/{id}', 'vehiculos\VehiculoController@exportarPdfHistorial')->name('pdfVehiculos');
-
-
-
-		/*Route::get('/historial_completo','vehiculos\VehiculoController@getAllHistorial');*/
-
-
-		//asignacion
-/*		Route::get('/posibles_afectados','vehiculos\VehiculoController@getPosibleAfectado');
-
-		Route::get('asignar_vehiculos', 'vehiculos\VehiculoController@asignarlistado')->name('asignarlistado');
-
-		Route::post('/asignar_vehiculos', 'vehiculos\VehiculoController@crearAsignacion')->name('vehiculos.crearAsignacion');
-
-		Route::get('/lista_total_afectados', 'vehiculos\VehiculoController@totalAfectadosAsignacion')->name('totalAfectados');
-
-		Route::post('/editar_asignacion', 'vehiculos\VehiculoController@editarAsignacion')->name('editar_vehiculo_asignado');
-
-		Route::get('asignar_vehiculos/{id}', 'vehiculos\VehiculoController@exportarPdfCargo')->name('pdfVehiculosCargo');*/
-
 
 
 
 
 	});
 });
-
-
-
-//Routes
-
-/*Route::middleware(['auth'])->group(function(){
-	//roles
-	Route::post()->name()
-				->middleware();
-});*/

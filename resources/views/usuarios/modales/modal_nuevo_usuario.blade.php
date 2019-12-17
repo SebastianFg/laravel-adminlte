@@ -30,7 +30,7 @@
           <label>Usuario</label>
           <div class="input-group mb-3">
             <span class="fa fa-user input-group-text"></span> 
-            <input id="usuario" type="text" class="form-control" pattern="[^\s]+" minlength="4" name="usuario" value="{{ old('usuario') }}" placeholder="Ingrese nombre de usuario">
+            <input id="usuario" type="text" class="form-control" pattern="[^\s]+" minlength="4" maxlength="20" name="usuario" value="{{ old('usuario') }}" placeholder="Ingrese nombre de usuario">
               @if ($errors->has('usuario'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('usuario') }}</strong>
@@ -40,11 +40,10 @@
           </div>
 
           <div class="row">
-
-                  <div class="col-md-12 modal-footer" style="position:relative;">
-                      <button class="btn btn-success col-md-4 d-inline" id="btnSubmit" type="submit">Guardar</button>
-                      <button class="btn btn-danger col-md-4 d-inline" data-dismiss="modal">Cancelar</button>  
-                  </div>
+            <div class="col-md-12 modal-footer" style="position:relative;">
+              <button class="btn btn-success col-md-4 d-inline" id="btnSubmit" type="submit">Guardar</button>
+              <button class="btn btn-danger col-md-4 d-inline" data-dismiss="modal">Cancelar</button>  
+            </div>
           </div>
         </form>
         </div>

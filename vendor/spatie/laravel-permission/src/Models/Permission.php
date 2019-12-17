@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Exceptions\PermissionAlreadyExists;
 use Spatie\Permission\Contracts\Permission as PermissionContract;
 
-use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Permission extends Model implements PermissionContract
 {
@@ -155,6 +155,7 @@ class Permission extends Model implements PermissionContract
 
         if (trim($identificacion) != "") {
             return $query->where('name','ilike','%'.$identificacion.'%')
+                        ->orderBy('id','desc')
                         ->get();
 
         }
@@ -168,6 +169,7 @@ class Permission extends Model implements PermissionContract
                         ->join('role_has_permissions','role_has_permissions.permission_id','=','permissions.id')
                         ->join('roles','role_has_permissions.role_id','=','roles.id')*/
                         ->with('Roles:id,name')
+                        ->orderBy('id','desc')
                         ->get();
 
         }

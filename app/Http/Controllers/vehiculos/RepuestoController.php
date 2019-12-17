@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade as PDF;
 
 /*modelos*/
-use App\modelos\repuesto;
+use App\Modelos\repuesto;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -78,21 +78,14 @@ class RepuestoController extends Controller
             'id_vehiculo' => 'required',
             'fecha' => 'required',
             'repuestos_entregados' => 'required',
-            'pdfrepuestos' => 'required'
-
+           /* 'pdfrepuestos' => 'required|mimes:pdf'
+*/
         ]);
 
         if ($Validar->fails()){
             alert()->error('Error','Intente cargar neuvamente ...');
            return  back()->withInput()->withErrors($Validar->errors());
         }
-
-       if($Request->hasFile('pdfrepuestos')){
-            $file = $Request->file('pdfrepuestos');
-            $nombre_archivo_nuevo = time().$file->getClientOriginalName();
-            $file->move(public_path().'/pdf/',$nombre_archivo_nuevo);
-        }
-
 
         $vehiculo_asignado_repuesto = new repuesto;
         $vehiculo_asignado_repuesto->id_vehiculo = $Request->id_vehiculo;
@@ -123,34 +116,40 @@ class RepuestoController extends Controller
     }
 
     public function exportarPdfRepuestos($id){
+
     	$vehiculos_repuestos_asignados = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
   							->join('users','users.id','=','detalle_asignacion_repuestos.id_responsable')
   							->where('detalle_asignacion_repuestos.id_detalle_repuesto','=',$id)
   							->orderBy('id_detalle_repuesto','desc')
   							->get();
-    	//return $repuestos;
 
-/*        $vehiculos_repuestos_asignados = \DB::select("
-                select to_char(detalle_asignacion_Repuestos.fecha,'DD/MM/YYYY') as fecha,
-                    vehiculos.id_vehiculo,
-                    detalle_asignacion_Repuestos.id_detalle_repuesto,
-                    detalle_asignacion_Repuestos.repuestos_entregados,
-                    pdf_nombre,
-                    vehiculos.numero_de_identificacion,
-                    vehiculos.dominio,
-                    vehiculos.numero_de_inventario,
-                    vehiculos.marca,
-                    vehiculos.clase_De_unidad,
-                    users.name,
-                    users.id
-                    
-                from detalle_asignacion_Repuestos
-                inner join vehiculos on vehiculos.id_vehiculo = detalle_asignacion_Repuestos.vehiculo_id_repuestos 
-                inner join users on users.id = detalle_asignacion_Repuestos.responsable
-                where detalle_asignacion_Repuestos.id_detalle_repuesto =".$id);*/
-        //return $vehiculos_repuestos_asignados;
         $pdf = PDF::loadView('vehiculos.repuestos.pdf_repuestos_asignados', compact('vehiculos_repuestos_asignados'));
 
-        return $pdf->stream($vehiculos_repuestos_asignados[0]->dominio.'.pdf');
+        return $pdf->download($vehiculos_repuestos_asignados[0]->dominio.'.pdf');
+    }
+    
+    //tratamiento para descargar el pdf.
+    protected function downloadFile($src){
+        if(is_file($src)){
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $content_type = finfo_file($finfo, $src);
+            finfo_close($finfo);
+            $file_name = basename($src).PHP_EOL;
+            $size = filesize($src);
+            header("Content-Type: $content_type");
+            header("Content-Disposition: attachment; filename=$file_name");
+            header("Content-Transfer-Encoding: binary");
+            header("Content-Length: $size");
+            readfile($src);
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    public function descargaPdfSiniestro($nombre){
+        if(!$this->downloadFile(storage_path()."/app/public/pdf/pdf_siniestros/".$nombre)){
+            return redirect()->back();
+        }
     }
 }

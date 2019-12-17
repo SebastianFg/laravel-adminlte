@@ -9,15 +9,13 @@ use Illuminate\Support\Facades\Auth;
 //trait
 use App\Http\Controllers\vehiculos\VehiculoController;
 
-
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 
-
 //modelos
 
-use App\modelos\dependencia;
+use App\Modelos\dependencia;
 
 class DependenciaController extends Controller
 {
@@ -60,8 +58,6 @@ class DependenciaController extends Controller
             alert()->error('Su usuario se encuentra suspendido');
              return redirect('/login');
         }
-
-        
 		
 		if ($Request->nombreDependencia == null && $Request->nivel_dependencia == null ) {
         	$dependencias = dependencia::orderBy('dep.id_dependencia','desc')->join('dependencias as dep','dep.id_padre_dependencia','=','dependencias.id_dependencia')
@@ -70,7 +66,6 @@ class DependenciaController extends Controller
             
         	$dependencias = $this->paginar($dependencias);
         	$existe = 1;
-	      	//return $dependencias;
         }else{
         		
         	
@@ -124,7 +119,7 @@ class DependenciaController extends Controller
 
     }
     public function bajaDependencia(Request $Request){
-    	//return $Request;
+
         $Validar = \Validator::make($Request->all(), [
             
             'nombre_dependencia' => 'required',
@@ -145,9 +140,9 @@ class DependenciaController extends Controller
     }
 
     public function editarDependencia(Request $Request){
-    	//return $Request;
+
     	$dependencia_editar = dependencia::findorfail($Request->dependencia_edicion);
-    	//return $dependencia_editar;
+
     	$dependencia_editar->nombre_dependencia = $Request->nombre_dependencia_edicion;
     	if ($Request->nivel_dependencia_edicion != null) {
     		$dependencia_editar->nivel_dependencia = $Request->nivel_dependencia_edicion;

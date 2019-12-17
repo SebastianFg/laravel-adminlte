@@ -33,13 +33,12 @@ trait AuthenticatesUsers
     public function login(Request $request)
     {
 
-        $usuario = \DB::select("select primer_logeo from users where usuario ='".$request->usuario."'");
+/*        $usuario = \DB::select("select primer_logeo from users where usuario ='".$request->usuario."'");
 
         if (strpos($usuario[0]->primer_logeo, null)) {
-            return 'asd';
             return redirect('/admin/primerLogeo');
         }else{
-
+*/
             $this->validateLogin($request);
 
             // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -62,7 +61,7 @@ trait AuthenticatesUsers
             $this->incrementLoginAttempts($request);
 
             return $this->sendFailedLoginResponse($request);
-        }
+     /*   }*/
     }
 
     /**

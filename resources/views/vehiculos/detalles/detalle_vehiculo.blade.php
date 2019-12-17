@@ -20,23 +20,23 @@
     @else
     <div class="container-fluid"> 
       <hr>
-          <div class="card">
-            <div class="card-body">
-              <form action="{{ route('detalleVehiculo') }}" class="navbar-form navbar-left pull-left" role="search">
-                <div class="row">
-                  
-                  <div class="form-group">
-                    <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
-                  </div>
-                  <div class="form-group">
-                     <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
-                  </div>
-                   
-                </div>
-              </form>
+      <div class="card">
+        <div class="card-body">
+          <form action="{{ route('detalleVehiculo') }}" class="navbar-form navbar-left pull-left" role="search">
+            <div class="row">
+              
+              <div class="form-group">
+                <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
+              </div>
+              <div class="form-group">
+                 <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
+              </div>
+               
             </div>
-          </div> 
-          @extends('vehiculos/siniestros/modales/modal_detalle')
+          </form>
+        </div>
+      </div> 
+          @extends('vehiculos/modales/modal_detalle')
       
         @if($existe == 0)
 
@@ -100,7 +100,7 @@
           </div>
             {{-- derecha --}}
           <div class="col-md-6">
-            <div class="card">
+            <div class="card table-responsive">
               <div class="card-body">
                 <h4 class="card-title">Afectado Actual</h4> 
                 <br>
@@ -131,11 +131,15 @@
               </div>
             </div>
             
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Historial</h4> 
-                <br>
+            <div class="card table-responsive">
+              <div class="card-body table-responsive ">
+                <h4 class="card-title">Historial</h4>
+                <hr>
                 @if(count($historial)>0)
+                  <label> 
+                    <strong><a title="Descargar historial en PDF" href="{{ route('pdfVehiculos',$VehiculosListados[0]->id_vehiculo) }}" ><i class="fa fa-file-pdf"></i> Descargar historial completo</a></strong>
+                  </label>
+                  <hr>
                   <table  tableStyle="width:auto"  class=" table table-striped table-hover table-condensed table-bordered">
                     <thead>
                       <tr>
@@ -165,8 +169,8 @@
             </div>
           </div>
         </div>
-        <div class="row ">
-          <div class="card col-sm-12">
+        <div class="row table-responsive ">
+          <div class="card">
             <div class="card-body">
               <h4 class="card-title">Siniestros</h4> 
               <br>
@@ -219,7 +223,7 @@
           </div>
         </div>
 
-        <div class="row ">
+        <div class="row">
           <div class="card col-sm-12">
             <div class="card-body">
               <h4 class="card-title">Imagenes</h4> 
@@ -227,88 +231,38 @@
                 @if(count($imagenes_vehiculo)>0)
     
                 <div class="col-md-12 "  >
-                  <div id="carousel-example-generic" class="carousel slide col-md-6 " data-ride="carousel">
+                  <div id="carrousel" class="carousel slide" data-ride="carousel">
                    
                     <ol class="carousel-indicators">
                        @foreach( $imagenes_vehiculo as $photo )
-                          <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
+                          <li data-target="#carrousel" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}">asdasdas</li>
                        @endforeach
                     </ol>
                    
                     <div class="carousel-inner" >
-
+                    
                       @foreach( $imagenes_vehiculo as $photo )
-                     
+                      
                          <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                             <img class="d-block img-fluid" src="../../images/{{ $photo->nombre_imagen }}" >
-
+                            {{-- <img class="d-block img-fluid" src="{{ storage_path().'\app\public\imagenes/'.$VehiculosListados[0]->dominio.'/'.$photo->nombre_imagen }}" > --}}
+                            <img src="{{  route('storage',['carpeta'=>$VehiculosListados[0]->dominio,'archivo'=>$photo->nombre_imagen]) }}" alt="Card image cap">
                          </div>
                       @endforeach
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" href="#carrousel" role="button" data-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                       <span class="sr-only">Siguiente</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                    <a class="carousel-control-next" href="#carrousel" role="button" data-slide="next">
                       <span class="carousel-control-next-icon" aria-hidden="true"></span>
                       <span class="sr-only">Anterior</span>
                     </a>
                   </div>
                 </div>
-
-
-{{--                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                  <div class="carousel-inner">
-                    <ol class="carousel-indicators">
-                      @foreach( $imagenes_vehiculo as $photo )
-                        <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
-                      @endforeach
-                    </ol>
-                    <div class="carousel-item active">
-                      @foreach( $imagenes_vehiculo as $photo )
-                         <div class="item {{ $loop->first ? 'active' : '' }}">
-                            <img class="d-block img-fluid" src="../../images/{{ $photo->nombre_imagen }}">
-                         </div>
-                      @endforeach
-                    </div>
-                  </div>
-                  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a> --}}
-                </div>
-
-                
-{{--                 <div class="col-md-12">
-                  <div id="carousel-example-generic" class="carousel slide col-md-6 " data-ride="carousel">
-                   
-                    <ol class="carousel-indicators">
-                      @foreach( $imagenes_vehiculo as $photo )
-                        <li data-target="#carousel-example-generic" data-slide-to="{{ $loop->index }}" class="{{ $loop->first ? 'active' : '' }}"></li>
-                      @endforeach
-                    </ol>
-                    <div class="carousel-inner" >
-                      @foreach( $imagenes_vehiculo as $photo )
-                         <div class="item {{ $loop->first ? 'active' : '' }}">
-                            <img class="d-block img-fluid" src="../../images/{{ $photo->nombre_imagen }}">
-                         </div>
-                      @endforeach
-                    </div>
-                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                      <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                      <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                  </div>
-                </div> --}}
-                @else
-                  <p> No posee imagenes!</p>
-                @endif
+              </div>
+              @else
+                <p> El vehiculono posee imagenes</p>
+              @endif
             </div>
           </div>
         </div>
@@ -366,7 +320,7 @@
 @stop
 {{-- <style type="text/css">
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 100px 100px 100px 10 rgba(0,0,0,0.2);
 }
 
 </style> --}}
@@ -379,6 +333,13 @@
 	.parrafos{
 		font-family: Vegur, 'PT Sans', Verdana, sans-serif;
 	}
+.carousel-inner img {
+    width: 100%;
+    max-height: 460px;
+}
 
+.carousel-inner{
+ height: 400px;
+}
 
 </style>

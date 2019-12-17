@@ -11,7 +11,7 @@
 
 
   <!-- Main content -->
-  <div class="content">
+  <div class="content ">
     @if(strpos(Auth::User()->roles,'Suspendido'))
       Su usuario se encuentra suspendido!
     @else
@@ -20,7 +20,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <div class="row">
+              <div class="row ">
                 <div class="col-md-3">
                   @can('vehiculos.crear')
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModal"> <i class="fa fa-plus"> Nuevo</i> </button> 
@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="card-body">
-                  <div class="row">
+                  <div class="row col-md-12">
                     <form model="" class="navbar-form navbar-left pull-right" role="search">
                       <div class="row">
                         
@@ -69,8 +69,8 @@
                       </div>
                     </form>
                   </div>
-                  <div class="row">
-                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                  <div class="row table-responsive">
+                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered responsive">
                       <thead>
                         <tr>
 
@@ -157,7 +157,7 @@
   }
 
   function editarVehiculo(item){
-    console.log(item)
+    
     var numero_de_identificacion = $('#id_numero_de_identificacion_modificacion').val(item.numero_de_identificacion),
         fecha = $('#id_vehiculo_modificacion').val(item.id_vehiculo),
         fecha = $('#id_fecha_modificacion').val(item.fecha),
@@ -179,17 +179,30 @@
 <script type="text/javascript">
   $(document).ready(function() {
   var boton = document.getElementById('btnSubmitAlta');
-        $("#foto").on("change", function() {
-          if ($("#foto")[0].files.length > 6) {
-            $('#divFileAlta').css('background-color', 'red');
-            $('#divFileAlta').css('border-radius', '5px');
-            boton.disabled = true;
-          } else {
-            boton.disabled = false;
-            $('#divFileAlta').css('background-color', 'white');
-          }
-      });
-    
+  var botonEdit = document.getElementById('btnSubmitEdit');
+
+      $("#foto").on("change", function() {
+        if ($("#foto")[0].files.length > 6) {
+          $('#divFileAlta').css('background-color', 'red');
+          $('#divFileAlta').css('border-radius', '5px');
+          boton.disabled = true;
+        } else {
+          boton.disabled = false;
+          $('#divFileAlta').css('background-color', 'white');
+        }
     });
+    $("#fotoEdit").on("change", function() {
+      if ($("#fotoEdit")[0].files.length > 6) {
+        console.log('as');
+        $('#divFileEdit').css('background-color', 'red');
+        $('#divFileEdit').css('border-radius', '5px');
+        botonEdit.disabled = true;
+      } else {
+        botonEdit.disabled = false;
+        $('#divFileEdit').css('background-color', 'white');
+      }
+    });
+  });
 </script>
 @stop
+

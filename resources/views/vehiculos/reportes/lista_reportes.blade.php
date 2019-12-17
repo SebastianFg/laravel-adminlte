@@ -30,7 +30,7 @@
       </div>
       <div class="box-body">
         <canvas id="vehiculosDisponibles"></canvas>
-        <div>
+        <div class="table-responsive ">
           <hr>
           <table class=" table table-striped table-hover table-condensed table-bordered">
             <thead>

@@ -15,7 +15,7 @@
               </div>
               @endif
               <div class="modal-body ">
-                <form action="{{ route('bajaDefinitiva') }}" class="form-group" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('eliminarTipoVehiculo') }}" class="form-group" method="POST" enctype="multipart/form-data">
 
                   @csrf
                   <div class="row">

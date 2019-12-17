@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="card-body">
-                  <div class="row">
+                  <div class="row col-md-12">
                     <form model="" class="navbar-form navbar-left pull-right" role="search">
                       <div class="row">
                         
@@ -47,7 +47,7 @@
                       </div>
                     </form>
                   </div>
-                  <div class="row">
+                  <div class="row table-responsive ">
                     <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
                       <thead>
                         <tr>
@@ -66,7 +66,7 @@
                         @foreach($estados_listado as $item)
                         
                           <tr>
-                            <td>{{ $item->numero_de_identificacion }}</td>
+                            <td><a href="{{ route('exportarPdfBajaDefinitiva',$item->estado_decreto) }}">{{ $item->numero_de_identificacion }}</a></td>
                             <td>{{ $item->marca }}</td>
                             <td>{{ $item->modelo }}</td>
                             <td>{{ $item->dominio }}</td>

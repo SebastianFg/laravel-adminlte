@@ -13,7 +13,6 @@ use DB;
 //modelos
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use modelos\role_has_permission;
 
 
 class RolController extends Controller
@@ -60,12 +59,12 @@ class RolController extends Controller
         if (strpos(Auth::User()->roles,'Suspendido')) {
             Auth::logout();
             alert()->error('Su usuario se encuentra suspendido');
-           // return redirect('/login');
+            return redirect('/login');
         }
 		$existe = 1;
 
 		if ($Request->rolBuscado ==null ) {
-        	$lista_roles = Role::All();
+        	$lista_roles = Role::orderBy('id','desc')->get();
         	$lista_roles = $this->paginar($lista_roles);
         	
 	      
@@ -122,7 +121,7 @@ class RolController extends Controller
 		$existe = 1;
 		
 		if ($Request->RolPermisoBuscado ==null ) {
-        	$lista_roles_permisos = Permission::with('Roles:id,name')->get();
+        	$lista_roles_permisos = Permission::with('Roles:id,name')->orderBy('id','desc')->get();
         	$lista_roles_permisos = $this->paginar($lista_roles_permisos);
 
         }else{

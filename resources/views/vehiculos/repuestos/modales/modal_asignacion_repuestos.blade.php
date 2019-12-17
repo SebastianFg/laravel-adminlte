@@ -38,11 +38,11 @@
                 <textarea type="text" name="repuestos_entregados" autocomplete="off" placeholder="Repuestos entregados" class="form-control" required value="{{ old('repuestos_entregados') }}"></textarea>
             </div>
 
-            <div class="form-group col-md-12">
+{{--             <div class="form-group col-md-12">
                 <label for="">Seleccione PDF</label>
                 <input type="file" name="pdfrepuestos" required="" >
                 
-            </div>
+            </div> --}}
 
             <div class="col-md-12 modal-footer" style="position:relative;">
                 <button class="btn btn-success col-md-4 d-inline" type="submit">Guardar</button>

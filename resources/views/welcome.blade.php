@@ -74,12 +74,12 @@
                          
                       </div>
                         <div class="form-group busqueda">
-                           <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"> Buscar </i></button> 
-                             <button class="btn btn-warning col-md-2 d-inline" style="padding: 5px;" id="limpiar"> <i class="fa fa-paint-brush"> Limpiar</i> </button>
+                           <button type="submit" id="btnBuscar" class="btn btn-info col-md-2 d-inline left"> <i class="fa fa-search-plus"> Buscar </i></button> 
+                            <button class="btn btn-warning col-md-2 d-inline" style="padding: 5px;" id="limpiar"> <i class="fa fa-paint-brush"> Limpiar</i> </button>
                         </div>
                     </form>
                   </div>
-                  <div class="row">
+                  <div class="row table-responsive ">
                     @if(isset($vehiculoBuscado))
                         <table tableStyle="width:auto" id="tablaResultado" class="table table-striped table-hover table-sm table-condensed table-bordered">
                           <thead>
@@ -116,7 +116,7 @@
                                 <div class="row col-md-12">
                                   <div class="card col-md-12">
                                     <div class="card-body">
-                                      <h4 class="card-title">Ingrese algun numero de identificacion o dominio del vehiculo</h4> 
+                                      <h4 class="card-title">Ingrese algun numero de identificación o dominio del vehiculo</h4> 
                                       <br>
                                     </div>
                                   </div>
@@ -124,17 +124,10 @@
                           </tbody>
                         </table>
                     @endif
-
-{{--                       <div class="row">
-                          {{ $VehiculosListados->appends(Request::all())->links() }}
-                      </div> --}}
-                   {{--  @if(isset($existe))
-                    @endif
- --}}
                   </div>
                 </div>
               </div>
-                          </div>
+            </div>
           {{-- card --}}
           </div>
         {{-- col 12 --}}

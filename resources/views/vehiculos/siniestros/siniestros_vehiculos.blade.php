@@ -37,7 +37,7 @@
               <strong><u>Siniestros</u></strong>
             </div>
             <div class="card-body">
-              <div class="row">
+              <div class="row col-md-12">
                 <form model="" class="navbar-form navbar-left pull-right" role="search">
                   <div class="row">
                     
@@ -59,18 +59,18 @@
                   </div>
                 </form>
               </div>
-              <div class="row">
+              <div class="row table-responsive ">
                 <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered responsive">
                   <thead>
                     <tr>
                       <th>N° Identificación</th>
                       <th>Afectado</th>
-                      <th>Dirección</th>
+                      <th width="8">Dirección</th>
                       <th>Fecha</th>
                       <th>Lesiones</th>
                       <th>Colisión</th>
                       <th>Presentación</th>
-                      <th>Observaciones</th>
+                      <th width="10">Observaciones</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
@@ -78,7 +78,12 @@
                     @foreach($siniestros as $item)
                     
                       <tr>
-                        <td>{{ $item->numero_de_identificacion }}</td>
+                        @if($item->nombre_pdf_siniestro != null)
+                          <td><a href="{{ route('descargarPDF',$item->nombre_pdf_siniestro) }}">{{ $item->numero_de_identificacion }}</a></td>
+                        @else
+                          <td>{{ $item->numero_de_identificacion }}</td>
+                        @endif
+                        
                         <td>{{ $item->nombre_dependencia }}</td>
                         <td>{{ substr($item->lugar_siniestro ,0,10) }}...<a href="" onclick="detalle('{{ $item->lugar_siniestro }}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
                         </td>
@@ -100,8 +105,9 @@
                             <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                           @endcan
                           @can('vehiculos.editarSiniestro') 
-                            <button onclick="editarSiniestro({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                            <button onclick="editarSiniestro({{ $item }})" title="Editar siniestro"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                           @endcan
+              
 {{--                               @can('vehiculos.eliminarSiniestro') 
                             <button  onclick="eliminarVehiculo('{{ $item->id_siniestro }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                           @endcan --}}
@@ -188,12 +194,6 @@
 
       },
   });
-/*  function eliminarVehiculo(id_vehiculo,numero_de_identificacion){
-
-    var numero_de_identificacion = $('#id_numero_de_identificacion_baja').val(numero_de_identificacion);
-    var id_vehiculo = $('#id_vehiculo_baja').val(id_vehiculo);
-    $('#modalBajaVehiculo').modal('show');
-  }*/
 
   function editarSiniestro(item){
     console.log(item)
