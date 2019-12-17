@@ -127,7 +127,7 @@
                   </div>
                 </div>
               </div>
-                          </div>
+            </div>
           {{-- card --}}
           </div>
         {{-- col 12 --}}

@@ -156,6 +156,8 @@ class UsuarioController extends Controller
 			$usuario_baja->id_usuario_movimiento = $Request->id_usuario_movimiento;
 			$usuario_baja->id_usuario= $Request->id_usuario;
 
+            
+
 	        if(($usuario_baja->save() and  $usuario_dado_de_baja->update())){
 	            return $this->getMensaje('Usuario dado de baja correctamente','listaUsuarios',true);           
 	        }else{

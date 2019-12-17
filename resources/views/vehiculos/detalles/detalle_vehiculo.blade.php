@@ -20,22 +20,22 @@
     @else
     <div class="container-fluid"> 
       <hr>
-          <div class="card">
-            <div class="card-body">
-              <form action="{{ route('detalleVehiculo') }}" class="navbar-form navbar-left pull-left" role="search">
-                <div class="row">
-                  
-                  <div class="form-group">
-                    <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
-                  </div>
-                  <div class="form-group">
-                     <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
-                  </div>
-                   
-                </div>
-              </form>
+      <div class="card">
+        <div class="card-body">
+          <form action="{{ route('detalleVehiculo') }}" class="navbar-form navbar-left pull-left" role="search">
+            <div class="row">
+              
+              <div class="form-group">
+                <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
+              </div>
+              <div class="form-group">
+                 <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
+              </div>
+               
             </div>
-          </div> 
+          </form>
+        </div>
+      </div> 
           @extends('vehiculos/modales/modal_detalle')
       
         @if($existe == 0)
@@ -170,7 +170,7 @@
           </div>
         </div>
         <div class="row table-responsive ">
-          <div class="card col-sm-12">
+          <div class="card">
             <div class="card-body">
               <h4 class="card-title">Siniestros</h4> 
               <br>
@@ -223,7 +223,7 @@
           </div>
         </div>
 
-        <div class="row ">
+        <div class="row">
           <div class="card col-sm-12">
             <div class="card-body">
               <h4 class="card-title">Imagenes</h4> 
