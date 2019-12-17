@@ -129,9 +129,7 @@ class VehiculoController extends Controller
             case 0: //creacion --> alta
             	$vehiculo->save();
                 $images = $datos->file('foto');
-               /* if (!file_exists('/storage/app/imagenes/'.$datos->dominio)) {
-                    mkdir('/storage/app/imagenes/'.$datos->dominio, 0755, true);
-                }*/
+
                 Storage::disk('public')->makeDirectory('imagenes/'.$datos->dominio);
                 foreach($images as $image){
                     $imagenvehiculo = new imagen_vehiculo;
@@ -224,7 +222,6 @@ class VehiculoController extends Controller
     //actualizacion de vehiculo cargado (edicion)
     public function updateVehiculo(Request $Request){
         
-       // return $Request;
 
         $Validar = \Validator::make($Request->all(), [
               
@@ -256,7 +253,6 @@ class VehiculoController extends Controller
 
     public function fueraDeServicio(Request $Request){
 
-    	//return $Request;
         $Validar = \Validator::make($Request->all(), [
             'motivo_de_baja' => 'required|max:255'
         ]);
@@ -266,7 +262,6 @@ class VehiculoController extends Controller
            return  back()->withInput()->withErrors($Validar->errors());
         }
 
-        //return $Request;
         $vehiculoEliminado = vehiculo::findOrFail($Request->vehiculo);
         $vehiculoEliminado->baja = 1;
         $vehiculoEliminado->Delete();
@@ -302,7 +297,6 @@ class VehiculoController extends Controller
 
         if ($Request->vehiculoBuscado ==null) {
 
-           // $estados_listado = \DB::select('select * from view_vehiculos_en_reparacion');
             $estados_listado = \DB::select('select * FROM vehiculos
                                              JOIN ( SELECT max(estado_vehiculos_1.id_estado_vehiculo) AS maxestado,
                                                     estado_vehiculos_1.id_vehiculo
@@ -398,9 +392,8 @@ class VehiculoController extends Controller
 
         $vehiculoEliminado= vehiculo::withTrashed()->where('id_vehiculo','=',$Request->id_vehiculo_reparado)->restore();
         $vehiculoEliminado= vehiculo::findorfail($Request->id_vehiculo_reparado);
-        //return $vehiculo_en_actualizacion;
+
         $vehiculoEliminado->baja = 0;
-        //$vehiculoEliminado->restore();;
 
         $vehiculoEnProceso = new estado_vehiculo;
 
@@ -420,7 +413,7 @@ class VehiculoController extends Controller
     }
 
     public function bajaDefinitiva(Request $Request){
-       // return $Request;
+
         $Validar = \Validator::make($Request->all(), [
             'motivo_de_baja_definitiva' => 'required|max:255',
             'pdf_decreto_baja_definitiva' => 'required|mimes:pdf'
@@ -453,10 +446,9 @@ class VehiculoController extends Controller
             $nombre_archivo_nuevo = time().$file->getClientOriginalName();
             Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($file));
             Storage::move("public/".$nombre_archivo_nuevo, "public/pdf/pdf_baja_definitiva/".$nombre_archivo_nuevo);
-            //$file->move(public_path().'/pdf/pdf_baja_definitiva/',$nombre_archivo_nuevo);
             
             $pdfEstado = new pdf_Estado;
-           // return $pdfEstado;
+
             $pdfEstado->nombre_pdf_estado = $nombre_archivo_nuevo;
             $pdfEstado->id_estado_vehiculo = $Request->id_vehiculo_estado;
             $pdfEstado->save();
@@ -527,27 +519,19 @@ class VehiculoController extends Controller
 
         $path = storage_path('app/public/imagenes/'.$carpeta.'/'.$archivo);
 
-       //return $path;
-
         if (!File::exists($path)) {
 
             abort(404);
 
         }
 
-      
-
         $file = File::get($path);
 
         $type = File::mimeType($path);
 
-      
-
         $response = Response::make($file, 200);
 
         $response->header("Content-Type", $type);
-
-     
 
         return $response;
     }

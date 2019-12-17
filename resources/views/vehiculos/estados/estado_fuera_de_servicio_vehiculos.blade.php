@@ -97,9 +97,6 @@
                       <div class="row">
                           {{ $estados_listado->appends(Request::all())->links() }}
                       </div>
-                   {{--  @if(isset($existe))
-                    @endif
- --}}
                   </div>
                 </div>
               </div>

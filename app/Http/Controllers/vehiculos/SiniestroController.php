@@ -54,7 +54,7 @@ class SiniestroController extends Controller
         );
         return $datos;
 	}
-//siniestros
+    //siniestros
     //index siniestro
     public function indexSiniestros(Request $Request){
         if (Auth::User()->primer_logeo == null) {
@@ -69,8 +69,7 @@ class SiniestroController extends Controller
                                     ->leftJoin('pdf_siniestros','siniestros.id_siniestro','=','pdf_siniestros.id_siniestro')
                                     ->orderBy('siniestros.id_siniestro','desc')
                                     ->get();
-           // return $siniestros;
-                                    
+                          
         }else{
             $siniestros = siniestro::join('vehiculos','vehiculos.id_vehiculo','=','siniestros.id_vehiculo')
                                     ->join('dependencias','dependencias.id_dependencia','=','siniestros.id_dependencia')
@@ -114,10 +113,6 @@ class SiniestroController extends Controller
             }
         }
 
-       // $afectadoSiniestro = \DB::select('select destino from view_total_afectados where id_vehiculo ='. $dato->id_vehiculo);
-       //dd ($afectadoSiniestro[0]->id_dependencia);
-        //siniestro
-        //return $dato;
         if ($accion == 2) {
             $siniestroNuevo =siniestro::findOrFail($dato->id_siniestro);
         }elseif($accion == 1){
@@ -136,7 +131,7 @@ class SiniestroController extends Controller
 
 
         if ($accion == 2) {
-            //return $siniestroNuevo;
+
         	if ($siniestroNuevo->update()) {
 				if($dato->hasFile('pdf_siniestro')){
 
@@ -152,15 +147,14 @@ class SiniestroController extends Controller
                         $pdfSiniestro = new pdf_siniestro;
                     }else{
                         $pdfSiniestro = pdf_siniestro::where('id_siniestro','=',$siniestroNuevo->id_siniestro)->get();
-                       // return $pdfSiniestro;
+ 
                     }
                     $pdfSiniestro[0]->nombre_pdf_siniestro = $nombre_archivo_nuevo;
                     $pdfSiniestro[0]->id_siniestro = $siniestroNuevo->id_siniestro ;
-                    //return $pdfSiniestro;
+            
                     if ($pdf == 0) {
                         $pdfSiniestro[0]->save();
                     }else{
-                        //return $pdfSiniestro;
                        $pdfSiniestro[0]->update();
                     }
                     
@@ -176,8 +170,7 @@ class SiniestroController extends Controller
                 $nombre_archivo_nuevo = time().$file->getClientOriginalName();
                 Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($file));
                 Storage::move("public/".$nombre_archivo_nuevo, "public/pdf/pdf_siniestros/".$nombre_archivo_nuevo);
-              /*  $file->move(public_path().'/pdf/pdf_siniestros/',$nombre_archivo_nuevo);
-                */
+
                 $pdfSiniestro = new pdf_siniestro;
                 $pdfSiniestro->nombre_pdf_siniestro = $nombre_archivo_nuevo;
                 $pdfSiniestro->id_siniestro = $siniestroNuevo->id_siniestro ;
@@ -190,7 +183,6 @@ class SiniestroController extends Controller
 
     //alta siniestro
     public function altaSiniestro(Request $Request){
-    	//return $Request;
     
         return $this->Siniestro($Request,'Agregado con exito',1);
 

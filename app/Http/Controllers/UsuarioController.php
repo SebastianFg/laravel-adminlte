@@ -103,18 +103,11 @@ class UsuarioController extends Controller
 
 	public function asignarRol(Request $Request){
 
-      //  return $Request->role;
-
-        //$pepe = Role::where('id',$Request->role)->select('name')->get();
-
 		if (Auth::User()->roles[0]->name != 'Super Admin' and strpos(Auth::User()->roles,'Super Admin') == true){
 
             return $this->getMensaje('Error! Ud. no tiene permiso para asignar este rol','listaUsuarios',false);
-            //dd('asd');
-        }/*else{
-            return 'chroma';
         }
-*/
+
 		$usuarios = User::findorfail($Request->usuario);
 
 
@@ -135,24 +128,6 @@ class UsuarioController extends Controller
 		}else{
 			return $this->getMensaje('Algo fallo... intente nuevamente','listaUsuarios',false);
 		}
-
-	
-		
-/*
-		$usuarios->syncRoles($Request->role);
-		return $usuarios;*/
-		/*if ($this->quitarRoles($usuarios)) {
-			return $this->getMensaje('No se puede borrar a el usuario administrador','listaUsuarios',false);
-		}else{
-
-			foreach ($Request->role as $key){
-				//buscamos el rol con su respectivo ID
-				$role = Role::findById($key);
-				//asignamos al usuario el respectivo Rol
-				$usuarios->assignRole($role->name);
-			} 
-		}*/
-		
 	}
 
 	public function eliminarUsuario(Request $Request){
@@ -187,27 +162,6 @@ class UsuarioController extends Controller
 	            return $this->getMensaje('Verifique y Intente nuevamente','listaUsuarios',false);
 	        } 
         }
-
-
-/*
-		if ($this->quitarRoles($usuario_dado_de_baja)) {
-			return $this->getMensaje('No se puede borrar a el usuario administrador','listaUsuarios',false);
-		}else{
-
-			$usuario_dado_de_baja->Delete();
-
-			$usuario_baja = new user_baja;
-
-			$usuario_baja->motivo = $Request->motivo_de_baja;
-			$usuario_baja->id_usuario_movimiento = $Request->id_usuario_movimiento;
-			$usuario_baja->id_usuario= $Request->id_usuario;
-
-	        if(($usuario_baja->save() and  $usuario_dado_de_baja->update())){
-	            return $this->getMensaje('Usuario dado de baja correctamente','listaUsuarios',true);           
-	        }else{
-	            return $this->getMensaje('Verifique y Intente nuevamente','listaUsuarios',false);
-	        } 
-   		}*/
 	}
 
 	public function resetPassword($id){
@@ -241,8 +195,6 @@ class UsuarioController extends Controller
         $nuevoUsuario->nombre = $Request->apellidoynombre;
         $nuevoUsuario->usuario = $Request->usuario;
         $nuevoUsuario->imagen_perfil = 'avatar_default.png';
-
-       // $this->attributes['password'] = Hash::make($pass);
         $passwordNueva = 'informatica2019++';
 
         $nuevoUsuario->password = $passwordNueva;
@@ -286,8 +238,6 @@ class UsuarioController extends Controller
         }
 
         $usuario = User::findorfail(Auth::User()->id);
-       // return $usuario;
-
         $usuario->password = $passwordNueva;
         $usuario->primer_logeo =  new DateTime('today');
 
@@ -319,7 +269,6 @@ class UsuarioController extends Controller
                         unlink(storage_path('app/public/imagenes/avatar/'.$usuario_imgen[0]->imagen_perfil));
                         $usuario_imgen[0]->delete();
                     }
-
 
                     $nombre_archivo_nuevo = time() . '-' . $avatar->getClientOriginalName();
 

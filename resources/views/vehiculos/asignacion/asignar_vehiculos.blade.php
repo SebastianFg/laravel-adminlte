@@ -89,9 +89,6 @@
                               @can('vehiculos.informacion')
                                 <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                               @endcan
-  {{--                             @can('vehiculos.asignarEditar') 
-                                <button onclick="editarAsignacion('{{ $item->id_detalle }}','{{ $item->id_vehiculo }}','{{ $item->id_dependencia }}')" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                              @endcan --}}
                               @can('vehiculos.asignarEliminar') 
                                 <button  onclick="eliminarAsignacion('{{ $item->id_vehiculo }}','{{ $item->numero_de_identificacion }}','{{ $item->dominio }}','{{ $item->id_detalle }}','{{ $item->nombre_dependencia }}','{{ $item->id_dependencia }}');" title="Eliminar asignacion"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                               @endcan

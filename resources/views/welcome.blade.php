@@ -124,13 +124,6 @@
                           </tbody>
                         </table>
                     @endif
-
-{{--                       <div class="row">
-                          {{ $vehiculoBuscado->appends(Request::all())->links() }}
-                      </div> --}}
-                   {{--  @if(isset($existe))
-                    @endif
- --}}
                   </div>
                 </div>
               </div>

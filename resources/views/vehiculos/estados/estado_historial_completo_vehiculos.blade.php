@@ -19,22 +19,6 @@
       <div class="row" style="padding-top: 5px;">
         <div class="col-12">
           <div class="card">
-{{--             <div class="card-header">
-              <div class="row">
-                <div class="col-md-6">
-                  @can('vehiculos.crear')
-                    <button type="button" class="btn btn-info left d-inline" data-toggle="modal" data-target="#miModal"><i class="fa fa-align-justify"> Historial completo</i> </button> 
-                  @endcan
-                  @can('vehiculos.crear')
-                    <button type="button" class="btn btn-info d-inline " data-toggle="modal" data-target="#miModal"><i class="fa fa-window-close"> Baja definitiva</i> </button> 
-                  @endcan
-                  @can('vehiculos.imprimirLista')
-                    <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
-                  @endcan  
-                </div>
-          </div>
-
-           </div> --}}
           {{-- extiendo los modales --}}
           @extends('vehiculos/estados/modales/modal_alta_vehiculo_estado')
           @extends('vehiculos/estados/modales/modal_baja_total_vehiculos')

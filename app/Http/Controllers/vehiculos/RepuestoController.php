@@ -87,13 +87,6 @@ class RepuestoController extends Controller
            return  back()->withInput()->withErrors($Validar->errors());
         }
 
-/*       if($Request->hasFile('pdfrepuestos')){
-            $file = $Request->file('pdfrepuestos');
-            $nombre_archivo_nuevo = time().$file->getClientOriginalName();
-            $file->move(public_path().'/pdf/pdf_repuestos/',$nombre_archivo_nuevo);
-        }*/
-
-
         $vehiculo_asignado_repuesto = new repuesto;
         $vehiculo_asignado_repuesto->id_vehiculo = $Request->id_vehiculo;
         $vehiculo_asignado_repuesto->fecha = $Request->fecha;

@@ -64,7 +64,7 @@ class DetallesController extends Controller
         return $datos;
 	}
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////// DETALLES ////////////////////////////////////////////////////////////////
+    ////////////////////////////////////// DETALLES //////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     protected function HistorialVehiculo($id){
@@ -79,7 +79,6 @@ class DetallesController extends Controller
         $asignacion_actual = asignacion_vehiculo::join('dependencias','dependencias.id_dependencia','=','detalle_asignacion_vehiculos.id_dependencia')
                                                 ->join('users','detalle_asignacion_vehiculos.id_responsable','=','users.id')
                                                 ->where('id_vehiculo','=',$id)->get();
-        //$asignacion_actual = $this->paginar($asignacion_actual);
         return $asignacion_actual;
     }
 
@@ -116,7 +115,6 @@ class DetallesController extends Controller
 
         }elseif( $Request->vehiculoBuscado != null && $id == null){
 
-            //$vehiculo = vehiculo::where('numero_de_identificacion','=',$Request->vehiculoBuscado)->select('id_vehiculo')->get();
             $vehiculo = \DB::select("select id_vehiculo from vehiculos where numero_de_identificacion = '".$Request->vehiculoBuscado."' or dominio = '".$Request->vehiculoBuscado."'");
 
             if (count($vehiculo)>0) {
@@ -144,10 +142,8 @@ class DetallesController extends Controller
                                                             ->select('vehiculos.dominio','vehiculos.numero_de_inventario','vehiculos.numero_de_identificacion','dependencias.nombre_dependencia','historial_asignacion.fecha','users.nombre')
                                                             ->where('historial_asignacion.id_vehiculo','=',$id)->get();
 
-        //return $historialCompletoAsignacion;
         $pdf = PDF::loadView('vehiculos.detalles.pdf_historial_vehiculo',compact('historialCompletoAsignacion'));
 
-      //  return $nombre_pdf->dominio;
         return $pdf->download($historialCompletoAsignacion[0]->dominio.'.pdf');
     }
 }
