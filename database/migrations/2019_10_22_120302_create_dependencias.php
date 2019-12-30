@@ -18,6 +18,7 @@ class CreateDependencias extends Migration
             $table->string('nombre_dependencia',150)->unique();
             $table->tinyInteger('nivel_dependencia');
             $table->integer('id_padre_dependencia');
+            $table->integer('id_municipio');
             $table->softDeletes();
             $table->timestamps();
 

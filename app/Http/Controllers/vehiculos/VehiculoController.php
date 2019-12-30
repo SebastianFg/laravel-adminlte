@@ -16,6 +16,7 @@ use App\Modelos\vehiculo;
 use App\Modelos\pdf_Estado;
 use App\Modelos\imagen_vehiculo;
 use App\Modelos\estado_vehiculo;
+use App\Modelos\asignacion_vehiculo;
 use App\User;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -431,6 +432,11 @@ class VehiculoController extends Controller
         $vehiculoEliminado->delete();
         $vehiculoEliminado->update();
 
+        $vehiculoAsignacionEliminado = asignacion_vehiculo::findOrFail($Request->id_vehiculo_baja);
+
+        
+
+
         $vehiculoEnProceso = new estado_vehiculo;
 
         $vehiculoEnProceso->id_vehiculo = $Request->id_vehiculo_baja;
@@ -456,7 +462,7 @@ class VehiculoController extends Controller
         }
         $vehiculoEnProceso->estado_decreto = $nombre_archivo_nuevo;
 
-        if($vehiculoEnProceso->save() && $pdfEstado->save()){
+        if($vehiculoEnProceso->save() && $pdfEstado->save() && $vehiculoAsignacionEliminado->forceDelete()){
             return $this->getMensaje('Vehiculo dado de baja definitivamente exitosamente','listaVehiculos',true);           
         }else{
             return $this->getMensaje('Verifique y Intente nuevamente','listaVehiculos',false);

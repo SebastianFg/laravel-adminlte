@@ -2,11 +2,11 @@
 
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
-
+<link rel="shortcut icon" href="/img/logo.png">
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
+  <title>@yield('titulo', 'Patrimonio') | Roles & Permisos</title>
   <!-- /.content-header -->
 
   <!-- Main content -->
@@ -24,7 +24,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Lista de roles y Permisos</u></strong>
+                  <strong><u>Roles y Permisos</u></strong>
                 </div>
 
                 <div class="card-body">

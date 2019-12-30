@@ -11,12 +11,19 @@
 |
 */
 
+
+
 Route::view('/', 'auth/login');
+/*if (!Auth::guest()) {
+	Route::view('/', 'auth/login');
+}else{
+	Route::view('/admin/inicio', 'welcome');
+}*/
 
 Auth::routes();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Route::get('alta_vehiculos', 'vehiculos\VehiculoController@listaAutobomba')->name('listaVehiculos');
+/*Route::get('alta_vehiculos', 'vehiculos\VehiculoController@listaAutobomba')->name('listaVehiculos');*/
 
 
 
@@ -41,7 +48,16 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::post('editarPerfil','UsuarioController@editarPerfil')->name('editarPerfil');
 
-		
+		//municipios
+		Route::get('municipios', 'municipios\MunicipioController@index')->name('indexMunicipios');
+		//crea municipio
+		Route::post('crearMunicipio','municipios\MunicipioController@crearMunicipio')->name('crearMunicipio');
+		//eliminar municipio
+		Route::post('eliminarMunicipio','municipios\MunicipioController@eliminarMunicipio')->name('eliminarMunicipio');
+		//editar municipio
+		Route::post('editarMunicipio','municipios\MunicipioController@editarMunicipio')->name('editarMunicipio');
+		//todos los municipios para el select2
+		Route::get('getAllMunicipios','municipios\MunicipioController@getAllMunicipios')->name('getAllMunicipios');
 
 
 		//roles

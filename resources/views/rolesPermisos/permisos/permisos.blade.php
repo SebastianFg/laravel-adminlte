@@ -8,7 +8,7 @@
   <!-- Content Header (Page header) -->
 
   <!-- /.content-header -->
-  <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
+  <title>@yield('titulo', 'Patrimonio') | Permisos</title>
   <!-- Main content -->
   <div class="content">
     <div class="container-fluid">
@@ -42,7 +42,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Lista de permisos</u></strong>
+                  <strong><u>Permisos</u></strong>
                 </div>
 
                 <div class="card-body">

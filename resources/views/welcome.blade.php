@@ -9,7 +9,7 @@
   <!-- Main content -->
   <div class="content">
     <div class="container-fluid">
-    <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
+    <title>@yield('titulo', 'Patrimonio') | Inicio</title>
     @if(strpos(Auth::User()->roles,'Suspendido'))
       <div class="row ">
         <div class="card col-sm-12">

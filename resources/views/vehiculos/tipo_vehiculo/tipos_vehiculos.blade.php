@@ -1,5 +1,5 @@
 @extends('layouts.master')
-<title>@yield('titulo', 'Patrimonio') | Jefatura</title>
+<title>@yield('titulo', 'Patrimonio') | Tipos de vehiculos</title>
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
 

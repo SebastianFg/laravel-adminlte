@@ -3,10 +3,10 @@
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
 
+  <title>@yield('titulo', 'Patrimonio') | Fuera de servicio</title>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
   <!-- /.content-header -->
 <meta charset="utf-8">
 

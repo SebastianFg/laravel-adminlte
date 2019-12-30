@@ -24,8 +24,17 @@
                       
                   </div>
                 </div>
+                <div class="row ">
+                    <div class="form-group col-12">
+                        <label>Seleccione Municipio</label>
+                        <div id="select">
+                            <select type="text" class="form-control" id="id_municipio" value="{{ old('id_municipio') }}" data-width="100%" name="id_municipio">
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
-                  <div class="form-group">
+                  <div class="form-group col-6">
                     <label>Tipo Dependencia</label>
                     <select name="nivel_dependencia" id="IdnivelDependencia" class="form-control">
                       <option value="">Seleccione un tipo de dependencia</option>
@@ -38,7 +47,7 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label>Dependencia padre</label>
-                    <select name="dependencia_habilitada_padre" id="id_dependencia_habilitada" class="form-control">
+                    <select name="dependencia_habilitada_padre" id="id_dependencia_habilitada" class="form-control chosen-select">
                       <option>Seleccione una dependencia padre</option>
                     </select>
                   </div>

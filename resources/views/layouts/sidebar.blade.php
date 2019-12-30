@@ -18,7 +18,8 @@
                 <img src="/img/profile.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block"> {{auth()->user()->nombre!=null ? auth()->user()->nombre : "Invitado"}} </a>
+                <p style="color: white;" class="d-block">{{auth()->user()->nombre!=null ? auth()->user()->nombre : "Invitado"}}</p>
+                {{-- <a href="#" class="d-block"> {{auth()->user()->nombre!=null ? auth()->user()->nombre : "Invitado"}} </a> --}}
             </div>
         </div>
 
@@ -90,13 +91,22 @@
                     </ul>
                     @endcan
                 </li>
-
                 @can('dependencias.dependencias')
                 <li class="nav-item has-treeview">
                     <a href="{{ route('indexDependencia') }}" class="nav-link">
                         <i class="nav-icon fa fa-codepen"></i>
                         <p>
                           Dependencias
+                        </p>
+                    </a>
+                </li>
+                @endcan
+                @can('municipios.index')
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('indexMunicipios') }}" class="nav-link">
+                        <i class="nav-icon fa fa-map-marker"></i>
+                        <p>
+                          Municipios
                         </p>
                     </a>
                 </li>
@@ -132,7 +142,7 @@
                         </a>
                     </li>
                     @endcan
-                    @can('vehiculos.eliminar')
+                    @can('estados.estadoIndex')
                     <li class="nav-item has-treeview {{ request()->is('admin/historial_completo*') ? 'menu-open' : '' }}  {{ request()->is('admin/baja_definitiva*') ? 'menu-open' : '' }}  {{ request()->is('admin/fuera_de_servicio*') ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-times"></i>

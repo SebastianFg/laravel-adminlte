@@ -91,7 +91,7 @@ class RepuestoController extends Controller
         $vehiculo_asignado_repuesto->id_vehiculo = $Request->id_vehiculo;
         $vehiculo_asignado_repuesto->fecha = $Request->fecha;
         $vehiculo_asignado_repuesto->repuestos_entregados = $Request->repuestos_entregados;
-        $vehiculo_asignado_repuesto->pdf_nombre = $nombre_archivo_nuevo;
+        $vehiculo_asignado_repuesto->pdf_nombre = 'no posee';
         $vehiculo_asignado_repuesto->id_responsable = Auth::User()->id;
 
 

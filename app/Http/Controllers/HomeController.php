@@ -47,8 +47,8 @@ class HomeController extends Controller
             return redirect('/login');
         }
 
-        $anios = vehiculo::select('anio_de_produccion')->orderBy('anio_de_produccion','asc')->get();
-        $marca = vehiculo::select('marca')->orderBy('marca','asc')->get();
+        $anios = vehiculo::select('anio_de_produccion')->distinct()->orderBy('anio_de_produccion','asc')->get();
+        $marca = vehiculo::select('marca')->distinct()->orderBy('marca','asc')->get();
         $tipo_vehiculo = tipos_vehiculos::all();
 
         if ($Request->vehiculoBuscado != null && ($Request->marca && $Request->anio && $Request->id_tipo_vehiculo_lista) == null) {

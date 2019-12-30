@@ -2,7 +2,7 @@
 
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
-<title>@yield('titulo', 'Patrimonio') | Jefatura</title>
+<title>@yield('titulo', 'Patrimonio') | Repuestos</title>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -150,7 +150,17 @@
     placeholder:"Seleccione Vehiculo",
     allowClear: true,
     minimumInputLength: 2,
-
+    language: {
+      noResults: function() {
+        return "No hay resultado";        
+      },
+      searching: function() {
+        return "Buscando...";
+      },
+      inputTooShort: function () {
+        return 'Ingrese al menos 2 caracteres para comenzar a buscar';
+      }
+    },
     type: "GET",
     ajax: {
       dataType: 'json',

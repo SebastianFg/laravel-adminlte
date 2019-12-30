@@ -2,7 +2,7 @@
 
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
-<title>@yield('titulo', 'Patrimonio') | Jefatura</title>
+<title>@yield('titulo', 'Patrimonio') | Detalles</title>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
