@@ -112,7 +112,7 @@
 
                     <label  class="texto">Observaciones</label>
 
-                      @if($VehiculosListados[0]->otras_caracteristicas == null)
+                      @if($asignacion_actual[0]->observaciones == null)
                         <p class="parrafos">No posee obs.</p>
                       @else
                         <p class="parrafos" >{{$asignacion_actual[0]->observaciones  }}</p>
