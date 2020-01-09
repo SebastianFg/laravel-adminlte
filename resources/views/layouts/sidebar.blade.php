@@ -106,7 +106,7 @@
                     <a href="{{ route('listaElementos') }}" class="nav-link">
                         <i class="nav-icon fa fa-codepen"></i>
                         <p>
-                          Elementos
+                          Stock Elementos
                         </p>
                     </a>
                 </li>
