@@ -91,6 +91,18 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::post('/baja_detalle_vehiculo', 'vehiculos\VehiculoController@fueraDeServicio')->name('eliminarVehiculos');
 
 		Route::get('storage/{carpeta}/{archivo}','vehiculos\VehiculoController@Imagen')->name('storage');
+
+		//Elementos
+		Route::get('alta_elementos', 'elementos\ElementosController@index')->name('listaElementos');
+		//altas
+		Route::post('/alta_elementos', 'elementos\ElementosController@crearElementos')->name('elementos.crearElementos');
+		//editar
+		Route::post('/editar_elementos', 'elementos\ElementosController@updateElementos')->name('updateElementos');
+		//baja
+		Route::post('/baja_detalle_elementos', 'elementos\ElementosController@fueraDeServicio')->name('eliminarElementos');
+
+		Route::get('storage/{carpeta}/{archivo}','elementos\ElementosController@Imagen')->name('storage');
+
 		
 		//lista de vehiculos para select2
 		Route::get('/vehiculos_select','vehiculos\VehiculoController@getAllVehiculos')->name('listaVehiculosSelect');

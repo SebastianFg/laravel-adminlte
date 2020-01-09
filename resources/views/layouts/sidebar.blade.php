@@ -101,6 +101,16 @@
                     </a>
                 </li>
                 @endcan
+                @can('crear.Elementos')
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('listaElementos') }}" class="nav-link">
+                        <i class="nav-icon fa fa-codepen"></i>
+                        <p>
+                          Elementos
+                        </p>
+                    </a>
+                </li>
+                @endcan
                 @can('vehiculos.index')
                 {{-- con el request->is nos sirve para mantener abierto el menu si es que estamos en el menu propiamente dicho --}}
                 <li class="nav-item has-treeview  {{ request()->is('admin/reportes*') ? 'menu-open' : '' }} {{ request()->is('admin/repuestos*') ? 'menu-open' : '' }} {{ request()->is('admin/detalleVehiculo*') ? 'menu-open' : '' }} {{ request()->is('admin/siniestros*') ? 'menu-open' : '' }} {{ request()->is('admin/asignacion*') ? 'menu-open' : '' }} {{ request()->is('admin/historial_completo*') ? 'menu-open' : '' }}  {{ request()->is('admin/baja_definitiva*') ? 'menu-open' : '' }}  {{ request()->is('admin/fuera_de_servicio*') ? 'menu-open' : '' }}  {{ request()->is('admin/alta_vehiculos*') ? 'menu-open' : '' }} {{ request()->is('admin/tipo_vehiculos*') ? 'menu-open' : '' }}  ">
@@ -226,7 +236,6 @@
                             <i class="nav-icon fa fa-paste"></i>
                             <p>
                               Gráficos
-                  
                             </p>
                         </a>
                     </li>

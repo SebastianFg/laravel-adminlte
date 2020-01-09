@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\softDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use App\modelos\elementos;
 use Illuminate\Support\Facades\Auth;
 //Modelos
 use Spatie\Permission\Models\Role;
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Storage;
 use Image;
 use File;
 use Response;
+use Dotenv\Validator;
 //pdf
 use Barryvdh\DomPDF\Facade as PDF;
 class VehiculoController extends Controller
@@ -218,7 +220,7 @@ class VehiculoController extends Controller
         $vehiculoNuevo = new Vehiculo;
         return  $this->vehiculoCreacionEdicion($Request,$vehiculoNuevo,0);//0 creacion
     }
-  
+
     //actualizacion de vehiculo cargado (edicion)
     public function updateVehiculo(Request $Request){
         
