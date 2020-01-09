@@ -2,7 +2,8 @@
 
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
-<title>@yield('titulo', 'Patrimonio') | Jefatura</title>
+<title>@yield('titulo', 'Patrimonio') | Usuarios</title>
+<link rel="shortcut icon" href="/img/logo.png">
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -44,7 +45,7 @@
             <hr>
             <div class="card">
               <div class="card-header">
-                <strong><u>Lista de usuario</u></strong>
+                <strong><u>Usuario</u></strong>
               </div>
               <div class="card-body">
                 <div class="row col-md-12"  >

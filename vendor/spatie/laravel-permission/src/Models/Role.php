@@ -12,13 +12,11 @@ use Spatie\Permission\Contracts\Role as RoleContract;
 use Spatie\Permission\Traits\RefreshesPermissionCache;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model implements RoleContract
 {
     use HasPermissions;
     use RefreshesPermissionCache;
-    use SoftDeletes;
 
     protected $guarded = ['id'];
 
@@ -37,10 +35,6 @@ class Role extends Model implements RoleContract
 
         if (static::where('name', $attributes['name'])->where('guard_name', $attributes['guard_name'])->first()) {
             throw RoleAlreadyExists::create($attributes['name'], $attributes['guard_name']);
-        }
-
-        if (isNotLumen() && app()::VERSION < '5.4') {
-            return parent::create($attributes);
         }
 
         return static::query()->create($attributes);
@@ -156,16 +150,5 @@ class Role extends Model implements RoleContract
         }
 
         return $this->permissions->contains('id', $permission->id);
-    }
-
-    public static function scopebuscaRole($query,$identificacion){
-        //dd($identificacion);
-
-        if (trim($identificacion) != "") {
-            return $query->where('name','ilike','%'.$identificacion.'%')
-                        ->orderBy('id','desc')
-                        ->get();
-
-        }
     }
 }

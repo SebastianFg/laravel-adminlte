@@ -15,18 +15,28 @@
             </div>
             @endif
             <div class="modal-body ">
-              <form action="{{ route('editarDependencia') }}" name="edicion" class="form-group" method="POST" enctype="multipart/form-data">
+              <form action="{{ route('editarDependencia') }}" class="form-group" method="POST" enctype="multipart/form-data">
                 @csrf
+                <div class="row">
                   <div class="form-group col-md-12">
-                      <label>Ingrese Nombre de la Dependencia</label>
-                      <input type="text" autocomplete="off" name="nombre_dependencia_edicion" id="id_nombre_dependencia_editar" class="form-control" >
-                      <input type="text" hidden="" name="dependencia_edicion" id="id_dependencia_editar" class="form-control" >
-                      
+                    <label>Ingrese Nombre de la Dependencia</label>
+                    <input type="text" autocomplete="off" name="nombre_dependencia_edicion" id="id_nombre_dependencia_editar" class="form-control" >
+                    <input type="text" hidden="" name="dependencia_edicion" id="id_dependencia_editar" class="form-control" >  
                   </div>
-                <div class="row col-md-12">
+                </div>
+                <div class="row ">
+                  <div class="form-group col-12">
+                      <label>Seleccione Municipio</label>
+                      <div id="select2">
+                          <select type="text" class="form-control" id="id_municipio_editar" value="{{ old('id_municipio') }}" data-width="100%" name="id_municipio">
+                          </select>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
                   <div class="form-group col-md-6">
                     <label>Tipo Dependencia</label>
-                    <select name="nivel_dependencia_edicion" id="id_nivel_dependencia_edicion" class="form-control">
+                    <select name="nivel_dependencia_edicion" id="IdnivelDependenciaEditar" class="form-control">
                       <option value="">Seleccione un tipo de Dependencia</option>
                       <option value="3">Dirección General</option>
                       <option value="4">Dirección</option>
@@ -37,7 +47,7 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label>Dependencia padre</label>
-                    <select name="dependencia_habilitada_padre_edicion" id="id_dependencia_habilitada_padre" class="form-control">
+                    <select name="dependencia_habilitada_padre_edicion" id="id_dependencia_habilitada_padre_edicion" class="form-control chosen-select-edi">
                       <option value="">Seleccione una Dependencia padre</option>
                     </select>
                   </div>

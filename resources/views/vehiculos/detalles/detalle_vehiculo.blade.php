@@ -2,7 +2,7 @@
 
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
-<title>@yield('titulo', 'Patrimonio') | Jefatura</title>
+<title>@yield('titulo', 'Patrimonio') | Detalles</title>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
@@ -112,7 +112,7 @@
 
                     <label  class="texto">Observaciones</label>
 
-                      @if($VehiculosListados[0]->otras_caracteristicas == null)
+                      @if($asignacion_actual[0]->observaciones == null)
                         <p class="parrafos">No posee obs.</p>
                       @else
                         <p class="parrafos" >{{$asignacion_actual[0]->observaciones  }}</p>

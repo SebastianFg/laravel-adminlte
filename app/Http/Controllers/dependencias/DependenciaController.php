@@ -60,10 +60,12 @@ class DependenciaController extends Controller
         }
 		
 		if ($Request->nombreDependencia == null && $Request->nivel_dependencia == null ) {
-        	$dependencias = dependencia::orderBy('dep.id_dependencia','desc')->join('dependencias as dep','dep.id_padre_dependencia','=','dependencias.id_dependencia')
-        	->select('dependencias.nombre_dependencia as padre','dep.nombre_dependencia as hijo','dep.id_dependencia as id_hijo','dependencias.id_dependencia as id_padre','dep.nivel_dependencia as nivel','dependencias.deleted_at')->whereNull('dep.deleted_at')->get();
-
-            
+        	$dependencias = dependencia::orderBy('dep.id_dependencia','desc')
+                                ->join('dependencias as dep','dep.id_padre_dependencia','=','dependencias.id_dependencia')
+                                ->join('municipios','municipios.id_municipio','=','dep.id_municipio')
+        	                   ->select('dependencias.nombre_dependencia as padre','dep.nombre_dependencia as hijo','dep.id_dependencia as id_hijo','dependencias.id_dependencia as id_padre','dep.nivel_dependencia as nivel','dependencias.deleted_at','municipios.nombre_municipio','municipios.nombre_departamento')
+                               ->whereNull('dep.deleted_at')
+                               ->get();
         	$dependencias = $this->paginar($dependencias);
         	$existe = 1;
         }else{
@@ -98,7 +100,8 @@ class DependenciaController extends Controller
             
             'nombre_dependencia' => 'required|unique:dependencias',
             'nivel_dependencia' => 'required',
-            'dependencia_habilitada_padre'    => 'required'
+            'dependencia_habilitada_padre' => 'required',
+            'id_municipio' => 'required'
         ]);
         if ($Validar->fails()){
             alert()->error('Error','ERROR! Intente agregar nuevamente...');
@@ -110,6 +113,7 @@ class DependenciaController extends Controller
     	$dependencia->nombre_dependencia = $Request->nombre_dependencia;
     	$dependencia->nivel_dependencia = $Request->nivel_dependencia;
     	$dependencia->id_padre_dependencia = $Request->dependencia_habilitada_padre;
+        $dependencia->id_municipio = $Request->id_municipio;
 
     	if ($dependencia->save()) {
     		return $this->getMensaje('Creado con exito','indexDependencia',true);
@@ -132,7 +136,7 @@ class DependenciaController extends Controller
         }
 
         $dependencia_baja = dependencia::findorfail($Request->id_dependencia);
-        if ($dependencia_baja->delete()) {
+        if ($dependencia_baja->forceDelete()) {
         	return $this->getMensaje('Eliminado con exito','indexDependencia',true);
         }else{
         	return $this->getMensaje('Error, Intente nuevamente...','indexDependencia',false);
@@ -140,10 +144,16 @@ class DependenciaController extends Controller
     }
 
     public function editarDependencia(Request $Request){
-
+      //  return $Request;
     	$dependencia_editar = dependencia::findorfail($Request->dependencia_edicion);
 
     	$dependencia_editar->nombre_dependencia = $Request->nombre_dependencia_edicion;
+
+        if ($Request->id_municipio != null) {
+            $dependencia_editar->id_municipio = $Request->id_municipio;
+        }
+        //return $dependencia_editar;
+
     	if ($Request->nivel_dependencia_edicion != null) {
     		$dependencia_editar->nivel_dependencia = $Request->nivel_dependencia_edicion;
     		if ($Request->dependencia_habilitada_padre_edicion != null) {

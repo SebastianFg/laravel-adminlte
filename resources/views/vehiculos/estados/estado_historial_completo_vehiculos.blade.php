@@ -3,12 +3,12 @@
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
 
+  <title>@yield('titulo', 'Patrimonio') | Historial Completo</title>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
 
   <!-- /.content-header -->
-  <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
 
   <!-- Main content -->
   <div class="content">

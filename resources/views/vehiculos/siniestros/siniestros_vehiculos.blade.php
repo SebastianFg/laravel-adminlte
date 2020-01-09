@@ -1,5 +1,5 @@
 @extends('layouts.master')
-<title>@yield('titulo', 'Patrimonio') | Jefatura</title>
+<title>@yield('titulo', 'Patrimonio') | Siniestros</title>
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
@@ -18,12 +18,9 @@
             <div class="card-header">
               <div class="row">
                 <div class="col-md-3">
-                  @can('vehiculos.crear')
+                  @can('vehiculos.altaSiniestro')
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAltaSiniestro"> <i class="fa fa-plus"> Nuevo</i> </button> 
                   @endcan
-                  @can('vehiculos.imprimirLista')
-                    <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
-                  @endcan  
                 </div>
               </div>
             </div>
@@ -166,7 +163,17 @@
     placeholder:"Seleccione Vehiculo",
     allowClear: true,
     minimumInputLength: 2,
-
+    language: {
+      noResults: function() {
+        return "No hay resultado";        
+      },
+      searching: function() {
+        return "Buscando...";
+      },
+      inputTooShort: function () {
+        return 'Ingrese al menos 2 caracteres para comenzar a buscar';
+      }
+    },
     type: "GET",
     ajax: {
       dataType: 'json',

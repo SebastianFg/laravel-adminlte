@@ -6,7 +6,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
+  <title>@yield('titulo', 'Patrimonio') | Roles</title>
   <!-- /.content-header -->
 
   <!-- Main content -->
@@ -42,7 +42,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Lista de roles</u></strong>
+                  <strong><u>Roles</u></strong>
                 </div>
 
                 <div class="card-body">

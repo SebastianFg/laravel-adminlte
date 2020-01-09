@@ -1,7 +1,7 @@
 @extends('plantilla')
 
 @section('seccion')
-
+<title>@yield('titulo', 'Patrimonio') | Reportes</title>
 <div class="panel panel-success">
   <div class="panel panel-heading">Reportes Graficos</div>
 {{--   <div class="col-md-4 box-header with-border">

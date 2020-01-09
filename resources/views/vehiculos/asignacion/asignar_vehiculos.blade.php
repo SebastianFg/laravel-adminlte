@@ -4,6 +4,7 @@
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
 <!-- Content Wrapper. Contains page content -->
+<title>@yield('titulo', 'Patrimonio') | Asignacion</title>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
@@ -197,7 +198,17 @@
     placeholder:"Seleccione Afectado - Ej: Jefatura,D.G Seguridad",
     allowClear: true,
     minimumInputLength: 2,
-
+    language: {
+      noResults: function() {
+        return "No hay resultado";        
+      },
+      searching: function() {
+        return "Buscando...";
+      },
+      inputTooShort: function () {
+        return 'Ingrese al menos 2 caracteres para comenzar a buscar';
+      }
+    },
     type: "GET",
     ajax: {
       dataType: 'json',

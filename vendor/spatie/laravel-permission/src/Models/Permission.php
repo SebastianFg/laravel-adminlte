@@ -14,13 +14,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Exceptions\PermissionAlreadyExists;
 use Spatie\Permission\Contracts\Permission as PermissionContract;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 class Permission extends Model implements PermissionContract
 {
     use HasRoles;
     use RefreshesPermissionCache;
-    use SoftDeletes;
 
     protected $guarded = ['id'];
 
@@ -41,10 +38,6 @@ class Permission extends Model implements PermissionContract
 
         if ($permission) {
             throw PermissionAlreadyExists::create($attributes['name'], $attributes['guard_name']);
-        }
-
-        if (isNotLumen() && app()::VERSION < '5.4') {
-            return parent::create($attributes);
         }
 
         return static::query()->create($attributes);
@@ -148,30 +141,5 @@ class Permission extends Model implements PermissionContract
         return app(PermissionRegistrar::class)
             ->setPermissionClass(static::class)
             ->getPermissions($params);
-    }
-
-    public static function scopebuscaPermiso($query,$identificacion){
-        //dd($identificacion);
-
-        if (trim($identificacion) != "") {
-            return $query->where('name','ilike','%'.$identificacion.'%')
-                        ->orderBy('id','desc')
-                        ->get();
-
-        }
-    }
-    public static function scopebuscarPermisoRol($query,$identificacion){
-       // dd($identificacion);
-
-        if (trim($identificacion) != "") {
-            return $query->where('name','ilike','%'.$identificacion.'%')
-/*                        ->orWhere('permissions.name','ilike','%'.$identificacion.'%')
-                        ->join('role_has_permissions','role_has_permissions.permission_id','=','permissions.id')
-                        ->join('roles','role_has_permissions.role_id','=','roles.id')*/
-                        ->with('Roles:id,name')
-                        ->orderBy('id','desc')
-                        ->get();
-
-        }
     }
 }

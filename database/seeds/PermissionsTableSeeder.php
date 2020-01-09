@@ -53,19 +53,30 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'usuarios.asignarRol']);
         Permission::create(['name' => 'usuarios.eliminarUsuario']);
         Permission::create(['name' => 'usuarios.resetPassword']);
+        Permission::create(['name' => 'usuarios.editarPerfil']);
 
         Permission::create(['name' => 'dependencias.dependencias']);
         Permission::create(['name' => 'dependencias.crearDependencia']);
         Permission::create(['name' => 'dependencias.editarDependencia']);
         Permission::create(['name' => 'dependencias.eliminarDepencencia']);
 
+        Permission::create(['name' => 'municipios.index']);
+        Permission::create(['name' => 'municipios.crearLocalidad']);
+        Permission::create(['name' => 'municipios.editarLocalidad']);
+        Permission::create(['name' => 'municipios.eliminarLocalidad']);
+
+        Permission::create(['name' => 'estados.estadoIndex']);
         Permission::create(['name' => 'estados.altaEstado']);
+
 
         //creamos los roles
      	$SuperAdmin = Role::create(['name' => 'Super Admin']);
         $sinRol = Role::create(['name' => 'Sin Rol']);
         $Admin = Role::create(['name' => 'Admin']);
+
         $cargarVehiculos = Role::create(['name' => 'Cargar Vehiculos']);
+        $cargarSiniestros = Role::create(['name' => 'Siniestros']);
+        $cargarRepuestos = Role::create(['name' => 'Repuestos']);
 
         //asignamos los permisos a los roles
         $SuperAdmin->givePermissionTo([
@@ -75,6 +86,7 @@ class PermissionsTableSeeder extends Seeder
             'vehiculos.eliminar',
             'vehiculos.informacion',
             'vehiculos.graficos',
+            'vehiculos.imprimirLista',
 
             'vehiculos.listaAsignacion',
             'vehiculos.asignarNuevo',
@@ -97,13 +109,20 @@ class PermissionsTableSeeder extends Seeder
             'usuarios.asignarRol',
             'usuarios.eliminarUsuario',
             'usuarios.resetPassword',
+            'usuarios.editarPerfil',
 
             'dependencias.dependencias',
             'dependencias.crearDependencia',
             'dependencias.editarDependencia',
             'dependencias.eliminarDepencencia',
 
-            'estados.altaEstado',
+            'municipios.index',
+            'municipios.crearLocalidad',
+            'municipios.editarLocalidad',
+            'municipios.eliminarLocalidad',
+
+            'estados.estadoIndex',
+            'estados.altaEstado'
         ]);
 
         $Admin->givePermissionTo([
@@ -113,6 +132,7 @@ class PermissionsTableSeeder extends Seeder
             'vehiculos.eliminar',
             'vehiculos.informacion',
             'vehiculos.graficos',
+            'vehiculos.imprimirLista',
 
             'vehiculos.listaAsignacion',
             'vehiculos.asignarNuevo',
@@ -140,7 +160,13 @@ class PermissionsTableSeeder extends Seeder
             'dependencias.editarDependencia',
             'dependencias.eliminarDepencencia',
 
-            'estados.altaEstado',
+            'municipios.index',
+            'municipios.crearLocalidad',
+            'municipios.editarLocalidad',
+            'municipios.eliminarLocalidad',
+            
+            'estados.estadoIndex',
+            'estados.altaEstado'
         ]);
 
         $cargarVehiculos->givePermissionTo([
@@ -150,23 +176,33 @@ class PermissionsTableSeeder extends Seeder
             'vehiculos.eliminar',
             'vehiculos.informacion',
             'vehiculos.graficos',
+            'vehiculos.imprimirLista',
 
             'vehiculos.listaAsignacion',
             'vehiculos.asignarNuevo',
             'vehiculos.asignarEditar',
             'vehiculos.asignarEliminar',
 
+            'estados.estadoIndex',
+            'estados.altaEstado'
+        ]);
+
+        $cargarSiniestros->givePermissionTo([
+            'vehiculos.informacion',
             'vehiculos.siniestros',
             'vehiculos.altaSiniestro',
             'vehiculos.editarSiniestro',
-            'vehiculos.eliminarSiniestro',
+            'vehiculos.eliminarSiniestro'
+        ]);
 
+        $cargarRepuestos->givePermissionTo([
+            'vehiculos.informacion',
             'vehiculos.repuestos',
             'vehiculos.crearRepuestos',
             'vehiculos.descargarPDFRepuesto',
             
+            'estados.estadoIndex',
             'estados.altaEstado'
         ]);
-
     }
 }
