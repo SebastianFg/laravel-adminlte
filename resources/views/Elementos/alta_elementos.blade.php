@@ -131,7 +131,7 @@
 
 <script type="text/javascript">
   function eliminarElemento(id_elemento,id_descripcion){
-    console.log(id_elemento);
+    // console.log(id_elemento);
 
     var id_descripcion = $('#id_descripcion_baja').val(id_descripcion);
     var id_elemento = $('#id_elemento_baja').val(id_elemento);
