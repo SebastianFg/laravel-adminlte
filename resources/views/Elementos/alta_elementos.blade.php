@@ -84,7 +84,7 @@
                             @can('editar.Elementos') 
                                 <button onclick="editarElemento({{ $item }})" title="Editar elemento"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                               @endcan
-                              @can('vehiculos.eliminar') 
+                              @can('eliminar.Elementos') 
                                 <button  onclick="eliminarElemento('{{ $item->id }}','{{ $item->descripcion }}');" title="Eliminar elemento"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                               @endcan
                             </td>

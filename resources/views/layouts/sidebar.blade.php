@@ -98,7 +98,7 @@
                         <p>
                           Dependencias
                         </p>
-                    
+                    </a>
                 </li>
                 @endcan
 

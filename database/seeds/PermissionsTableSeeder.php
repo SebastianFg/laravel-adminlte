@@ -69,6 +69,10 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'estados.altaEstado']);
 
 
+        Permission::create(['name' => 'crear.Elementos']);
+        Permission::create(['name' => 'editar.Elementos']);
+        Permission::create(['name' => 'eliminar.Elementos']);
+
         //creamos los roles
      	$SuperAdmin = Role::create(['name' => 'Super Admin']);
         $sinRol = Role::create(['name' => 'Sin Rol']);
