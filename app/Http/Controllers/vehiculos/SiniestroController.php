@@ -58,7 +58,7 @@ class SiniestroController extends Controller
     //index siniestro
     public function indexSiniestros(Request $Request){
         if (Auth::User()->primer_logeo == null) {
-            return redirect('admin/primerIngreso');
+            return redirect('/primerIngreso');
         }
 
         if ($Request->vehiculoBuscado == null) {

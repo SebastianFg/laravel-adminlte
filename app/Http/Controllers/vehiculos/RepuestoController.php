@@ -52,7 +52,7 @@ class RepuestoController extends Controller
 
    public function index(Request $Request){
         if (Auth::User()->primer_logeo == null) {
-            return redirect('admin/primerIngreso');
+            return redirect('/primerIngreso');
         }
         if ($Request->vehiculoBuscado == null) {
       		$repuestos = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')

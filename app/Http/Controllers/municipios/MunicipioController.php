@@ -8,7 +8,7 @@ use Illuminate\Validation\Rule;
 //modelos
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\modelos\municipio;
+use App\Modelos\municipio;
 use App\User;
 
 //librerias
@@ -77,7 +77,7 @@ class MunicipioController extends Controller
 	public function index(Request $Request){
 
         if (Auth::User()->primer_logeo == null) {
-            return redirect('admin/primerIngreso');
+            return redirect('/primerIngreso');
         }
 
         if (strpos(Auth::User()->roles,'Suspendido')) {

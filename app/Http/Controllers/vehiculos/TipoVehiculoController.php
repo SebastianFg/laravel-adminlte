@@ -51,7 +51,7 @@ class TipoVehiculoController extends Controller
 	}
 	public function index(Request $Request){
         if (Auth::User()->primer_logeo == null) {
-            return redirect('admin/primerIngreso');
+            return redirect('/primerIngreso');
         }
         if (strpos(Auth::User()->roles,'Suspendido')) {
             Auth::logout();

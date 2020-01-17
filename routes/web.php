@@ -13,7 +13,7 @@
 
 
 
-Route::view('/', 'auth/login');
+Route::view('/login', 'auth/login');
 /*if (!Auth::guest()) {
 	Route::view('/', 'auth/login');
 }else{
@@ -27,9 +27,9 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 
 
-Route::group(['prefix' => 'admin'], function () {
+/*Route::group(['prefix' => 'admin'], function () {*/
 
-	Route::get('/inicio', 'HomeController@index')->name('inicio');
+	Route::get('/', 'HomeController@index')->name('inicio');
 	
 	Route::group(['middleware' => ['auth']],function(){
 
@@ -193,4 +193,4 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 	});
-});
+/*});*/

@@ -15,7 +15,7 @@
             <div class="card-header">
               <div class="row">
                 <div class="col-md-3">
-                  @can('municipios.crearLocalidad')
+                  @can('municipios.crearMunicipio')
                   <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalLocalidadAlta"> <i class="fa fa-plus"> Nuevo municipio</i> </button> 
                   @endcan
                 </div>
@@ -69,10 +69,10 @@
                           <td>{{ $item->zona }}</td>
                           <td>{{ $item->ur }}</td>
                           <td>
-                            @can('municipios.editarLocalidad')
+                            @can('municipios.editarMunicipio')
                               <button  data-toggle="modal" onclick="editarMunicipio({{$item }})" title="Editar Localidad" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                             @endcan
-                            @can('municipios.eliminarLocalidad') 
+                            @can('municipios.eliminarMunicipio') 
                               <button  onclick="eliminarMunicipio({{ $item }});" title="Eliminar Localidad"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                             @endcan
                           

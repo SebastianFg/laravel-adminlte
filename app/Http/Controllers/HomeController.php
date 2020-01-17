@@ -37,7 +37,7 @@ class HomeController extends Controller
     {    
         //return 'as';
         if (Auth::User()->primer_logeo == null) {
-            return redirect('admin/primerIngreso');
+            return redirect('/primerIngreso');
         }
 
 
