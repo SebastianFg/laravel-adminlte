@@ -51,7 +51,7 @@
                         <div class="row">
                           
                           <div class="form-group">
-                            <input type="text" autocomplete="off"  name="permisoBuscado" class="form-control" placeholder="ingrese permiso">
+                            <input type="text" autocomplete="off"  name="permisoBuscado" class="form-control" placeholder="Ingrese permiso">
                           </div>
 
                           <div class="form-group">

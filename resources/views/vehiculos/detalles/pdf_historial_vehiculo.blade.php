@@ -25,7 +25,7 @@
 	<div class="container divbody">
 		<div style="text-align: center;">
 			<hr>
-			<h2 ><strong>Historial del vehiculo</strong></h2>
+			<h2 ><strong>Historial del vehículo</strong></h2>
 		
 		</div>
 		<div class="col-md-12 padre">

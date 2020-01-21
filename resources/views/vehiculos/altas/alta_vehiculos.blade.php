@@ -43,7 +43,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Vehiculos</u></strong>
+                  <strong><u>Vehículos</u></strong>
                 </div>
 
                 <div class="card-body">
@@ -52,7 +52,7 @@
                       <div class="row">
                         
                         <div class="form-group">
-                          <input type="text" name="vehiculoBuscado" class="form-control" placeholder="numero de identificacion">
+                          <input type="text" name="vehiculoBuscado" class="form-control" placeholder="Numero de identificación">
                         </div>
 {{--                         <div class="col-md-">
                           <select name="id_tipo_vehiculo_lista"  class="form-control">
@@ -74,7 +74,7 @@
                       <thead>
                         <tr>
 
-                          <th>Numero de identificacion</th>
+                          <th>Numero de identificación</th>
                           <th>Marca</th>
                           <th>Modelo</th>
                           <th>Dominio</th>

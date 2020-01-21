@@ -19,7 +19,7 @@
               <div class="row">
                 <div class="col-md-3">
                   @can('vehiculos.altaSiniestro')
-                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAltaSiniestro"> <i class="fa fa-plus"> Nuevo</i> </button> 
+                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAltaSiniestro"> <i class="fa fa-plus"> Nuevo siniestro</i> </button> 
                   @endcan
                 </div>
               </div>
@@ -39,11 +39,11 @@
                   <div class="row">
                     
                     <div class="form-group">
-                      <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
+                      <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="Numero de identificación">
                     </div>
 {{--                         <div class="col-md-">
                       <select name="id_tipo_vehiculo_lista"  class="form-control">
-                        <option value="" selected="">Seleccione un tipo de vehiculo</option>
+                        <option value="" selected="">Seleccione un tipo de vehículo</option>
                         @foreach ($tipo_vehiculo as $item)
                           <option value="{{ $item->id_tipo_vehiculo }}">{{ $item->nombre_tipo_vehiculo }}</option>
                         @endforeach

@@ -22,7 +22,7 @@
         <hr>
         <div class="card col-md-6">
           <div class="card-header">
-            <h3 class="card-title">Vehiculos Disponibles</h3>
+            <h3 class="card-title">Vehículos Disponíbles</h3>
             <div class="card-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
               </button>
@@ -54,7 +54,7 @@
         <hr>
         <div class="card col-md-6">
           <div class="card-header">
-            <h3 class="card-title">Vehiculos Disponibles</h3>
+            <h3 class="card-title">Vehículos Disponibles</h3>
             <div class="card-tools pull-right">
               <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
               </button>
@@ -67,10 +67,10 @@
               <table class="table-sm table table-striped table-hover table-condensed table-bordered">
                 <thead>
                   <tr>
-                    <th>Total de vehiculos</th>
+                    <th>Total de vehículos</th>
                     <th>Baja Total</th>
                     <th>En Reparación</th>
-                    <th>Total de vehiculos disponibles</th>
+                    <th>Total de vehículos disponibles</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -120,7 +120,7 @@
           <div class="card">
             
             <div class="card-header">
-              <h3 class="card-title">Grafica de siniestros</h3>
+              <h3 class="card-title">Gráfica de siniestros</h3>
               <div class="card-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                 </button>

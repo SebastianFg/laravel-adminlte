@@ -20,7 +20,7 @@
             <div class="row">
               
                <div class="form-group col-md-6">
-                  <label>Seleccione Vehiculo</label>
+                  <label>Seleccione Vehículo</label>
                   <br>
                   <div id="select">
                       <select type="text" class="form-control" id="id_vehiculo"data-width="100%" name="id_vehiculo">

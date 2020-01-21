@@ -19,7 +19,7 @@
             @csrf
             <div class="row">
               <div class="form-group col-md-6">
-                <label>Seleccione Vehiculo</label>
+                <label>Seleccione Vehículo</label>
                 <br>
                 <div id="select">
                     <select type="text" class="form-control" id="id_vehiculo" data-width="100%" name="id_vehiculo">
@@ -41,7 +41,7 @@
                   <input type="date"  name="fecha_siniestro" class="form-control" required >
               </div>
               <div class="form-group col-md-6">
-                  <label for="">Fecha Presentacion ante el seguro</label>
+                  <label for="">Fecha Presentación ante el seguro</label>
                   <input type="date"  name="fecha_presentacion" class="form-control" required >
               </div> 
             </div>
@@ -53,12 +53,12 @@
               </div>
               <div class="form-group col-md-12">
                   <label for="">Descripción</label>
-                  <textarea type="text" name="descripcion_siniestro"  maxlength="191" autocomplete="off" placeholder="Ingrese descripcion del siniestro" class="form-control"></textarea>
+                  <textarea type="text" name="descripcion_siniestro"  maxlength="191" autocomplete="off" placeholder="Ingrese descripción del siniestro" class="form-control"></textarea>
               </div>
             </div>
             <div class="form-group col-md-12">
                 <label for="">Observaciones</label>
-                <textarea type="text" name="observaciones_siniestro"  maxlength="191"  autocomplete="off" placeholder="Ingrese alguna observacion" class="form-control"></textarea>
+                <textarea type="text" name="observaciones_siniestro"  maxlength="191"  autocomplete="off" placeholder="Ingrese alguna observación" class="form-control"></textarea>
             </div>
 
             <div class="form-group col-md-12">

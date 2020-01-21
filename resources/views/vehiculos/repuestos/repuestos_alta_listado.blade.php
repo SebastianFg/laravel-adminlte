@@ -23,7 +23,7 @@
               <div class="row">
                 <div class="col-md-3">
                   @can('vehiculos.crearRepuestos')
-                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAsignacionRepuesto"> <i class="fa fa-plus"> Nuevo</i> </button> 
+                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAsignacionRepuesto"> <i class="fa fa-plus"> Nuevo repuesto</i> </button> 
                   @endcan  
                 </div>
           </div>
@@ -48,7 +48,7 @@
                       <div class="row">
                         
                         <div class="form-group">
-                          <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
+                          <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="Numero de identificación">
                         </div>
                         <div class="form-group">
                            <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 

@@ -42,7 +42,7 @@
                   <form class="navbar-form navbar-right pull-right" role="search">
                     <div class="row">
                       <div class="form-group">
-                        <input type="text" autocomplete="off"  name="nombreDependencia" class="form-control" placeholder="ingrese nombre de dependencia">
+                        <input type="text" autocomplete="off"  name="nombreDependencia" class="form-control" placeholder="Ingrese nombre de dependencia">
                       </div>
                       <div class="form-group">
                         <select name="nivel_dependencia" class="form-control">

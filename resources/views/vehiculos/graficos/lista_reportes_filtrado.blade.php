@@ -9,7 +9,7 @@
           <th>Dominio</th>
           <th>Motor</th>
           <th>Chasis</th>
-          <th>N de identificación</th>
+          <th>Nº de identificación</th>
         
       
       </tr>

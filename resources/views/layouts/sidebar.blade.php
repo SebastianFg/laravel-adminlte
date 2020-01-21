@@ -39,7 +39,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-user"></i>
                         <p>
-                          Usuarios y Permisos
+                          Usuarios y permisos
                           <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
@@ -84,7 +84,7 @@
                             <li class="nav-item noPuntos">
                                 <a href="{{ route('rolPermisos') }}" class="nav-link">
                                     <i class="fa fa-plus nav-icon"></i>
-                                    <p>Roles Permisos</p>
+                                    <p>Roles permisos</p>
                                 </a>
                             </li>
                         </ul>
@@ -117,7 +117,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-car"></i>
                         <p>
-                          Vehiculos
+                          Vehículos
                           <i class="fa fa-angle-left right"></i>
                         </p>
                     </a>
@@ -136,7 +136,7 @@
                         <a href="{{ route('listaTipoVehiculos') }}" class="nav-link">
                             <i class="nav-icon fa fa-asterisk"></i>
                             <p>
-                              Tipo de vehiculos
+                              Tipo de vehículos
                  
                             </p>
                         </a>

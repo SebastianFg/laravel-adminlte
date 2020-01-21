@@ -27,7 +27,7 @@
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAltaTipoVehiculo"> <i class="fa fa-plus"> Nuevo</i> </button> 
                   @endcan
                   @can('vehiculos.imprimirLista')
-                    <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
+                    <button type="button" id="redireccionar" class=" btn btn-danger" title="Descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
                   @endcan  
                 </div>
 
@@ -48,7 +48,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Vehiculos</u></strong>
+                  <strong><u>Vehículos</u></strong>
                 </div>
 
                 <div class="card-body">
@@ -57,7 +57,7 @@
                       <div class="row">
                         
                         <div class="form-group">
-                          <input type="text" name="tipoVehiculoBuscado" autocomplete="off" class="form-control" placeholder="tipo vehiculo">
+                          <input type="text" name="tipoVehiculoBuscado" autocomplete="off" class="form-control" placeholder="Tipo de vehículo">
                         </div>
                         <div class="form-group">
                            <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
@@ -70,7 +70,7 @@
                       <thead>
                         <tr>
 
-                          <th>Tipo Vehiculo</th>
+                          <th>Tipo Vehículo</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>

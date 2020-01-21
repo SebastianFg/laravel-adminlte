@@ -3,7 +3,7 @@
       <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content col-md-12">
               <div class="modal-header">
-                  <h4 class="modal-title" id="myModalLabel">Eliminar Tipo Vehiculo</h4>
+                  <h4 class="modal-title" id="myModalLabel">Eliminar Tipo Vehículo</h4>
               </div>
               @if(!$errors->isEmpty())
               <div class="alert alert-danger">
@@ -20,8 +20,8 @@
                   @csrf
                   <div class="row">
                     <div class="form-group col-md-12">
-                        <label>Tipo Vehiculo</label>
-                        <input type="text" readonly="" id="id_nombre_tipo_vehiculo_baja" name="nombre_tipo_vehiculo_baja" autocomplete="off" maxlength="6" placeholder="tipo vehiculo" required class="form-control md-2" value="{{ old('nombre_tipo_vehiculo_editar') }}"> 
+                        <label>Tipo Vehículo</label>
+                        <input type="text" readonly="" id="id_nombre_tipo_vehiculo_baja" name="nombre_tipo_vehiculo_baja" autocomplete="off" maxlength="6" placeholder="Tipo vehículo" required class="form-control md-2" value="{{ old('nombre_tipo_vehiculo_editar') }}"> 
                         <input type="text" hidden="" name="id_tipo_vehiculo" id="id_tipo_vehiculo_baja">
                     </div>    
 

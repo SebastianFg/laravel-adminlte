@@ -24,7 +24,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Roles y Permisos</u></strong>
+                  <strong><u>Roles y permisos</u></strong>
                 </div>
 
                 <div class="card-body">
@@ -33,7 +33,7 @@
                         <div class="row">
                           
                           <div class="form-group">
-                            <input type="text" autocomplete="off"  name="RolPermisoBuscado" class="form-control" placeholder="ingrese permiso o rol">
+                            <input type="text" autocomplete="off"  name="RolPermisoBuscado" class="form-control" placeholder="Ingrese permiso o rol">
                           </div>
 
                           <div class="form-group">

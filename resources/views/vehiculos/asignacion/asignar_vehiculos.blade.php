@@ -4,7 +4,7 @@
 @section('content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
 <!-- Content Wrapper. Contains page content -->
-<title>@yield('titulo', 'Patrimonio') | Asignacion</title>
+<title>@yield('titulo', 'Patrimonio') | Asignación</title>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
@@ -24,7 +24,7 @@
               <div class="row">
                 <div class="col-md-3">
                   @can('vehiculos.asignarNuevo')
-                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAsignacion"> <i class="fa fa-plus"> Nueva</i> </button> 
+                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAsignacion"> <i class="fa fa-plus"> Nueva Asignación</i> </button> 
                   @endcan
                 </div>
           </div>
@@ -40,7 +40,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Vehiculos Asignados</u></strong>
+                  <strong><u>Vehículos Asignados</u></strong>
                 </div>
 
                 <div class="card-body">
@@ -49,7 +49,7 @@
                       <div class="row">
                         
                         <div class="form-group">
-                          <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
+                          <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="Numero de identificación">
                         </div>
                         <div class="form-group">
                            <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
@@ -63,8 +63,8 @@
                       <thead>
                         <tr>
 
-                          <th>N de identificación</th>
-                          <th>N de inventario</th>
+                          <th>Nº de identificación</th>
+                          <th>Nº de inventario</th>
                           <th>Dominio</th>
                           <th>Afectado</th>
                           <th>Fecha</th>
