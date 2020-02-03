@@ -22,11 +22,7 @@
                     <div class="form-group col-md-6">
 
                         <label title="número de identificacion interna por ejemplo el vehiculo N° 3-720">Nº de Identificación</label>
-                        <input type="text" name="numero_de_identificacion" autocomplete="off" maxlength="6" placeholder="Número de identificacion" required class="form-control md-2" value="{{ old('numero_de_identificacion') }}"> 
-
-                        <label>Nº de Identificación</label>
-                        <input type="text" name="numero_de_identificacion" autocomplete="off" maxlength="6" placeholder="Numero de identificación" required class="form-control md-2" value="{{ old('numero_de_identificacion') }}"> 
-
+                        <input type="text" name="numero_de_identificacion" autocomplete="off" maxlength="6" placeholder="Número de identificacion" required class="form-control md-2" value="{{ old('numero_de_identificacion') }}">
                     </div>
                     <div class="form-group col-md-6">
                         <label title="Fecha en la que se puso en funcionamiento dicho vehiculo">Fecha</label>
@@ -63,10 +59,6 @@
 
                         <label title="Ingrese el año de produccion del vehiculo, ejemplo, 2018">Año de Producción</label>
                         <input type="number"  name="anio_produccion" autocomplete="off" placeholder="Año de Produccion" class="form-control" required value="{{ old('anio_produccion') }}">
-
-                        <label for="">Año de Producción</label>
-                        <input type="number"  name="anio_produccion" autocomplete="off" placeholder="Año de Producción" class="form-control" required value="{{ old('anio_produccion') }}">
-
                     </div> 
                   </div>
                   <div class="row">
@@ -83,11 +75,7 @@
                     <div class="form-group col-md-6">
 
                         <label title="Ingrese el tipo de vehiculo">Tipo de vehiculo</label>
-                        <br>  
-                        <select name="tipo" id="tipo_id" required="" class="form-control">
-                        <option value="" >Seleccione una vehiculo</option>
-
-                        <label for="">Tipo de vehículo</label>
+                      
                         <br>  
                         <select name="tipo" id="tipo_id" required="" class="form-control">
                         <option value="" selected="">Seleccione una vehículo</option>

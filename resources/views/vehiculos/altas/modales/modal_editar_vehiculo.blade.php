@@ -15,7 +15,7 @@
               </div>
               @endif
               <div class="modal-body ">
-                <form action="{{ url('admin/editar_vehiculo') }}" class="form-group" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('updateVehiculo') }}" class="form-group" method="POST" enctype="multipart/form-data">
 
                   @csrf
                   <input type="text" name="vehiculo" hidden="" id="id_vehiculo_modificacion" >
@@ -24,9 +24,6 @@
 
                           <label title="número de identificacion interna por ejemplo el vehiculo N° 3-720">Nº de Identificación</label>
                         <input type="text" id="id_numero_de_identificacion_modificacion" name="numero_de_identificacion" autocomplete="off" maxlength="6" placeholder="Numero de identificacion" required class="form-control md-2" value="{{ old('numero_de_identificacion') }}"> 
-
-                        <label>Nº de Identificación</label>
-                        <input type="text" id="id_numero_de_identificacion_modificacion" name="numero_de_identificacion" autocomplete="off" maxlength="6" placeholder="Numero de identificación" required class="form-control md-2" value="{{ old('numero_de_identificacion') }}"> 
 
                     </div>
                     <div class="form-group col-md-6">
@@ -68,9 +65,6 @@
                         <label title="Ingrese el año de produccion del vehiculo, ejemplo, 2018">Año de Producción</label>
                         <input type="number"  name="anio_produccion" autocomplete="off" id="id_anio_produccion_modificacion" placeholder="Año de Produccion" class="form-control" required value="{{ old('anio_produccion') }}">
 
-                        <label for="">Año de producción</label>
-                        <input type="number"  name="anio_produccion" autocomplete="off" id="id_anio_produccion_modificacion" placeholder="Año de Producción" class="form-control" required value="{{ old('anio_produccion') }}">
-
                     </div> 
                   </div>
                   <div class="row">
@@ -89,14 +83,11 @@
                     <div class="form-group col-md-6">
 
                         <label title="Ingrese el tipo de vehiculo">Tipo de vehiculo</label>
-
-                        <label for="">Tipo de vehículo</label>
-
                         <br>  
                         <select name="tipo" id="id_tipo_modificacion" required="" class="form-control">
                         <option value="" selected="">Seleccione una vehículo</option>
                           @foreach ($tipo_vehiculo as $item)
-                            <option value="{{ $item->id_tipo_vehiculo }}">{{ $item->nombre_tipo_vehiculo }}</option>
+                            <option value="{{ $item->id_tipo_vehiculo }}" {{(old('tipo') == $item->id_tipo_vehiculo ? "selected" : "" )}}>{{ $item->nombre_tipo_vehiculo }}</option>
                           @endforeach
                  
                         </select>
