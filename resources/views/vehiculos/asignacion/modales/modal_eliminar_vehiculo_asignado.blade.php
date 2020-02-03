@@ -21,7 +21,7 @@
                   <div class="row">
                     <div class="form-group col-md-6">
                         <input type="text" hidden="" name="id_detalle" id="id_detalle_asignacion">
-                        <label>Vehiculo</label>
+                        <label>Vehículo</label>
                         <input type="text" readonly="" class="form-control" id="id_nombre_vehiculo_eliminado">
                         <input type="text"  class="form-control"  hidden="" name="id_identificacion_vehiculo_eliminado"  id="id_identificacion_vehiculo_eliminado">
                     </div>

@@ -45,7 +45,7 @@
                       <div class="row">
 
                         <div class="form-group busqueda ">
-                          <input type="text" name="vehiculoBuscado" class="form-control" placeholder="numero de identificacion">
+                          <input type="text" name="vehiculoBuscado" class="form-control" placeholder="Numero de identificación">
                         </div>
                        <div class="form-group busqueda ">
                           <select  id="id_marca" name="marcas" class="form-control ">
@@ -65,7 +65,7 @@
                         </div>
                         <div class="form-group busqueda">
                           <select name="id_tipo_vehiculo_lista"  class="form-control">
-                            <option value="" selected="">Seleccione un tipo de vehiculo</option>
+                            <option value="" selected="">Seleccione un tipo de vehículo</option>
                             @foreach ($tipo_vehiculo as $item)
                               <option value="{{ $item->id_tipo_vehiculo }}">{{ $item->nombre_tipo_vehiculo }}</option>
                             @endforeach
@@ -116,7 +116,7 @@
                                 <div class="row col-md-12">
                                   <div class="card col-md-12">
                                     <div class="card-body">
-                                      <h4 class="card-title">Ingrese algun numero de identificación o dominio del vehiculo</h4> 
+                                      <h4 class="card-title">Ingrese algun numero de identificación o dominio del vehículo</h4> 
                                       <br>
                                     </div>
                                   </div>

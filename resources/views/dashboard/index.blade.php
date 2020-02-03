@@ -58,7 +58,7 @@
                     <div class="form-group">
                       <label>Nº de identificación</label>
                       <br>
-                      <input type="text" name="dominio" id="id_identificacion" placeholder="ingrese numero de identificación" required class="form-control ">
+                      <input type="text" name="dominio" id="id_identificacion" placeholder="Ingrese numero de identificación" required class="form-control ">
                     </div>
                   </div>
                   <div class="col-md-3">

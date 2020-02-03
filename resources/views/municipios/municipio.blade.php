@@ -38,7 +38,7 @@
                   <form class="navbar-form navbar-right pull-right" role="search">
                     <div class="row">
                       <div class="form-group">
-                        <input type="text" autocomplete="off"  name="nombreMunicipio" class="form-control" placeholder="ingrese municipio">
+                        <input type="text" autocomplete="off"  name="nombreMunicipio" class="form-control" placeholder="Ingrese municipio">
                       </div>
                       <div class="form-group">
                          <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 

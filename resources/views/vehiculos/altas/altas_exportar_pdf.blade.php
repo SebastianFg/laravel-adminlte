@@ -17,8 +17,8 @@
 			<br>
 			<div class="col-md-3 " style="float:center; text-align: center;">
 				
-				<p> <h4>DIRECCION GENERAL ADMINISTRACION</h4>
-					<h4>DIRECCION PATRIMONIO</h4>
+				<p> <h4>DIRECCIÓN GENERAL ADMINISTRACIÓN</h4>
+					<h4>DIRECCIÓN PATRIMONIO</h4>
 					<h4>DEPARTAMENTO AUTOMOTORES</h4>
 				</p>
 			</div>
@@ -28,7 +28,7 @@
 	<div class=" panel panel-body " style=" display: block; margin-top: 120px;">
 		<hr>
 		<div class="col-md-12" style="float:center; text-align: center;" >
-			<p><h4>LISTA DE VEHICUOLOS | {{  $cantidad_total }}</h4> </p>
+			<p><h4>LISTA DE VEHÍCULOS | {{  $cantidad_total }}</h4> </p>
 			<br>
 		</div>
 		<br>

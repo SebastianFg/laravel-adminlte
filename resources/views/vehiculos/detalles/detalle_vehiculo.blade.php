@@ -26,7 +26,7 @@
             <div class="row">
               
               <div class="form-group">
-                <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="numero de identificacion">
+                <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="Numero de identificación">
               </div>
               <div class="form-group">
                  <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
@@ -43,7 +43,7 @@
         <div class="row ">
           <div class="card col-sm-12">
             <div class="card-body">
-              <h4 class="card-title">Ingrese numero de identificación o dominio del vehiculo</h4> 
+              <h4 class="card-title">Ingrese numero de identificación o dominio del vehículo</h4> 
               <br>
             </div>
           </div>
@@ -76,7 +76,7 @@
                     <label class="texto">Año de producción</label>
                     <p class="parrafos" >{{$VehiculosListados[0]->anio_de_produccion  }}</p>
                     
-                    <label class="texto">dominio </label>
+                    <label class="texto">Dominio </label>
                     <p class="parrafos" >{{$VehiculosListados[0]->dominio  }}</p>
 
 
@@ -261,7 +261,7 @@
                 </div>
               </div>
               @else
-                <p> El vehiculono posee imagenes</p>
+                <p> El vehículo no posee imagenes</p>
               @endif
             </div>
           </div>
