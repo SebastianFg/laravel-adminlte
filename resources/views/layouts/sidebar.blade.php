@@ -2,7 +2,7 @@
 @if(Auth::User()->primer_logeo == null)
 @else
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside id="leftCol" class=" sticky-top main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('inicio') }}" class="brand-link">
         <img src="/img/logo.png" alt="Laravel Starter" class="brand-image img-circle elevation-3"
@@ -11,7 +11,7 @@
     </a>
 
     <!-- Sidebar -->
-    <section class="sidebar">
+    <section class="sidebar" >
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 @can('usuarios.listaUsuarios')
-                <li class="nav-item has-treeview {{ request()->is('admin/permisos*') ? 'menu-open' : '' }}  {{ request()->is('admin/usuarios*') ? 'menu-open' : '' }} {{ request()->is('admin/roles*') ? 'menu-open' : '' }} {{ request()->is('admin/users*') ? 'menu-open' : '' }}">
+                <li class="nav-item has-treeview {{ request()->is('permisos*') ? 'menu-open' : '' }}  {{ request()->is('usuarios*') ? 'menu-open' : '' }} {{ request()->is('roles*') ? 'menu-open' : '' }} {{ request()->is('users*') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-user"></i>
                         <p>
@@ -113,7 +113,7 @@
                 @endcan
                 @can('vehiculos.index')
                 {{-- con el request->is nos sirve para mantener abierto el menu si es que estamos en el menu propiamente dicho --}}
-                <li class="nav-item has-treeview  {{ request()->is('admin/reportes*') ? 'menu-open' : '' }} {{ request()->is('admin/repuestos*') ? 'menu-open' : '' }} {{ request()->is('admin/detalleVehiculo*') ? 'menu-open' : '' }} {{ request()->is('admin/siniestros*') ? 'menu-open' : '' }} {{ request()->is('admin/asignacion*') ? 'menu-open' : '' }} {{ request()->is('admin/historial_completo*') ? 'menu-open' : '' }}  {{ request()->is('admin/baja_definitiva*') ? 'menu-open' : '' }}  {{ request()->is('admin/fuera_de_servicio*') ? 'menu-open' : '' }}  {{ request()->is('admin/alta_vehiculos*') ? 'menu-open' : '' }} {{ request()->is('admin/tipo_vehiculos*') ? 'menu-open' : '' }}  ">
+                <li class="nav-item has-treeview  {{ request()->is('reportes*') ? 'menu-open' : '' }} {{ request()->is('repuestos*') ? 'menu-open' : '' }} {{ request()->is('detalleVehiculo*') ? 'menu-open' : '' }} {{ request()->is('siniestros*') ? 'menu-open' : '' }} {{ request()->is('asignacion*') ? 'menu-open' : '' }} {{ request()->is('historial_completo*') ? 'menu-open' : '' }}  {{ request()->is('baja_definitiva*') ? 'menu-open' : '' }}  {{ request()->is('fuera_de_servicio*') ? 'menu-open' : '' }}  {{ request()->is('alta_vehiculos*') ? 'menu-open' : '' }} {{ request()->is('tipo_vehiculos*') ? 'menu-open' : '' }}  ">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-car"></i>
                         <p>
@@ -143,7 +143,7 @@
                     </li>
                     @endcan
                     @can('estados.estadoIndex')
-                    <li class="nav-item has-treeview {{ request()->is('admin/historial_completo*') ? 'menu-open' : '' }}  {{ request()->is('admin/baja_definitiva*') ? 'menu-open' : '' }}  {{ request()->is('admin/fuera_de_servicio*') ? 'menu-open' : '' }}">
+                    <li class="nav-item has-treeview {{ request()->is('historial_completo*') ? 'menu-open' : '' }}  {{ request()->is('baja_definitiva*') ? 'menu-open' : '' }}  {{ request()->is('fuera_de_servicio*') ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-times"></i>
                             <p>
@@ -253,4 +253,9 @@
     .noPuntos{
         list-style:none;
     } 
+/*    #leftCol {
+      transition: all .3s ease-out;
+      overflow: scroll;
+      -webkit-overflow-scrolling: touch;
+    }*/
 </style>

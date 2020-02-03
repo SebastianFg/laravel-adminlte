@@ -203,11 +203,11 @@ class VehiculoController extends Controller
             'motor' => 'required|unique:vehiculos|max:20',
             'modelo' => 'required|max:20',
             'marca' => 'required|max:50',
-            'anio_produccion' => 'required|numeric',
+            'anio_produccion' => 'required|numeric|min:1970',
             'tipo' => 'required',
-            'numero_de_inventario' => 'required|unique:vehiculos',
+            'numero_de_inventario' => 'numeric|required|unique:vehiculos|min:1',
             'clase_de_unidad' => 'required|max:20',
-            'tipo' => 'required',
+            
             'otros' => 'required',
             "foto.*" => 'required|image|mimes:jpeg,jpg',
         ]);
@@ -231,14 +231,14 @@ class VehiculoController extends Controller
             'fecha' => 'required',
             'dominio'    => ['required',
                               Rule::unique('vehiculos')->ignore($Request->dominio,'dominio')],
-            'chasis' =>  ['required',
+            'chasis' =>  ['required|max:20',
                               Rule::unique('vehiculos')->ignore($Request->chasis,'chasis')],
-            'motor' => ['required',
+            'motor' => ['required|max:20',
                               Rule::unique('vehiculos')->ignore($Request->motor,'motor')],
             'modelo' => 'required|max:20',
             'marca' => 'required|max:50',
-            'anio_produccion' => 'required|numeric',
-            'kilometraje' => 'required',
+            'anio_produccion' => 'required|numeric|min:1',
+            'kilometraje' => 'required|min:1',
             'clase_de_unidad' => 'required|max:20',
             'otros' => 'required'
         ]);

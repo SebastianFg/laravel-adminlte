@@ -14,11 +14,6 @@
 
 
 Route::view('/login', 'auth/login');
-/*if (!Auth::guest()) {
-	Route::view('/', 'auth/login');
-}else{
-	Route::view('/admin/inicio', 'welcome');
-}*/
 
 Auth::routes();
 
