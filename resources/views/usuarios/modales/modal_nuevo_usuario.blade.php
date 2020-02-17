@@ -16,7 +16,7 @@
       <div class="modal-body col-md-12">
         <form action="{{ route('registroUsuario') }}" method="post">
           @csrf
-          <label>Nombre y Apellido</label>
+{{--           <label>Nombre y Apellido</label>
           <div class="input-group mb-3">
             <span class="fa fa-user input-group-text"></span>
             <input id="nombre" type="text" autocomplete="off" class="form-control" minlength="10" name="apellidoynombre" value="{{ old('apellidoynombre') }}" placeholder="Ingrese su nombre completo"
@@ -26,19 +26,17 @@
                 <strong>{{ $errors->first('nombre') }}</strong>
               </span> 
             @endif
-          </div>
-          <label>Usuario</label>
+          </div> --}}
+          <label>Número de revista</label>
           <div class="input-group mb-3">
             <span class="fa fa-user input-group-text"></span> 
-            <input id="usuario" type="text" class="form-control" pattern="[^\s]+" minlength="4" maxlength="20" name="usuario" value="{{ old('usuario') }}" placeholder="Ingrese nombre de usuario">
+            <input id="usuario" type="number" class="form-control" pattern="[^\s]+" minlength="4" maxlength="20" name="usuario" value="{{ old('usuario') }}" placeholder="Ingrese número de revista">
               @if ($errors->has('usuario'))
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $errors->first('usuario') }}</strong>
                 </span> 
               @endif
-
           </div>
-
           <div class="row">
             <div class="col-md-12 modal-footer" style="position:relative;">
               <button class="btn btn-success col-md-4 d-inline" id="btnSubmit" type="submit">Guardar</button>

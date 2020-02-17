@@ -29,7 +29,8 @@ use Response;
 use Barryvdh\DomPDF\Facade as PDF;
 class VehiculoController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth');
 
     }
@@ -237,13 +238,13 @@ class VehiculoController extends Controller
                               Rule::unique('vehiculos')->ignore($Request->motor,'motor')],
             'modelo' => 'required|max:20',
             'marca' => 'required|max:50',
-            'anio_produccion' => 'required|numeric|min:1',
+            'anio_produccion' => 'required|numeric|min:1970',
             'kilometraje' => 'required|min:1',
             'clase_de_unidad' => 'required|max:20',
             'otros' => 'required'
         ]);
         if ($Validar->fails()){
-            alert()->error('Error','Agrege nuevamente...no');
+            alert()->error('Error','Intente editar nuevamente...');
             return  back()->withInput()->withErrors($Validar->errors());
         }
 

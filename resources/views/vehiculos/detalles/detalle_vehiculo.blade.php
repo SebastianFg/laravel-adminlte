@@ -54,7 +54,7 @@
           <div class="col-md-6">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">Detalle</h4>
+                <h4 class="card-title d-flex justify-content-center">Detalle</h4>
                 <br>
                   @if(count($VehiculosListados)>0)
                     <label class="texto" >Numero de identificación</label>
@@ -102,14 +102,25 @@
           <div class="col-md-6">
             <div class="card table-responsive">
               <div class="card-body">
-                <h4 class="card-title">Afectado Actual</h4> 
+                <h4 class="d-flex justify-content-center card-title">Afectado Actual</h4> 
                 <br>
                   @if(count($asignacion_actual)>0)
                     <label class="texto" >Dependencia Actual</label>
                     <p class="parrafos" >{{ $asignacion_actual[0]->nombre_dependencia }}</p>
+                      <hr>
+                      @if($asignacion_actual[0]->id_dependencia == 392 and isset($Mandatario_Dignatario))
+                        <label class="texto">Entidad:</label>
+                        <p class="parrafos" >{{ $Mandatario_Dignatario[0]->nombre_entidad }}
+                        <hr>
+                        <label class="texto">Responsable:</label>
+                        <p class="parrafos" >{{ $Mandatario_Dignatario[0]->nombre_mandatario_dignatario }}
+                        <hr>
+                      @endif
+
+                    
                     <label class="texto" >Responsable de entrega</label>
                     <p class="parrafos" >{{ $asignacion_actual[0]->nombre }}</p>
-
+                    <hr>
                     <label  class="texto">Observaciones</label>
 
                       @if($asignacion_actual[0]->observaciones == null)

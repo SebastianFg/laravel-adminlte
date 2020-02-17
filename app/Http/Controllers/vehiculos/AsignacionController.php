@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Modelos\asignacion_vehiculo;
 use App\Modelos\dependencia;
+use App\Modelos\mandatario_dignatario;
 use App\Modelos\vehiculo;
 use App\User;
 
@@ -134,6 +135,16 @@ class AsignacionController extends Controller
         $nueva_asignacion->id_responsable = Auth::User()->id;
 
         if ($nueva_asignacion->save()) {
+
+            if ($Request->afectado == 392) {
+                $nuevo_mandatario_dignatario = new mandatario_dignatario;
+
+                $nuevo_mandatario_dignatario->nombre_entidad = $Request->entidad;
+                $nuevo_mandatario_dignatario->nombre_mandatario_dignatario = $Request->persona;
+                $nuevo_mandatario_dignatario->id_asignacion = $nueva_asignacion->id_detalle;
+
+                $nuevo_mandatario_dignatario->save();
+            }
             return $this->getMensaje('Asignado con exito','listaAsignacion',true);
         }else{
             return $this->getMensaje('Error, Intente nuevamente...','listaAsignacion',false);

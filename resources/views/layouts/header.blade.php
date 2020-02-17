@@ -32,7 +32,10 @@
 
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                                <img alt="User Image"class="d-block img-fluid" src="{{  route('storage',['carpeta'=>'avatar','archivo'=>Auth::User()->imagen_perfil]) }}" >
+
+                                {{-- <img alt="User Image"class="d-block img-fluid" src="{{  route('storage',['carpeta'=>'avatar','archivo'=>Auth::User()->imagen_perfil]) }}" > --}}
+                                <img alt="User Image" class="d-block img-fluid" id="id_foto" src="" >
+                            
                                 <div class="col-md-12 col-md-offset-2">
                                     <p>
                                         <hr>
@@ -75,3 +78,25 @@
     top: 18px;
     }
 </style>
+<script src="/dist/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var csrftoken = $('meta[name=csrf-token]').attr('content');
+        $.ajax({
+          type:"post",
+          url:'{{route('jerarquia')}}',
+
+          data:{
+            '_token':csrftoken,
+            'Revista':{{substr(Auth::User()->usuario,3)}} },
+
+          success: function(data){
+    
+            $("#id_foto").attr("src", data[1]);
+            
+          },error:function(data){
+            console.log( 'Error al agregar el articulo', data );
+          }
+        });
+    });
+</script>

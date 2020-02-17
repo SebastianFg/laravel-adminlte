@@ -61,9 +61,10 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['name' => 'dependencias.eliminarDepencencia']);
 
         Permission::create(['name' => 'municipios.index']);
-        Permission::create(['name' => 'municipios.crearLocalidad']);
-        Permission::create(['name' => 'municipios.editarLocalidad']);
-        Permission::create(['name' => 'municipios.eliminarLocalidad']);
+        Permission::create(['name' => 'municipios.crearMunicipio']);
+        Permission::create(['name' => 'municipios.editarMunicipio']);
+
+        Permission::create(['name' => 'municipios.eliminarMunicipio']);
 
         Permission::create(['name' => 'estados.estadoIndex']);
         Permission::create(['name' => 'estados.altaEstado']);
@@ -117,9 +118,10 @@ class PermissionsTableSeeder extends Seeder
             'dependencias.eliminarDepencencia',
 
             'municipios.index',
-            'municipios.crearLocalidad',
-            'municipios.editarLocalidad',
-            'municipios.eliminarLocalidad',
+            
+            'municipios.crearMunicipio',
+            'municipios.editarMunicipio',
+            'municipios.eliminarMunicipio',
 
             'estados.estadoIndex',
             'estados.altaEstado'
@@ -161,9 +163,9 @@ class PermissionsTableSeeder extends Seeder
             'dependencias.eliminarDepencencia',
 
             'municipios.index',
-            'municipios.crearLocalidad',
-            'municipios.editarLocalidad',
-            'municipios.eliminarLocalidad',
+            'municipios.crearMunicipio',
+            'municipios.editarMunicipio',
+            'municipios.eliminarMunicipio',
             
             'estados.estadoIndex',
             'estados.altaEstado'

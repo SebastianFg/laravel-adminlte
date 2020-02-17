@@ -19,6 +19,8 @@ use App\Modelos\estado_vehiculo;
 use App\Modelos\asignacion_vehiculo;
 use App\Modelos\historial_asignacion;
 use App\Modelos\siniestro;
+use App\Modelos\mandatario_dignatario;
+
 use App\User;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -90,6 +92,12 @@ class DetallesController extends Controller
         return $siniestros;
     }
 
+    protected function Mandatario_Dignatario($id){
+        $mandatario_dignatario = mandatario_dignatario::where('id_asignacion','=',$id)->get();
+        $mandatario_dignatario = $this->paginar($mandatario_dignatario);
+        return $mandatario_dignatario;
+    }
+
     public function index(Request $Request,$id = null){
         if (Auth::User()->primer_logeo == null) {
             return redirect('/primerIngreso');
@@ -112,7 +120,10 @@ class DetallesController extends Controller
             $historial = $this->HistorialVehiculo($id);
             $asignacion_actual = $this->AsignacionActual($id);
             $imagenes_vehiculo = imagen_vehiculo::where('id_vehiculo','=',$id)->select('nombre_imagen')->get();
-
+            
+            if ($asignacion_actual[0]->id_dependencia == 392) {
+                $Mandatario_Dignatario = $this->Mandatario_Dignatario($asignacion_actual[0]->id_detalle);
+            }
         }elseif( $Request->vehiculoBuscado != null && $id == null){
 
             $vehiculo = \DB::select("select id_vehiculo from vehiculos where numero_de_identificacion = '".$Request->vehiculoBuscado."' or dominio = '".$Request->vehiculoBuscado."'");
@@ -122,16 +133,18 @@ class DetallesController extends Controller
         	  // return $vehiculo;
                 $historial = $this->HistorialVehiculo($vehiculo[0]->id_vehiculo);
                 $asignacion_actual = $this->AsignacionActual($vehiculo[0]->id_vehiculo);
-                //return $asignacion_actual;
                 $siniestros = $this->Siniestros($vehiculo[0]->id_vehiculo);
                 $imagenes_vehiculo = imagen_vehiculo::where('id_vehiculo','=',$vehiculo[0]->id_vehiculo)->select('nombre_imagen')->get();
                 $VehiculosListados = \DB::select('select * from vehiculos where id_vehiculo = '.$vehiculo[0]->id_vehiculo);
+                if ($asignacion_actual[0]->id_dependencia == 392) {
+                    $Mandatario_Dignatario = $this->Mandatario_Dignatario($asignacion_actual[0]->id_detalle);
+                }
             }else{
                 $existe = 0;
             }
         }
 
-        return view('vehiculos.detalles.detalle_vehiculo',compact('existe','VehiculosListados','asignacion_actual','historial','siniestros','imagenes_vehiculo'));
+        return view('vehiculos.detalles.detalle_vehiculo',compact('existe','VehiculosListados','asignacion_actual','historial','siniestros','imagenes_vehiculo','Mandatario_Dignatario'));
     }
 
     public function exportarPdfHistorial($id){

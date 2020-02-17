@@ -28,12 +28,16 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 	
 	Route::group(['middleware' => ['auth']],function(){
 
+		//limpiar cache
+		Route::get('optimize', 'HomeController@limpiarCache');//
 		//usuarios
 		Route::get('usuarios', 'UsuarioController@index')->name('listaUsuarios');//\\\->middleware('permiso:usuarios.listaUsuarios');
 		Route::post('usuarios', 'UsuarioController@asignarRol')->name('agregarRol');//->middleware('permiso:usuarios.asignarRol');
 	/*	Route::post('eliminarUsuarios','UsuarioController@eliminarUsuario')->name('eliminarUsuario');*/
 		Route::post('editarUsuario','UsuarioController@eliminarUsuario')->name('eliminarUsuario');
 		Route::get('resetPassword/{id}','UsuarioController@resetPassword')->name('resetPassword')->middleware('permiso:usuarios.resetPassword');
+
+		Route::post('apiJerarquia','UsuarioController@jerarquia')->name('jerarquia');
 
 		Route::post('altaUsuario','UsuarioController@registroUsuario')->name('registroUsuario');
 		//primer cambio
@@ -143,7 +147,10 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 		//PDF
 		Route::get('asignar_vehiculos/{id}', 'vehiculos\AsignacionController@exportarPdfCargo')->name('pdfVehiculosCargo');
 
-		//vehiculos detalle
+		//detalle de autos asignados a las ur
+		Route::post('detalle_ur_vehiculos','HomeController@detalleUnidadRegional')->name('detalleUnidadRegional');
+		
+		//vehiculos detalles
 		Route::get('/detalleVehiculo/{id?}', 'vehiculos\DetallesController@index')->name('detalleVehiculo');
 		//descargar el historial del vehiculo
 		Route::get('historial_completo_pdf/{id}', 'vehiculos\DetallesController@exportarPdfHistorial')->name('pdfVehiculos');

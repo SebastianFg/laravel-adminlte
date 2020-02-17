@@ -17,7 +17,81 @@
       Su usuario se encuentra suspendido
     @else
     <div class="container-fluid">
-      <div class="card-body">
+      
+      <div class="row col-md-12" style="padding-top: 5px;">
+        <hr>
+        <div class="card col-md-6">
+          <div class="card-header">
+            <h3 class="card-title">Vehículos Disponíbles</h3>
+            <div class="card-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body table-responsive">
+            <canvas id="vehiculosDisponibles"></canvas>
+            <div class="table-responsive ">
+              <hr>
+              <table class=" table table-striped table-sm table-hover table-condensed table-bordered">
+                <thead>
+                  <tr>
+                    <th>Tipo</th>
+                    <th>Cantidades</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($total_vehiculos_disponibles as $item)
+                    <tr>
+                      <td>{{ $item->nombre_tipo_vehiculo }}</td>
+                      <td>{{ $item->total_vehiculos }}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="card col-md-6">
+          <div class="card-header">
+            <h3 class="card-title">Vehículos Disponibles</h3>
+            <div class="card-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <canvas id="totalVehiculos"></canvas>
+            <div>
+              <hr>
+              <table class="table-sm table table-striped table-hover table-condensed table-bordered">
+                <thead>
+                  <tr>
+                    <th>Total de vehículos</th>
+                    <th>Baja Total</th>
+                    <th>En Reparación</th>
+                    <th>Total de vehículos disponibles</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($total_vehiculos_reparacion as $item)
+                    <tr>
+                      <td>{{ $item->Total }}</td>
+                      <td>{{ $item->totalbaja }}</td>
+                      <td>{{ $item->totalreparacion }}</td>
+                      <td>{{ $item->Total - ($item->totalreparacion+$item->totalbaja) }}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      {{-- row --}}
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
           <div class="card">
             
             <div class="card-header">
@@ -38,9 +112,7 @@
               </div>
             </div>
           </div>
-      </div>
-
-      <div class="row">
+        </div>
 
       </div>
       <div class="row">

@@ -181,6 +181,7 @@
       processResults: function (data) {
         return {
             results:  $.map(data, function (item) {
+
                 return {
                     text: item.dominio+' - N Identificacion '+item.numero_de_identificacion,
                     id: item.id_vehiculo,
@@ -215,21 +216,23 @@
       url: '{{ route("getAllAfectadosDisponibles") }}',
       delay: 250,
       data: function (params) {
-
-        console.log(params)
         return {
           termino: $.trim(params.term),
           page: params.page
         };
       },
       processResults: function (data) {
-        console.log(data)
         return {
             results:  $.map(data, function (item) {
-                return {
-                    text: item.nombre_dependencia,
-                    id: item.id_dependencia,
-                }
+              if (item.id_dependencia == 392){
+                $('#mandatario_dignatario').show();
+              }else{
+                   $('#mandatario_dignatario').hide();
+              }
+              return {
+                  text: item.nombre_dependencia,
+                  id: item.id_dependencia,
+              }
             })
         };
     },
