@@ -102,7 +102,7 @@
                     </div>
                     <div class="form-group col-md-6" style="background-color: #FFF;" id="divFileEdit">
                          <label title="Seleccione las fotos del vehiculo, con un maximo de 6 fotos">Selecionar imagenes</label>
-                        <input type="file" name="fotoEdit[]"  id="fotoEdit" accept="image/*" multiple />
+                        <input type="file" name="fotoEdit[]" id="fotoEdit" accept="image/*" multiple />
                     </div>
                   </div>
                   <div class="col-md-12 modal-footer" style="position:relative;">

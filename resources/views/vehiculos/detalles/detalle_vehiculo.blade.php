@@ -26,7 +26,7 @@
             <div class="row">
               
               <div class="form-group">
-                <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="Numero de identificación">
+                <input type="text" name="vehiculoBuscado"  autocomplete="off" class="form-control" placeholder="Numero de identificación">
               </div>
               <div class="form-group">
                  <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
@@ -117,11 +117,11 @@
                         <hr>
                       @endif
 
-                    
-                    <label class="texto" >Responsable de entrega</label>
-                    <p class="parrafos" >{{ $asignacion_actual[0]->nombre }}</p>
-                    <hr>
-                    <label  class="texto">Observaciones</label>
+                      
+                      <label class="texto" >Responsable de entrega</label>
+                      <p class="parrafos" >{{ $asignacion_actual[0]->nombre }}</p>
+                      <hr>
+                      <label  class="texto">Observaciones</label>
 
                       @if($asignacion_actual[0]->observaciones == null)
                         <p class="parrafos">No posee obs.</p>

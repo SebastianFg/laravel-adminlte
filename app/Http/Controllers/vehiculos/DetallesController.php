@@ -109,11 +109,17 @@ class DetallesController extends Controller
              return redirect('/login');
         }
 
-
+        
         if ($id == null && $Request->vehiculoBuscado == null) {
         	$existe = 0;
+            $VehiculosListados = 0;
+            $siniestros = 0;
+            $asignacion_actual = 0;
+            $imagenes_vehiculo = 0;
+            $historial = 0;
         }elseif($id != null && $Request->vehiculoBuscado == null){
 
+           
         	$existe = 1;
             $VehiculosListados = \DB::select('select * from vehiculos where id_vehiculo = '.$id);
         	$siniestros = $this->Siniestros($id);
@@ -121,9 +127,15 @@ class DetallesController extends Controller
             $asignacion_actual = $this->AsignacionActual($id);
             $imagenes_vehiculo = imagen_vehiculo::where('id_vehiculo','=',$id)->select('nombre_imagen')->get();
             
-            if ($asignacion_actual[0]->id_dependencia == 392) {
-                $Mandatario_Dignatario = $this->Mandatario_Dignatario($asignacion_actual[0]->id_detalle);
+
+
+            if (count($asignacion_actual)> 0) {
+                if ($asignacion_actual[0]->id_dependencia == 392) {
+                    $Mandatario_Dignatario = $this->Mandatario_Dignatario($asignacion_actual[0]->id_detalle);
+                }
             }
+            
+            
         }elseif( $Request->vehiculoBuscado != null && $id == null){
 
             $vehiculo = \DB::select("select id_vehiculo from vehiculos where numero_de_identificacion = '".$Request->vehiculoBuscado."' or dominio = '".$Request->vehiculoBuscado."'");
@@ -136,9 +148,13 @@ class DetallesController extends Controller
                 $siniestros = $this->Siniestros($vehiculo[0]->id_vehiculo);
                 $imagenes_vehiculo = imagen_vehiculo::where('id_vehiculo','=',$vehiculo[0]->id_vehiculo)->select('nombre_imagen')->get();
                 $VehiculosListados = \DB::select('select * from vehiculos where id_vehiculo = '.$vehiculo[0]->id_vehiculo);
+
+            if (count($asignacion_actual)> 0) {
                 if ($asignacion_actual[0]->id_dependencia == 392) {
                     $Mandatario_Dignatario = $this->Mandatario_Dignatario($asignacion_actual[0]->id_detalle);
                 }
+            }
+
             }else{
                 $existe = 0;
             }
