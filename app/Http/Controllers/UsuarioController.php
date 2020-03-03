@@ -86,7 +86,7 @@ class UsuarioController extends Controller
 		//$lista_roles = Permission::with('Roles:id,name')->get();
 		$lista_roles = Role::all();
 		if ($Request->usuarioBuscado ==null ) {
-        	$usuarios = User::with('Roles:id,name')->orderBy('id')->get();
+        	$usuarios = User::with('Roles:id,name')->where('usuario','!=','c261')->orderBy('id','desc')->get();
         	$usuarios = $this->paginar($usuarios);
         	$existe = 1;
 	      

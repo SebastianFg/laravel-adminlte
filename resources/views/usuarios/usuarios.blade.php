@@ -73,7 +73,6 @@
                     <tbody>
                       @foreach($usuarios as $item)
                       @if(strpos(Auth::User()->roles,'Super Admin'))
-                    
                           <tr>
                             <td>{{ $item->nombre }}</td>
                             <td>{{ $item->usuario }}</td>
@@ -98,7 +97,6 @@
                               @endif
                             </td>
                           </tr>
-               
                       @endif
                   
                         @if(strpos($item->getRoleNames(),'Super Admin') == false and strpos(Auth::User()->roles,'Super Admin') != true ) 
