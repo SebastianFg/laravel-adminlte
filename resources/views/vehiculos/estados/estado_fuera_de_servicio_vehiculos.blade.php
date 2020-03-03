@@ -84,7 +84,7 @@
                               @can('estados.altaEstado') 
                                 <button onclick="altaVehiculo('{{ $item->dominio }}','{{ $item->id_vehiculo }}','{{ $item->id_estado_vehiculo }}')" title="Alta vehiculo"   class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
                               @endcan
-                              @can('vehiculos.eliminar') 
+                              @can('vehiculo.eliminar.definitivo') 
                                 <button  onclick="eliminarVehiculo('{{ $item->dominio }}','{{ $item->id_vehiculo }}','{{ $item->id_estado_vehiculo }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                               @endcan
                             </td>

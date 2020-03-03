@@ -27,7 +27,7 @@
               </span> 
             @endif
           </div>
-          <label>Confirmar contraseña</label>
+          <label>Confirmar Contraseña</label>
           <div class="input-group mb-3">
             <span class="fa fa-lock input-group-text"></span> 
             <input id="password-confirm" type="password" class="form-control" autocomplete="on" name="password_confirmation" placeholder="ingrese nuevamente su contraseña" >
