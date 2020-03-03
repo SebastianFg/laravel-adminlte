@@ -278,7 +278,7 @@ class UsuarioController extends Controller
 
     public function editarPerfil(Request $Request){
 
-    
+/*    
             if ($Request->foto != null){
                 $Validar = \Validator::make($Request->all(), [
                     'foto' => 'required|image|mimes:jpg,jpeg'
@@ -310,7 +310,7 @@ class UsuarioController extends Controller
                     $usuario_foto->imagen_perfil = $nombre_archivo_nuevo;
                     $usuario_foto->update();
                     }
-                }
+                }*/
             
 
             if (($Request->password_nueva && $Request->password_confirmation) != null) {

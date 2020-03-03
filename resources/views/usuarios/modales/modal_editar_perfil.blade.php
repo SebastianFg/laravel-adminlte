@@ -37,11 +37,11 @@
               </span> 
             @endif
           </div>
-          <label>Foto</label>
+{{--           <label>Foto</label>
           <div class="input-group mb-3">
         
             <input type="file" accept="image/*"  name="foto"> 
-          </div>
+          </div> --}}
 
           <div class="row">
 
