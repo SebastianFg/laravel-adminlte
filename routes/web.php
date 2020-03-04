@@ -18,7 +18,7 @@ Route::view('/login', 'auth/login');
 Auth::routes();
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
-
+/*Route::get('alta_vehiculos', 'vehiculos\VehiculoController@listaAutobomba')->name('listaVehiculos');*/
 
 
 
@@ -182,7 +182,7 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 		Route::post('/reportesFiltro', 'vehiculos\GraficosController@reportesListadoFiltro')->name('reportesListadoFiltro');
 
-		Route::get('totalVehiculos/{nombre?}', 'vehiculos\VehiculoController@getTotalVehiculos')->name('getTotalVehiculos');
+		Route::get('totalVehiculos/{nombre?}', 'vehiculos\vehiculos\VehiculoController@getTotalVehiculos')->name('getTotalVehiculos');
 
 		Route::get('Descargar_pdf_Vehiculos', 'vehiculos\VehiculoController@exportarPdfVehiculos')->name('exportarPdfVehiculos');
 

@@ -82,7 +82,7 @@
                             <td>{{ $item->numero_de_identificacion }}</td>
                             <td>{{ $item->marca }}</td>
                             <td>{{ $item->clase_de_unidad }}</td>
-                            <td>{{ substr($item->repuestos_entregados ,0,10) }}...<a href="" onclick="detalle('{{ $item->repuestos_entregados }}')" data-toggle="modal" >ver mas</a>
+                            <td>{{ substr($item->repuestos_entregados ,0,10) }}...<a href="" onclick="detalle('{{ $item->repuestos_entregados }}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
                            
                             <td>
                               @can('vehiculos.informacion')

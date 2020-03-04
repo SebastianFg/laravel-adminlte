@@ -129,36 +129,29 @@ class VehiculoController extends Controller
        //return $datos;
         switch ($accion) {
             case 0: //creacion --> alta
-
             	$vehiculo->save();
-                if ($datos->foto == null) {
-                    alert()->success( 'Creacion con éxito, sin fotos');
-                    return  redirect()->route('listaVehiculos');
-                }else{
-                    $images = $datos->file('foto');
+                $images = $datos->file('foto');
 
-                    Storage::disk('public')->makeDirectory('imagenes/'.$datos->dominio);
-                    foreach($images as $image){
-                        $imagenvehiculo = new imagen_vehiculo;
+                Storage::disk('public')->makeDirectory('imagenes/'.$datos->dominio);
+                foreach($images as $image){
+                    $imagenvehiculo = new imagen_vehiculo;
 
-                        $nombre_archivo_nuevo = time().$image->getClientOriginalName();
+                    $nombre_archivo_nuevo = time().$image->getClientOriginalName();
 
-                        Image::make($image)->resize(300, 500);
-                       
-                        Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($image));
-                        Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/".$datos->dominio.'/'.$nombre_archivo_nuevo);
-                        
-                        $imagenvehiculo->id_vehiculo = $vehiculo->id_vehiculo;
-                        $imagenvehiculo->nombre_imagen = $nombre_archivo_nuevo;
-                        $imagenvehiculo->fecha =  $datos->fecha;
-                        $imagenvehiculo->save();
-                    }
-                 
-                    alert()->success( 'Creacion con exito');
-                    return  redirect()->route('listaVehiculos');
-                    break; 
+                    Image::make($image)->resize(300, 500);
+                   
+                    Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($image));
+                    Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/".$datos->dominio.'/'.$nombre_archivo_nuevo);
+                    
+                    $imagenvehiculo->id_vehiculo = $vehiculo->id_vehiculo;
+                    $imagenvehiculo->nombre_imagen = $nombre_archivo_nuevo;
+                    $imagenvehiculo->fecha =  $datos->fecha;
+                    $imagenvehiculo->save();
                 }
-
+             
+                alert()->success( 'Creacion con exito');
+                return  redirect()->route('listaVehiculos');
+                break;
             case 1: // edicion
             	$vehiculo->update();
                 if($datos->fotoEdit == null){
