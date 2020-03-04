@@ -36,6 +36,7 @@ class VehiculoController extends Controller
     }
 
     public function getMensaje($mensaje,$destino,$desicion){
+
         if (!$desicion) {
             alert()->error('Error',$mensaje);
             return  redirect()->route($destino);
@@ -191,6 +192,7 @@ class VehiculoController extends Controller
                         $imagenvehiculo->save();
                     }
                 }
+
                 return $this->getMensaje('Actualizado con exito','listaVehiculos',true);
                 break;
              default:
