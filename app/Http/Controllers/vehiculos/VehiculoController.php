@@ -129,7 +129,7 @@ class VehiculoController extends Controller
        //return $datos;
         switch ($accion) {
             case 0: //creacion --> alta
-s
+
             	$vehiculo->save();
                 if ($datos->foto == null) {
                     alert()->success( 'Creacion con éxito, sin fotos');
