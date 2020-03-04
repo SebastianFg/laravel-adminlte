@@ -97,7 +97,7 @@
 
                   <div class="form-group col-md-12">
                       <label title="Observaciones del vehiculo, ejemplo, vehiculo dañado porque chocaron a la salida de la concesionaria y se rompio el paragolpe">Observaciones</label>
-                      <textarea type="text" name="otros" autocomplete="off" maxlength="150"  placeholder="Observaciones" class="form-control" required value="{{ old('otros') }}"></textarea>
+                      <textarea type="text" name="otros" autocomplete="off" maxlength="150"  placeholder="Observaciones" class="form-control" value="{{ old('otros') }}"></textarea>
                   </div>
 
                   <div class="col-md-12 modal-footer" style="position:relative;">
