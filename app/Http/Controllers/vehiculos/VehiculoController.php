@@ -217,9 +217,6 @@ class VehiculoController extends Controller
             'tipo' => 'required',
             'numero_de_inventario' => 'numeric|required|unique:vehiculos|min:1',
             'clase_de_unidad' => 'required|max:20',
-            
-            'otros' => 'required',
-            "foto.*" => 'required|image|mimes:jpeg,jpg',
         ]);
         if ($Validar->fails()){
             alert()->error('Error','ERROR! Intente agregar nuevamente...');
@@ -250,7 +247,7 @@ class VehiculoController extends Controller
             'anio_produccion' => 'required|numeric|min:1970',
             'kilometraje' => 'required|min:1',
             'clase_de_unidad' => 'required|max:20',
-            'otros' => 'required'
+            
         ]);
         if ($Validar->fails()){
             alert()->error('Error','Intente editar nuevamente...');

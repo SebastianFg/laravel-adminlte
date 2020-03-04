@@ -89,7 +89,7 @@
                     </div>
                     <div class="form-group col-md-6" style="background-color: #FFF;" id="divFileAlta">
                       <label title="Seleccione las fotos del vehiculo, con un maximo de 6 fotos">Selecionar imagenes</label>
-                      <input type="file" name="foto[]" required id="foto" accept="image/*" multiple />
+                      <input type="file" name="foto[]" id="foto" accept="image/*" multiple />
                     </div>
                   </div>
             

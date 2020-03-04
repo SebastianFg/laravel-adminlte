@@ -127,6 +127,26 @@ class RepuestoController extends Controller
 
         return $pdf->download($vehiculos_repuestos_asignados[0]->dominio.'.pdf');
     }
+    public function editarRepuesto(Request $Request){
+        $Validar = \Validator::make($Request->all(), [
+            
+            'repuestos_entregados_editar' => 'required'
+        ]);
+
+        if ($Validar->fails()){
+            alert()->error('Error','Intente cargar neuvamente ...');
+           return  back()->withInput()->withErrors($Validar->errors());
+        }
+        $vehiculos_repuestos_asignados_editado = repuesto::findorfail($Request->id_detalle_repuesto);
+        $vehiculos_repuestos_asignados_editado->repuestos_entregados = $Request->repuestos_entregados_editar;
+
+        if($vehiculos_repuestos_asignados_editado->update()){
+             return $this->getMensaje('Editado con éxito','listaRepuestos',true); 
+        }else{
+            return $this->getMensaje('Intente nuevamente','listaRepuestos',false);
+        } 
+
+    }
     
     //tratamiento para descargar el pdf.
     protected function downloadFile($src){

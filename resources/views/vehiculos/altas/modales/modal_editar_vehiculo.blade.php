@@ -98,7 +98,7 @@
                     </div> 
                     <div class="form-group col-md-12">
                         <label title="Observaciones del vehiculo, ejemplo, vehiculo dañado porque chocaron a la salida de la concesionaria y se rompio el paragolpe">Observaciones</label>
-                        <textarea type="text" name="otros" autocomplete="off" id="id_observaciones_modificacion" placeholder="Observaciones" class="form-control" required value="{{ old('otros') }}"></textarea>
+                        <textarea type="text" name="otros" autocomplete="off" id="id_observaciones_modificacion" placeholder="Observaciones" class="form-control" value="{{ old('otros') }}"></textarea>
                     </div>
                     <div class="form-group col-md-6" style="background-color: #FFF;" id="divFileEdit">
                          <label title="Seleccione las fotos del vehiculo, con un maximo de 6 fotos">Selecionar imagenes</label>

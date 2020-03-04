@@ -176,6 +176,8 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 		Route::get('/vehiculos_select_vehiculos_disponibles','vehiculos\RepuestoController@getAllVehiculosDisponiblesRepuestos')->name('getAllVehiculosDisponiblesRepuestos');
 
 		Route::get('asignar_vehiculos_repuestos/{id}', 'vehiculos\RepuestoController@exportarPdfRepuestos')->name('descargarPDFRepuesto');
+		//editar repuestos
+		Route::post('editar_repuesto', 'vehiculos\RepuestoController@editarRepuesto')->name('editarRepuesto');
 
 		//reportes gdona
 		Route::get('/reportes', 'vehiculos\GraficosController@index')->name('ListaGraficos');

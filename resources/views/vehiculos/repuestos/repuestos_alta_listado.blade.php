@@ -30,6 +30,7 @@
 
           {{-- extiendo los modales --}}
           @extends('vehiculos/repuestos/modales/modal_asignacion_repuestos')
+          @extends('vehiculos/repuestos/modales/modal_editar_repuesto')
           @extends('vehiculos/modales/modal_detalle')
 
            </div>
@@ -91,6 +92,11 @@
                               @can('vehiculos.descargarPDFRepuesto') 
                                 <a  title="Descargar PDF" href="{{ route('descargarPDFRepuesto',$item->id_detalle_repuesto) }}"  class="btn btn-danger btn-sm"><span class="fa fa-file-pdf-o"></span></a>
                               @endcan
+                              @can('vehiculos.editarRepuesto')
+                                <button type="button" class="btn btn-warning btn-sm" onclick="editarRepuesto({{$item}})"> <i class="fa fa-edit"></i> </button> 
+
+                                {{-- <a  title="Descargar PDF" href="#"  class="btn btn-danger btn-sm"><span class="fa fa-file-pdf-o"></span></a> --}}
+                              @endcan
 
                             </td>
                           
@@ -141,6 +147,7 @@
 {{-- select 2 --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/es.js"></script> 
+
 <script type="text/javascript">
 
 
@@ -188,9 +195,16 @@
 
       },
   });
+
+
   function detalle(item){
     var asdasd = $('#idDetalle').val(item);
     $('#modalDetalleLugar').modal('show');
+  }
+  function editarRepuesto(item){
+    $('#id_detalle_repuesto').val(item.id_detalle_repuesto)
+    $('#id_repuestos_entregados_editar').val(item.repuestos_entregados);
+    $('#modalEditarRepuesto').modal('show');
   }
 </script>
 @stop
