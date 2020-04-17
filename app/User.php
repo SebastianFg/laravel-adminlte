@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 use modelos\Role;
 use \DB;
+use Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
@@ -60,5 +61,9 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($pass){
         $this->attributes['password'] = Hash::make($pass);
+    }
+
+    public function isOnline(){
+        return Cache::has('user-is-online-'.$this->id); 
     }
 }

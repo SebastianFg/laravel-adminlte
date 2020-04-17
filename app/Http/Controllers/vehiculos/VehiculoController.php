@@ -17,6 +17,7 @@ use App\Modelos\pdf_Estado;
 use App\Modelos\imagen_vehiculo;
 use App\Modelos\estado_vehiculo;
 use App\Modelos\asignacion_vehiculo;
+
 use App\User;
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -67,7 +68,7 @@ class VehiculoController extends Controller
         );
         return $datos;
 	}
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////// VEHICULOS ////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public function index(Request $Request){
@@ -261,6 +262,8 @@ class VehiculoController extends Controller
 
     public function fueraDeServicio(Request $Request){
 
+       
+
         $Validar = \Validator::make($Request->all(), [
             'motivo_de_baja' => 'required|max:255'
         ]);
@@ -269,6 +272,8 @@ class VehiculoController extends Controller
             alert()->error('Error','Intente eliminar neuvamente ...');
            return  back()->withInput()->withErrors($Validar->errors());
         }
+
+   
 
         $vehiculoEliminado = vehiculo::findOrFail($Request->vehiculo);
         $vehiculoEliminado->baja = 1;
@@ -281,7 +286,9 @@ class VehiculoController extends Controller
      
         $vehiculoEnProceso->id_usuario_movimiento = $Request->id_usuario;
         $vehiculoEnProceso->estado_razon = $Request->motivo_de_baja;
-        $vehiculoEnProceso->estado_fecha = $Request->fecha;
+        $vehiculoEnProceso->estado_fecha = date('Y-m-d H:i:s', strtotime($Request->fecha));
+
+        //return $vehiculoEnProceso;
 
 
         if(($vehiculoEnProceso->save() and  $vehiculoEliminado->update())){
@@ -397,8 +404,9 @@ class VehiculoController extends Controller
             return  back()->withInput()->withErrors($Validar->errors());
         }
 
-
         $vehiculoEliminado= vehiculo::withTrashed()->where('id_vehiculo','=',$Request->id_vehiculo_reparado)->restore();
+
+  
         $vehiculoEliminado= vehiculo::findorfail($Request->id_vehiculo_reparado);
 
         $vehiculoEliminado->baja = 0;
@@ -432,16 +440,24 @@ class VehiculoController extends Controller
            return  back()->withInput()->withErrors($Validar->errors());
         }
 
+
+        $vehiculoAsignacionEliminado = asignacion_vehiculo::where('id_vehiculo','=',$Request->id_vehiculo_baja)->first();
+
+
+        if (empty($vehiculoAsignacionEliminado)) {
+            //
+        }else{
+            $vehiculoAsignacionEliminado->forceDelete();
+        }
+       // return $vehiculoAsignacionEliminado;
         $vehiculoEliminado= vehiculo::withTrashed()->where('id_vehiculo','=',$Request->id_vehiculo_baja)->restore();
+
         $vehiculoEliminado= vehiculo::findorfail($Request->id_vehiculo_baja);
        
         $vehiculoEliminado->baja = 2;
         $vehiculoEliminado->delete();
         $vehiculoEliminado->update();
 
-        $vehiculoAsignacionEliminado = asignacion_vehiculo::findOrFail($Request->id_vehiculo_baja);
-
-        
 
 
         $vehiculoEnProceso = new estado_vehiculo;
@@ -451,7 +467,7 @@ class VehiculoController extends Controller
      
         $vehiculoEnProceso->id_usuario_movimiento = Auth::User()->id;
         $vehiculoEnProceso->estado_razon = $Request->motivo_de_baja_definitiva;
-        $vehiculoEnProceso->estado_fecha = $Request->fecha;
+        $vehiculoEnProceso->estado_fecha = date('Y-m-d H:i:s', strtotime($Request->fecha));
 
         if($Request->hasFile('pdf_decreto_baja_definitiva')){
 
@@ -469,7 +485,7 @@ class VehiculoController extends Controller
         }
         $vehiculoEnProceso->estado_decreto = $nombre_archivo_nuevo;
 
-        if($vehiculoEnProceso->save() && $pdfEstado->save() && $vehiculoAsignacionEliminado->forceDelete()){
+        if($vehiculoEnProceso->save() && $pdfEstado->save()){
             return $this->getMensaje('Vehiculo dado de baja definitivamente exitosamente','listaVehiculos',true);           
         }else{
             return $this->getMensaje('Verifique y Intente nuevamente','listaVehiculos',false);

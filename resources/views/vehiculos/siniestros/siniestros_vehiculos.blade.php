@@ -31,7 +31,7 @@
           <hr>
           <div class="card">
             <div class="card-header">
-              <strong><u>Siniestros</u></strong>
+              <strong><u>Lista de siniestros</u></strong>
             </div>
             <div class="card-body">
               <div class="row col-md-12">
@@ -39,7 +39,7 @@
                   <div class="row">
                     
                     <div class="form-group">
-                      <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="Numero de identificación">
+                      <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="Número de identificación">
                     </div>
 {{--                         <div class="col-md-">
                       <select name="id_tipo_vehiculo_lista"  class="form-control">
@@ -82,7 +82,7 @@
                         @endif
                         
                         <td>{{ $item->nombre_dependencia }}</td>
-                        <td>{{ substr($item->lugar_siniestro ,0,10) }}...<a href="" onclick="detalle('{{ $item->lugar_siniestro }}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
+                        <td>{{ substr($item->lugar_siniestro ,0,10) }}...<a href="" onclick="detalle('{!! preg_replace( "/\r|\n/", "", nl2br($item->lugar_siniestro)) !!}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
                         </td>
 
                         <td>{{ date('d-m-Y', strtotime($item->fecha_siniestro)) }}</td>
@@ -91,15 +91,15 @@
                         @else
                           <td><label class="badge badge-success">No</label></td>
                         @endif
-                        <td>{{ substr($item->descripcion_siniestro,0,10) }}...<a href="" onclick="detalle('{{ $item->descripcion_siniestro }}')" data-toggle="modal" data-target="#modalDetalleDesc">ver mas</a>
+                        <td>{{ substr($item->descripcion_siniestro,0,10) }}...<a href="" onclick="detalle('{!! preg_replace( "/\r|\n/", "", nl2br($item->descripcion_siniestro)) !!}')" data-toggle="modal" data-target="#modalDetalleDesc">ver mas</a>
                         </td>
 
                         <td>{{ date('d-m-Y', strtotime($item->fecha_presentacion)) }}</td>
-                        <td>{{ substr($item->observaciones_siniestro,0,10) }}...<a href="" onclick="detalle('{{ $item->observaciones_siniestro }}')" data-toggle="modal" data-target="#modalDetalleObs">ver mas</a>
+                        <td>{{ substr($item->observaciones_siniestro,0,10) }}...<a href="" onclick="detalle('{!! preg_replace( "/\r|\n/", "", nl2br($item->observaciones_siniestro)) !!}')" data-toggle="modal" data-target="#modalDetalleObs">ver mas</a>
                         </td>
                         <td>
                           @can('vehiculos.informacion')
-                            <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
+                            <a title="Información" class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                           @endcan
                           @can('vehiculos.editarSiniestro') 
                             <button onclick="editarSiniestro({{ $item }})" title="Editar siniestro"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
@@ -114,12 +114,10 @@
                   </tbody>
                 </table>
 
-                <div class="row">
+                <div>
                     {{ $siniestros->appends(Request::all())->links() }}
                 </div>
-               {{--  @if(isset($existe))
-                @endif
---}}
+
               </div>
             </div>
           </div>
@@ -219,7 +217,7 @@
   }
 
   function detalle(item){
-    var asdasd = $('#idDetalle').val(item);
+    $('#idDetalle').html(item);
     $('#modalDetalleLugar').modal('show');
   }
 

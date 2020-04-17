@@ -20,7 +20,7 @@
               <div class="row">
                 <div class="col-md-3">
                   @can('dependencias.crearDependencia')
-                  <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModalDependencia"> <i class="fa fa-plus"> Nueva Dependencia</i> </button> 
+                  <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModalDependencia"> <i class="fa fa-plus"> Nueva dependencia</i> </button> 
                   @endcan
                 </div>
               </div>
@@ -34,7 +34,7 @@
 
             <div class="card">
               <div class="card-header">
-                <strong><u>Dependencias</u></strong>
+                <strong><u>Lista de dependencias</u></strong>
               </div>
 
               <div class="card-body">

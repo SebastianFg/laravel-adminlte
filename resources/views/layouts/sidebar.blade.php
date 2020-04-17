@@ -94,6 +94,85 @@
                     </ul>
                     @endcan
                 </li>
+                @can('deposito.index')
+                <li class="nav-item has-treeview {{ request()->is('deposito_judicial*') ? 'menu-open' : '' }}{{ request()->is('asignacion_deposito_judicial*') ? 'menu-open' : '' }}{{ request()->is('siniestros-deposito-judicial') ? 'menu-open' : '' }}{{ request()->is('detalleVehiculoDP*') ? 'menu-open' : '' }} {{ request()->is('repuestos-deposito-judicial') ? 'menu-open' : '' }}{{ request()->is('juzgados*') ? 'menu-open' : '' }}{{ request()->is('detalle-deposito-judicial') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-gavel"></i>
+                        <p>
+                          Deposito Judicial
+                          <i class="fa fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <ul>
+                            
+                            <li class="nav-item noPuntos">
+                                <a href="{{route('detallesJuzgadosVehiculos')}}" class="nav-link">
+                                    <i class="fa fa-info nav-icon"></i>
+                                    <p>Informe DP</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <ul>
+                            
+                            <li class="nav-item noPuntos">
+                                <a href="{{route('indexDepositoJudicial')}}" class="nav-link">
+                                    <i class="fa fa-plus nav-icon"></i>
+                                    <p>Alta DP</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <ul>
+                            
+                            <li class="nav-item noPuntos">
+                                <a href="{{route('listaAsignacionJudicial')}}" class="nav-link">
+                                    <i class="fa fa-share nav-icon"></i>
+                                    <p>Asignar DP</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <ul>
+                            <li class="nav-item noPuntos">
+                                <a href="{{route('indexDPRepuestos')}}" class="nav-link">
+                                    <i class="fas fa-screwdriver nav-icon"></i>
+                                    <p>Repuestos DP</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <ul>
+                            
+                            <li class="nav-item noPuntos">
+                                <a href="{{route('indexSiniestrosDP')}}" class="nav-link">
+                                    <i class="fas fa-car-crash nav-icon"></i>
+                                    <p>Siniestros DP</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </ul>
+                    @can('juzgado.index')
+                    <ul class="nav nav-treeview">
+                        <ul>
+                            
+                            <li class="nav-item noPuntos">
+                                <a href="{{route('indexJuzgado')}}" class="nav-link">
+                                    <i class="fas fa-balance-scale nav-icon"></i>
+                                    <p>Juzgados</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </ul>
+                    @endcan
+                    @endcan
+
+                </li>
                 @can('dependencias.dependencias')
                 <li class="nav-item has-treeview">
                     <a href="{{ route('indexDependencia') }}" class="nav-link">
@@ -116,7 +195,7 @@
                 @endcan
                 @can('vehiculos.index')
                 {{-- con el request->is nos sirve para mantener abierto el menu si es que estamos en el menu propiamente dicho --}}
-                <li class="nav-item has-treeview  {{ request()->is('reportes*') ? 'menu-open' : '' }} {{ request()->is('repuestos*') ? 'menu-open' : '' }} {{ request()->is('detalleVehiculo*') ? 'menu-open' : '' }} {{ request()->is('siniestros*') ? 'menu-open' : '' }} {{ request()->is('asignacion*') ? 'menu-open' : '' }} {{ request()->is('historial_completo*') ? 'menu-open' : '' }}  {{ request()->is('baja_definitiva*') ? 'menu-open' : '' }}  {{ request()->is('fuera_de_servicio*') ? 'menu-open' : '' }}  {{ request()->is('alta_vehiculos*') ? 'menu-open' : '' }} {{ request()->is('tipo_vehiculos*') ? 'menu-open' : '' }}  ">
+                <li class="nav-item has-treeview  {{ request()->is('reportes*') ? 'menu-open' : '' }} {{ request()->is('repuestos') ? 'menu-open' : '' }} {{ request()->is('siniestros') ? 'menu-open' : '' }} {{ request()->is('asignacion') ? 'menu-open' : '' }} {{ request()->is('historial_completo*') ? 'menu-open' : '' }}  {{ request()->is('baja_definitiva*') ? 'menu-open' : '' }}  {{ request()->is('fuera_de_servicio*') ? 'menu-open' : '' }}  {{ request()->is('alta_vehiculos*') ? 'menu-open' : '' }} {{ request()->is('tipo_vehiculos*') ? 'menu-open' : '' }}  ">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-car"></i>
                         <p>
@@ -207,17 +286,6 @@
                             <p>
                               Siniestros
            
-                            </p>
-                        </a>
-                    </li>
-                    @endcan
-                    @can('vehiculos.informacion')
-                    <li class="nav-item has-treeview" >
-                        <a href="{{ route('detalleVehiculo') }}" class="nav-link">
-                            <i class="nav-icon fa fa-edit"></i>
-                            <p>
-                              Detalles
-                        
                             </p>
                         </a>
                     </li>

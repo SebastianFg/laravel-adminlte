@@ -50,7 +50,7 @@
                           <tr>
                             <th>Permiso</th>
                             <th>Rol</th>
-                            <th>Acciones</th>
+                            <th>Asignar</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -69,7 +69,7 @@
                               </td>
                               <td>
                                 @can('usuarios.asignarPermisosARoles')
-                                  <button  data-toggle="modal" onclick="editar({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>                            
+                                  <button  data-toggle="modal" onclick="editar({{$item }})" title="Asignar permiso" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>                            
                                 @endcan
                               </td>
                             

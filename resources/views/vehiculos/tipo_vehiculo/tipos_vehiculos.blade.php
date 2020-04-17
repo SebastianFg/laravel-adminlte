@@ -1,5 +1,5 @@
 @extends('layouts.master')
-<title>@yield('titulo', 'Patrimonio') | Tipos de vehiculos</title>
+<title>@yield('titulo', 'Patrimonio') | Tipos de vehículos</title>
 {{-- ES LA VERSION 3 DE LA PLANTILLA DASHBOARD --}}
 @section('content')
 
@@ -26,9 +26,9 @@
                   @can('vehiculos.crear')
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAltaTipoVehiculo"> <i class="fa fa-plus"> Nuevo</i> </button> 
                   @endcan
-                  @can('vehiculos.imprimirLista')
+{{--                   @can('vehiculos.imprimirLista')
                     <button type="button" id="redireccionar" class=" btn btn-danger" title="Descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>
-                  @endcan  
+                  @endcan --}}  
                 </div>
 
 {{--                 <div class="col-md-3">
@@ -48,7 +48,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Vehículos</u></strong>
+                  <strong><u>Lista de tipos de vehículos</u></strong>
                 </div>
 
                 <div class="card-body">
@@ -70,7 +70,7 @@
                       <thead>
                         <tr>
 
-                          <th>Tipo Vehículo</th>
+                          <th>Tipo vehículo</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
@@ -82,10 +82,10 @@
                            
                             <td>
                               @can('vehiculos.editar') 
-                                <button onclick="editarTipoVehiculo({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                <button onclick="editarTipoVehiculo({{ $item }})" title="Editar tipo de vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                               @endcan
                               @can('vehiculos.eliminar') 
-                                <button  onclick="eliminarTipoVehiculo({{ $item}});" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                <button  onclick="eliminarTipoVehiculo({{ $item}});" title="Eliminar tipo de vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                               @endcan
                             </td>
                           

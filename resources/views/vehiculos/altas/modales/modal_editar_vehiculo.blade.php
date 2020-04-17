@@ -3,7 +3,7 @@
       <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content col-md-12">
               <div class="modal-header">
-                  <h4 class="modal-title" id="myModalLabel">Editar Vehículo</h4>
+                  <h4 class="modal-title" id="myModalLabel">Editar vehículo</h4>
               </div>
               @if(!$errors->isEmpty())
               <div class="alert alert-danger">
@@ -23,7 +23,7 @@
                     <div class="form-group col-md-6">
 
                           <label title="número de identificacion interna por ejemplo el vehiculo N° 3-720">Nº de Identificación</label>
-                        <input type="text" id="id_numero_de_identificacion_modificacion" name="numero_de_identificacion" autocomplete="off" maxlength="6" placeholder="Numero de identificacion" required class="form-control md-2" value="{{ old('numero_de_identificacion') }}"> 
+                        <input type="text" id="id_numero_de_identificacion_modificacion" name="numero_de_identificacion" autocomplete="off" maxlength="6" placeholder="Número de identificacion" required class="form-control md-2" value="{{ old('numero_de_identificacion') }}"> 
 
                     </div>
                     <div class="form-group col-md-6">
@@ -71,7 +71,7 @@
                     
                     <div class="form-group col-md-6">
                         <label title="Ingrese el número de inventario del vehiculo, ejemplo, 3000">Nº de inventario</label>
-                        <input type="text" name="numero_de_inventario" autocomplete="off" id="id_numero_de_inventario_modificacion"  maxlength="15" placeholder="Numero de inventario: Ej-> 3000" class="form-control" required value="{{ old('numero_de_inventario') }}">
+                        <input type="text" name="numero_de_inventario" autocomplete="off" id="id_numero_de_inventario_modificacion"  maxlength="15" placeholder="Número de inventario: Ej-> 3000" class="form-control" required value="{{ old('numero_de_inventario') }}">
                     </div> 
                     <div class="form-group col-md-6">
                         <label title="Ingrese la clase de unidad del vehiculo, ejemplo, cabina simple | 4x4 | cuatro puertas">Clase de unidad</label>
@@ -82,7 +82,7 @@
                     
                     <div class="form-group col-md-6">
 
-                        <label title="Ingrese el tipo de vehiculo">Tipo de vehiculo</label>
+                        <label title="Ingrese el tipo de vehiculo">Tipo de vehículo</label>
                         <br>  
                         <select name="tipo" id="id_tipo_modificacion" required="" class="form-control">
                         <option value="" selected="">Seleccione una vehículo</option>

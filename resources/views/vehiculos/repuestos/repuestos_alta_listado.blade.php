@@ -4,6 +4,7 @@
 @section('content')
 <title>@yield('titulo', 'Patrimonio') | Repuestos</title>
 <!-- Content Wrapper. Contains page content -->
+  <meta charset="character_set">
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
@@ -26,94 +27,101 @@
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAsignacionRepuesto"> <i class="fa fa-plus"> Nuevo repuesto</i> </button> 
                   @endcan  
                 </div>
-          </div>
+              </div>
 
-          {{-- extiendo los modales --}}
-          @extends('vehiculos/repuestos/modales/modal_asignacion_repuestos')
-          @extends('vehiculos/repuestos/modales/modal_editar_repuesto')
-          @extends('vehiculos/modales/modal_detalle')
-
-           </div>
-
+              {{-- extiendo los modales --}}
+              @extends('vehiculos/repuestos/modales/modal_asignacion_repuestos')
+              @extends('vehiculos/repuestos/modales/modal_editar_repuesto')
+              @extends('vehiculos/modales/modal_detalle')
             </div>
 
+          </div>
+          <hr>
+          <div class="card">
+            <div class="card-header">
+              <strong><u>Listas de repuestos</u></strong>
+            </div>
+
+            <div class="card-body">
+              <form  role="search">
+                <label class="col-3">Descripción</label>
+                <label class="col-3">Fecha Desde</label>
+                <label class="col-3">Fecha Hasta</label>
+                <div class="row">
+                  <div class="form-group col-3">
+                    <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="Número de identificación">
+                  </div>
+                  <div class="form-group col-3">
+                    <input type="date" name="fechaDesde" id="IdFechaDesde" autocomplete="off" class="form-control" placeholder="Ingrese una fecha">
+                  </div>
+                  <div class="form-group col-3">
+                    <input type="date" name="fechaHasta" id="IdFechaHasta" autocomplete="off" class="form-control" placeholder="Ingrese una fecha">
+                  </div>
+                   
+                </div>
+                  <div class="form-group">
+                     <button type="submit" id="btnBuscar" class="btn btn-info btn-sm left"> <i class="fa fa-search-plus"></i>Buscar  </button>
+                      
+                  </div>
+              </form>
+            </div>
               <hr>
-              <div class="card">
-                <div class="card-header">
-                  <strong><u>Repuestos</u></strong>
+            <div class="card-body">
+              <div class="row table-responsive ">
+                <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                  <thead>
+                    <tr>
+
+                      <th>Dominio</th>
+                      <th>Fecha</th>
+                      <th>Responsable</th>
+                      <th>N° de identificación</th>
+                      <th>Marca</th>
+                      <th>clase de unidad</th>
+                      <th>Repuestos</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($repuestos as $item)
+                    
+                      <tr>
+                        <td>{{ $item->dominio }}</td>
+                        <td>{{ date('d-m-Y', strtotime($item->fecha )) }}</td>
+                        <td>{{ $item->usuario }}</td>
+                        <td>{{ $item->numero_de_identificacion }}</td>
+                        <td>{{ $item->marca }}</td>
+                        <td>{{ $item->clase_de_unidad }}</td>
+                        
+                        <td>{{ substr($item->repuestos_entregados,0,10) }}...<a href="#" onclick="detalle('{!! preg_replace( "/\r|\n/", "", nl2br($item->repuestos_entregados)) !!}')" data-toggle="modal">ver mas</a></td>
+                       
+                        <td>
+                          @can('vehiculos.informacion')
+                            <a title="Información" class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
+                          @endcan
+                          @can('vehiculos.descargarPDFRepuesto') 
+                            <a  title="Descargar PDF" href="{{ route('descargarPDFRepuesto',$item->id_detalle_repuesto) }}"  class="btn btn-danger btn-sm"><span class="fa fa-file-pdf-o"></span></a>
+                          @endcan
+                          @can('vehiculos.editarRepuesto')
+                            <button title="Editar Repuesto" type="button" class="btn btn-warning btn-sm" onclick="editarRepuesto({{$item}})"> <i class="fa fa-edit"></i> </button> 
+                          @endcan
+
+                        </td>
+                      
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+
+                <div >
+                    {{ $repuestos->appends(Request::all())->links() }}
                 </div>
 
-                <div class="card-body">
-                  <div class="row col-md-12">
-                    <form model="" class="navbar-form navbar-left pull-right" role="search">
-                      <div class="row">
-                        
-                        <div class="form-group">
-                          <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="Numero de identificación">
-                        </div>
-                        <div class="form-group">
-                           <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
-                        </div>
-                         
-                      </div>
-                    </form>
-                  </div>
-                  <div class="row table-responsive ">
-                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
-                      <thead>
-                        <tr>
-
-                          <th>Dominio</th>
-                          <th>Fecha</th>
-                          <th>Responsable</th>
-                          <th>N de identificación</th>
-                          <th>Marca</th>
-                          <th>clase de unidad</th>
-                          <th>Repuestos</th>
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($repuestos as $item)
-                        
-                          <tr>
-                            <td>{{ $item->dominio }}</td>
-                            <td>{{ date('d-m-Y', strtotime($item->fecha )) }}</td>
-                            <td>{{ $item->usuario }}</td>
-                            <td>{{ $item->numero_de_identificacion }}</td>
-                            <td>{{ $item->marca }}</td>
-                            <td>{{ $item->clase_de_unidad }}</td>
-                            <td>{{ substr($item->repuestos_entregados ,0,10) }}...<a href="" onclick="detalle('{{ $item->repuestos_entregados }}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
-                           
-                            <td>
-                              @can('vehiculos.informacion')
-                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
-                              @endcan
-                              @can('vehiculos.descargarPDFRepuesto') 
-                                <a  title="Descargar PDF" href="{{ route('descargarPDFRepuesto',$item->id_detalle_repuesto) }}"  class="btn btn-danger btn-sm"><span class="fa fa-file-pdf-o"></span></a>
-                              @endcan
-                              @can('vehiculos.editarRepuesto')
-                                <button type="button" class="btn btn-warning btn-sm" onclick="editarRepuesto({{$item}})"> <i class="fa fa-edit"></i> </button> 
-
-                                {{-- <a  title="Descargar PDF" href="#"  class="btn btn-danger btn-sm"><span class="fa fa-file-pdf-o"></span></a> --}}
-                              @endcan
-
-                            </td>
-                          
-                          </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-
-                    <div class="row">
-                        {{ $repuestos->appends(Request::all())->links() }}
-                    </div>
-                   {{--  @if(isset($existe))
-                    @endif
- --}}
-                  </div>
-                </div>
               </div>
+              
+            </div>
+            </div>
+          </div>
                           </div>
           {{-- card --}}
           </div>
@@ -196,9 +204,9 @@
       },
   });
 
+  function detalle(item2){
 
-  function detalle(item){
-    var asdasd = $('#idDetalle').val(item);
+    $('#idDetalle').html(item2);
     $('#modalDetalleLugar').modal('show');
   }
   function editarRepuesto(item){

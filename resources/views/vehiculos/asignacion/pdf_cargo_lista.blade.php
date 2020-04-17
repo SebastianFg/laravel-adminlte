@@ -51,7 +51,7 @@
 		<h1>Cargo Automotor</h1>
 	</div>
 	<div class="col-md-12">
-		<strong>Numero de identificación:</strong> <strong>{{ $detalle_asignacion_vehiculo[0]->numero_de_identificacion}}</strong>
+		<strong>Número de identificación:</strong> <strong>{{ $detalle_asignacion_vehiculo[0]->numero_de_identificacion}}</strong>
 		<br>
 		<strong>Entregado por:</strong> {{ $detalle_asignacion_vehiculo[0]->nombre }}
 		<br>

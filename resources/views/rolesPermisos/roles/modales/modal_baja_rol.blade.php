@@ -3,7 +3,7 @@
       <div class="modal-dialog bd-example-modal-sm" role="document">
           <div class="modal-content col-md-6">
               <div class="modal-header">
-                  <h4 class="modal-title" id="myModalLabel">Agregar Rol</h4>
+                  <h4 class="modal-title" id="myModalLabel">Eliminar rol</h4>
               </div>
               @if(!$errors->isEmpty())
               <div class="alert alert-danger">

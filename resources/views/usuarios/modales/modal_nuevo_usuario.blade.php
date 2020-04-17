@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content col-md-12">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Nuevo Usuario</h4>
+        <h4 class="modal-title" id="myModalLabel">Nuevo usuario</h4>
       </div>
       @if(!$errors->isEmpty())
         <div class="alert alert-danger">

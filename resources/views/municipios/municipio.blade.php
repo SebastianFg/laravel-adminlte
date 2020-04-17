@@ -30,7 +30,7 @@
 
             <div class="card">
               <div class="card-header">
-                <strong><u>Localidades</u></strong>
+                <strong><u>Lista de localidades y municipios</u></strong>
               </div>
 
               <div class="card-body">

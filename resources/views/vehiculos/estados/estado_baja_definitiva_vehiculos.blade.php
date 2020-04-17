@@ -52,13 +52,13 @@
                       <thead>
                         <tr>
 
-                          <th>Numero de identificación</th>
+                          <th>N° de identificación</th>
                           <th>Marca</th>
                           <th>Modelo</th>
                           <th>Dominio</th>
                           <th>Estado</th>
                           <th>Fecha</th>
-                          <th>Razon</th>
+                          <th>Razón</th>
                           <th>Acción</th>
                         </tr>
                       </thead>
@@ -81,7 +81,7 @@
                            
                             <td>
                               @can('vehiculos.informacion')
-                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
+                                <a title="Información" class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                               @endcan
                             </td>
                           

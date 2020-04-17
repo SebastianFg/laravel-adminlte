@@ -51,32 +51,80 @@ class RepuestoController extends Controller
 	}
 
    public function index(Request $Request){
+    /*return Auth::User()->id;*/
         if (Auth::User()->primer_logeo == null) {
             return redirect('/primerIngreso');
         }
-        if ($Request->vehiculoBuscado == null) {
+
+
+        if ($Request->vehiculoBuscado == null && $Request->fechaDesde == null and $Request->fechaHasta == null) {
       		$repuestos = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
       							->join('users','users.id','=','detalle_asignacion_repuestos.id_responsable')
+                                ->select('detalle_asignacion_repuestos.*','vehiculos.dominio','vehiculos.numero_de_identificacion','vehiculos.marca','vehiculos.clase_de_unidad','users.usuario')
       							->orderBy('id_detalle_repuesto','desc')
       							->get();
-        }else{
+            //return $repuestos;
+        }else if($Request->fechaDesde != null and $Request->fechaHasta == null){
+            if (strpos(Auth::User()->roles,'Super Admin') || strpos(Auth::User()->roles,'Admin')) {
+
+                $repuestos = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
+                                    ->join('users','users.id','=','detalle_asignacion_repuestos.id_responsable')
+                                    
+                                    ->whereBetween('detalle_asignacion_repuestos.created_at',[$Request->fechaDesde.' 00:00:00',date("Y-m-d 23:59:59")])
+                                    ->select('detalle_asignacion_repuestos.*','vehiculos.dominio','vehiculos.numero_de_identificacion','vehiculos.marca','vehiculos.clase_de_unidad','users.usuario')
+                                    ->orderBy('id_detalle_repuesto','desc')
+                                    ->get();
+            }else{
+                $repuestos = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
+                                    ->join('users','users.id','=','detalle_asignacion_repuestos.id_responsable')
+                                    ->where('detalle_asignacion_repuestos.id_responsable','=',Auth::User()->id)
+                                    ->whereBetween('detalle_asignacion_repuestos.created_at',[$Request->fechaDesde.' 00:00:00',date("Y-m-d 23:59:59")])
+                                    ->select('detalle_asignacion_repuestos.*','vehiculos.dominio','vehiculos.numero_de_identificacion','vehiculos.marca','vehiculos.clase_de_unidad','users.usuario')
+                                    ->orderBy('id_detalle_repuesto','desc')
+                                    ->get();
+            }
+        }else if($Request->fechaDesde != null and $Request->fechaHasta != null){
+            if (strpos(Auth::User()->roles,'Super Admin') || strpos(Auth::User()->roles,'Admin')) {
+                $repuestos = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
+                                    ->join('users','users.id','=','detalle_asignacion_repuestos.id_responsable')
+                                   
+                                     ->whereBetween('detalle_asignacion_repuestos.created_at',[$Request->fechaDesde.' 00:00:00',$Request->fechaHasta])
+                                      
+                                     ->select('detalle_asignacion_repuestos.*','vehiculos.dominio','vehiculos.numero_de_identificacion','vehiculos.marca','vehiculos.clase_de_unidad','users.usuario')
+                                    ->orderBy('id_detalle_repuesto','desc')
+                                    ->get();
+            }else{
+                $repuestos = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
+                                    ->join('users','users.id','=','detalle_asignacion_repuestos.id_responsable')
+                                   
+                                     ->whereBetween('detalle_asignacion_repuestos.created_at',[$Request->fechaDesde.' 00:00:00',$Request->fechaHasta])
+                                      ->where('detalle_asignacion_repuestos.id_responsable','=',Auth::User()->id)
+                                     ->select('detalle_asignacion_repuestos.*','vehiculos.dominio','vehiculos.numero_de_identificacion','vehiculos.marca','vehiculos.clase_de_unidad','users.usuario')
+                                    ->orderBy('id_detalle_repuesto','desc')
+                                    ->get();
+            }
+        }else if($Request->vehiculoBuscado != null and $Request->fechaDesde == null and $Request->fechaHasta == null){
             $repuestos = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
                                 ->join('users','users.id','=','detalle_asignacion_repuestos.id_responsable')
                                 ->where('vehiculos.numero_de_identificacion','ilike',$Request->vehiculoBuscado)
                                 ->orwhere('vehiculos.dominio','ilike',$Request->vehiculoBuscado)
+                                ->select('detalle_asignacion_repuestos.*','vehiculos.dominio','vehiculos.numero_de_identificacion','vehiculos.marca','vehiculos.clase_de_unidad','users.usuario')
                                 ->orderBy('id_detalle_repuesto','desc')
                                 ->get();
+
         }
+
         $repuestos = $this->paginar($repuestos);
         return view('vehiculos.repuestos.repuestos_alta_listado',compact('repuestos'));
     }
 
     public function AsignarRepuesto(Request $Request){
-        
+        $fechaActual=date('Y-m-d');
+       ;
         $Validar = \Validator::make($Request->all(), [
             
             'id_vehiculo' => 'required',
-            'fecha' => 'required',
+            'fecha'=>'required|before_or_equal:'.$fechaActual,
             'repuestos_entregados' => 'required',
            /* 'pdfrepuestos' => 'required|mimes:pdf'
 */
@@ -86,11 +134,11 @@ class RepuestoController extends Controller
             alert()->error('Error','Intente cargar neuvamente ...');
            return  back()->withInput()->withErrors($Validar->errors());
         }
-
+   
         $vehiculo_asignado_repuesto = new repuesto;
         $vehiculo_asignado_repuesto->id_vehiculo = $Request->id_vehiculo;
         $vehiculo_asignado_repuesto->fecha = $Request->fecha;
-        $vehiculo_asignado_repuesto->repuestos_entregados = $Request->repuestos_entregados;
+        $vehiculo_asignado_repuesto->repuestos_entregados = $Request->input('repuestos_entregados');
         $vehiculo_asignado_repuesto->pdf_nombre = 'no posee';
         $vehiculo_asignado_repuesto->id_responsable = Auth::User()->id;
 

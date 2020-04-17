@@ -19,7 +19,7 @@
               <div class="row">
                 <div class="col-md-3">
                   @can('usuarios.crear')
-                  <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAlta"> <i class="fa fa-plus"> Nuevo Permiso</i> </button> 
+                  <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAlta"> <i class="fa fa-plus"> Nuevo permiso</i> </button> 
                   @endcan
 {{--                   <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>   --}}
                 </div>
@@ -42,7 +42,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Permisos</u></strong>
+                  <strong><u>Lista de permisos</u></strong>
                 </div>
 
                 <div class="card-body">
@@ -79,9 +79,9 @@
                              
                               <td>
                                 @can('usuarios.asignarRol')
-                                  <button  data-toggle="modal" onclick="editarPermiso({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                  <button  data-toggle="modal" onclick="editarPermiso({{$item }})" title="Editar Permiso" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                                 @endcan
-                                 @can('usuarios.eliminarUsuario') <button  onclick="eliminarPermiso({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                 @can('usuarios.eliminarUsuario') <button  onclick="eliminarPermiso({{ $item }});" title="Eliminar permiso"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                  @endcan
                               
                               </td>

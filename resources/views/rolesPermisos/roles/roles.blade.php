@@ -19,7 +19,7 @@
               <div class="row">
                 <div class="col-md-3">
                   @can('usuarios.crear')
-                  <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAlta"> <i class="fa fa-plus"> Nuevo Rol</i> </button> 
+                  <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAlta"> <i class="fa fa-plus"> Nuevo rol</i> </button> 
                   @endcan
 {{--                   <button type="button" id="redireccionar" class=" btn btn-danger" title="descargar lista de vehiculos en excel"> <i class="fa fa-file-pdf-o"> Imprimir lista</i> </button>   --}}
                 </div>
@@ -42,7 +42,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Roles</u></strong>
+                  <strong><u>Lista de Roles</u></strong>
                 </div>
 
                 <div class="card-body">
@@ -81,7 +81,7 @@
                                   @can('usuarios.asignarRol')
                                     <button  data-toggle="modal" onclick="editarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                                   @endcan
-                                   @can('usuarios.eliminarUsuario') <button  onclick="eliminarRol({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                   @can('usuarios.eliminarUsuario') <button  onclick="eliminarRol({{ $item }});" title="Eliminar rol"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                    @endcan
                                 
                                 </td>
@@ -96,7 +96,7 @@
                                   @can('usuarios.asignarRol')
                                     <button  data-toggle="modal" onclick="editarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                                   @endcan
-                                   @can('usuarios.eliminarUsuario') <button  onclick="eliminarRol({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                   @can('usuarios.eliminarUsuario') <button  onclick="eliminarRol({{ $item }});" title="Eliminar rol"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                    @endcan
                                 
                                 </td>

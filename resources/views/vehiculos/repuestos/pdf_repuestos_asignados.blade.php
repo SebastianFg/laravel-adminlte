@@ -33,8 +33,8 @@
 				<div class="col-md-6" style="display: inline-block; ">
 					<p  class="pdf_historial">Dominio:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->dominio }} </p>
 
-					<p class="pdf_historial" >Numero de inventario:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->numero_de_inventario }} </p>
-					<p class="pdf_historial" >Numero de identificación:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->numero_de_identificacion }} </p>
+					<p class="pdf_historial" >Número de inventario:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->numero_de_inventario }} </p>
+					<p class="pdf_historial" >Número de identificación:<strong class="encabezado_pdf_historial"> {{ $vehiculos_repuestos_asignados[0]->numero_de_identificacion }} </p>
 				</div>
 				<hr>
 			</div>

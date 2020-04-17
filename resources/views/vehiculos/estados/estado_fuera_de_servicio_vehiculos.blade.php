@@ -52,13 +52,13 @@
                       <thead>
                         <tr>
 
-                          <th>Numero de identificación</th>
+                          <th>N° de identificación</th>
                           <th>Marca</th>
                           <th>Modelo</th>
                           <th>Dominio</th>
                           <th>Estado</th>
                           <th>Fecha</th>
-                          <th>Razon</th>
+                          <th>Razón</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
@@ -79,13 +79,13 @@
                            
                             <td>
                               @can('vehiculos.informacion')
-                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
+                                <a title="Información" class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                               @endcan
                               @can('estados.altaEstado') 
-                                <button onclick="altaVehiculo('{{ $item->dominio }}','{{ $item->id_vehiculo }}','{{ $item->id_estado_vehiculo }}')" title="Alta vehiculo"   class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
+                                <button onclick="altaVehiculo('{{ $item->dominio }}','{{ $item->id_vehiculo }}','{{ $item->id_estado_vehiculo }}')" title="Alta vehículo"   class="btn btn-success btn-sm"><i class="fa fa-plus"></i></button>
                               @endcan
                               @can('vehiculo.eliminar.definitivo') 
-                                <button  onclick="eliminarVehiculo('{{ $item->dominio }}','{{ $item->id_vehiculo }}','{{ $item->id_estado_vehiculo }}');" title="Eliminar vehiculo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                <button  onclick="eliminarVehiculo('{{ $item->dominio }}','{{ $item->id_vehiculo }}','{{ $item->id_estado_vehiculo }}');" title="Baja total vehículo"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                               @endcan
                             </td>
                           

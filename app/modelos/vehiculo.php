@@ -14,19 +14,37 @@ class vehiculo extends Model
 
     public function scopeIdentificacion($query,$identificacion){
         
-    	if (trim($identificacion) != "") {
-    		return $query->where('numero_de_identificacion','ilike','%'.$identificacion.'%')
-    					->orWhere('dominio','ilike','%'.$identificacion.'%')
-    					->orWhere('marca','ilike','%'.$identificacion.'%')
-    					->orWhere('modelo','ilike','%'.$identificacion.'%')
-    					->orWhere('numero_de_inventario','ilike','%'.$identificacion.'%')
-    					/*->orWhere('tipo','ilike',$identificacion)*/
+        if (trim($identificacion) != "") {
+            return $query->where('numero_de_identificacion','ilike','%'.$identificacion.'%')
+                        ->orWhere('dominio','ilike','%'.$identificacion.'%')
+                        ->orWhere('marca','ilike','%'.$identificacion.'%')
+                        ->orWhere('modelo','ilike','%'.$identificacion.'%')
+                        ->orWhere('numero_de_inventario','ilike','%'.$identificacion.'%')
+                        /*->orWhere('tipo','ilike',$identificacion)*/
                         ->orWhere('clase_de_unidad','ilike','%'.$identificacion.'%')
                         ->orWhere('anio_de_produccion','ilike','%'.$identificacion.'%')
                         ->join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
                         ->select('vehiculos.*','tipos_vehiculos.*')
-    					->get();
+                        ->get();
 
-    	}
+        }
+    }
+    public function scopeBuscadorPorTipo($query,$identificacion,$idTipo){
+        
+        if (trim($identificacion) != "") {
+            return $query->where('numero_de_identificacion','ilike','%'.$identificacion.'%')
+                        ->orWhere('dominio','ilike','%'.$identificacion.'%')
+                        ->orWhere('marca','ilike','%'.$identificacion.'%')
+                        ->orWhere('modelo','ilike','%'.$identificacion.'%')
+                        ->orWhere('numero_de_inventario','ilike','%'.$identificacion.'%')
+                        /*->orWhere('tipo','ilike',$identificacion)*/
+                        ->orWhere('clase_de_unidad','ilike','%'.$identificacion.'%')
+                        ->orWhere('anio_de_produccion','ilike','%'.$identificacion.'%')
+                        ->where('tipos_vehiculos.id_tipo_vehiculo','=',$idTipo)
+                        ->join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
+                        ->select('vehiculos.*','tipos_vehiculos.*')
+                        ->get();
+
+        }
     }
 }

@@ -21,6 +21,7 @@ use Spatie\Permission\Models\Permission;
 use App\User;
 use App\Modelos\user_baja;
 
+
 //imagen
 use Illuminate\Support\Facades\Storage;
 use Image;
@@ -98,6 +99,7 @@ class UsuarioController extends Controller
         	$usuarios = $this->paginar($usuarios);
         	$existe = 1;
         }
+
        	return view('usuarios.usuarios',compact('usuarios','lista_roles','existe'));
     }
 

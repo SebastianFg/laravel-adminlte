@@ -56,7 +56,7 @@ class HomeController extends Controller
 
        
 
-        $total_vehiculos_disponibles = \DB::select('SELECT tipos_vehiculos.nombre_tipo_vehiculo,count(vehiculos.*) AS total_vehiculos
+        $total_vehiculos_disponibles = \DB::select('SELECT tipos_vehiculos.nombre_tipo_vehiculo,count(vehiculos.*) AS total_vehiculos,tipos_vehiculos.id_tipo_vehiculo
                                                     FROM tipos_vehiculos
                                                     JOIN vehiculos ON tipos_vehiculos.id_tipo_vehiculo = vehiculos.tipo AND vehiculos.baja = 0
                                                     GROUP BY tipos_vehiculos.id_tipo_vehiculo');
@@ -130,6 +130,16 @@ class HomeController extends Controller
         
     }
 
+    public function detalleUnidadRegionalVehiculo(Request $Request){
+        $detalleUnidadRegionalVehiculos = \DB::select('select * 
+                                                from vehiculos
+                                                inner join detalle_asignacion_vehiculos on detalle_asignacion_vehiculos.id_vehiculo = vehiculos.id_vehiculo
+                                                inner join dependencias on dependencias.id_dependencia = detalle_asignacion_vehiculos.id_dependencia
+                                                where dependencias.id_dependencia ='.$Request->idDependencia);
+        
+        return view('detalle_unidad_regional_vehiculos',compact('detalleUnidadRegionalVehiculos'));  
+        
+    }
     public function limpiarCache(){
        $exitCode = Artisan::call('optimize');
        return $exitCode; 

@@ -5,7 +5,7 @@
 <title>@yield('titulo', 'Patrimonio') | Detalles</title>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-
+  @extends('vehiculos/modales/modal_detalle')
   <!-- Main content -->
   <div class="content">
     @if(strpos(Auth::User()->roles,'Suspendido'))
@@ -21,24 +21,13 @@
     <div class="container-fluid"> 
       <hr>
       <div class="card">
-        <div class="card-body">
-          <form action="{{ route('detalleVehiculo') }}" class="navbar-form navbar-left pull-left" role="search">
-            <div class="row">
-              
-              <div class="form-group">
-                <input type="text" name="vehiculoBuscado"  autocomplete="off" class="form-control" placeholder="Numero de identificación">
-              </div>
-              <div class="form-group">
-                 <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
-              </div>
-               
-            </div>
-          </form>
+        <div class="card-header">
+          <h3><u>Detalles del Automotor</u></h3>
         </div>
       </div> 
-          @extends('vehiculos/modales/modal_detalle')
       
-        @if($existe == 0)
+      
+{{--         @if($existe == 0)
 
         <div class="row ">
           <div class="card col-sm-12">
@@ -49,103 +38,106 @@
           </div>
         </div>
 
-        @else
+        @else --}}
         <div class="row">
           <div class="col-md-6">
             <div class="card">
+              <div class="card-header">
+                 <strong><u>Datos del vehículo</u></strong>
+              </div>
               <div class="card-body">
-                <h4 class="card-title d-flex justify-content-center">Detalle</h4>
-                <br>
-                  @if(count($VehiculosListados)>0)
-                    <label class="texto" >Numero de identificación</label>
-                    <p class="parrafos" >{{ $VehiculosListados[0]->numero_de_identificacion }}</p>
-                    <label class="texto">Clase de unidad</label>
-                    <p class="parrafos" >{{$VehiculosListados[0]->clase_de_unidad  }}</p>                       
-                    <label class="texto">Marca</label>
-                    <p class="parrafos" >{{$VehiculosListados[0]->marca  }}</p>
-                    
-                    <label class="texto">Modelo</label>
-                    <p class="parrafos" >{{$VehiculosListados[0]->modelo  }}</p>
-                    
-                    <label class="texto" >Chasis</label>
-                    <p class="parrafos" >{{$VehiculosListados[0]->chasis  }}</p>
-                    
-                    <label class="texto">Motor</label>
-                    <p class="parrafos" >{{$VehiculosListados[0]->motor  }}</p>
-                    
-                    <label class="texto">Año de producción</label>
-                    <p class="parrafos" >{{$VehiculosListados[0]->anio_de_produccion  }}</p>
-                    
-                    <label class="texto">Dominio </label>
-                    <p class="parrafos" >{{$VehiculosListados[0]->dominio  }}</p>
+                @if(count($VehiculosListados)>0)
+                  <label class="texto" >Numero de identificación</label>
+                  <p class="parrafos" >{{ $VehiculosListados[0]->numero_de_identificacion }}</p>
+                  <label class="texto">Clase de unidad</label>
+                  <p class="parrafos" >{{$VehiculosListados[0]->clase_de_unidad  }}</p>                       
+                  <label class="texto">Marca</label>
+                  <p class="parrafos" >{{$VehiculosListados[0]->marca  }}</p>
+                  
+                  <label class="texto">Modelo</label>
+                  <p class="parrafos" >{{$VehiculosListados[0]->modelo  }}</p>
+                  
+                  <label class="texto" >Chasis</label>
+                  <p class="parrafos" >{{$VehiculosListados[0]->chasis  }}</p>
+                  
+                  <label class="texto">Motor</label>
+                  <p class="parrafos" >{{$VehiculosListados[0]->motor  }}</p>
+                  
+                  <label class="texto">Año de producción</label>
+                  <p class="parrafos" >{{$VehiculosListados[0]->anio_de_produccion  }}</p>
+                  
+                  <label class="texto">Dominio </label>
+                  <p class="parrafos" >{{$VehiculosListados[0]->dominio  }}</p>
 
 
-                    <label class="texto">Kilometraje</label>
-                    <p class="parrafos" >{{$VehiculosListados[0]->kilometraje  }} km</p>
+                  <label class="texto">Kilometraje</label>
+                  <p class="parrafos" >{{$VehiculosListados[0]->kilometraje  }} km</p>
 
-                    <label  class="texto">Observaciones</label>
-                    @if($VehiculosListados[0]->otras_caracteristicas == null)
-                        <p class="parrafos">No posee obs.</p>
-                    @else
-                        <p class="parrafos" >{{$VehiculosListados[0]->otras_caracteristicas  }}</p>
-                    @endif
-
-                    <label class="texto">Fecha</label>
-                    <p class="parroafos">{{ date('d-m-Y', strtotime($VehiculosListados[0]->fecha )) }}</p>
+                  <label  class="texto">Observaciones</label>
+                  @if($VehiculosListados[0]->otras_caracteristicas == null)
+                      <p class="parrafos">No posee obs.</p>
                   @else
-                    asdas
+                      <p class="parrafos" >{{$VehiculosListados[0]->otras_caracteristicas  }}</p>
                   @endif
+
+                  <label class="texto">Fecha</label>
+                  <p class="parroafos">{{ date('d-m-Y', strtotime($VehiculosListados[0]->fecha )) }}</p>
+                @else
+                  asdas
+                @endif
               </div>
             </div>
           </div>
             {{-- derecha --}}
           <div class="col-md-6">
             <div class="card table-responsive">
+              <div class="card-header">
+                 <strong><u>Afectado Actual</u></strong>
+              </div>
               <div class="card-body">
-                <h4 class="d-flex justify-content-center card-title">Afectado Actual</h4> 
-                <br>
-                  @if(count($asignacion_actual)>0)
-                    <label class="texto" >Dependencia Actual</label>
-                    <p class="parrafos" >{{ $asignacion_actual[0]->nombre_dependencia }}</p>
+                @if(count($asignacion_actual)>0)
+                  <label class="texto" >Dependencia Actual</label>
+                  <p class="parrafos" >{{ $asignacion_actual[0]->nombre_dependencia }}</p>
+                    <hr>
+                    @if($asignacion_actual[0]->id_dependencia == 392 and isset($Mandatario_Dignatario))
+                      <label class="texto">Entidad:</label>
+                      <p class="parrafos" >{{ $Mandatario_Dignatario[0]->nombre_entidad }}
                       <hr>
-                      @if($asignacion_actual[0]->id_dependencia == 392 and isset($Mandatario_Dignatario))
-                        <label class="texto">Entidad:</label>
-                        <p class="parrafos" >{{ $Mandatario_Dignatario[0]->nombre_entidad }}
-                        <hr>
-                        <label class="texto">Responsable:</label>
-                        <p class="parrafos" >{{ $Mandatario_Dignatario[0]->nombre_mandatario_dignatario }}
-                        <hr>
-                      @endif
-
-                      
-                      <label class="texto" >Responsable de entrega</label>
-                      <p class="parrafos" >{{ $asignacion_actual[0]->nombre }}</p>
+                      <label class="texto">Responsable:</label>
+                      <p class="parrafos" >{{ $Mandatario_Dignatario[0]->nombre_mandatario_dignatario }}
                       <hr>
-                      <label  class="texto">Observaciones</label>
+                    @endif
 
-                      @if($asignacion_actual[0]->observaciones == null)
-                        <p class="parrafos">No posee obs.</p>
-                      @else
-                        <p class="parrafos" >{{$asignacion_actual[0]->observaciones  }}</p>
-                      @endif
-                  @else
-                    @if($VehiculosListados[0]->baja == 0)
-                      <p>Vehiculo sin asignar</p>
+                    
+                    <label class="texto" >Responsable de entrega</label>
+                    <p class="parrafos" >{{ $asignacion_actual[0]->nombre }}</p>
+                    <hr>
+                    <label  class="texto">Observaciones</label>
+
+                    @if($asignacion_actual[0]->observaciones == null)
+                      <p class="parrafos">No posee obs.</p>
+                    @else
+                      <p class="parrafos" >{{$asignacion_actual[0]->observaciones  }}</p>
                     @endif
-                    @if($VehiculosListados[0]->baja == 1)
-                      <p>vehiculo fuera de servicio</p>
-                    @endif
-                    @if($VehiculosListados[0]->baja == 2)
-                      <p>vehiculo dado de baja definitivamente</p>
-                    @endif
+                @else
+                  @if($VehiculosListados[0]->baja == 0)
+                    <p>Vehiculo sin asignar</p>
                   @endif
+                  @if($VehiculosListados[0]->baja == 1)
+                    <p>vehiculo fuera de servicio</p>
+                  @endif
+                  @if($VehiculosListados[0]->baja == 2)
+                    <p>vehiculo dado de baja definitivamente</p>
+                  @endif
+                @endif
               </div>
             </div>
             
             <div class="card table-responsive">
+              <div class="card-header">
+                 <strong><u>Historial</u></strong>
+              </div>
               <div class="card-body table-responsive ">
-                <h4 class="card-title">Historial</h4>
-                <hr>
                 @if(count($historial)>0)
                   <label> 
                     <strong><a title="Descargar historial en PDF" href="{{ route('pdfVehiculos',$VehiculosListados[0]->id_vehiculo) }}" ><i class="fa fa-file-pdf"></i> Descargar historial completo</a></strong>
@@ -182,9 +174,10 @@
         </div>
         <div class="row table-responsive ">
           <div class="card">
+            <div class="card-header">
+               <strong><u>Siniestros</u></strong>
+            </div>
             <div class="card-body">
-              <h4 class="card-title">Siniestros</h4> 
-              <br>
               @if(count($siniestros) >0)
                     <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
                       <thead>
@@ -205,7 +198,7 @@
                           <tr>
                             <td>{{ $item->numero_de_identificacion }}</td>
                             <td>{{ $item->nombre_dependencia }}</td>
-                            <td>{{ substr($item->lugar_siniestro ,0,10) }}...<a href="" onclick="detalle('{{ $item->lugar_siniestro }}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
+                            <td>{{ substr($item->lugar_siniestro ,0,10) }}...<a href="" onclick="detalle('{!! preg_replace( "/\r|\n/", "", nl2br($item->lugar_siniestro)) !!}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
                             </td>
 
                             <td>{{ date('d-m-Y', strtotime($item->fecha_siniestro)) }}</td>
@@ -214,11 +207,11 @@
                             @else
                               <td><label class="badge badge-success">No</label></td>
                             @endif
-                            <td>{{ substr($item->descripcion_siniestro,0,10) }}...<a href="" onclick="detalle('{{ $item->descripcion_siniestro }}')" data-toggle="modal" data-target="#modalDetalleDesc">ver mas</a>
+                            <td>{{ substr($item->descripcion_siniestro,0,10) }}...<a href=""  onclick="detalle('{!! preg_replace( "/\r|\n/", "", nl2br($item->descripcion_siniestro)) !!}')" data-toggle="modal" data-target="#modalDetalleDesc">ver mas</a>
                             </td>
 
                             <td>{{ date('d-m-Y', strtotime($item->fecha_presentacion)) }}</td>
-                            <td>{{ substr($item->observaciones_siniestro,0,10) }}...<a href="" onclick="detalle('{{ $item->observaciones_siniestro }}')" data-toggle="modal" data-target="#modalDetalleObs">ver mas</a>
+                            <td>{{ substr($item->observaciones_siniestro,0,10) }}...<a href="" onclick="detalle('{!! preg_replace( "/\r|\n/", "", nl2br($item->observaciones_siniestro)) !!}')" data-toggle="modal" data-target="#modalDetalleObs">ver mas</a>
                             </td>
                           </tr>
                         @endforeach
@@ -233,12 +226,56 @@
             </div>
           </div>
         </div>
-
+        <div class="row table-responsive ">
+          <div class="card">
+            <div class="card-header">
+               <strong><u>Repuestos</u></strong>
+            </div>
+            <div class="card-body">
+              @if(count($repuestos) >0)
+                    <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
+                      <thead>
+                        <tr>
+                      <th>Dominio</th>
+                      <th>Fecha</th>
+                      <th>Responsable</th>
+                      <th>N de identificación</th>
+                      <th>Marca</th>
+                      <th>clase de unidad</th>
+                      <th>Repuestos</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                    @foreach($repuestos as $item)
+                    
+                      <tr>
+                        <td>{{ $item->dominio }}</td>
+                        <td>{{ date('d-m-Y', strtotime($item->fecha )) }}</td>
+                        <td>{{ $item->usuario }}</td>
+                        <td>{{ $item->numero_de_identificacion }}</td>
+                        <td>{{ $item->marca }}</td>
+                        <td>{{ $item->clase_de_unidad }}</td>
+                        
+                         <td>{{ substr($item->repuestos_entregados ,0,15) }}...<a href="" onclick="detalle('{!! preg_replace( "/\r|\n/", "", nl2br($item->repuestos_entregados)) !!}')"  data-toggle="modal" data-target="#modalDetalleRepuestos">ver mas</a>
+                      </tr>
+                    @endforeach
+                      </tbody>
+                    </table>
+                  <div class="row">
+                    {{ $repuestos->appends(Request::all())->links() }}
+                  </div>
+              @else
+                <p>no posee</p>
+              @endif
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="card col-sm-12">
+            <div class="card-header">
+               <strong><u>Imagenes</u></strong>
+            </div>
             <div class="card-body">
-              <h4 class="card-title">Imagenes</h4> 
-              <br>
                 @if(count($imagenes_vehiculo)>0)
     
                 <div class="col-md-12 "  >
@@ -281,7 +318,7 @@
   <!-- container-fluid -->
       </div>
   {{-- content --}}
-      @endif
+   {{--    @endif --}}
   </div>
   {{-- content-wrapper --}}
 </div>
@@ -323,7 +360,7 @@
         $('#modalEdicionVehiculo').modal('show');
   }
   function detalle(item){
-    var asdasd = $('#idDetalle').val(item);
+    $('#idDetalle').html(item);
     $('#modalDetalleLugar').modal('show');
   }
 

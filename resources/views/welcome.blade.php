@@ -59,7 +59,7 @@
                 <hr>
                 <div class="card col-md-6">
                   <div class="card-header">
-                    <h3 class="card-title">Vehículos Disponíbles</h3>
+                    <h3 class="card-title">Vehículos disponibles</h3>
                     <div class="card-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                       </button>
@@ -74,13 +74,16 @@
                           <tr>
                             <th>Tipo</th>
                             <th>Cantidades</th>
+                            <th>Acciones</th>
                           </tr>
                         </thead>
                         <tbody>
+
                           @foreach($total_vehiculos_disponibles as $item)
                             <tr>
                               <td>{{ $item->nombre_tipo_vehiculo }}</td>
                               <td>{{ $item->total_vehiculos }}</td>
+                              <td><a target="_blank" href="{{route('detalleVehiculosTipos',$item->id_tipo_vehiculo)}}" class="btn btn-secondary btn-sm"><i class="fa fa-search"></i></a></td>
                             </tr>
                           @endforeach
                         </tbody>
@@ -91,7 +94,7 @@
                 <hr>
                 <div class="card col-md-6">
                   <div class="card-header">
-                    <h3 class="card-title">Vehículos Disponibles</h3>
+                    <h3 class="card-title">Vehículos disponibles</h3>
                     <div class="card-tools pull-right">
                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                       </button>
@@ -133,16 +136,16 @@
                   <div class="row">
 
                     <div class="form-group busqueda ">
-                      <input type="text" name="vehiculoBuscado" class="form-control" placeholder="Numero de identificación">
+                      <input type="text" name="vehiculoBuscado" class="form-control" placeholder="Número de identificación">
                     </div>
-                   <div class="form-group busqueda ">
+{{--                    <div class="form-group busqueda ">
                       <select  id="id_marca" name="marcas" class="form-control ">
                         <option value="" selected="">Seleccione una marca</option>
                         @foreach ($marca as $item)
                           <option value="{{ $item->marca }}">{{ $item->marca }}</option>
                         @endforeach
                       </select>
-                    </div>
+                    </div> --}}
                     <div class="form-group busqueda" >
                       <select name="anio" id="id_anio"  class="form-control ">
                         <option value="" selected="">Seleccione un año</option>
@@ -151,14 +154,14 @@
                         @endforeach
                       </select>
                     </div>
-                    <div class="form-group busqueda">
+{{--                     <div class="form-group busqueda">
                       <select name="id_tipo_vehiculo_lista"  class="form-control">
                         <option value="" selected="">Seleccione un tipo de vehículo</option>
                         @foreach ($tipo_vehiculo as $item)
                           <option value="{{ $item->id_tipo_vehiculo }}">{{ $item->nombre_tipo_vehiculo }}</option>
                         @endforeach
                       </select>
-                    </div>
+                    </div> --}}
                    <div class="form-group busqueda ">
                       <select  id="id_dependencia_seleccionada" name="dependencia_seleccionada" class="form-control ">
                         <option value="" selected="">Seleccione una Unidad Regional</option>
@@ -241,7 +244,7 @@
                         <div class="row col-md-12">
                           <div class="card col-md-12">
                             <div class="card-body">
-                              <h4 class="card-title">Ingrese algun número de identificación, dominio del vehículo, año o seleccione una dependencia para obtener una lista de los vehiculos</h4> 
+                              <h4 class="card-title">Ingrese algun número de identificación, dominio del vehículo, año o seleccione una dependencia para obtener una lista de los vehículos.</h4> 
                               <br>
                             </div>
                           </div>
@@ -249,6 +252,7 @@
                       @endif
                   </div>
                   <div class="col-md-12" id="modalopen"></div>
+                  <div class="col-md-12" id="divVehiculo"></div>
                 </div>
               </div>
         
@@ -463,6 +467,25 @@
         success: function(data){
           console.log(data)
           $('#modalopen').html(data);
+        },error:function(data){
+          console.log( 'Error al agregar el articulo', data );
+        }
+      });
+
+  }
+  function detalleUnidadRegionalVehiculo(id){
+    console.log(id)
+     var csrftoken = $('meta[name=csrf-token]').attr('content');
+
+      $.ajax({
+        type:"POST",
+        url:'{{route('detalleUnidadRegionalVehiculo')}}',
+
+        data:{'_token':csrftoken,'idDependencia':id},
+
+        success: function(data){
+          console.log(data)
+          $('#divVehiculo').html(data);
         },error:function(data){
           console.log( 'Error al agregar el articulo', data );
         }

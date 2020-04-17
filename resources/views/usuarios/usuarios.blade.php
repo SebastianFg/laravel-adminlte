@@ -30,7 +30,7 @@
                 <div class="row">
                   <div class="col-md-3-responsive">
                     @can('usuarios.crear')
-                      <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#modalAltaUsuario"> <i class="fa fa-plus"> Nuevo Usuario</i> </button> 
+                      <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#modalAltaUsuario"> <i class="fa fa-plus"> Nuevo usuario</i> </button> 
                     @endcan
                   </div>
                 </div>
@@ -45,7 +45,7 @@
             <hr>
             <div class="card">
               <div class="card-header">
-                <strong><u>Usuario</u></strong>
+                <strong><u>Lista de usuarios</u></strong>
               </div>
               <div class="card-body">
                 <div class="row col-md-12"  >
@@ -67,6 +67,8 @@
                         <th>Nombre</th>
                         <th>Usuario</th>
                         <th>Rol</th>
+                        <th>Ultimo Inicio</th>
+                        <th>Status</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
@@ -81,6 +83,14 @@
                                 @foreach($item->getRoleNames() as $v)
                                   <label class="badge badge-success">{{ $v }}</label>
                                 @endforeach
+                              @endif
+                            </td>
+                            <td>{{ date('d-m-Y H:i:s', strtotime($item->updated_at )) }}</td>
+                            <td>
+                              @if($item->isOnline())
+                                <label class="badge badge-success">Online</label>
+                              @else
+                                <label class="badge badge-danger">Offline</label>
                               @endif
                             </td>
                             <td>
@@ -110,16 +120,24 @@
                                 @endforeach
                               @endif
                             </td>
+                             <td>{{ date('d-m-Y H:i:s', strtotime($item->updated_at )) }}</td>
+                            <td>
+                              @if($item->isOnline())
+                                <label class="badge badge-success">Online</label>
+                              @else
+                                <label class="badge badge-danger">Offline</label>
+                              @endif
+                            </td>
                             <td>
                               @if(strcmp($item->getRoleNames(),'Super Admin') != 0)
                                 @can('usuarios.asignarRol')
-                                  <button  data-toggle="modal" onclick="agregarRol({{$item }})" title="Editar Roles" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                  <button  data-toggle="modal" onclick="agregarRol({{$item }})" title="Editar usuario" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
                                 @endcan
                                 @can('usuarios.eliminarUsuario') 
                                   <button  onclick="eliminarUsuario({{ $item }});" title="Eliminar Usuario"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                 @endcan
                                 @can('usuarios.resetPassword')
-                                  <a class="btn btn-secondary btn-sm" href="{{ route('resetPassword',$item->id) }}"><i class="fa fa-undo"></i></a>
+                                  <a title="Restablecer contraseña" class="btn btn-secondary btn-sm" href="{{ route('resetPassword',$item->id) }}"><i class="fa fa-undo"></i></a>
                                 @endcan
                               @endif
                             </td>
@@ -130,7 +148,7 @@
                     </tbody>
                   </table>
                   @if($existe)
-                    <div class="row">
+                    <div>
                         {{ $usuarios->appends(Request::all())->links() }}
                     </div>
                   @endif

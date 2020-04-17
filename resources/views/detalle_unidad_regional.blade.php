@@ -7,6 +7,7 @@
 	          <tr>
 	            <th>Dependencia</th>
 	            <th>Cantidad</th>
+	            <th>Accion</th>
 	          </tr>
 	        </thead>
 	        <tbody>
@@ -14,6 +15,7 @@
                 <tr>
                   <td>{{$item->nombre_dependencia}}</td>
                   <td>{{$item->total}}</td>
+                  <td><button class="btn btn-info btn-sm" onclick="detalleUnidadRegionalVehiculo({{$item->id_dependencia}});"><i class="fa fa-info"></i></button></a></td>
                 </tr>
               @endforeach
 	        </tbody>

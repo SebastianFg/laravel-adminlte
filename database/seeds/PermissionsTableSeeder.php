@@ -16,12 +16,12 @@ class PermissionsTableSeeder extends Seeder
     public function run()
     {
         //borramos la tabla y no funciona la mierda esta
-        /*Schema::disableForeignKeyConstraints();
+/*        Schema::disableForeignKeyConstraints();
         DB::table('permissions')->truncate();
         Schema::enableForeignKeyConstraints();
         app()['cache']->forget('spatie.permission.cache');*/
         // Clear cache
-/*        app()[PermissionRegistrar::class]->forgetCachedPermissions();*/
+//        app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
 		Permission::create(['name' => 'vehiculos.index']);
         Permission::create(['name' => 'vehiculos.crear']);

@@ -3,7 +3,7 @@
       <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content col-md-12">
               <div class="modal-header">
-                  <h4 class="modal-title" id="myModalLabel">Asignar Vehículo</h4>
+                  <h4 class="modal-title" id="myModalLabel">Asignar vehículo</h4>
               </div>
               @if(!$errors->isEmpty())
               <div class="alert alert-danger">
@@ -20,7 +20,7 @@
                   @csrf
                   <div class="row">
                     <div class="form-group col-md-6">
-                        <label>Seleccione Vehículo</label>
+                        <label>Seleccione vehículo</label>
                         <div id="select">
                             <select type="text" class="form-control"required id="id_vehiculo" value="{{ old('vehiculo') }}" data-width="100%" name="id_vehiculo">
                             </select>
@@ -33,9 +33,9 @@
                   </div>
                   <div class="row">
                     <div class="form-group col-md-12">
-                        <label>Seleccione Afectado</label>
+                        <label>Seleccione afectado</label>
                         <div id="select">
-                            <select type="text" class="form-control"required id="id_afectado" value="{{ old('afectado') }}" data-width="100%" name="afectado">
+                            <select type="text" class="form-control" required id="id_afectado" value="{{ old('afectado') }}" data-width="100%" name="afectado">
                             </select>
                         </div>
                     </div>

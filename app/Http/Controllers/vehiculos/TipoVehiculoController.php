@@ -12,6 +12,7 @@ use Illuminate\Pagination\Paginator;
 
 //Modelos
 use App\Modelos\tipos_vehiculos;
+use App\Modelos\vehiculo;
 
 class TipoVehiculoController extends Controller
 {
@@ -30,7 +31,7 @@ class TipoVehiculoController extends Controller
         }
 
     }
-	protected function paginar($datos){
+	protected function paginar($datos,$cantidadPorPagina){
 
     	 $currentPage = LengthAwarePaginator::resolveCurrentPage();
 
@@ -38,7 +39,7 @@ class TipoVehiculoController extends Controller
         $collection = collect($datos);
  
         // definimos cuantos items por magina se mostraran
-        $por_pagina = 10;
+        $por_pagina = $cantidadPorPagina;
  
         //armamos el paginador... sin el resolvecurrentpage arma la paginacion pero no mueve el selector
         $datos= new LengthAwarePaginator(
@@ -63,7 +64,7 @@ class TipoVehiculoController extends Controller
         if ($Request->tipoVehiculoBuscado ==null) {
         	$tipo_vehiculo = tipos_vehiculos::orderby('id_tipo_vehiculo','desc')->get();
 
-        	$tipo_vehiculo = $this->paginar($tipo_vehiculo);
+        	$tipo_vehiculo = $this->paginar($tipo_vehiculo,10);
 	      
         }else{
 
@@ -71,7 +72,7 @@ class TipoVehiculoController extends Controller
         		$tipo_vehiculo = tipos_vehiculos::TipoVehiculo($Request->tipoVehiculoBuscado);
         	}
 
-        	$tipo_vehiculo = $this->paginar($tipo_vehiculo);
+        	$tipo_vehiculo = $this->paginar($tipo_vehiculo,10);
 
         }
 		return view('vehiculos.tipo_vehiculo.tipos_vehiculos',compact('tipo_vehiculo'));
@@ -149,4 +150,16 @@ class TipoVehiculoController extends Controller
             return $this->getMensaje('Verifique y Intente nuevamente','listaTipoVehiculos',false);
         } 
 	}
+
+    public function detalleVehiculosTipos(Request $Request,$id){
+
+        if (isset($Request) and $Request->vehiculoBuscado != null) {
+            $detalleTipo = vehiculo::BuscadorPorTipo($Request->vehiculoBuscado,$id);
+        }else{
+
+            $detalleTipo = vehiculo::where('tipo','=',$id)->get();
+        }
+        $detalleTipo = $this->paginar($detalleTipo,50);
+        return view('vehiculos.detalles.detalle_vehiculos_tipo',compact('detalleTipo'));
+    }
 }

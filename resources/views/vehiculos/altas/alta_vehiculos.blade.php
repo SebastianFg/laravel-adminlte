@@ -25,9 +25,9 @@
                   @can('vehiculos.crear')
                     <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#miModal"> <i class="fa fa-plus"> Nuevo</i> </button> 
                   @endcan
-                  @can('vehiculos.imprimirLista')
+{{--                   @can('vehiculos.imprimirLista')
                     <a type="button" id="redireccionar" class=" btn btn-danger" href="{{ route('exportarPdfVehiculos') }}"><i class="fa fa-file-pdf-o"> Imprimir lista completa</i> </a>
-                  @endcan  
+                  @endcan  --}} 
                 </div>
 
           </div>
@@ -43,7 +43,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Vehículos</u></strong>
+                  <strong><u>Lista de vehículos</u></strong>
                 </div>
 
                 <div class="card-body">
@@ -74,11 +74,11 @@
                       <thead>
                         <tr>
 
-                          <th>Numero de identificación</th>
+                          <th>N° de identificación</th>
                           <th>Marca</th>
                           <th>Modelo</th>
                           <th>Dominio</th>
-                          <th>Numero de Inventario</th>
+                          <th>N° de Inventario</th>
                           <th>Tipo</th>
                           <th>Acciones</th>
                         </tr>
@@ -96,7 +96,7 @@
                            
                             <td>
                               @can('vehiculos.informacion')
-                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
+                                <a title="Información" class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                               @endcan
                               @can('vehiculos.editar') 
                                 <button onclick="editarVehiculo({{ $item }})" title="Editar vehiculo"   class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
@@ -111,7 +111,7 @@
                       </tbody>
                     </table>
 
-                      <div class="row">
+                      <div >
                           {{ $VehiculosListados->appends(Request::all())->links() }}
                       </div>
                   </div>

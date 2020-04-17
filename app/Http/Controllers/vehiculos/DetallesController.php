@@ -19,6 +19,7 @@ use App\Modelos\estado_vehiculo;
 use App\Modelos\asignacion_vehiculo;
 use App\Modelos\historial_asignacion;
 use App\Modelos\siniestro;
+use App\Modelos\repuesto;
 use App\Modelos\mandatario_dignatario;
 
 use App\User;
@@ -92,6 +93,14 @@ class DetallesController extends Controller
         return $siniestros;
     }
 
+    protected function Repuestos($id){
+        $repuestos = repuesto::join('vehiculos','vehiculos.id_vehiculo','=','detalle_asignacion_repuestos.id_vehiculo')
+                               
+                                ->where('vehiculos.id_vehiculo','=',$id)->get();
+        $repuestos = $this->paginar($repuestos);
+        return $repuestos;
+    }
+
     protected function Mandatario_Dignatario($id){
         $mandatario_dignatario = mandatario_dignatario::where('id_asignacion','=',$id)->get();
         $mandatario_dignatario = $this->paginar($mandatario_dignatario);
@@ -125,6 +134,7 @@ class DetallesController extends Controller
         	$siniestros = $this->Siniestros($id);
             $historial = $this->HistorialVehiculo($id);
             $asignacion_actual = $this->AsignacionActual($id);
+            $repuestos = $this->Repuestos($id);
             $imagenes_vehiculo = imagen_vehiculo::where('id_vehiculo','=',$id)->select('nombre_imagen')->get();
             
 
@@ -146,6 +156,7 @@ class DetallesController extends Controller
                 $historial = $this->HistorialVehiculo($vehiculo[0]->id_vehiculo);
                 $asignacion_actual = $this->AsignacionActual($vehiculo[0]->id_vehiculo);
                 $siniestros = $this->Siniestros($vehiculo[0]->id_vehiculo);
+                $repuestos = $this->Repuestos($vehiculo[0]->id_vehiculo);
                 $imagenes_vehiculo = imagen_vehiculo::where('id_vehiculo','=',$vehiculo[0]->id_vehiculo)->select('nombre_imagen')->get();
                 $VehiculosListados = \DB::select('select * from vehiculos where id_vehiculo = '.$vehiculo[0]->id_vehiculo);
 
@@ -160,7 +171,7 @@ class DetallesController extends Controller
             }
         }
 
-        return view('vehiculos.detalles.detalle_vehiculo',compact('existe','VehiculosListados','asignacion_actual','historial','siniestros','imagenes_vehiculo','Mandatario_Dignatario'));
+        return view('vehiculos.detalles.detalle_vehiculo',compact('existe','VehiculosListados','asignacion_actual','historial','siniestros','imagenes_vehiculo','Mandatario_Dignatario','repuestos'));
     }
 
     public function exportarPdfHistorial($id){

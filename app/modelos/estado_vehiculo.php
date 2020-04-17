@@ -14,7 +14,14 @@ class estado_vehiculo extends Model
     public function scopeBuscarFueraDeServicio($query,$identificacion){
 
     	if (trim($identificacion) != "") {
-    		return \DB::select("select * from view_vehiculos_en_reparacion where numero_de_identificacion = '".$identificacion."'");
+    		return \DB::select("select * FROM vehiculos
+                                             JOIN ( SELECT max(estado_vehiculos_1.id_estado_vehiculo) AS maxestado,
+                                                    estado_vehiculos_1.id_vehiculo
+                                                   FROM estado_vehiculos estado_vehiculos_1
+                                                  WHERE estado_vehiculos_1.tipo_estado_vehiculo = 1
+                                                  GROUP BY estado_vehiculos_1.id_vehiculo) r ON r.id_vehiculo = vehiculos.id_vehiculo
+                                             JOIN estado_vehiculos ON r.maxestado = estado_vehiculos.id_estado_vehiculo
+                                          WHERE vehiculos.baja = 1 and numero_de_identificacion ='".$identificacion."'");
 
     	}
     }

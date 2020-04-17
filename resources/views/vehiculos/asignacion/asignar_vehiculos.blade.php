@@ -24,7 +24,7 @@
               <div class="row">
                 <div class="col-md-3">
                   @can('vehiculos.asignarNuevo')
-                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAsignacion"> <i class="fa fa-plus"> Nueva Asignación</i> </button> 
+                    <button type="button" class="btn btn-success left" data-toggle="modal" data-target="#idModalAsignacion"> <i class="fa fa-plus"> Nueva asignación</i> </button> 
                   @endcan
                 </div>
           </div>
@@ -40,7 +40,7 @@
               <hr>
               <div class="card">
                 <div class="card-header">
-                  <strong><u>Vehículos Asignados</u></strong>
+                  <strong><u>Lista de vehículos asignados</u></strong>
                 </div>
 
                 <div class="card-body">
@@ -49,7 +49,7 @@
                       <div class="row">
                         
                         <div class="form-group">
-                          <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="Numero de identificación">
+                          <input type="text" name="vehiculoBuscado" autocomplete="off" class="form-control" placeholder="Número de identificación">
                         </div>
                         <div class="form-group">
                            <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
@@ -88,7 +88,7 @@
                            
                             <td>
                               @can('vehiculos.informacion')
-                                <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
+                                <a title="Informaón" class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
                               @endcan
                               @can('vehiculos.asignarEliminar') 
                                 <button  onclick="eliminarAsignacion('{{ $item->id_vehiculo }}','{{ $item->numero_de_identificacion }}','{{ $item->dominio }}','{{ $item->id_detalle }}','{{ $item->nombre_dependencia }}','{{ $item->id_dependencia }}');" title="Eliminar asignacion"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>

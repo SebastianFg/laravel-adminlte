@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content col-md-12">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Editar Repuesto</h4>
+          <h4 class="modal-title" id="myModalLabel">Editar repuesto</h4>
         </div>
         @if(!$errors->isEmpty())
           <div class="alert alert-danger">
@@ -22,7 +22,7 @@
 
             <input type="text" name="id_detalle_repuesto" id="id_detalle_repuesto" readonly="" hidden="">
             <div class="form-group col-md-12">
-                <label for="">Repuestos Entregados</label>
+                <label for="">Repuestos entregados</label>
                 <textarea type="text" name="repuestos_entregados_editar" id="id_repuestos_entregados_editar" autocomplete="off" placeholder="Repuestos entregados" class="form-control" required value="{{ old('repuestos_entregados') }}"></textarea>
             </div>
             <div class="col-md-12 modal-footer" style="position:relative;">

@@ -3,7 +3,7 @@
       <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content col-md-12">
               <div class="modal-header">
-                  <h4 class="modal-title" id="myModalLabel">Agregar Vehículo</h4>
+                  <h4 class="modal-title" id="myModalLabel">Agregar vehículo</h4>
               </div>
               @if(!$errors->isEmpty())
               <div class="alert alert-danger">
@@ -64,7 +64,7 @@
                   <div class="row">
                     <div class="form-group col-md-6">
                         <label title="Ingrese el número de inventario del vehiculo, ejemplo, 3000">Nº de inventario</label>
-                        <input type="number" name="numero_de_inventario" autocomplete="off" placeholder="Numero de inventario: Ej-> 3000" class="form-control" required value="{{ old('numero_de_inventario') }}">
+                        <input type="number" name="numero_de_inventario" autocomplete="off" placeholder="Número de inventario: Ej-> 3000" class="form-control" required value="{{ old('numero_de_inventario') }}">
                     </div> 
                     <div class="form-group col-md-6">
                         <label title="Ingrese la clase de unidad del vehiculo, ejemplo, cabina simple | 4x4 | cuatro puertas">Clase de unidad</label>
@@ -74,11 +74,11 @@
                   <div class="row">
                     <div class="form-group col-md-6">
 
-                        <label title="Ingrese el tipo de vehiculo">Tipo de vehiculo</label>
+                        <label title="Ingrese el tipo de vehiculo">Tipo de vehículo</label>
                       
                         <br>  
                         <select name="tipo" id="tipo_id" required="" class="form-control">
-                        <option value="" selected="">Seleccione una vehículo</option>
+                        <option value="" selected="">Seleccione un vehículo</option>
 
                           @foreach ($tipo_vehiculo as $item)
              

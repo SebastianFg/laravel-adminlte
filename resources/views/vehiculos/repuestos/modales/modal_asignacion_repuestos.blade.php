@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content col-md-12">
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Asignar Repuesto</h4>
+          <h4 class="modal-title" id="myModalLabel">Asignar repuesto</h4>
         </div>
         @if(!$errors->isEmpty())
           <div class="alert alert-danger">
@@ -20,7 +20,7 @@
             <div class="row">
               
                <div class="form-group col-md-6">
-                  <label>Seleccione Vehículo</label>
+                  <label>Seleccione vehículo</label>
                   <br>
                   <div id="select">
                       <select type="text" class="form-control" id="id_vehiculo"data-width="100%" name="id_vehiculo">
@@ -34,7 +34,7 @@
             </div>
             <input type="text" name="id_usuario" readonly="" hidden="" placeholder="Entregado por" required class="form-control " value="{{ Auth::User()->id }}">
             <div class="form-group col-md-12">
-                <label for="">Repuestos Entregados</label>
+                <label for="">Repuestos entregados</label>
                 <textarea type="text" name="repuestos_entregados" autocomplete="off" placeholder="Repuestos entregados" class="form-control" required value="{{ old('repuestos_entregados') }}"></textarea>
             </div>
 
