@@ -43,6 +43,7 @@ class vehiculo extends Model
                         ->where('tipos_vehiculos.id_tipo_vehiculo','=',$idTipo)
                         ->join('tipos_vehiculos','tipos_vehiculos.id_tipo_vehiculo','=','vehiculos.tipo')
                         ->select('vehiculos.*','tipos_vehiculos.*')
+                        ->OrderBy('numero_de_identificacion','desc')
                         ->get();
 
         }

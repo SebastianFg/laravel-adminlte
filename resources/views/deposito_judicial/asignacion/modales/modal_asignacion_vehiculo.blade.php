@@ -33,14 +33,14 @@
                   </div>
                   <div class="row">
                     <div class="form-group col-md-12">
-                        <label>Seleccione afectado</label>
+                        <label>Seleccione la dependencia a la que pertenece actualmente el responsable</label>
                         <div id="select_afectado">
-                            <select type="text" class="form-control"required id="id_afectado" value="{{ old('afectado') }}" data-width="100%" name="afectado">
+                            <select type="text" class="form-control"required value="{{ old('dependencia') }}" id="id_afectado" data-width="100%" name="dependencia">
                             </select>
                         </div>
                     </div>
                   </div>
-                  <div class="row" id="mandatario_dignatario_deposito_judicial" style="display:none;">
+{{--                   <div class="row" id="mandatario_dignatario_deposito_judicial" style="display:none;">
                     <div class="form-group col-md-6">
                         <label>Entidad</label>
                         <div id="select">
@@ -53,11 +53,34 @@
                             <input type="text"  maxlength="100" class="form-control" title="ingrese nombre de la persona que el vehiculo fue asignado, en caso de que no haya un responsable, ingresar nombre de la persona que retira el vehículo" placeholder="Ingrese nombre de mandatario o dignatario designado" name="persona">
                         </div>
                     </div>
+                  </div> --}}
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                        <label title="Ingrese el Kilometraje que posee el vehiculo">Exp-Of</label>
+                        <input type="text" name="expof" autocomplete="off" id="id_expof_modificacion" placeholder="Ingrese EXP - OF" class="form-control" value="{{ old('expof') }}">
+                    </div> 
+                    <div class="form-group col-md-6">
+                        <label title="Ingrese el PDF deposito judicial">PDF Depósito Judicial </label>
+                        <input type="file" name="notadecreto" autocomplete="off"  value="{{ old('notadecreto') }}">
+                    </div> 
                   </div>
-
+                  <div class="row">
+                    <div class="form-group col-md-6">
+                        <label title="Ingrese quien solicito el vehículo">Solicitado por</label>
+                        <input type="text" name="solicitado" autocomplete="off" id="id_solicitado" placeholder="Ingrese quien lo solicito" class="form-control" value="{{ old('solicitado') }}">
+                    </div> 
+                    <div class="form-group col-md-6">
+                        <label title="Ingrese quien entego el vehículo">Titular de entrega</label>
+                        <input type="text" name="titular_entrega" autocomplete="off" id="id_titular_entrega" placeholder="Ingrese quien entego el vehículo" class="form-control" value="{{ old('titular_entrega') }}">
+                    </div>  
+                  </div>
+                  <div class="form-group">
+                      <label title="Seleccione la dependencia">Responsable </label>
+                      <input type="text" name="responsable_vehiculo" autocomplete="off" id="id_responsable" placeholder="Ingrese quien es el responsable del vehículo" class="form-control" value="{{ old('responsable_vehiculo') }}">
+                  </div> 
                   <div class="form-group col-md-12">
                       <label for="">Observaciones</label>
-                      <textarea type="text" name="otros" autocomplete="off" placeholder="Observaciones" class="form-control" required value="{{ old('otros') }}"></textarea>
+                      <textarea type="text" name="observaciones" autocomplete="off" placeholder="Observaciones" class="form-control" required value="{{ old('otros') }}"></textarea>
                   </div>
 
 

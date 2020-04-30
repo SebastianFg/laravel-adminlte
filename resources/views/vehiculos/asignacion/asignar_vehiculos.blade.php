@@ -82,8 +82,8 @@
                             <td>{{ $item->numero_de_inventario }}</td>
                             <td>{{ $item->dominio }}</td>
                             <td>{{ $item->nombre_dependencia }}</td>
-                            <td>{{ date('d-m-Y', strtotime($item->fecha)) }}</td>
-                            <td>{{ $item->marca }}</td>
+                            <td>{{ date('d-m-Y', strtotime($item->fecha )) }}</td>
+                            <td>{{ $item->marca }} </td>
                             <td>{{ $item->modelo }}</td>
                            
                             <td>

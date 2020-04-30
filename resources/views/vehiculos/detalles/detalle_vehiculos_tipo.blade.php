@@ -8,8 +8,10 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <title>@yield('titulo', 'Patrimonio') | Jefatura</title>
-  <!-- /.content-header -->
-
+  <!-- /.content-headesr -->
+@php
+$contador = 1;
+@endphp
 
   <!-- Main content -->
   <div class="content">
@@ -49,37 +51,42 @@
                         <table tableStyle="width:auto" id="tablaResultado" class="table table-striped table-hover table-sm table-condensed table-bordered">
                           <thead>
                             <tr>
-                                <th>Marca</th>
-                                <th>Año</th>
-                                <th>Dominio</th>
-                                <th>Motor</th>
-                                <th>Chasis</th>
-                                <th>N de identificacion</th>
-                                <th>Acciones</th>
+                              <th>#</th>
+                              <th>Marca</th>
+                              <th>Año</th>
+                              <th>Dominio</th>
+                              <th>Motor</th>
+                              <th>Chasis</th>
+                              <th>N de identificacion</th>
+                              <th>Acciones</th>
                             </tr>
                           </thead>
                           <tbody>
-                                @foreach($detalleTipo as $item)
-                            
-                                  <tr>
-                                    <td>{{ $item->marca }}</td>
-                                    <td>{{ $item->anio_de_produccion }}</td>
-                                    <td>{{ $item->dominio }}</td>
-                                    <td>{{ $item->motor }}</td>
-                                    <td>{{ $item->chasis }}</td>
-                                    <td>{{ $item->numero_de_identificacion }}</td>
-                                   
-                                    <td>
-                                      @can('vehiculos.informacion')
-                                        <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
-                                      @endcan
-                                    </td>
-                                  
-                                  </tr>
-                                @endforeach
+                            @foreach($detalleTipo as $item)
+                        
+                              <tr>
+                                <td>{{$contador}}</td>
+                                <td>{{ $item->marca }}</td>
+                                <td>{{ $item->anio_de_produccion }}</td>
+                                <td>{{ $item->dominio }}</td>
+                                <td>{{ $item->motor }}</td>
+                                <td>{{ $item->chasis }}</td>
+                                <td>{{ $item->numero_de_identificacion }}</td>
+                               
+                                <td>
+                                  @can('vehiculos.informacion')
+                                    <a class="btn btn-info btn-sm" href="{{ route('detalleVehiculo',$item->id_vehiculo) }}"><i class="fa fa-info"></i></a>
+                                  @endcan
+                                </td>
+                              
+                              </tr>
+                              @php
+                                $contador ++;
+                              @endphp
+                            @endforeach
                           </tbody>
                         </table>
-                        {{ $detalleTipo->appends(Request::all())->links() }}
+                       
                   </div>
                 </div>
               </div>

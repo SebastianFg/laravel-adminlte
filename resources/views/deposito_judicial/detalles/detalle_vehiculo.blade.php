@@ -40,21 +40,23 @@
 
         @else --}}
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="card">
               <div class="card-header">
-                 <strong><u>Datos del vehículo</u></strong>
+                 <strong><u>Ficha del vehículo</u></strong>
               </div>
               <div class="card-body">
                   @if(count($VehiculosListados)>0)
-                    <label class="texto" >Número de referencia aleatorio</label>
-                    <p class="parrafos" >{{ $VehiculosListados[0]->numero_de_referencia_aleatorio_deposito_judicial }}</p>
+                    <label class="texto" >Número de carpeta</label>
+                    <p class="parrafos" >{{ $VehiculosListados[0]->numero_de_carpeta_deposito_judicial }}</p>
+                    <label class="texto" >Juzgado</label>
+                    <p class="parrafos" >{{ $VehiculosListados[0]->nombre_juzgado }}</p>
                     <label class="texto" >Número de identificación</label>
                     <p class="parrafos" >{{ $VehiculosListados[0]->numero_de_identificacion_deposito_judicial }}</p>
                     <label class="texto">Clase de unidad</label>
                     <p class="parrafos" >{{$VehiculosListados[0]->clase_de_unidad_deposito_judicial  }}</p>                       
                     <label class="texto">Marca</label>
-                    <p class="parrafos" >{{$VehiculosListados[0]->marca_deposito_judicial  }}</p>
+                    <p class="parrafos" >{{$VehiculosListados[0]->marca  }}</p>
                     
                     <label class="texto">Modelo</label>
                     <p class="parrafos" >{{$VehiculosListados[0]->modelo_deposito_judicial  }}</p>
@@ -66,16 +68,24 @@
                     <p class="parrafos" >{{$VehiculosListados[0]->motor_deposito_judicial  }}</p>
                     
                     <label class="texto">Año de producción</label>
-                    <p class="parrafos" >{{$VehiculosListados[0]->anio_de_produccion_deposito_judicial  }}</p>
+                    @if($VehiculosListados[0]->anio_de_produccion_deposito_judicial == null)
+                      <p class="parrafos" >Sin datos</p>
+                    @else
+                       <p class="parrafos" >{{$VehiculosListados[0]->anio_de_produccion_deposito_judicial  }}</p>
+                    @endif
                     
                     <label class="texto">Dominio </label>
                     <p class="parrafos" >{{$VehiculosListados[0]->dominio_deposito_judicial  }}</p>
 
-                    <label class="texto">Número de inventario</label>
-                    <p class="parrafos" >{{$VehiculosListados[0]->numero_de_inventario_deposito_judicial  }}</p>
 
                     <label class="texto">Kilometraje</label>
-                    <p class="parrafos" >{{$VehiculosListados[0]->kilometraje_deposito_judicial  }} km</p>
+                    @if($VehiculosListados[0]->kilometraje_deposito_judicial == null)
+                      <p class="parrafos" >Sin datos</p>
+                    @else
+                       <p class="parrafos" >{{$VehiculosListados[0]->kilometraje_deposito_judicial  }}</p>
+                    @endif
+
+                  
 
                     <label  class="texto">Observaciones</label>
                     @if($VehiculosListados[0]->otras_caracteristicas_deposito_judicial == null)
@@ -84,7 +94,7 @@
                         <p class="parrafos" >{{$VehiculosListados[0]->otras_caracteristicas_deposito_judicial  }}</p>
                     @endif
 
-                    <label class="texto">Fecha</label>
+                    <label class="texto">Fecha de alta</label>
                     <p class="parroafos">{{ date('d-m-Y', strtotime($VehiculosListados[0]->fecha_deposito_judicial )) }}</p>
                   @else
                     asdas
@@ -93,44 +103,48 @@
             </div>
           </div>
             {{-- derecha --}}
-          <div class="col-md-6">
+          <div class="col-md-8">
             <div class="card table-responsive">
               <div class="card-header">
-                 <strong><u>Afectado actual</u></strong>
+                 <strong><u>Detalles de la asignación actual</u></strong>
               </div>
               <div class="card-body">
                   @if(count($asignacion_actual)>0)
-                    <label class="texto" >Dependencia Actual</label>
-                    <p class="parrafos" >{{ $asignacion_actual[0]->nombre_dependencia }}</p>
-                      <hr>
-                      @if($asignacion_actual[0]->id_dependencia == 392 and isset($Mandatario_Dignatario))
-                        <label class="texto">Entidad:</label>
-                        <p class="parrafos" >{{ $Mandatario_Dignatario[0]->nombre_entidad }}
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label class="texto" >Dependencia</label>
+                      <p class="parrafos" >{{ $asignacion_actual[0]->nombre_dependencia }}</p>
                         <hr>
-                        <label class="texto">Responsable:</label>
-                        <p class="parrafos" >{{ $Mandatario_Dignatario[0]->nombre_mandatario_dignatario }}
+                        <label class="texto" >Solicitado por</label>
+                        <p class="parrafos" >{{ $asignacion_actual[0]->solicitado_deposito_judicial }}</p>
                         <hr>
-                      @endif
-
+                    </div>
+                    <div class="col-md-4">
+                        <label class="texto" >Titular de entrega</label>
+                        <p class="parrafos" >{{ $asignacion_actual[0]->titular_entrega_deposito_judicial }}</p>
+                        <hr>
+                        <label class="texto" >Responsable del vehículo</label>
+                        <p class="parrafos" >{{ $asignacion_actual[0]->responsable_deposito_judicial }}</p>
+                        <hr>
                       
-                      <label class="texto" >Responsable de entrega</label>
-                      <p class="parrafos" >{{ $asignacion_actual[0]->nombre }}</p>
-                      <hr>
+                    </div>
+                  </div>
+
                       <label  class="texto">Observaciones</label>
 
-                      @if($asignacion_actual[0]->observaciones == null)
+                      @if($asignacion_actual[0]->observaciones_deposito_judicial == null)
                         <p class="parrafos">No posee obs.</p>
                       @else
-                        <p class="parrafos" >{{$asignacion_actual[0]->observaciones  }}</p>
+                        <p class="parrafos" >{{$asignacion_actual[0]->observaciones_deposito_judicial  }}</p>
                       @endif
                   @else
-                    @if($VehiculosListados[0]->baja == 0)
+                    @if($VehiculosListados[0]->baja_deposito_judicial == 0)
                       <p>Vehículo sin asignar</p>
                     @endif
-                    @if($VehiculosListados[0]->baja == 1)
+                    @if($VehiculosListados[0]->baja_deposito_judicial == 1)
                       <p>Vehículo fuera de servicio</p>
                     @endif
-                    @if($VehiculosListados[0]->baja == 2)
+                    @if($VehiculosListados[0]->baja_deposito_judicial == 2)
                       <p>Vehículo dado de baja definitivamente</p>
                     @endif
                   @endif
@@ -139,29 +153,30 @@
             
             <div class="card table-responsive">
               <div class="card-header">
-                 <strong><u>Historial</u></strong>
+                 <strong><u>Historial de asignación</u></strong>
               </div>
               <div class="card-body table-responsive ">
                 @if(count($historial)>0)
                   <label> 
-                    <strong><a title="Descargar historial en PDF" href="{{ route('pdfVehiculosDP',$VehiculosListados[0]->id_vehiculo_deposito_judicial) }}" ><i class="fa fa-file-pdf"></i> Descargar historial completo</a></strong>
+                    <strong><a title="Descargar historial en PDF del vehiculo seleccionado" href="{{ route('pdfVehiculosDP',$VehiculosListados[0]->id_vehiculo_deposito_judicial) }}" ><i class="fa fa-file-pdf"></i> Descargar historial completo de asignación</a></strong>
                   </label>
                   <hr>
                   <table  tableStyle="width:auto"  class=" table table-striped table-hover table-condensed table-bordered">
                     <thead>
                       <tr>
-                        <th>Afectado</th>
                         <th>Fecha</th>
-                        <th>Observaciones</th>
+                        <th>Responsable</th>
+                        <th>Exp-Of</th>
+                        <th>Dependencia</th>
                       </tr>
                     </thead>
                       <tbody>
                           @foreach($historial as $item)
                             <tr>
+                              <td>{{ date('d-m-Y', strtotime($item->fecha_deposito_judicial )) }}</td>
+                              <td>{{ $item->responsable_vehiculo_deposito_judicial }}</td>
+                              <td><a title="Descargar documento relacionado" href="{{ route('pdfExpOfhistorial',$item->expof_deposito_judicial) }}"> {{ $item->expof_deposito_judicial }}</a></td>
                               <td>{{ $item->nombre_dependencia }}</td>
-                              <td>{{ date('d-m-Y', strtotime($item->fecha )) }}</td>
-                              
-                              <td>{{ $item->observaciones }}</td>
                             </tr>
                           @endforeach
                       </tbody>
@@ -186,7 +201,7 @@
                     <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
                       <thead>
                         <tr>
-                          <th>N° Identificación</th>
+                          <th>N° carpeta</th>
                           <th>Afectado</th>
                           <th>Lugar</th>
                           <th>Fecha</th>
@@ -200,7 +215,7 @@
                         @foreach($siniestros as $item)
                         
                           <tr>
-                            <td>{{ $item->numero_de_referencia_aleatorio_deposito_judicial }}</td>
+                            <td>{{ $item->numero_de_carpeta_deposito_judicial }}</td>
                             <td>{{ $item->nombre_dependencia }}</td>
                             <td>{{ substr($item->lugar_siniestro ,0,10) }}...<a href="" onclick="detalle('{{ $item->lugar_siniestro }}')" data-toggle="modal" data-target="#modalDetalleLugar">ver mas</a>
                             </td>
@@ -240,10 +255,10 @@
                     <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
                       <thead>
                         <tr>
+                      <th>N° de carpeta</th>
                       <th>Dominio</th>
                       <th>Fecha</th>
                       <th>Responsable</th>
-                      <th>N de identificación</th>
                       <th>Marca</th>
                       <th>clase de unidad</th>
                       <th>Repuestos</th>
@@ -253,10 +268,10 @@
                     @foreach($repuestos as $item)
                     
                       <tr>
+                        <td>{{ $item->numero_de_carpeta_deposito_judicial }}</td>
                         <td>{{ $item->dominio_deposito_judicial }}</td>
                         <td>{{ date('d-m-Y', strtotime($item->fecha_deposito_judicial )) }}</td>
                         <td>{{ $item->usuario }}</td>
-                        <td>{{ $item->numero_de_referencia_aleatorio_deposito_judicial }}</td>
                         <td>{{ $item->marca_deposito_judicial }}</td>
                         <td>{{ $item->clase_de_unidad_deposito_judicial }}</td>
                         
@@ -298,7 +313,7 @@
                       
                          <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
 
-                            <img src="{{  route('storageJudicial',['carpeta'=>$VehiculosListados[0]->numero_de_referencia_aleatorio_deposito_judicial,'archivo'=>$photo->nombre_imagen]) }}" alt="Card image cap">
+                            <img src="{{  route('storageJudicial',['carpeta'=>$VehiculosListados[0]->id_vehiculo_deposito_judicial,'archivo'=>$photo->nombre_imagen]) }}" alt="Card image cap">
                          </div>
                          
                       @endforeach
@@ -344,7 +359,7 @@
 
 <script src="/dist/js/demo.js"></script>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
 
 
   function editarVehiculo(item){
@@ -370,7 +385,7 @@
     $('#modalDetalleLugar').modal('show');
   }
 
-</script>
+</script> --}}
 @stop
 {{-- <style type="text/css">
 .card {

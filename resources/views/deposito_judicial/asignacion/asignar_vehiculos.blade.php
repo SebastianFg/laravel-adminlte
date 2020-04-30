@@ -63,13 +63,14 @@
                       <thead>
                         <tr>
 
-                          <th>Nº de ref.</th>
-                          <th>Nº de inventario</th>
+                          <th>Nº de carpeta</th>
+                          <th>Nº de identificación</th>
+                          <th>Reponsable</th>
+                          <th>Dependencia</th>
                           <th>Dominio</th>
-                          <th>Afectado</th>
                           <th>Fecha</th>
-                          <th>Marca</th>
-                          <th>Modelo</th>
+{{--                           <th>Marca</th>
+                          <th>Modelo</th> --}}
                           <th>Acciones</th>
                         </tr>
                       </thead>
@@ -78,23 +79,27 @@
                         @foreach($asignacion as $item)
                         
                           <tr>
-                            <td>{{ $item->numero_de_referencia_aleatorio_deposito_judicial }}</td>
-                            <td>{{ $item->numero_de_inventario_deposito_judicial }}</td>
-                            <td>{{ $item->dominio_deposito_judicial }}</td>
+                            <td>{{ $item->numero_de_carpeta_deposito_judicial }}</td>
+                            <td>{{ $item->numero_de_identificacion_deposito_judicial }}</td>
+                            <td>{{ $item->responsable_deposito_judicial }}</td>
                             <td>{{ $item->nombre_dependencia }}</td>
-                            <td>{{ date('d-m-Y', strtotime($item->fecha)) }}</td>
-                            <td>{{ $item->marca_deposito_judicial }}</td>
-                            <td>{{ $item->modelo_deposito_judicial }}</td>
+                            <td>{{ $item->dominio_deposito_judicial }}</td>
+                            <td>{{ date('d-m-Y', strtotime($item->fecha_deposito_judicial)) }}</td>
+{{--                             <td>{{ $item->marca }}</td>
+                            <td>{{ $item->modelo_deposito_judicial }}</td> --}}
                            
                             <td>
                               @can('deposito.informacion')
                                 <a title="Información" class="btn btn-info btn-sm" href="{{ route('detalleVehiculoDP',$item->id_vehiculo_deposito_judicial) }}"><i class="fa fa-info"></i></a>
                               @endcan
-                              @can('deposito.editar') 
+{{--                               @can('deposito.pdf') 
                                 <button  onclick="editarAsignacion({{$item}});" title="Editar asignación"  class=" btn btn-warning btn-sm"><i class="fa fa-edit"></i></button>
-                              @endcan
+                              @endcan --}}
                               @can('deposito.eliminar') 
                                 <button  onclick="eliminarAsignacion({{$item}});" title="Eliminar asignación"  class=" btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                              @endcan
+                              @can('deposito.pdf')
+                                <a title="Descargar PDF EXP OF"  href="{{ route('pdfExpOf',$item->id_detalle_deposito_judicial) }}"  class="btn btn-danger btn-sm"><i class="fa fa-file-pdf"></i></a>
                               @endcan
                             </td>
                           
@@ -146,14 +151,14 @@
 <script type="text/javascript">
   function eliminarAsignacion(item){
 
-    console.log(item)
+
     $('#id_detalle_asignacion').val(item.id_detalle_deposito_judicial)
-    $('#id_nombre_vehiculo_eliminado').val(item.numero_de_referencia_aleatorio_deposito_judicial)
+    $('#id_nombre_vehiculo_eliminado').val(item.numero_de_carpeta_deposito_judicial)
     $('#id_nombre_afectado_eliminado').val(item.nombre_dependencia)
 
     $('#idModalAsignacionBorrado').modal('show');
   }
-  function editarAsignacion(item){
+/*  function editarAsignacion(item){
 
     console.log(item)
     $('#id_detalle_asignacion_vehiculo').val(item.id_detalle_deposito_judicial)
@@ -168,7 +173,7 @@
 
 
     $('#modalEdicionAsignacionDepositoJudicial').modal('show');
-  }
+  }*/
 </script>
 
 
@@ -198,7 +203,7 @@
             results:  $.map(data, function (item) {
 
                 return {
-                    text: item.dominio_deposito_judicial+' - N ref. aleatoria '+item.numero_de_referencia_aleatorio_deposito_judicial,
+                    text: item.dominio_deposito_judicial+' - N° de carpeta '+item.numero_de_carpeta_deposito_judicial,
                     id: item.id_vehiculo_deposito_judicial,
                 }
             })
@@ -258,87 +263,6 @@
       },
   });
 
-  $("#id_vehiculo_deposito_judicial_edicion").select2({
-    dropdownParent: $("#select_edicion_vehiculo"),
-    placeholder:"Ingrese numero de identificacion - Ej: 3-730",
-    allowClear: true,
-    minimumInputLength: 2,
-
-    type: "GET",
-    ajax: {
-      dataType: 'json',
-      url: '{{ route("getAllVehiculosDisponiblesJudiciales") }}',
-      delay: 250,
-      data: function (params) {
-
-       /* console.log(params)*/
-        return {
-          termino: $.trim(params.term),
-          page: params.page
-        };
-      },
-      processResults: function (data) {
-        return {
-            results:  $.map(data, function (item) {
-
-                return {
-                    text: item.dominio_deposito_judicial+' - N ref. aleatoria '+item.numero_de_referencia_aleatorio_deposito_judicial,
-                    id: item.id_vehiculo_deposito_judicial,
-                }
-            })
-        };
-    },
-    cache: true,
-
-      },
-  });
-
-  $("#id_afectado_edicion").select2({
-    dropdownParent: $("#select_edicion_afectado"),
-    placeholder:"Seleccione Afectado - Ej: Jefatura,D.G Seguridad",
-    allowClear: true,
-    minimumInputLength: 2,
-    language: {
-      noResults: function() {
-        return "No hay resultado";        
-      },
-      searching: function() {
-        return "Buscando...";
-      },
-      inputTooShort: function () {
-        return 'Ingrese al menos 2 caracteres para comenzar a buscar';
-      }
-    },
-    type: "GET",
-    ajax: {
-      dataType: 'json',
-      url: '{{ route("getAllAfectadosDisponibles") }}',
-      delay: 250,
-      data: function (params) {
-        return {
-          termino: $.trim(params.term),
-          page: params.page
-        };
-      },
-      processResults: function (data) {
-        return {
-            results:  $.map(data, function (item) {
-              if (item.id_dependencia == 392){
-                $('#mandatario_dignatario').show();
-              }else{
-                   $('#mandatario_dignatario').hide();
-              }
-              return {
-                  text: item.nombre_dependencia,
-                  id: item.id_dependencia,
-              }
-            })
-        };
-    },
-    cache: true,
-
-      },
-  });
 </script>
 
 @stop

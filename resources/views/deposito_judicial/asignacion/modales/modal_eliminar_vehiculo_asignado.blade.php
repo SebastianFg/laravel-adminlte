@@ -26,7 +26,7 @@
                         <input type="text"  class="form-control"  hidden="" name="id_identificacion_vehiculo_eliminado"  id="id_identificacion_vehiculo_eliminado">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>Afectado actual</label>
+                        <label>Dependencia actual</label>
                         <input type="text" hidden="" name="id_afectado_eliminado" id="id_afectado_eliminado">
                         <input type="text" readonly="" class="form-control" id="id_nombre_afectado_eliminado">
                     </div>

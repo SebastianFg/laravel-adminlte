@@ -28,33 +28,34 @@
 			<h2 ><strong>Historial del vehículo</strong></h2>
 		
 		</div>
-		<div class="col-md-12 padre">
+
+		<div class="col-md-8 padre" style="padding: 5px; padding-left: 55px;" >
 				<p class="pdf_historial" >Dominio:<strong class="encabezado_pdf_historial"> {{ $historialCompletoAsignacion[0]->dominio_deposito_judicial }} </p>
-				<p class="pdf_historial" >Numero de inventario:<strong class="encabezado_pdf_historial"> {{ $historialCompletoAsignacion[0]->numero_de_inventario_deposito_judicial }} </p>
-				<p class="pdf_historial" >Numero de referencia aleatorio:<strong class="encabezado_pdf_historial"> {{ $historialCompletoAsignacion[0]->numero_de_referencia_aleatorio_deposito_judicial }} </p>
+
+				<p class="pdf_historial" >Número de carpeta:<strong class="encabezado_pdf_historial"> {{ $historialCompletoAsignacion[0]->numero_de_carpeta_deposito_judicial }} </p>
 			<hr>
 		</div>
 		<div class="col-md-12 padre" >
-			<table   class=" table table-striped table-hover table-condensed table-bordered">
-			    <thead>
-			      <tr >
-			        <th>Historia</th>
-			        <th>Fecha y hora</th>
-			        <th>Responsable</th>
-			      </tr>
-
-			    </thead>
-			    <tbody>
-			    	@foreach($historialCompletoAsignacion as $historia)
-				    	<tr>
-				    		<td>{{ $historia->nombre_dependencia }}</td>
-				    		<td>{{ date('d-m-Y', strtotime($historia->fecha_deposito_judicial)) }}</td>
-				    		<td>{{ $historia->nombre }}</td>
-				
-				    	</tr>
-			    	@endforeach
-			    </tbody>
-			</table>
+	      <table  tableStyle="width:auto"  class=" table table-striped table-hover table-condensed table-bordered">
+	        <thead>
+	          <tr>
+	            <th>Fecha</th>
+	            <th>Responsable</th>
+	            <th>Exp-Of</th>
+	            <th>Dependencia</th>
+	          </tr>
+	        </thead>
+	          <tbody>
+	              @foreach($historialCompletoAsignacion as $item)
+	                <tr>
+	                  <td>{{ date('d-m-Y', strtotime($item->fecha_deposito_judicial )) }}</td>
+	                  <td>{{ $item->responsable_vehiculo_deposito_judicial }}</td>
+	                  <td>{{ $item->expof_deposito_judicial }}</td>
+	                  <td>{{ $item->nombre_dependencia }}</td>
+	                </tr>
+	              @endforeach
+	          </tbody>
+	      </table>
 		</div>
 	</div>
 </div>

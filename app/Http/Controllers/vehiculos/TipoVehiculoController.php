@@ -157,9 +157,9 @@ class TipoVehiculoController extends Controller
             $detalleTipo = vehiculo::BuscadorPorTipo($Request->vehiculoBuscado,$id);
         }else{
 
-            $detalleTipo = vehiculo::where('tipo','=',$id)->get();
+            $detalleTipo = vehiculo::where('tipo','=',$id)->OrderBy('numero_de_identificacion','desc')->get();
         }
-        $detalleTipo = $this->paginar($detalleTipo,50);
+       
         return view('vehiculos.detalles.detalle_vehiculos_tipo',compact('detalleTipo'));
     }
 }

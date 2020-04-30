@@ -15,11 +15,15 @@ class CreateDetalleAsignacionVehiculosDepositoJudicial extends Migration
     {
         Schema::create('detalle_asignacion_vehiculos_deposito_judicial', function (Blueprint $table) {
             $table->bigIncrements('id_detalle_deposito_judicial');
-            $table->integer('id_vehiculo_deposito_judicial')->unsigned()->references('id_vehiculo_deposito_judicial')->on('vehiculos_deposito_judicial');
-            $table->unsignedBigInteger('id_dependencia')->references('id_dependencia')->on('dependencias');;
-            $table->date('fecha');
-            $table->string('observaciones')->nullable();
+            $table->string('solicitado_deposito_judicial',100);
+            $table->string('titular_entrega_deposito_judicial',100);
+            $table->string('responsable_deposito_judicial',100);
+            $table->string('exp_of',100);
+            $table->string('pdf_nombre_exp_of')->nullable();
             $table->unsignedBigInteger('id_responsable')->references('id')->on('users');
+            $table->integer('id_vehiculo_deposito_judicial')->unsigned()->references('id_vehiculo_deposito_judicial')->on('vehiculos_deposito_judicial');
+            $table->unsignedBigInteger('id_dependencia')->references('id_dependencia')->on('dependencias');
+            $table->string('observaciones_deposito_judicial')->nullable();
 
             $table->timestamps();
         });

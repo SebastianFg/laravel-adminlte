@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\softDeletes;
+use Illuminate\Validation\Rule;
 
 //paginador
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -18,7 +19,10 @@ use Response;
 use App\Modelos\vehiculo_deposito_judicial;
 use App\Modelos\imagen_judicial_vehiculo;
 use App\Modelos\tipos_vehiculos;
+use App\Modelos\marca;
 use App\Modelos\estado_vehiculo_deposito_judicial;
+use App\Modelos\asignacion_vehiculo_deposito_judicial;
+
 class DepositoJudicialController extends Controller
 {
 
@@ -69,36 +73,41 @@ class DepositoJudicialController extends Controller
             alert()->error('Su usuario se encuentra suspendido');
              return redirect('/login');
         }
+
+        //return view('mantenimiento');
         $tipo_vehiculo = tipos_vehiculos::all();
+        $marca = marca::all();
 
         if ($Request->vehiculoBuscado == null ) {
 
-            $vehiculosDepositoJudicial = vehiculo_deposito_judicial::orderBy('id_vehiculo_deposito_judicial','desc')->get();
+            $vehiculosDepositoJudicial = vehiculo_deposito_judicial::leftjoin('marcas','marcas.id_marca','=','vehiculos_deposito_judicial.marca_deposito_judicial')
+                                                                    ->join('juzgados','juzgados.id_juzgado','=','vehiculos_deposito_judicial.id_juzgado')
+                                                                    ->orderBy('id_vehiculo_deposito_judicial','desc')
+                                                                    ->get();
           
         }else{
 
-            $vehiculosDepositoJudicial = vehiculo_deposito_judicial::where('numero_de_referencia_aleatorio_deposito_judicial','ilike',$Request->vehiculoBuscado)
+            $vehiculosDepositoJudicial = vehiculo_deposito_judicial::leftjoin('marcas','marcas.id_marca','=','vehiculos_deposito_judicial.marca_deposito_judicial')
+                                                                    ->join('juzgados','juzgados.id_juzgado','=','vehiculos_deposito_judicial.id_juzgado')
+                                                                    ->where('numero_de_carpeta_deposito_judicial','ilike',$Request->vehiculoBuscado)
                                                                     ->orwhere('numero_de_identificacion_deposito_judicial','ilike',$Request->vehiculoBuscado)
                                                                     ->orderBy('id_vehiculo_deposito_judicial','desc')->get();
             
         }
+
+        //return $vehiculosDepositoJudicial;
        
         $vehiculosDepositoJudicial = $this->paginar($vehiculosDepositoJudicial);
 
        // return $vehiculosDepositoJudicial;
-		return view('deposito_judicial.deposito_judicial',compact('vehiculosDepositoJudicial','tipo_vehiculo'));
+		return view('deposito_judicial.deposito_judicial',compact('vehiculosDepositoJudicial','tipo_vehiculo','marca'));
 	}
 
-    protected function crearSTR(){
-        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $variableSTR = substr(str_shuffle($permitted_chars), 0, 16);
-        return $variableSTR;
-    }
 
 
     //funcion que utilizamos para crear o editar
     private function vehiculoCreacionEdicion($datos,$vehiculo,$accion){
-      //  return $datos;
+       // return $datos;
        
         $vehiculo->numero_de_identificacion_deposito_judicial = $datos->numero_de_identificacion;
         $vehiculo->fecha_deposito_judicial = $datos->fecha;
@@ -109,6 +118,7 @@ class DepositoJudicialController extends Controller
            $vehiculo->id_juzgado = $datos->juzgado_alta; 
         }
 
+
         $vehiculo->clase_de_unidad_deposito_judicial = $datos->clase_de_unidad;
         $vehiculo->marca_deposito_judicial = $datos->marca;
         $vehiculo->modelo_deposito_judicial = $datos->modelo;
@@ -117,9 +127,11 @@ class DepositoJudicialController extends Controller
         $vehiculo->anio_de_produccion_deposito_judicial = $datos->anio_produccion;
         $vehiculo->dominio_deposito_judicial = $datos->dominio;
         $vehiculo->kilometraje_deposito_judicial = $datos->kilometraje;
-        $vehiculo->numero_de_inventario_deposito_judicial = $datos->numero_de_inventario;
+        $vehiculo->numero_de_carpeta_deposito_judicial = $datos->numero_de_carpeta_deposito_judicial;
         $vehiculo->otras_caracteristicas_deposito_judicial = $datos->otros;
         $vehiculo->tipo_deposito_judicial = $datos->tipo;
+        $vehiculo->id_usuario = Auth::User()->id;
+
 
 
        //return $datos;
@@ -127,13 +139,14 @@ class DepositoJudicialController extends Controller
             case 0: //creacion --> alta
 
                 $vehiculo->save();
+
                 if ($datos->foto == null) {
                     alert()->success( 'Creacion con éxito, sin fotos');
                     return  redirect()->route('indexDepositoJudicial');
                 }else{
                     $images = $datos->file('foto');
 
-                    Storage::disk('public')->makeDirectory('imagenes/judicial/'.$datos->numero_de_referencia_aleatorio_deposito_judicial);
+                    Storage::disk('public')->makeDirectory('imagenes/judicial/'.$vehiculo->id_vehiculo_deposito_judicial);
                     foreach($images as $image){
                         $imagenvehiculo = new imagen_judicial_vehiculo;
 
@@ -142,7 +155,7 @@ class DepositoJudicialController extends Controller
                         Image::make($image)->resize(300, 500);
                        
                         Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($image));
-                        Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/judicial/".$vehiculo->numero_de_referencia_aleatorio_deposito_judicial.'/'.$nombre_archivo_nuevo);
+                        Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/judicial/".$vehiculo->id_vehiculo_deposito_judicial.'/'.$nombre_archivo_nuevo);
                         
                         $imagenvehiculo->id_vehiculo_deposito_judicial = $vehiculo->id_vehiculo_deposito_judicial;
                         $imagenvehiculo->nombre_imagen = $nombre_archivo_nuevo;
@@ -153,20 +166,26 @@ class DepositoJudicialController extends Controller
                     break; 
                 }
 
-            case 1: // edicion
-           
+            case 1: //edicion
+               
                 $vehiculo->update();
-                if($datos->foto != null){
+                if($datos->foto == null){
+                    alert()->success( 'Edicion con éxito, sin fotos');
+                    return  redirect()->route('indexDepositoJudicial');
+                }else{
                    $vehiculo_delete_imagen = imagen_judicial_vehiculo::where('id_vehiculo_deposito_judicial','=',$datos->id_vehiculo_deposito_judicial)->get();
+                  
+                   if (!isset($vehiculo_delete_imagen[0]->nombre_imagen) ) {
+                        Storage::disk('public')->makeDirectory('imagenes/judicial/'.$vehiculo->id_vehiculo_deposito_judicial);
+                    }else{
+                        foreach ($vehiculo_delete_imagen as $item) {
+                            unlink(storage_path('app/public/imagenes/judicial/'.$vehiculo->id_vehiculo_deposito_judicial.'/'.$item->nombre_imagen));
+                            $item->delete();
+                        }  
+                    }
 
-                   foreach ($vehiculo_delete_imagen as $item) {
-                        unlink(storage_path('app/public/imagenes/judicial/'.$datos->numero_de_referencia_aleatorio_deposito_judicial.'/'.$item->nombre_imagen));
-                        $item->delete();
-                    }     
-
-                    Storage::disk('public')->makeDirectory('imagenes/judicial/'.$datos->numero_de_referencia_aleatorio_deposito_judicial);
-
-                    $images = $datos->file('fotoEdit');
+                   
+                    $images = $datos->file('foto');
 
                     foreach($images as $image){
                         $imagenvehiculo = new imagen_judicial_vehiculo;
@@ -176,9 +195,9 @@ class DepositoJudicialController extends Controller
                         Image::make($image)->resize(300, 500);
                        
                         Storage::disk("public")->put($nombre_archivo_nuevo, file_get_contents($image));
-                        Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/judicial/".$datos->numero_de_referencia_aleatorio_deposito_judicial.'/'.$nombre_archivo_nuevo);
+                        Storage::move("public/".$nombre_archivo_nuevo, "public/imagenes/judicial/".$vehiculo->id_vehiculo_deposito_judicial.'/'.$nombre_archivo_nuevo);
                         
-                        $imagenvehiculo->id_vehiculo = $datos->vehiculo;
+                        $imagenvehiculo->id_vehiculo_deposito_judicial = $vehiculo->id_vehiculo_deposito_judicial;
                         $imagenvehiculo->nombre_imagen = $nombre_archivo_nuevo;
                         $imagenvehiculo->fecha =  $datos->fecha;
                         $imagenvehiculo->save();
@@ -196,57 +215,33 @@ class DepositoJudicialController extends Controller
 
     //alta nuevo vehiculo
     public function crearVehiculoDepositoJudicial(Request $Request){
-      /*|*/
 
-/*      return $Request;*/
+       // return $Request;
         
         $Validar = \Validator::make($Request->all(), [
             
-            //'numero_de_identificacion' => 'required',
-            'fecha' => 'required',
+            'numero_de_identificacion' => 'required',
             'juzgado_alta' => 'required',
-           // 'dominio'    => 'required',
-            'chasis' => 'max:20',
-            'motor' => 'max:20',
-            'modelo' => 'max:20',
-            'marca' => 'max:50',
-            'anio_produccion' => 'numeric|min:1970',
+            'dominio'    => 'required',
+            'chasis' => 'max:20|required',
+            'motor' => 'max:20|required',
+            'modelo' => 'max:20|required',
+            'marca' => 'max:50|required',
+            'kilometraje' => 'max:50|required',
+            'anio_produccion' => 'max:50|required',
             'tipo' => 'required',
-            "foto.*" => 'required|image|mimes:jpeg,jpg',
-            'numero_de_inventario' => 'numeric|min:1',
-            'clase_de_unidad' => 'max:20'
+            /*"foto.*" => 'required|image|mimes:jpeg,jpg',*/
+            'fecha' => 'required',
+            'numero_de_carpeta_deposito_judicial' => 'required|unique:vehiculos_deposito_judicial',
+            'clase_de_unidad' => 'max:20|required'
         ]);
 
         if ($Validar->fails()){
-            alert()->error('Error','ERROR! Intente agregar nuevamente...');
+            alert()->error('Error','ERROR! Intente agregar nuevamente...')->persistent('Aceptar');
             return  back()->withInput()->withErrors($Validar->errors());
         }
-
-        $referenciaAleatoria = $this->crearSTR();
-
-        $vehiculoJudicial = vehiculo_deposito_judicial::select('numero_de_referencia_aleatorio_deposito_judicial')
-            ->orderBy('id_vehiculo_deposito_judicial','desc')
-            ->take(1)
-            ->get();
-          
-        if (!isset($vehiculoJudicial[0]->numero_de_referencia_aleatorio_deposito_judicial)) {
-            $numero = 1;
-        }else{ 
-            $numero =  substr($vehiculoJudicial[0]->numero_de_referencia_aleatorio_deposito_judicial,2)+1;
-        }
-
-        /*$ empezar – es el número de su primera factura
-
-        $ count – la cantidad de números de factura que desea generar
-
-        $ dígitos – el número de dígitos de los números generados deben ser*/
-
-        $nuevoNumero = $this->generate_numbers($numero,1,4);
-
     
         $nuevoVehiculoDepositoJudicial = new vehiculo_deposito_judicial;
-
-        $nuevoVehiculoDepositoJudicial->numero_de_referencia_aleatorio_deposito_judicial= 'DJ'.$nuevoNumero[0];
 
         return  $this->vehiculoCreacionEdicion($Request,$nuevoVehiculoDepositoJudicial,0);//0 creacion
     }
@@ -261,29 +256,39 @@ class DepositoJudicialController extends Controller
   
     //actualizacion de vehiculo cargado (edicion)
     public function editarVehiculo(Request $Request){
+
+        $fechaActual=date('Y-m-d');
+
+
+        //return $Request;
         
         $Validar = \Validator::make($Request->all(), [
             
             'numero_de_identificacion' => 'required',
-            'fecha' => 'required',
+            'fecha' => 'required|before_or_equal:'.$fechaActual,
+            //'juzgado_alta' => 'required',
             'dominio'    => 'required',
-            'chasis' => 'required|max:20',
-            'motor' => 'required|max:20',
-            'modelo' => 'required|max:20',
-            'marca' => 'required|max:50',
-            'anio_produccion' => 'required|numeric|min:1970',
+            'chasis' => 'max:20|required',
+            'motor' => 'max:20|required',
+            'modelo' => 'max:20|required',
+            'marca' => 'max:50|required',
+            'kilometraje' => 'max:50|required',
+            'anio_produccion' => 'max:50|required',
             'tipo' => 'required',
-            "foto.*" => 'image|mimes:jpeg,jpg',
-            'numero_de_inventario' => 'numeric|required|min:1',
-            'clase_de_unidad' => 'required|max:20'
+            //"foto.*" => 'required|image|mimes:jpeg,jpg',
+            'numero_de_carpeta_deposito_judicial' => ['required',
+                                               Rule::unique('vehiculos_deposito_judicial')
+                                               ->ignore($Request->id_vehiculo_deposito_judicial,'id_vehiculo_deposito_judicial')],
+            'clase_de_unidad' => 'max:20|required'
         ]);
 
         if ($Validar->fails()){
-            alert()->error('Error','ERROR! Intente agregar nuevamente...');
+            alert()->error('Error','ERROR! Intente agregar nuevamente...')->persistent('Aceptar');
             return  back()->withInput()->withErrors($Validar->errors());
         }
 
         $vehiculo_en_actualizacion= vehiculo_deposito_judicial::findorfail($Request->id_vehiculo_deposito_judicial);
+        
         return  $this->vehiculoCreacionEdicion($Request,$vehiculo_en_actualizacion,1);//1 edicioN
 
     }
@@ -312,7 +317,7 @@ class DepositoJudicialController extends Controller
      
         $vehiculoEnProceso->id_usuario_movimiento = Auth::User()->id;
         $vehiculoEnProceso->estado_razon_deposito_judicial = $Request->motivo_de_baja;
-        $vehiculoEnProceso->estado_fecha_deposito_judicial = $Request->fecha;
+        $vehiculoEnProceso->estado_fecha_deposito_judicial = date('Y-m-d H:i:s', strtotime($Request->fecha));//$Request->fecha;
      //   return $vehiculoEnProceso;
 
         if( ($vehiculoEnProceso->save() && $vehiculoEliminado->update() )){
@@ -400,14 +405,14 @@ class DepositoJudicialController extends Controller
                 $existe = 0;
             }
         }
-       
+        
         return view('deposito_judicial.detalles.detalle_vehiculo',compact('existe','VehiculosListados','imagenes_vehiculo'));
     }
 
     public function ImagenDP($carpeta,$archivo){
 
         $path = storage_path('app/public/imagenes/judicial/'.$carpeta.'/'.$archivo);
-        
+     
         if (!File::exists($path)) {
 
             abort(404);

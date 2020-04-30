@@ -6,7 +6,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-
+@php
+$contador = 1;
+@endphp
   <!-- Main content -->
   <div class="content">
     <div class="container-fluid">
@@ -27,6 +29,7 @@
           @extends('deposito_judicial.modales.modal_alta_vehiculo_deposito_judicial')
           @extends('deposito_judicial.modales.modal_editar_vehiculo_deposito_judicial')
           @extends('deposito_judicial.modales.modal_baja_vehiculo_deposito_judicial')
+          @extends('vehiculos/modales/modal_detalle')
 
             <div class="card">
               <div class="card-header">
@@ -38,7 +41,7 @@
                   <form class="navbar-form navbar-right pull-right" role="search">
                     <div class="row">
                       <div class="form-group">
-                        <input type="text" autocomplete="off"  name="vehiculoBuscado" class="form-control" placeholder="Ingrese número de ref.">
+                        <input type="text" autocomplete="off"  name="vehiculoBuscado" class="form-control" placeholder="Ingrese número de carpeta">
                       </div>
                       <div class="form-group">
                          <button type="submit" id="btnBuscar" class="btn btn-info left"> <i class="fa fa-search-plus"></i>Buscar  </button> 
@@ -50,25 +53,25 @@
                   <table tableStyle="width:auto" class="table table-striped table-hover table-sm table-condensed table-bordered">
                     <thead>
                       <tr>
-                        <th>N° Ref</th>
+                        <th>#</th>
+                        <th>N° de carpeta</th>
                         <th>N° Identificación</th>
                         <th>Marca</th>
-                        <th>Modelo</th>
+                        <th>Juzgado</th>
                         <th>Dominio</th>
-                        <th>N° de inventario</th>
                         <th>Acciones</th>
                       </tr>
                     </thead>
                     <tbody>
                       @foreach($vehiculosDepositoJudicial as $item)
                         <tr>
-                          <td>{{ $item->numero_de_referencia_aleatorio_deposito_judicial }}</td>
+                          <td>{{$contador}}</td>
+                          <td>{{ $item->numero_de_carpeta_deposito_judicial }}</td>
                           <td>{{ $item->numero_de_identificacion_deposito_judicial }}</td>
                           
-                          <td>{{ $item->marca_deposito_judicial }}</td>
-                          <td>{{ $item->modelo_deposito_judicial }}</td>
+                          <td>{{ $item->marca }}</td>
+                          <td>{{ substr($item->nombre_juzgado,0,10) }}...<a href="#" onclick="detalle('{!! preg_replace( "/\r|\n/", "", nl2br($item->nombre_juzgado)) !!}')" data-toggle="modal">ver mas</a></td>
                           <td>{{ $item->dominio_deposito_judicial }}</td>
-                          <td>{{ $item->numero_de_inventario_deposito_judicial }}</td>
 
                           <td>
                             @can('deposito.informacion') 
@@ -85,6 +88,9 @@
                   
                           </td>
                         </tr>
+                          @php
+                            $contador ++;
+                          @endphp
                       @endforeach
                     </tbody>
                   </table>
@@ -158,6 +164,7 @@
 
       },
   });
+
   $("#id_juzgado_editar").select2({
     dropdownParent: $("#select_deposito_judicial_vehiculo_editar"),
     placeholder:"Seleccione juzgado",
@@ -210,7 +217,7 @@
     $('#id_juzgado_editar').val(item.id_juzgado)
 
     $('#id_anio_produccion_editar').val(item.anio_de_produccion_deposito_judicial )
-    $('#id_numero_de_inventario_editar').val(item.numero_de_inventario_deposito_judicial)
+    $('#id_numero_carpeta_editar').val(item.numero_de_carpeta_deposito_judicial)
     $('#id_clase_de_unidad').val(item.clase_de_unidad_deposito_judicial)
     $('#id_tipo_editar').val(item.tipo_deposito_judicial)
     $('#id_otros_editar').val(item.otras_caracteristicas_deposito_judicial)
@@ -219,11 +226,118 @@
   }
   function eliminarVehiculo(item){
     $('#id_vehiculo_baja_deposito_judicial').val(item.id_vehiculo_deposito_judicial)
-    $('#id_vehiculo_baja_deposito_judicial_referencia').val(item.numero_de_referencia_aleatorio_deposito_judicial)
+    $('#id_vehiculo_baja_deposito_judicial_referencia').val(item.numero_de_carpeta_deposito_judicial)
 
     $('#modalBajaVehiculoDepositoJudicial').modal('show');
   }
 
+</script>
+<script type="text/javascript">
+  
+  $("#id_afectado").select2({
+    dropdownParent: $("#select_afectado"),
+    placeholder:"Seleccione Afectado - Ej: Jefatura,D.G Seguridad",
+    allowClear: true,
+    minimumInputLength: 2,
+    language: {
+      noResults: function() {
+        return "No hay resultado";        
+      },
+      searching: function() {
+        return "Buscando...";
+      },
+      inputTooShort: function () {
+        return 'Ingrese al menos 2 caracteres para comenzar a buscar';
+      }
+    },
+    type: "GET",
+    ajax: {
+      dataType: 'json',
+      url: '{{ route("getAllAfectadosDisponibles") }}',
+      delay: 250,
+      data: function (params) {
+        return {
+          termino: $.trim(params.term),
+          page: params.page
+        };
+      },
+      processResults: function (data) {
+        return {
+            results:  $.map(data, function (item) {
+
+              if (item.id_dependencia == 392){
+                $('#mandatario_dignatario_deposito_judicial').show();
+
+              }else{
+                   $('#mandatario_dignatario_deposito_judicial').hide();
+              }
+              return {
+                  text: item.nombre_dependencia,
+                  id: item.id_dependencia,
+              }
+            })
+        };
+    },
+    cache: true,
+
+      },
+  });
+
+
+  $("#id_afectado_editar").select2({
+    dropdownParent: $("#select_afectado_editar"),
+    placeholder:"Seleccione Afectado - Ej: Jefatura,D.G Seguridad",
+    allowClear: true,
+    minimumInputLength: 2,
+    language: {
+      noResults: function() {
+        return "No hay resultado";        
+      },
+      searching: function() {
+        return "Buscando...";
+      },
+      inputTooShort: function () {
+        return 'Ingrese al menos 2 caracteres para comenzar a buscar';
+      }
+    },
+    type: "GET",
+    ajax: {
+      dataType: 'json',
+      url: '{{ route("getAllAfectadosDisponibles") }}',
+      delay: 250,
+      data: function (params) {
+        return {
+          termino: $.trim(params.term),
+          page: params.page
+        };
+      },
+      processResults: function (data) {
+        return {
+            results:  $.map(data, function (item) {
+
+              if (item.id_dependencia == 392){
+                $('#mandatario_dignatario_deposito_judicial').show();
+
+              }else{
+                   $('#mandatario_dignatario_deposito_judicial').hide();
+              }
+              return {
+                  text: item.nombre_dependencia,
+                  id: item.id_dependencia,
+              }
+            })
+        };
+    },
+    cache: true,
+
+      },
+  });
+
+  function detalle(item){
+
+    $('#idDetalle').html(item);
+    $('#modalDetalleLugar').modal('show');
+  }
 </script>
 
 @stop

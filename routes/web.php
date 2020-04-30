@@ -218,12 +218,18 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 		Route::get('asignacion_deposito_judicial','deposito_judicial\DepositoJudicialAsignacionController@index')->name('listaAsignacionJudicial');
 		//getAllVehiculosDisponiblesJudiciales -> select 2
 		Route::get('vehiculos_disponibles_deposito_judicial','deposito_judicial\DepositoJudicialAsignacionController@getAllVehiculosDisponiblesJudiciales')->name('getAllVehiculosDisponiblesJudiciales');
+		
 		//crear asignacion deposito judicial
 		Route::post('crearAsignacionDepositoJudicial','deposito_judicial\DepositoJudicialAsignacionController@crearAsignacionDepositoJudicial')->name('crearAsignacionDepositoJudicial');
 		//eliminar asignacion deposito judicial
 		Route::post('eliminarAsignacionDepositoJudicial','deposito_judicial\DepositoJudicialAsignacionController@eliminarAsignacionDepositoJudicial')->name('eliminarAsignacionDepositoJudicial');
 		//editar asignacion deposito judicial
 		Route::post('editarAsignacionDepositoJudicial','deposito_judicial\DepositoJudicialAsignacionController@editarAsignacionDepositoJudicial')->name('editarAsignacionDepositoJudicial');
+		//PDF exp-of
+		Route::get('pdf-exp-of/{id}', 'deposito_judicial\DepositoJudicialAsignacionController@exportarpdfexpof')->name('pdfExpOf');
+		//PDF exp-of historial
+		Route::get('pdf-exp-of-historial/{expof}', 'deposito_judicial\DetallesDPController@exportarpdfexpofhistorial')->name('pdfExpOfhistorial');
+		
 		//index siniestro deposito judicial
 		Route::get('siniestros-deposito-judicial', 'deposito_judicial\SiniestrosDPController@indexSiniestrosDP')->name('indexSiniestrosDP');
 
@@ -264,6 +270,28 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 		Route::post('detalle_ur_vehiculos_deposito_judicial','deposito_judicial\DetallesJuzgadosVehiculosController@detalleUnidadRegionalDP')->name('detalleUnidadRegionalDP');
 		//detalle de vehiculos por unidad regional deposito judicial
 		Route::post('detalle_ur_vehiculos_especificos_deposito_judicial','deposito_judicial\DetallesJuzgadosVehiculosController@detalleUnidadRegionalVehiculoDP')->name('detalleUnidadRegionalVehiculoDP');
+		
+		//estado vehiculo
+		///fuera de servicio
+		Route::get('fuera-de-servicio-deposito-judicial', 'deposito_judicial\EstadosController@indexEstadoFueraServicioDP')->name('indexEstadoFueraServicioDP');
+		//baja definitiva vista
+		Route::get('baja-definitiva-deposito-judicial', 'deposito_judicial\EstadosController@indexEstadoBajaDefinitivaDP')->name('listadoEstadoBajaDefinitivaDP');
+		//reparacion
+		Route::post('fuera-de-servicio-deposito-judicial','deposito_judicial\EstadosController@estadoVehiculoAltaDP')->name('altaEstadoVehiculoDP');
+		//baja definitiva
+		Route::post('baja-definitiva-deposito-judicial','deposito_judicial\EstadosController@bajaDefinitivaDP')->name('bajaDefinitivaDP');
+		//pdf baja definitiva
+		Route::get('baja-definitiva-pdf-dp/{id}', 'deposito_judicial\EstadosController@exportarPdfBajaDefinitivaDP')->name('exportarPdfBajaDefinitivaDP');
+		
+		//historial completo
+		Route::get('historial-completo-deposito-judicial','deposito_judicial\EstadosController@indexEstadoHistorialCompletoDP')->name('historialCompletoDP');
 
+		
+//MARCA
+	Route::get('Marcas','Marcas\MarcasController@index')->name('indexMarcas');
+	Route::post('Marcas','Marcas\MarcasController@altaMarca')->name('altaMarca');
+	Route::post('Modificar-Marca','Marcas\MarcasController@modificarMarca')->name('modificarMarca');
+	Route::post('Eliminar-Marca','Marcas\MarcasController@eliminarMarca')->name('eliminarMarca');
+	Route::get('getAllMarcas','Marcas\MarcasController@getAllMarcas')->name('getAllMarcas');
 	});
 /*});*/

@@ -148,16 +148,24 @@ class DetallesDPController extends Controller
         }elseif($id != null){
 
         	$existe = 1;
-            $VehiculosListados = vehiculo_deposito_judicial::where('id_vehiculo_deposito_judicial','=',$id)->get();
+            $VehiculosListados = \DB::select('select * from vehiculos_deposito_judicial as vdj
+                                                        inner join juzgados on juzgados.id_juzgado = vdj.id_juzgado
+                                                        left join marcas on marcas.id_marca = vdj.marca_deposito_judicial  
+                                                        where vdj.id_vehiculo_deposito_judicial = '.$id);
+
         	$siniestros = $this->Siniestros($id);
             $repuestos = $this->Repuestos($id);
             $historial = $this->HistorialVehiculo($id);
             $asignacion_actual = $this->AsignacionActual($id);
             $imagenes_vehiculo = imagen_judicial_vehiculo::where('id_vehiculo_deposito_judicial','=',$id)
-            												->select('nombre_imagen')
+            												->select('id_vehiculo_deposito_judicial','nombre_imagen')
             												->get();
 
         }
+
+
+
+
         return view('deposito_judicial.detalles.detalle_vehiculo',compact('existe','VehiculosListados','asignacion_actual','historial','siniestros','imagenes_vehiculo','Mandatario_Dignatario','repuestos'));
     }
 
@@ -166,13 +174,42 @@ class DetallesDPController extends Controller
         $historialCompletoAsignacion = historial_asignacion_deposito_judicial::join('dependencias','dependencias.id_dependencia','=','historial_asignacion_deposito_judicial.id_dependencia')
                                                             ->join('vehiculos_deposito_judicial','vehiculos_deposito_judicial.id_vehiculo_deposito_judicial','=','historial_asignacion_deposito_judicial.id_vehiculo_deposito_judicial')
                                                             ->join('users','users.id','=','historial_asignacion_deposito_judicial.id_responsable_deposito_judicial')
-                                                            ->select('vehiculos_deposito_judicial.dominio_deposito_judicial','vehiculos_deposito_judicial.numero_de_inventario_deposito_judicial','vehiculos_deposito_judicial.numero_de_referencia_aleatorio_deposito_judicial','dependencias.nombre_dependencia','historial_asignacion_deposito_judicial.fecha_deposito_judicial','users.nombre')
+                                                            ->select('vehiculos_deposito_judicial.dominio_deposito_judicial','vehiculos_deposito_judicial.numero_de_carpeta_deposito_judicial','dependencias.nombre_dependencia','historial_asignacion_deposito_judicial.*','users.nombre')
                                                             ->where('historial_asignacion_deposito_judicial.id_vehiculo_deposito_judicial','=',$id)
 
                                                             ->get();
 
         $pdf = PDF::loadView('deposito_judicial.detalles.pdf_historial_vehiculo',compact('historialCompletoAsignacion'));
 
-        return $pdf->download($historialCompletoAsignacion[0]->numero_de_referencia_aleatorio_deposito_judicial.'.pdf');
+        return $pdf->download($historialCompletoAsignacion[0]->numero_de_carpeta_deposito_judicial.'.pdf');
+    }
+
+    //tratamiento para descargar el pdf.
+    protected function downloadFile($src){
+        if(is_file($src)){
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $content_type = finfo_file($finfo, $src);
+            finfo_close($finfo);
+            $file_name = basename($src).PHP_EOL;
+            $size = filesize($src);
+            header("Content-Type: $content_type");
+            header("Content-Disposition: attachment; filename=$file_name");
+            header("Content-Transfer-Encoding: binary");
+            header("Content-Length: $size");
+            readfile($src);
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    public function exportarpdfexpofhistorial($expof){
+
+        $descarga_asignacion_historial = historial_asignacion_deposito_judicial::where('expof_deposito_judicial','=',$expof)->select('pdf_nombre_deposito_judicial')->get();
+
+
+        if(!$this->downloadFile(storage_path()."/app/public/pdf/pdf_expof/".$descarga_asignacion_historial[0]->pdf_nombre_deposito_judicial)){
+            return redirect()->back();
+        }
     }
 }

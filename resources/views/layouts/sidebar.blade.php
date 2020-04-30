@@ -95,7 +95,7 @@
                     @endcan
                 </li>
                 @can('deposito.index')
-                <li class="nav-item has-treeview {{ request()->is('deposito_judicial*') ? 'menu-open' : '' }}{{ request()->is('asignacion_deposito_judicial*') ? 'menu-open' : '' }}{{ request()->is('siniestros-deposito-judicial') ? 'menu-open' : '' }}{{ request()->is('detalleVehiculoDP*') ? 'menu-open' : '' }} {{ request()->is('repuestos-deposito-judicial') ? 'menu-open' : '' }}{{ request()->is('juzgados*') ? 'menu-open' : '' }}{{ request()->is('detalle-deposito-judicial') ? 'menu-open' : '' }}">
+                <li class="nav-item has-treeview {{ request()->is('deposito_judicial*') ? 'menu-open' : '' }}{{ request()->is('asignacion_deposito_judicial*') ? 'menu-open' : '' }}{{ request()->is('siniestros-deposito-judicial') ? 'menu-open' : '' }}{{ request()->is('detalleVehiculoDP*') ? 'menu-open' : '' }} {{ request()->is('repuestos-deposito-judicial') ? 'menu-open' : '' }}{{ request()->is('juzgados*') ? 'menu-open' : '' }}{{ request()->is('detalle-deposito-judicial') ? 'menu-open' : '' }}{{ request()->is('fuera-de-servicio-deposito-judicial') ? 'menu-open' : '' }}{{ request()->is('baja-definitiva-deposito-judicial') ? 'menu-open' : '' }}{{ request()->is('historial-completo-deposito-judicial') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-gavel"></i>
                         <p>
@@ -157,6 +157,42 @@
                             </li>
                         </ul>
                     </ul>
+                    @can('estados_deposito_judicial.index')
+                    <ul class="nav nav-treeview">
+                        <ul >
+
+                                <li class="nav-item noPuntos" >
+                                    <a href="{{ route('indexEstadoFueraServicioDP') }}" class="nav-link">
+                                        <i class="fas fa-tasks nav-icon"></i>
+                                        <p>Fuera de servicio DP</p>
+                                    </a>
+                                </li>
+                        </ul>
+                        
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <ul >
+                                <li class="nav-item noPuntos" >
+                                    <a href="{{ route('listadoEstadoBajaDefinitivaDP') }}" class="nav-link">
+                                        <i class="fa fa-list nav-icon"></i>
+                                        <p>Baja definitiva DP</p>
+                                    </a>
+                                </li>
+                        </ul>
+                        
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        
+                        <ul >
+                                <li class="nav-item noPuntos">
+                                    <a href="{{ route('historialCompletoDP') }}" class="nav-link">
+                                        <i class="fas fa-history nav-icon"></i>
+                                        <p>Historial completo DP</p>
+                                    </a>
+                                </li>
+                        </ul>
+                    </ul>
+                    @endcan
                     @can('juzgado.index')
                     <ul class="nav nav-treeview">
                         <ul>
@@ -193,6 +229,17 @@
                     </a>
                 </li>
                 @endcan
+                @can('vehiculos.indexMarca')
+
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('indexMarcas') }}" class="nav-link">
+                        <i class="nav-icon fa fa-codepen"></i>
+                        <p>
+                          Marcas vehículos
+                        </p>
+                    </a>
+                </li>
+                @endcan 
                 @can('vehiculos.index')
                 {{-- con el request->is nos sirve para mantener abierto el menu si es que estamos en el menu propiamente dicho --}}
                 <li class="nav-item has-treeview  {{ request()->is('reportes*') ? 'menu-open' : '' }} {{ request()->is('repuestos') ? 'menu-open' : '' }} {{ request()->is('siniestros') ? 'menu-open' : '' }} {{ request()->is('asignacion') ? 'menu-open' : '' }} {{ request()->is('historial_completo*') ? 'menu-open' : '' }}  {{ request()->is('baja_definitiva*') ? 'menu-open' : '' }}  {{ request()->is('fuera_de_servicio*') ? 'menu-open' : '' }}  {{ request()->is('alta_vehiculos*') ? 'menu-open' : '' }} {{ request()->is('tipo_vehiculos*') ? 'menu-open' : '' }}  ">
@@ -311,7 +358,7 @@
                             </p>
                         </a>
                     </li>
-                    @endcan 
+                    @endcan
                 </li>
             </ul>
         </nav>

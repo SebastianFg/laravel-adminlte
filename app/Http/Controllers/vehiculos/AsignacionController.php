@@ -86,9 +86,7 @@ class AsignacionController extends Controller
         $asignacion = $this->paginar($asignacion);
       }
        
-
-
-		return view('vehiculos.asignacion.asignar_vehiculos',compact('asignacion'));
+	   return view('vehiculos.asignacion.asignar_vehiculos',compact('asignacion'));
 	}
 
     public function getAllVehiculosDisponibles(Request $Request){

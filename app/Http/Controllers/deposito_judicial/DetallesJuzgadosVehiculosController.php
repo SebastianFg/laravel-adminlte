@@ -71,7 +71,9 @@ class DetallesJuzgadosVehiculosController extends Controller
                                     ->Where('nombre_dependencia','ilike','Unidad Regional'.'%')
                                     ->orwhere('nombre_dependencia','ilike','Jefatura')
                                     ->orwhere('nombre_dependencia','ilike','Sub Jefatura')
-                                    ->orderBy('id_dependencia','desc')->get();
+                                    ->orwhere('nombre_dependencia','ilike','%D.G%')
+                                    ->orderBy('id_dependencia','desc')
+                                    ->get();
         $juzgados = Juzgado::select('id_juzgado','nombre_juzgado')
                             ->orderBy('id_juzgado','desc')->get();
   

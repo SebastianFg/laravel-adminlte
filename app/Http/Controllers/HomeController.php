@@ -52,7 +52,13 @@ class HomeController extends Controller
         $anios = vehiculo::select('anio_de_produccion')->distinct()->orderBy('anio_de_produccion','asc')->get();
         $marca = vehiculo::select('marca')->distinct()->orderBy('marca','asc')->get();
         $tipo_vehiculo = tipos_vehiculos::all();
-        $dependencias = dependencia::select('id_dependencia','nombre_dependencia')->Where('nombre_dependencia','ilike','Unidad Regional'.'%')->orderBy('id_dependencia','desc')->get();
+        $dependencias = dependencia::select('id_dependencia','nombre_dependencia')
+                                    ->Where('nombre_dependencia','ilike','Unidad Regional'.'%')
+                                    ->orwhere('nivel_dependencia','<=',3)
+                                   /* ->orwhere('nombre_dependencia','ilike','Sub Jefatura')
+                                    ->orwhere('nombre_dependencia','ilike','%D.G%')*/
+                                    ->orderBy('id_dependencia','desc')
+                                    ->get();
 
        
 
@@ -95,6 +101,7 @@ class HomeController extends Controller
            // return $vehiculoBuscado;
             return view('welcome',compact('marca','anios','tipo_vehiculo','vehiculoBuscado','total_vehiculos_disponibles','total_vehiculos_reparacion','total_siniestros','dependencias'));
         }elseif($Request->dependencia_seleccionada != null  && ($Request->id_tipo_vehiculo_lista && $Request->vehiculoBuscado && $Request->marca && $Request->anio) == null){
+
 
 
             $dependencia_buscada = DB::select('select count(*) as cantidad_vehiculos,dependencias.id_padre_dependencia as id_dependencia,r.nombre_dependencia
